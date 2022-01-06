@@ -1,0 +1,23 @@
+{
+  "name": "filter-color-generator",
+  "version": "1.0.0",
+  "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OvidijusParsiunas/filter-color-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OvidijusParsiunas/filter-color-generator/issues"
+  },
+  "homepage": "https://github.com/OvidijusParsiunas/filter-color-generator#readme",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
