@@ -18,20 +18,17 @@ interface Result {
 type ColorStringTypes = 'rgb' | 'hex' | 'default';
 
 class RgbParseUtil {
-  
   private static regExpMatchArrayToRgbNumArr(rgbArr: string[]): number[] {
-    return [
-      parseInt(rgbArr[1], 16),
-      parseInt(rgbArr[2], 16),
-      parseInt(rgbArr[3], 16),
-    ];
+    return [parseInt(rgbArr[1], 16), parseInt(rgbArr[2], 16), parseInt(rgbArr[3], 16)];
   }
 
   private static buildRgbArr(fullHex: string): number[] {
     // extract individual hex: #c11a1a -> ['#c11a1a', 'c1', '1a', '1a', ...]
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
     if (result) return RgbParseUtil.regExpMatchArrayToRgbNumArr(result);
-    throw new Error(`Colour ${fullHex} could not be parsed. Expected string starting with a # and followed by 3 or 6 hexadecimal characters. E.g. #03F or #0033FF`);
+    throw new Error(
+      `Colour ${fullHex} could not be parsed. Expected string starting with a # and followed by 3 or 6 hexadecimal characters. E.g. #03F or #0033FF`,
+    );
   }
 
   private static shorthandHexToFullHex(shorthandHex: string): string {
@@ -48,7 +45,9 @@ class RgbParseUtil {
   private static rgbStringToRgbArr(rgb: string): number[] {
     const result = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
     if (result) return RgbParseUtil.regExpMatchArrayToRgbNumArr(result);
-    throw new Error(`Colour ${rgb} could not be parsed. Expected the following string format: 'rgb(number,number,number) E.g. rgb(10,122,255)`);
+    throw new Error(
+      `Colour ${rgb} could not be parsed. Expected the following string format: 'rgb(number,number,number) E.g. rgb(10,122,255)`,
+    );
   }
 
   public static colorStringToRgbArr(colorString: string, type: ColorStringTypes): number[] {
@@ -59,7 +58,6 @@ class RgbParseUtil {
 }
 
 class Color {
-
   public r!: number;
 
   public g!: number;
@@ -70,7 +68,7 @@ class Color {
     const rgbArr = RgbParseUtil.colorStringToRgbArr(colorString, type);
     this.setRgb(rgbArr[0], rgbArr[1], rgbArr[2]);
   }
-  
+
   private clamp(value: number): number {
     if (value > 255) {
       value = 255;
@@ -87,16 +85,16 @@ class Color {
   }
 
   private multiply(matrix: number[]): void {
-    const newR = this.clamp((this.r) * matrix[0] + (this.g) * matrix[1] + (this.b) * matrix[2]);
-    const newG = this.clamp((this.r) * matrix[3] + (this.g) * matrix[4] + (this.b) * matrix[5]);
-    const newB = this.clamp((this.r) * matrix[6] + (this.g) * matrix[7] + (this.b) * matrix[8]);
+    const newR = this.clamp(this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2]);
+    const newG = this.clamp(this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5]);
+    const newB = this.clamp(this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8]);
     this.r = newR;
     this.g = newG;
     this.b = newB;
   }
 
   public hueRotate(angle = 0): void {
-    angle = angle / 180 * Math.PI;
+    angle = (angle / 180) * Math.PI;
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
 
@@ -105,7 +103,7 @@ class Color {
       0.715 - cos * 0.715 - sin * 0.715,
       0.072 - cos * 0.072 + sin * 0.928,
       0.213 - cos * 0.213 + sin * 0.143,
-      0.715 + cos * 0.285 + sin * 0.140,
+      0.715 + cos * 0.285 + sin * 0.14,
       0.072 - cos * 0.072 - sin * 0.283,
       0.213 - cos * 0.213 - sin * 0.787,
       0.715 - cos * 0.715 + sin * 0.715,
@@ -143,8 +141,8 @@ class Color {
 
   private linear(slope = 1, intercept = 0): void {
     this.r = this.clamp(this.r * slope + intercept * 255);
-    this.g = this.clamp(this.g  * slope + intercept * 255);
-    this.b = this.clamp(this.b  * slope + intercept * 255);
+    this.g = this.clamp(this.g * slope + intercept * 255);
+    this.b = this.clamp(this.b * slope + intercept * 255);
   }
 
   public brightness(value = 1): void {
@@ -156,9 +154,9 @@ class Color {
   }
 
   public invert(value = 1): void {
-    this.r = this.clamp((value + (this.r) / 255 * (1 - 2 * value)) * 255);
-    this.g = this.clamp((value + (this.g) / 255 * (1 - 2 * value)) * 255);
-    this.b = this.clamp((value + (this.b) / 255 * (1 - 2 * value)) * 255);
+    this.r = this.clamp((value + (this.r / 255) * (1 - 2 * value)) * 255);
+    this.g = this.clamp((value + (this.g / 255) * (1 - 2 * value)) * 255);
+    this.b = this.clamp((value + (this.b / 255) * (1 - 2 * value)) * 255);
   }
 
   public hsl(): HSL {
@@ -211,12 +209,13 @@ class Color {
   }
 
   public toHex(): string {
-    return `#${Color.componentToHex(this.r)}${Color.componentToHex(this.g)}${Color.componentToHex(this.b)}`;
+    return `#${Color.componentToHex(this.r)}${Color.componentToHex(this.g)}${Color.componentToHex(
+      this.b,
+    )}`;
   }
 }
 
 class CssGenerator {
-
   private targetColor: Color;
 
   private targetColorHSL: HSL;
@@ -234,7 +233,16 @@ class CssGenerator {
   }
 
   private generateCss(filters: number[]): string {
-    return `brightness(0) saturate(100%) invert(${CssGenerator.fmt(filters, 0)}%) sepia(${CssGenerator.fmt(filters, 1)}%) saturate(${CssGenerator.fmt(filters, 2)}%) hue-rotate(${CssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${CssGenerator.fmt(filters, 4)}%) contrast(${CssGenerator.fmt(filters, 5)}%)`;
+    return `brightness(0) saturate(100%) invert(${CssGenerator.fmt(
+      filters,
+      0,
+    )}%) sepia(${CssGenerator.fmt(filters, 1)}%) saturate(${CssGenerator.fmt(
+      filters,
+      2,
+    )}%) hue-rotate(${CssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${CssGenerator.fmt(
+      filters,
+      4,
+    )}%) contrast(${CssGenerator.fmt(filters, 5)}%)`;
   }
 
   private loss(filters: number[]): number {
@@ -270,7 +278,7 @@ class CssGenerator {
       if (value > max) {
         value %= max;
       } else if (value < 0) {
-        value = max + value % max;
+        value = max + (value % max);
       }
     } else if (value < 0) {
       value = 0;
@@ -300,7 +308,7 @@ class CssGenerator {
 
       const lossDiff = this.loss(highArgs) - this.loss(lowArgs);
       for (let i = 0; i < 6; i++) {
-        const g = lossDiff / (2 * ck) * deltas[i];
+        const g = (lossDiff / (2 * ck)) * deltas[i];
         const ak = a[i] / Math.pow(A + k + 1, alpha);
         values[i] = CssGenerator.fixSpsa(values[i] - ak * g, i);
       }
@@ -349,7 +357,6 @@ class CssGenerator {
 }
 
 export class FilterColorGenerator {
-
   public static generate(hex: string): string {
     const color = new Color(hex, 'hex');
     const cssGenerator = new CssGenerator(color);
