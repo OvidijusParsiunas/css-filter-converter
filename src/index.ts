@@ -1,1 +1,1 @@
-export * from './filterColorGenerator/filterColorGenerator';
+export * from './filterCssConverter/filterCssConverter';

@@ -3,7 +3,7 @@ import { SPSA } from '../types/SPSA';
 import { HSL } from '../types/HSL';
 import { Color } from './color';
 
-export class CssGenerator {
+export class FilterCssGenerator {
   private targetColor: Color;
 
   private targetColorHSL: HSL;
@@ -21,16 +21,20 @@ export class CssGenerator {
   }
 
   private generateCss(filters: number[]): string {
-    return `brightness(0) saturate(100%) invert(${CssGenerator.fmt(
+    return `brightness(0) saturate(100%) invert(${FilterCssGenerator.fmt(
       filters,
       0,
-    )}%) sepia(${CssGenerator.fmt(filters, 1)}%) saturate(${CssGenerator.fmt(
+    )}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(
       filters,
       2,
-    )}%) hue-rotate(${CssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${CssGenerator.fmt(
+    )}%) hue-rotate(${FilterCssGenerator.fmt(
       filters,
-      4,
-    )}%) contrast(${CssGenerator.fmt(filters, 5)}%)`;
+      3,
+      3.6,
+    )}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(
+      filters,
+      5,
+    )}%)`;
   }
 
   private loss(filters: number[]): number {
@@ -98,7 +102,7 @@ export class CssGenerator {
       for (let i = 0; i < 6; i++) {
         const g = (lossDiff / (2 * ck)) * deltas[i];
         const ak = a[i] / Math.pow(A + k + 1, alpha);
-        values[i] = CssGenerator.fixSpsa(values[i] - ak * g, i);
+        values[i] = FilterCssGenerator.fixSpsa(values[i] - ak * g, i);
       }
 
       const loss = this.loss(values);
