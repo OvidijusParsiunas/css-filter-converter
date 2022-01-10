@@ -3,10 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'airbnb-typescript/base',
-    'plugin:import/recommended',
-  ],
+  extends: ['airbnb-typescript/base', 'plugin:import/recommended'],
   parser: '@typescript-eslint/parser',
   overrides: [
     {
@@ -17,11 +14,16 @@ module.exports = {
     },
   ],
   rules: {
-    '@typescript-eslint/no-explicit-any': ['error', {
-      'ignoreRestArgs': true
-    }],
+    '@typescript-eslint/no-explicit-any': [
+      'error',
+      {
+        ignoreRestArgs: true,
+      },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
-  ignorePatterns: ['lib/*']
-}
+  ignorePatterns: ['lib/*'],
+};
+
+// prettier configuration has been added in the following commit - 8fa774c675edb0a44671027866aebd422bbb816f
