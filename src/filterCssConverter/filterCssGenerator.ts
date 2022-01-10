@@ -20,21 +20,10 @@ export class FilterCssGenerator {
     return Math.round(filters[idx] * multiplier);
   }
 
+  // prettier-ignore
   private generateCss(filters: number[]): string {
-    return `brightness(0) saturate(100%) invert(${FilterCssGenerator.fmt(
-      filters,
-      0,
-    )}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(
-      filters,
-      2,
-    )}%) hue-rotate(${FilterCssGenerator.fmt(
-      filters,
-      3,
-      3.6,
-    )}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(
-      filters,
-      5,
-    )}%)`;
+    // eslint-disable-next-line max-len
+    return `brightness(0) saturate(100%) invert(${FilterCssGenerator.fmt(filters, 0)}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(filters, 2)}%) hue-rotate(${FilterCssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(filters, 5)}%)`;
   }
 
   private loss(filters: number[]): number {

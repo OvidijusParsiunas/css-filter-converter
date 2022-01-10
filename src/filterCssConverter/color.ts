@@ -154,8 +154,6 @@ export class Color {
   }
 
   public toHex(): string {
-    return `#${Color.componentToHex(this.r)}${Color.componentToHex(this.g)}${Color.componentToHex(
-      this.b,
-    )}`;
+    return `#${Color.componentToHex(this.r)}${Color.componentToHex(this.g)}${Color.componentToHex(this.b)}`;
   }
 }

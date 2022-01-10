@@ -3,7 +3,10 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['airbnb-typescript/base', 'plugin:import/recommended'],
+  extends: [
+    'airbnb-typescript/base',
+    'plugin:import/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   overrides: [
     {
@@ -14,12 +17,8 @@ module.exports = {
     },
   ],
   rules: {
-    '@typescript-eslint/no-explicit-any': [
-      'error',
-      {
-        ignoreRestArgs: true,
-      },
-    ],
+    '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
+    'max-len': ['error', { 'code': 120 }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },

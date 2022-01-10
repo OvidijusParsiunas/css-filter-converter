@@ -10,7 +10,8 @@ export class RgbArrParser {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
     if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result);
     throw new Error(
-      `Colour ${fullHex} could not be parsed. Expected string starting with a # and followed by 3 or 6 hexadecimal characters. E.g. #03F or #0033FF`,
+      `Colour ${fullHex} could not be parsed. Expected string starting with a # and
+        followed by 3 or 6 hexadecimal characters. E.g. #03F or #0033FF`,
     );
   }
 
@@ -29,7 +30,8 @@ export class RgbArrParser {
     const result = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
     if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result);
     throw new Error(
-      `Colour ${rgb} could not be parsed. Expected the following string format: 'rgb(number,number,number) E.g. rgb(10,122,255)`,
+      `Colour ${rgb} could not be parsed. Expected the following string format:
+        'rgb(number,number,number) E.g. rgb(10,122,255)`,
     );
   }
 
