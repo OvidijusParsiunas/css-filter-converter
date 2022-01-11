@@ -1,18 +1,23 @@
 import { ColorStringTypes } from '../types/colorStringTypes';
 
 export class RgbArrParser {
-  private static regExpMatchArrayToRgbNumArr(rgbArr: string[]): number[] {
-    return [parseInt(rgbArr[1], 16), parseInt(rgbArr[2], 16), parseInt(rgbArr[3], 16)];
+  private static readonly DECIMAL_RADIX = 10;
+
+  private static readonly HEXADECIMAL_RADIX = 16;
+
+  private static createErrorMessage(colorString: string, format: string): string {
+    return `Input color string could not be parsed. Expected format: ${format}. String received: ${colorString}.`;
+  }
+
+  private static regExpMatchArrayToRgbNumArr(rgbArr: string[], radix: number): number[] {
+    return [parseInt(rgbArr[1], radix), parseInt(rgbArr[2], radix), parseInt(rgbArr[3], radix)];
   }
 
   private static buildRgbArr(fullHex: string): number[] {
     // extract individual hex: #c11a1a -> ['#c11a1a', 'c1', '1a', '1a', ...]
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
-    if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result);
-    throw new Error(
-      `Colour ${fullHex} could not be parsed. Expected string starting with a # and
-        followed by 3 or 6 hexadecimal characters. E.g. #03F or #0033FF`,
-    );
+    if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result, RgbArrParser.HEXADECIMAL_RADIX);
+    throw new Error(RgbArrParser.createErrorMessage(fullHex, '#HHH or #HHHHHH where H is hex. E.g. #03F or #0033FF'));
   }
 
   private static shorthandHexToFullHex(shorthandHex: string): string {
@@ -28,11 +33,8 @@ export class RgbArrParser {
 
   private static rgbStringToRgbArr(rgb: string): number[] {
     const result = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
-    if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result);
-    throw new Error(
-      `Colour ${rgb} could not be parsed. Expected the following string format:
-        'rgb(number,number,number) E.g. rgb(10,122,255)`,
-    );
+    if (result) return RgbArrParser.regExpMatchArrayToRgbNumArr(result, RgbArrParser.DECIMAL_RADIX);
+    throw new Error(RgbArrParser.createErrorMessage(rgb, 'rgb(number,number,number) E.g. rgb(10,122,255)'));
   }
 
   public static colorStringToRgbArr(colorString: string, type: ColorStringTypes): number[] {

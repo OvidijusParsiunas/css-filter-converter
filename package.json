@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "build": "npm run lint && tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "build": "npm run format && npm run lint && tsc",
+    "watch": "tsc -w -p .",
+    "execute": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +31,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
 }

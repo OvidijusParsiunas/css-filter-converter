@@ -11,8 +11,8 @@ export class FilterCssConverter {
   }
 
   // WORK - regex validator
-  public static rgbToFilter(hex: string): string {
-    const color = new Color(hex, 'rgb');
+  public static rgbToFilter(rgb: string): string {
+    const color = new Color(rgb, 'rgb');
     const cssGenerator = new FilterCssGenerator(color);
     const result = cssGenerator.generate();
     return result.filter;
@@ -20,6 +20,6 @@ export class FilterCssConverter {
 
   // WORK - regex validator
   public static filterToRgb(filter: string): string {
-    return 'result' + filter;
+    return `result${filter}`;
   }
 }
