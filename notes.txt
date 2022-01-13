@@ -1,1 +1,6 @@
 enrich result data
+
+another format:
+return `invert(${FilterCssGenerator.fmt(filters, 0)}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(filters, 2)}%) hue-rotate(${FilterCssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(filters, 5)}%)`;
+
+place generation of machine learning model into another project
