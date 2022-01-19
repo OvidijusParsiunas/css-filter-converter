@@ -24,7 +24,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-var': ['error'],
   },
-  ignorePatterns: ['lib/*'],
+  ignorePatterns: ['lib/*', 'browser/'],
 };
 
 // prettier configuration has been added in the following commit - 8fa774c675edb0a44671027866aebd422bbb816f
