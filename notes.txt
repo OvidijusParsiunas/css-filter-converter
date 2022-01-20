@@ -1,3 +1,25 @@
+Repository:
+
+sparsecheckout
+
+
+Browser:
+
+create a functional application
+
+
+NPM Package:
+
+css filter converter - with ML
+
+css filter converter mini - with no ML
+
+
+Machine Learning:
+
+create 3 models that can determine the correct colors
+
+
 enrich result data
 
 another format:
