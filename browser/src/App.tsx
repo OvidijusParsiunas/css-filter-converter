@@ -1,3 +1,4 @@
+import { DynamicImportClass } from './dynamicImportClass';
 import FilterToColor from './FilterToColor';
 import logo from './logo.svg';
 import './App.css';
@@ -20,8 +21,12 @@ function App() {
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
-        <div id="capture" style={{ padding: '10px', background: '#f5da55' }}>
+        <button onClick={DynamicImportClass.import}>Dynamic</button>
+        <div id="capture" style={{ padding: '10px', background: '#f5da55', top: '0px' }}>
           <img id="hidden-svg" src="edit-red.svg" alt="triangle with all three sides equal" height="87" width="100" />
+        </div>
+        <div style={{ position: 'absolute', padding: '10px', background: '#f5da55', top: '400px' }}>
+          <div style={{ height: '87px', width: '100px', backgroundColor: 'red' }} />
         </div>
       </header>
     </div>

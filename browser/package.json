@@ -43,5 +43,10 @@
   },
   "devDependencies": {
     "@types/dom-to-image": "^2.6.4"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }
