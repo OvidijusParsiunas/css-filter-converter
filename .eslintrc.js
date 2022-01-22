@@ -19,10 +19,11 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
     'max-len': ['error', { 'code': 120 }],
-    'prefer-template': ['error'],
+    'prefer-template': 'error',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-var': ['error'],
+    'no-var': 'error',
+    'prefer-const': 'error'
   },
   ignorePatterns: ['lib/*', 'browser/'],
 };

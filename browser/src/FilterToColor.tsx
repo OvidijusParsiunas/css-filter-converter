@@ -15,14 +15,13 @@ const FilterToColor = () => {
     ).data;
   }
 
-  async function getCanvasDetails() {
-    const canvas = document.getElementById('mycanvas') as HTMLCanvasElement;
+  async function getCanvasDetails(canvas: HTMLCanvasElement) {
     const data = getData(canvas);
     return '#' + ('000000' + rgbToHex(data[0], data[1], data[2])).slice(-6);
   }
 
   function createCanvasElementFromImage(imageElement: HTMLImageElement) {
-    var canvas = document.createElement('canvas');
+    const canvas = document.createElement('canvas');
     canvas.width = imageElement.width;
     canvas.height = imageElement.height;
     (canvas.getContext('2d') as CanvasRenderingContext2D).drawImage(
@@ -32,8 +31,7 @@ const FilterToColor = () => {
       imageElement.width,
       imageElement.height,
     );
-    canvas.id = 'mycanvas';
-    document.body.appendChild(canvas);
+    return canvas;
   }
 
   async function createImageElement() {
@@ -41,12 +39,12 @@ const FilterToColor = () => {
     const dataUrl = await domtoimage.toPng(svgElement);
     var img = new Image();
     img.src = dataUrl;
-    return document.body.appendChild(img);
+    return img;
   }
 
   async function createCanvas() {
     const imageElement = await createImageElement();
-    createCanvasElementFromImage(imageElement);
+    return createCanvasElementFromImage(imageElement);
   }
 
   function prepareCanvas() {
@@ -59,8 +57,8 @@ const FilterToColor = () => {
 
   async function generate() {
     prepareCanvas();
-    await createCanvas();
-    const result = await getCanvasDetails();
+    const canvas = await createCanvas();
+    const result = await getCanvasDetails(canvas);
     console.log(result);
   }
 

@@ -15,7 +15,7 @@ function App() {
           readOnly
           type="text"
           id="textInput"
-          value="invert(61%) sepia(52%) saturate(6491%) hue-rotate(163deg) brightness(96%) contrast(102%)"
+          value="invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)"
         />
         <FilterToColor />
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">

@@ -15,13 +15,20 @@ export class FilterToColor {
       return canvas;
     }
 
-    function fillCanvas(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
-      ctx.fillStyle = fillStyle;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    function fillCanvas(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D): void {
+      context.fillStyle = fillStyle;
+      context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    function getCanvasImageData(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): Uint8ClampedArray {
-      return ctx.getImageData(canvas.width / 2, canvas.width / 2, canvas.width / 2 + 2, canvas.width / 2 + 2).data;
+    function getCanvasImageData(context: CanvasRenderingContext2D): Uint8ClampedArray {
+      const canvasMiddleCoordinate = canvasSideLength / 2;
+      const canvasSecondaryCoordinate = canvasMiddleCoordinate + 2;
+      return context.getImageData(
+        canvasMiddleCoordinate,
+        canvasMiddleCoordinate,
+        canvasSecondaryCoordinate,
+        canvasSecondaryCoordinate,
+      ).data;
     }
 
     function rgbToHex(r: number, g: number, b: number): string {
@@ -31,9 +38,9 @@ export class FilterToColor {
     }
 
     const canvas = createCanvas();
-    let ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-    fillCanvas(canvas, ctx);
-    const data = getCanvasImageData(canvas, ctx);
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+    fillCanvas(canvas, context);
+    const data = getCanvasImageData(context);
     const hex = rgbToHex(data[0], data[1], data[2]);
     return `#${`000000${hex}`.slice(-6)}`;
   }
