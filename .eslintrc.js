@@ -25,7 +25,7 @@ module.exports = {
     'no-var': 'error',
     'prefer-const': 'error'
   },
-  ignorePatterns: ['lib/*', 'browser/'],
+  ignorePatterns: ['lib/*', 'website/'],
 };
 
 // prettier configuration has been added in the following commit - 8fa774c675edb0a44671027866aebd422bbb816f
