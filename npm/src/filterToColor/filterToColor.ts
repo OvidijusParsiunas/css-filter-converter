@@ -1,5 +1,3 @@
-import * as puppeteer from 'puppeteer';
-
 export class FilterToColor {
   private static TARGET_URL = 'https://www.google.com';
 
@@ -45,7 +43,22 @@ export class FilterToColor {
     return `#${`000000${hex}`.slice(-6)}`;
   }
 
-  public static async generate(): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private static async getPuppeteerDependency(): Promise<any> {
+    try {
+      const anotherVariable = '';
+      // eslint-disable-next-line prefer-template
+      return require('puppeteer' + anotherVariable);
+    } catch (e: unknown) {
+      throw new Error(
+        "ERROR: To generate color values from filter in Node - you will first need to install 'puppeteer' " +
+          'by running: \n npm install puppeteer',
+      );
+    }
+  }
+
+  public static async generate(): Promise<string | null> {
+    const puppeteer = await FilterToColor.getPuppeteerDependency();
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(FilterToColor.TARGET_URL);
