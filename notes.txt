@@ -1,24 +1,6 @@
-Repository:
+prettier git hook instead of ammending files locally
 
-sparsecheckout
-
-
-Browser:
-
-create a functional application
-
-
-NPM Package:
-
-css filter converter - with ML
-
-css filter converter mini - with no ML
-
-
-Machine Learning:
-
-create 3 models that can determine the correct colors
-
+user needs to install puppetteer separately for filter to color conversion to work
 
 enrich result data
 

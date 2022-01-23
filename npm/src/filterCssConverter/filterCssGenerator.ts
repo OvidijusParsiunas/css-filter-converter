@@ -28,7 +28,6 @@ export class FilterCssGenerator {
 
   private loss(filters: number[]): number {
     this.reusedColor.setRgb(0, 0, 0);
-
     this.reusedColor.invert(filters[0] / 100);
     this.reusedColor.sepia(filters[1] / 100);
     this.reusedColor.saturate(filters[2] / 100);

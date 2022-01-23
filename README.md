@@ -1,4 +1,4 @@
-# filter-color-generator
+# css-filter-converter
 
 A tool used to generate css filter color property via hexadecimal or rgb color formats
 

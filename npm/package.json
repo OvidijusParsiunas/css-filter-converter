@@ -1,27 +1,28 @@
 {
   "name": "css-filter-converter",
-  "version": "1.0.0",
+  "version": "1.0.15",
   "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
-    "build": "npm run format && npm run lint && tsc",
+    "build": "npm run lint && tsc",
     "watch": "tsc -w -p .",
     "execute": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OvidijusParsiunas/filter-color-generator.git"
+    "url": "git+https://github.com/OvidijusParsiunas/css-filter-converter.git"
   },
+  "types": "lib/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OvidijusParsiunas/filter-color-generator/issues"
+    "url": "https://github.com/OvidijusParsiunas/css-filter-converter/issues"
   },
-  "homepage": "https://github.com/OvidijusParsiunas/filter-color-generator#readme",
+  "homepage": "https://github.com/OvidijusParsiunas/css-filter-converter#readme",
   "devDependencies": {
     "@types/node": "^17.0.8",
     "@types/puppeteer": "^5.4.4",

@@ -32,6 +32,7 @@ module.exports = {
     'no-bitwise': ['error', { allow: ['<<', '|'] }],
     'react/jsx-filename-extension': [2, { extensions: ['.ts', '.tsx'] }],
     'react/react-in-jsx-scope': 'off',
+    'object-curly-newline': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
