@@ -9,7 +9,7 @@ module.exports = {
     {
       files: ['*.ts'],
       parserOptions: {
-        project: 'tsconfig.json',
+        project: './npm/tsconfig.json',
       },
     },
   ],
@@ -22,7 +22,6 @@ module.exports = {
     'no-var': 'error',
     'prefer-const': 'error',
   },
-  ignorePatterns: ['lib/*'],
 };
 
 // prettier configuration has been added in the following commit - 8fa774c675edb0a44671027866aebd422bbb816f

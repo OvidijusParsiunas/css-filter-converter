@@ -1,5 +1,5 @@
 {
-  "name": "filter-color-generator",
+  "name": "css-filter-converter",
   "version": "1.0.0",
   "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
   "main": "index.js",

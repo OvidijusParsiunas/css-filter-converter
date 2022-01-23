@@ -1,5 +1,5 @@
-export class Browser {
+export default class Browser {
   public static import() {
-    console.log('called');
+    console.log('hello');
   }
 }

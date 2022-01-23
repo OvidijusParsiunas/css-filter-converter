@@ -1,8 +1,8 @@
 import domtoimage from 'dom-to-image';
 
-const FilterToColor = () => {
+function FilterToColor() {
   function rgbToHex(r: number, g: number, b: number) {
-    if (r > 255 || g > 255 || b > 255) throw 'Invalid color component';
+    if (r > 255 || g > 255 || b > 255) throw new Error('Invalid color component');
     return ((r << 16) | (g << 8) | b).toString(16);
   }
 
@@ -17,7 +17,7 @@ const FilterToColor = () => {
 
   async function getCanvasDetails(canvas: HTMLCanvasElement) {
     const data = getData(canvas);
-    return '#' + ('000000' + rgbToHex(data[0], data[1], data[2])).slice(-6);
+    return `#${`000000${rgbToHex(data[0], data[1], data[2])}`.slice(-6)}`;
   }
 
   function createCanvasElementFromImage(imageElement: HTMLImageElement) {
@@ -37,7 +37,7 @@ const FilterToColor = () => {
   async function createImageElement() {
     const svgElement = document.getElementById('capture') as HTMLElement;
     const dataUrl = await domtoimage.toPng(svgElement);
-    var img = new Image();
+    const img = new Image();
     img.src = dataUrl;
     return img;
   }
@@ -62,7 +62,11 @@ const FilterToColor = () => {
     console.log(result);
   }
 
-  return <button onClick={generate}>Click me!</button>;
-};
+  return (
+    <button type="button" onClick={generate}>
+      Click me!
+    </button>
+  );
+}
 
 export default FilterToColor;
