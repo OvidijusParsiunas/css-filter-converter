@@ -1,11 +1,13 @@
+import { FilterToColorBrowser } from './browser';
+
 export class FilterToColor {
   public static async generate(): Promise<string | null> {
     if (typeof window === 'undefined') {
-      return import('./node').then((module) => {
-        const { FilterToColorNode } = module;
-        return FilterToColorNode.generate();
-      });
+      const { FilterToColorNode } = await import('./node');
+      return FilterToColorNode.generate();
     }
-    return new Promise((resolve) => resolve('mock'));
+    return FilterToColorBrowser.generate(
+      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+    );
   }
 }
