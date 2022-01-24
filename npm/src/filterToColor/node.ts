@@ -2,29 +2,63 @@
 import * as puppeteerType from 'puppeteer';
 
 export class FilterToColorNode {
-  private static TARGET_URL = 'https://www.google.com';
+  private static TARGET_URL = 'http://localhost:3000';
 
-  private static async evaluate(): Promise<string> {
-    const canvasSideLength = 20;
-    const fillStyle = 'blue';
-
-    function createCanvas(): HTMLCanvasElement {
-      const canvas = document.createElement('canvas');
-      canvas.width = canvasSideLength;
-      canvas.height = canvasSideLength;
-      document.body.appendChild(canvas);
-      return canvas;
+  private static async createSVG(filter: string): Promise<void> {
+    function createSVG(): SVGSVGElement {
+      const iconFilterPrefix = 'brightness(0) saturate(100%)';
+      const svgFill = `${iconFilterPrefix} ${filter}`;
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(xmlns, 'svg');
+      svg.style.height = 'inherit';
+      svg.style.width = 'inherit';
+      svg.style.float = 'left';
+      svg.style.filter = svgFill;
+      const rect = document.createElementNS(xmlns, 'rect');
+      rect.setAttributeNS(null, 'width', '1');
+      rect.setAttributeNS(null, 'height', '1');
+      svg.appendChild(rect);
+      return svg;
     }
 
-    function fillCanvas(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D): void {
-      context.fillStyle = fillStyle;
-      context.fillRect(0, 0, canvas.width, canvas.height);
+    function createSVGContainer(): HTMLElement {
+      const svgContainer = document.createElement('div');
+      svgContainer.id = 'css-filter-converter-svg-container';
+      svgContainer.style.height = '10px';
+      svgContainer.style.width = '10px';
+      svgContainer.style.position = 'absolute';
+      const iconFilterPrefix = 'brightness(0) saturate(100%)';
+      const svgFill = `${iconFilterPrefix} ${filter}`;
+      svgContainer.style.top = '0px';
+      svgContainer.style.filter = svgFill;
+      return svgContainer;
     }
 
-    function getCanvasImageData(context: CanvasRenderingContext2D): Uint8ClampedArray {
-      const canvasMiddleCoordinate = canvasSideLength / 2;
+    const svgContainer = createSVGContainer();
+    const svg = createSVG();
+    svgContainer.appendChild(svg);
+    document.body.appendChild(svgContainer);
+  }
+
+  private static async evaluate(screenshot: string): Promise<string> {
+    function createCanvas(imageElement: HTMLImageElement): HTMLCanvasElement {
+      const canvasElement = document.createElement('canvas');
+      canvasElement.width = imageElement.width;
+      canvasElement.height = imageElement.height;
+      (canvasElement.getContext('2d') as CanvasRenderingContext2D).drawImage(
+        imageElement,
+        0,
+        0,
+        imageElement.width,
+        imageElement.height,
+      );
+      return canvasElement;
+    }
+
+    function getCanvasImageData(canvasElement: HTMLCanvasElement): Uint8ClampedArray {
+      const canvasMiddleCoordinate = canvasElement.width / 2;
       const canvasSecondaryCoordinate = canvasMiddleCoordinate + 2;
-      return context.getImageData(
+      return (canvasElement.getContext('2d') as CanvasRenderingContext2D).getImageData(
         canvasMiddleCoordinate,
         canvasMiddleCoordinate,
         canvasSecondaryCoordinate,
@@ -38,10 +72,15 @@ export class FilterToColorNode {
       return ((r << 16) | (g << 8) | b).toString(16);
     }
 
-    const canvas = createCanvas();
-    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-    fillCanvas(canvas, context);
-    const data = getCanvasImageData(context);
+    async function createImage() {
+      const imageElement = new Image();
+      imageElement.src = `data:image/png;base64,${screenshot}`;
+      return imageElement;
+    }
+
+    const imageElement = await createImage();
+    const canvasElement = createCanvas(imageElement);
+    const data = getCanvasImageData(canvasElement);
     const hex = rgbToHex(data[0], data[1], data[2]);
     return `#${`000000${hex}`.slice(-6)}`;
   }
@@ -60,13 +99,19 @@ export class FilterToColorNode {
     }
   }
 
-  public static async generate(): Promise<string | null> {
+  public static async generate(filter: string): Promise<string | null> {
     const puppeteer = await FilterToColorNode.getPuppeteerDependency();
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    const viewport = { width: 1, height: 1 };
+    // selector does not work with versions + 6.0.0 and don't want to ask the user to install this particular version,
+    //cespecially if they already have puppeteer installed
+    await page.setViewport(viewport);
     await page.goto(FilterToColorNode.TARGET_URL);
-    const result = await page.evaluate(FilterToColorNode.evaluate);
-    await browser.close();
+    await page.evaluate(FilterToColorNode.createSVG, filter);
+    const screenshot = await page.screenshot({ encoding: 'base64' });
+    const result = await page.evaluate(FilterToColorNode.evaluate, screenshot as string);
+    browser.close();
     return result;
   }
 }

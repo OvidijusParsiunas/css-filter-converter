@@ -1,6 +1,6 @@
 {
   "name": "css-filter-converter",
-  "version": "1.0.60",
+  "version": "1.0.61",
   "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
   "main": "lib/index.js",
   "scripts": {

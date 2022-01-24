@@ -40,12 +40,12 @@ export class FilterToColorBrowser {
     svgContainerElement.remove();
   }
 
-  private static async createImage(svgContainerElement: HTMLElement): Promise<HTMLImageElement> {
+  private static async createImageElement(svgContainerElement: HTMLElement): Promise<HTMLImageElement> {
     const domToImage = (await import('dom-to-image')) as unknown as DomToImage;
     const dataUrl = await domToImage.toPng(svgContainerElement);
-    const image = new Image();
-    image.src = dataUrl;
-    return image;
+    const imageElement = new Image();
+    imageElement.src = dataUrl;
+    return imageElement;
   }
 
   private static createSVGElement(filter: string): SVGSVGElement {
@@ -70,6 +70,7 @@ export class FilterToColorBrowser {
     svgContainerElement.style.width = '1px';
     svgContainerElement.style.position = 'absolute';
     svgContainerElement.style.top = '0px';
+    svgContainerElement.style.left = '0px';
     return svgContainerElement;
   }
 
@@ -83,8 +84,8 @@ export class FilterToColorBrowser {
 
   public static async generate(filter: string): Promise<string> {
     const svgContainerElement = FilterToColorBrowser.addSVGElementsToDOM(filter);
-    const image = await FilterToColorBrowser.createImage(svgContainerElement);
-    const canvasElement = FilterToColorBrowser.createCanvasElement(image);
+    const imageElement = await FilterToColorBrowser.createImageElement(svgContainerElement);
+    const canvasElement = FilterToColorBrowser.createCanvasElement(imageElement);
     FilterToColorBrowser.cleanup(svgContainerElement);
     return FilterToColorBrowser.getCanvasDetails(canvasElement);
   }
