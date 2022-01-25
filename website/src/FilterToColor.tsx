@@ -1,12 +1,16 @@
 import domtoimage from 'dom-to-image';
 
-function FilterToColor() {
-  function rgbToHex(r: number, g: number, b: number) {
+export class FilterToColorBrowser {
+  private static cleanup(svgContainer: HTMLElement): void {
+    svgContainer.remove();
+  }
+
+  private static rgbToHex(r: number, g: number, b: number): string {
     if (r > 255 || g > 255 || b > 255) throw new Error('Invalid color component');
     return ((r << 16) | (g << 8) | b).toString(16);
   }
 
-  function getData(canvas: HTMLCanvasElement) {
+  private static getData(canvas: HTMLCanvasElement): Uint8ClampedArray {
     return (canvas.getContext('2d') as CanvasRenderingContext2D).getImageData(
       canvas.width / 2,
       canvas.width / 2,
@@ -15,12 +19,12 @@ function FilterToColor() {
     ).data;
   }
 
-  async function getCanvasDetails(canvas: HTMLCanvasElement) {
-    const data = getData(canvas);
-    return `#${`000000${rgbToHex(data[0], data[1], data[2])}`.slice(-6)}`;
+  private static async getCanvasDetails(canvas: HTMLCanvasElement): Promise<string> {
+    const data = FilterToColorBrowser.getData(canvas);
+    return `#${`000000${FilterToColorBrowser.rgbToHex(data[0], data[1], data[2])}`.slice(-6)}`;
   }
 
-  function createCanvasElementFromImage(imageElement: HTMLImageElement) {
+  private static createCanvasElement(imageElement: HTMLImageElement): HTMLCanvasElement {
     const canvas = document.createElement('canvas');
     canvas.width = imageElement.width;
     canvas.height = imageElement.height;
@@ -31,34 +35,64 @@ function FilterToColor() {
       imageElement.width,
       imageElement.height,
     );
+    document.body.appendChild(canvas);
     return canvas;
   }
 
-  async function createImageElement() {
-    const svgElement = document.getElementById('capture') as HTMLElement;
-    const dataUrl = await domtoimage.toPng(svgElement);
-    const img = new Image();
-    img.src = dataUrl;
-    return img;
+  private static async createImageElement(svgContainer: HTMLElement): Promise<HTMLImageElement> {
+    const dataUrl = await domtoimage.toPng(svgContainer);
+    const image = new Image();
+    image.src = dataUrl;
+    return image;
   }
 
-  async function createCanvas() {
-    const imageElement = await createImageElement();
-    return createCanvasElementFromImage(imageElement);
+  private static createSVG(filter: string): SVGSVGElement {
+    const iconFilterPrefix = 'brightness(0) saturate(100%)';
+    const svgFill = `${iconFilterPrefix} ${filter}`;
+    const xmlns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(xmlns, 'svg');
+    svg.style.height = 'inherit';
+    svg.style.width = 'inherit';
+    svg.style.float = 'left';
+    svg.style.filter = svgFill;
+    const rect = document.createElementNS(xmlns, 'rect');
+    rect.setAttributeNS(null, 'width', '1');
+    rect.setAttributeNS(null, 'height', '1');
+    svg.appendChild(rect);
+    return svg;
   }
 
-  function prepareCanvas() {
+  private static createSVGContainer(): HTMLElement {
+    const svgContainer = document.createElement('div');
+    svgContainer.style.height = '1px';
+    svgContainer.style.width = '1px';
+    svgContainer.style.position = 'absolute';
+    svgContainer.style.top = '0px';
+    return svgContainer;
+  }
+
+  private static addSVGElementsToDOM(filter: string): HTMLElement {
+    const svgContainer = FilterToColorBrowser.createSVGContainer();
+    const svg = FilterToColorBrowser.createSVG(filter);
+    svgContainer.appendChild(svg);
+    document.body.appendChild(svgContainer);
+    return svgContainer;
+  }
+
+  public static async generate(filter: string): Promise<string> {
+    const svgContainer = FilterToColorBrowser.addSVGElementsToDOM(filter);
+    const imageElement = await FilterToColorBrowser.createImageElement(svgContainer);
+    const canvas = FilterToColorBrowser.createCanvasElement(imageElement);
+    FilterToColorBrowser.cleanup(svgContainer);
+    return FilterToColorBrowser.getCanvasDetails(canvas);
+  }
+}
+
+function FilterToColor() {
+  async function generate() {
     const textInputElement = document.getElementById('textInput') as HTMLInputElement;
     const input = textInputElement.value;
-    const iconFilterPrefix = 'brightness(0) saturate(100%)';
-    const svgElement = document.getElementById('hidden-svg') as HTMLElement;
-    svgElement.style.filter = `${iconFilterPrefix} ${input}`;
-  }
-
-  async function generate() {
-    prepareCanvas();
-    const canvas = await createCanvas();
-    const result = await getCanvasDetails(canvas);
+    const result = await FilterToColorBrowser.generate(input);
     console.log(result);
   }
 
