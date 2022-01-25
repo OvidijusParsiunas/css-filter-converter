@@ -3,7 +3,9 @@ import { FilterToColorShared } from './shared';
 import * as puppeteerType from 'puppeteer';
 
 export class FilterToColorNode {
-  private static TARGET_URL = 'http://localhost:3000';
+  private static readonly TARGET_URL = 'http://localhost:3000';
+
+  private static readonly BASE_64_ENCODING = 'base64';
 
   private static async getPuppeteerDependency(): Promise<{
     launch: (options?: { headless: boolean }) => puppeteerType.Browser;
@@ -32,7 +34,7 @@ export class FilterToColorNode {
     await page.setViewport(viewport);
     await page.goto(FilterToColorNode.TARGET_URL);
     await page.evaluate(FilterToColorShared.addSVGElementsToDOM, filter);
-    const endodedScreenshotData = await page.screenshot({ encoding: 'base64' });
+    const endodedScreenshotData = await page.screenshot({ encoding: FilterToColorNode.BASE_64_ENCODING });
     const byte64EncodedDataURL = `data:image/png;base64,${endodedScreenshotData}`;
     const result = await page.evaluate(FilterToColorShared.getColorViaImageByte64, byte64EncodedDataURL);
     browser.close();

@@ -1,7 +1,7 @@
 import { Result } from '../types/result';
 
 export class ErrorHandler {
-  private static DEFAULT_ERROR_MESSAGE = 'Error';
+  private static readonly DEFAULT_ERROR_MESSAGE = 'Error';
 
   public static returnErrorResult(error: unknown): Result {
     if (error instanceof Error) {

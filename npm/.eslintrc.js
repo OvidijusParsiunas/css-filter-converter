@@ -22,6 +22,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-var': 'error',
     'prefer-const': 'error',
+    '@typescript-eslint/prefer-readonly': 'error',
   },
   ignorePatterns: ['lib/*', 'node_modules/*'],
 };

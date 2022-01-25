@@ -28,6 +28,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-var': 'error',
     'prefer-const': 'error',
+    '@typescript-eslint/prefer-readonly': 'error',
     'linebreak-style': 0,
     'no-bitwise': ['error', { allow: ['<<', '|'] }],
     'react/jsx-filename-extension': [2, { extensions: ['.ts', '.tsx'] }],

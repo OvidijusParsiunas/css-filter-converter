@@ -1,8 +1,6 @@
 export class FilterToColorShared {
-  public static cleanup(svgContainerElement: HTMLElement): void {
-    svgContainerElement.remove();
-  }
-
+  // functions are encapsulated within a single method in order to allow them to be executed within the same context
+  // of the puppeteer evaluate method
   public static addSVGElementsToDOM(filter: string): HTMLElement {
     function createSVGContainerElement(): HTMLElement {
       const svgContainerElement = document.createElement('div');
@@ -37,6 +35,8 @@ export class FilterToColorShared {
     return svgContainerElement;
   }
 
+  // functions are encapsulated within a single method in order to allow them to be executed within the same context
+  // of the puppeteer evaluate method
   public static async getColorViaImageByte64(byte64EncodedData: string): Promise<string> {
     async function createImage(): Promise<HTMLImageElement> {
       const imageElement = new Image();

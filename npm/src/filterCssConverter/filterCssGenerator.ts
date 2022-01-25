@@ -4,11 +4,11 @@ import { HSL } from '../types/HSL';
 import { Color } from './color';
 
 export class FilterCssGenerator {
-  private targetColor: Color;
+  private readonly targetColor: Color;
 
-  private targetColorHSL: HSL;
+  private readonly targetColorHSL: HSL;
 
-  private reusedColor: Color;
+  private readonly reusedColor: Color;
 
   constructor(targetColor: Color) {
     this.targetColor = targetColor;
