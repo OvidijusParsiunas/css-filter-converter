@@ -7,9 +7,27 @@ export class FilterToColorNode {
 
   private static readonly BASE_64_ENCODING = 'base64';
 
-  private static async getPuppeteerDependency(): Promise<{
-    launch: (options?: { headless: boolean }) => puppeteerType.Browser;
-  }> {
+  private static readonly ENCODED_DATA_URL_PREFIX = `data:image/png;${FilterToColorNode.BASE_64_ENCODING},`;
+
+  private static readonly IS_HEADLESS = true;
+
+  // when headless mode is off, switch dimensions to 2 pixels for browser to be able to take a screenshot
+  private static readonly SVG_SIDE_LENGTH_PX = FilterToColorNode.IS_HEADLESS ? 1 : 2;
+
+  private static async getImageByte64ViaSVG(page: puppeteerType.Page): Promise<string> {
+    const endodedScreenshotData = await page.screenshot({ encoding: FilterToColorNode.BASE_64_ENCODING });
+    return `${FilterToColorNode.ENCODED_DATA_URL_PREFIX}${endodedScreenshotData}`;
+  }
+
+  private static async goToPage(browser: puppeteerType.Browser): Promise<puppeteerType.Page> {
+    const viewport = { width: FilterToColorNode.SVG_SIDE_LENGTH_PX, height: FilterToColorNode.SVG_SIDE_LENGTH_PX };
+    const page = await browser.newPage();
+    await page.setViewport(viewport);
+    await page.goto(FilterToColorNode.TARGET_URL);
+    return page;
+  }
+
+  private static async getPuppeteerDependency(): Promise<puppeteerType.PuppeteerNode> {
     try {
       // this is used to prevent webpack from evaluating the puppeteer module by adding dynamicity to the require path
       const pathPadding = '';
@@ -23,21 +41,20 @@ export class FilterToColorNode {
     }
   }
 
-  public static async generate(filter: string): Promise<string | null> {
+  private static async preparePuppeteerBrowser(): Promise<puppeteerType.Browser> {
     const puppeteer = await FilterToColorNode.getPuppeteerDependency();
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    // when headless mode is off - need to switch dimensions to 2 and the svg dimensions need to be set to 2
-    const viewport = { width: 1, height: 1 };
-    // selector does not work with versions + 6.0.0 and don't want to ask the user to install this particular version,
-    //cespecially if they already have puppeteer installed
-    await page.setViewport(viewport);
-    await page.goto(FilterToColorNode.TARGET_URL);
-    await page.evaluate(FilterToColorShared.addSVGElementsToDOM, filter);
-    const endodedScreenshotData = await page.screenshot({ encoding: FilterToColorNode.BASE_64_ENCODING });
-    const byte64EncodedDataURL = `data:image/png;base64,${endodedScreenshotData}`;
-    const result = await page.evaluate(FilterToColorShared.getColorViaImageByte64, byte64EncodedDataURL);
-    browser.close();
-    return result;
+    return puppeteer.launch({ headless: FilterToColorNode.IS_HEADLESS });
+  }
+
+  // selector does not work with versions + 6.0.0 and don't want to ask the user to install this particular version,
+  // especially if they already have puppeteer installed
+  public static async generate(filter: string): Promise<string> {
+    const browser = await FilterToColorNode.preparePuppeteerBrowser();
+    const page = await FilterToColorNode.goToPage(browser);
+    await page.evaluate(FilterToColorShared.addSVGElementsToDOM, filter, FilterToColorNode.SVG_SIDE_LENGTH_PX);
+    const byte64EncodedDataURL = await FilterToColorNode.getImageByte64ViaSVG(page);
+    const hexColor = await page.evaluate(FilterToColorShared.getColorViaImageDataURL, byte64EncodedDataURL);
+    if (FilterToColorNode.IS_HEADLESS) browser.close();
+    return hexColor;
   }
 }

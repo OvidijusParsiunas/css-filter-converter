@@ -13,8 +13,8 @@ export class FilterToColorBrowser {
 
   public static async generate(filter: string): Promise<string> {
     const svgContainerElement = FilterToColorShared.addSVGElementsToDOM(filter);
-    const byte64EncodedData = await FilterToColorBrowser.getImageByte64ViaSVG(svgContainerElement);
-    const hexColor = await FilterToColorShared.getColorViaImageByte64(byte64EncodedData);
+    const byte64EncodedDataURL = await FilterToColorBrowser.getImageByte64ViaSVG(svgContainerElement);
+    const hexColor = await FilterToColorShared.getColorViaImageDataURL(byte64EncodedDataURL);
     FilterToColorBrowser.cleanup(svgContainerElement);
     return hexColor;
   }
