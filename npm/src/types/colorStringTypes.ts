@@ -1,1 +1,4 @@
-export type ColorStringTypes = 'rgb' | 'hex' | 'default';
+export enum ColorStringTypes {
+  RGB = 'rgb',
+  HEX = 'hex',
+}

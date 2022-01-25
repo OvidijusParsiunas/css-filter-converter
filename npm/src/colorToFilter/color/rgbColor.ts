@@ -1,5 +1,5 @@
-import { RGBArr } from '../../types/rgbArr';
 import { HSL } from '../../types/HSL';
+import { RGB } from '../../types/RGB';
 
 export class RgbColor {
   public r!: number;
@@ -8,8 +8,10 @@ export class RgbColor {
 
   public b!: number;
 
-  constructor(rgbArr: RGBArr = [0, 0, 0]) {
-    this.setRgb(rgbArr[0], rgbArr[1], rgbArr[2]);
+  constructor(rgb: RGB = { r: 0, g: 0, b: 0 }) {
+    this.r = this.clamp(rgb.r);
+    this.g = this.clamp(rgb.g);
+    this.b = this.clamp(rgb.b);
   }
 
   private clamp(value: number): number {

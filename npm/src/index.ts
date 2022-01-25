@@ -1,15 +1,17 @@
-import { FilterCssGenerator } from './filterCssConverter/filterCssGenerator';
-import { ErrorHandler } from './filterCssConverter/errorHandler';
+import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
+import { RgbParser } from './colorToFilter/color/rgbParser';
+import { ErrorHandler } from './colorToFilter/errorHandler';
 import { ColorStringTypes } from './types/colorStringTypes';
-import { Color } from './filterCssConverter/color';
+import { RgbColor } from './colorToFilter/color/rgbColor';
 import { Result } from './types/result';
 
 export default class CssFilterConverter {
   private static convertToFilter(colorString: string, type: ColorStringTypes): Result {
     try {
-      const color = new Color(colorString, type);
-      const cssGenerator = new FilterCssGenerator(color);
+      const rgb = RgbParser.colorStringToRgb(colorString, type);
+      const rgbColor = new RgbColor(rgb);
+      const cssGenerator = new ColorToFilter(rgbColor);
       return cssGenerator.generate();
     } catch (error: unknown) {
       return ErrorHandler.returnErrorResult(error);
@@ -18,12 +20,12 @@ export default class CssFilterConverter {
 
   // WORK - regex validator
   public static hexToFilter(hex: string): Result {
-    return CssFilterConverter.convertToFilter(hex, 'hex');
+    return CssFilterConverter.convertToFilter(hex, ColorStringTypes.HEX);
   }
 
   // WORK - regex validator
   public static rgbToFilter(rgb: string): Result {
-    return CssFilterConverter.convertToFilter(rgb, 'rgb');
+    return CssFilterConverter.convertToFilter(rgb, ColorStringTypes.RGB);
   }
 
   // WORK - regex validator
