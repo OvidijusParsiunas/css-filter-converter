@@ -1,45 +1,45 @@
+import { RgbColor } from './color/rgbColor';
 import { Result } from '../types/result';
 import { SPSA } from '../types/SPSA';
 import { HSL } from '../types/HSL';
-import { Color } from './color';
 
-export class FilterCssGenerator {
-  private readonly targetColor: Color;
+export class ColorToFilter {
+  private readonly targetRGBColor: RgbColor;
 
   private readonly targetColorHSL: HSL;
 
-  private readonly reusedColor: Color;
+  private readonly reusedRGBColor: RgbColor;
 
-  constructor(targetColor: Color) {
-    this.targetColor = targetColor;
+  constructor(targetColor: RgbColor) {
+    this.targetRGBColor = targetColor;
     this.targetColorHSL = targetColor.hsl();
-    this.reusedColor = new Color('', 'default');
+    this.reusedRGBColor = new RgbColor();
   }
 
   private static fmt(filters: number[], idx: number, multiplier = 1): number {
     return Math.round(filters[idx] * multiplier);
   }
 
-  // prettier-ignore
   private generateCss(filters: number[]): string {
+    // prettier-ignore
     // eslint-disable-next-line max-len
-    return `brightness(0) saturate(100%) invert(${FilterCssGenerator.fmt(filters, 0)}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(filters, 2)}%) hue-rotate(${FilterCssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(filters, 5)}%)`;
+    return `brightness(0) saturate(100%) invert(${ColorToFilter.fmt(filters, 0)}%) sepia(${ColorToFilter.fmt(filters, 1)}%) saturate(${ColorToFilter.fmt(filters, 2)}%) hue-rotate(${ColorToFilter.fmt(filters, 3, 3.6)}deg) brightness(${ColorToFilter.fmt(filters, 4)}%) contrast(${ColorToFilter.fmt(filters, 5)}%)`;
   }
 
   private loss(filters: number[]): number {
-    this.reusedColor.setRgb(0, 0, 0);
-    this.reusedColor.invert(filters[0] / 100);
-    this.reusedColor.sepia(filters[1] / 100);
-    this.reusedColor.saturate(filters[2] / 100);
-    this.reusedColor.hueRotate(filters[3] * 3.6);
-    this.reusedColor.brightness(filters[4] / 100);
-    this.reusedColor.contrast(filters[5] / 100);
+    this.reusedRGBColor.setRgb(0, 0, 0);
+    this.reusedRGBColor.invert(filters[0] / 100);
+    this.reusedRGBColor.sepia(filters[1] / 100);
+    this.reusedRGBColor.saturate(filters[2] / 100);
+    this.reusedRGBColor.hueRotate(filters[3] * 3.6);
+    this.reusedRGBColor.brightness(filters[4] / 100);
+    this.reusedRGBColor.contrast(filters[5] / 100);
 
-    const colorHSL = this.reusedColor.hsl();
+    const colorHSL = this.reusedRGBColor.hsl();
     return (
-      Math.abs(this.reusedColor.r - this.targetColor.r) +
-      Math.abs(this.reusedColor.g - this.targetColor.g) +
-      Math.abs(this.reusedColor.b - this.targetColor.b) +
+      Math.abs(this.reusedRGBColor.r - this.targetRGBColor.r) +
+      Math.abs(this.reusedRGBColor.g - this.targetRGBColor.g) +
+      Math.abs(this.reusedRGBColor.b - this.targetRGBColor.b) +
       Math.abs(colorHSL.h - this.targetColorHSL.h) +
       Math.abs(colorHSL.s - this.targetColorHSL.s) +
       Math.abs(colorHSL.l - this.targetColorHSL.l)
@@ -90,7 +90,7 @@ export class FilterCssGenerator {
       for (let i = 0; i < 6; i += 1) {
         const g = (lossDiff / (2 * ck)) * deltas[i];
         const ak = a[i] / Math.pow(A + k + 1, alpha);
-        values[i] = FilterCssGenerator.fixSpsa(values[i] - ak * g, i);
+        values[i] = ColorToFilter.fixSpsa(values[i] - ak * g, i);
       }
 
       const loss = this.loss(values);

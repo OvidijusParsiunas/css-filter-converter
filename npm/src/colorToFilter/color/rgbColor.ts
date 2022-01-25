@@ -1,16 +1,14 @@
-import { ColorStringTypes } from '../types/colorStringTypes';
-import { RgbArrParser } from './rgbArrParser';
-import { HSL } from '../types/HSL';
+import { RGBArr } from '../../types/rgbArr';
+import { HSL } from '../../types/HSL';
 
-export class Color {
+export class RgbColor {
   public r!: number;
 
   public g!: number;
 
   public b!: number;
 
-  constructor(colorString: string, type: ColorStringTypes) {
-    const rgbArr = RgbArrParser.colorStringToRgbArr(colorString, type);
+  constructor(rgbArr: RGBArr = [0, 0, 0]) {
     this.setRgb(rgbArr[0], rgbArr[1], rgbArr[2]);
   }
 
@@ -154,6 +152,6 @@ export class Color {
   }
 
   public toHex(): string {
-    return `#${Color.componentToHex(this.r)}${Color.componentToHex(this.g)}${Color.componentToHex(this.b)}`;
+    return `#${RgbColor.componentToHex(this.r)}${RgbColor.componentToHex(this.g)}${RgbColor.componentToHex(this.b)}`;
   }
 }
