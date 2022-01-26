@@ -1,4 +1,3 @@
-import { HSL } from '../../types/HSL';
 import { RGB } from '../../types/RGB';
 
 export class RgbColor {
@@ -8,10 +7,10 @@ export class RgbColor {
 
   public b!: number;
 
-  constructor(rgb: RGB = { r: 0, g: 0, b: 0 }) {
-    this.r = this.clamp(rgb.r);
-    this.g = this.clamp(rgb.g);
-    this.b = this.clamp(rgb.b);
+  constructor(rgb: RGB = [0, 0, 0]) {
+    this.r = this.clamp(rgb[0]);
+    this.g = this.clamp(rgb[1]);
+    this.b = this.clamp(rgb[2]);
   }
 
   private clamp(value: number): number {
@@ -102,58 +101,5 @@ export class RgbColor {
     this.r = this.clamp((value + (this.r / 255) * (1 - 2 * value)) * 255);
     this.g = this.clamp((value + (this.g / 255) * (1 - 2 * value)) * 255);
     this.b = this.clamp((value + (this.b / 255) * (1 - 2 * value)) * 255);
-  }
-
-  public hsl(): HSL {
-    // Code taken from https://stackoverflow.com/a/9493060/2688027, licensed under CC BY-SA.
-    const r = this.r / 255;
-    const g = this.g / 255;
-    const b = this.b / 255;
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const average = (max + min) / 2;
-    let h = average;
-    let s = average;
-    const l = average;
-
-    if (max === min) {
-      h = s = 0;
-    } else {
-      const d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch (max) {
-        case r:
-          h = (g - b) / d + (g < b ? 6 : 0);
-          break;
-
-        case g:
-          h = (b - r) / d + 2;
-          break;
-
-        case b:
-          h = (r - g) / d + 4;
-          break;
-      }
-      h /= 6;
-    }
-
-    return {
-      h: h * 100,
-      s: s * 100,
-      l: l * 100,
-    };
-  }
-
-  public toRgb(): string {
-    return `rgb(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)})`;
-  }
-
-  private static componentToHex(component: number): string {
-    const hex = Math.round(component).toString(16);
-    return hex.length == 1 ? `0${hex}` : hex;
-  }
-
-  public toHex(): string {
-    return `#${RgbColor.componentToHex(this.r)}${RgbColor.componentToHex(this.g)}${RgbColor.componentToHex(this.b)}`;
   }
 }

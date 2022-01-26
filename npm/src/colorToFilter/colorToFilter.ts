@@ -1,18 +1,14 @@
 import { RgbColor } from './color/rgbColor';
 import { Result } from '../types/result';
 import { SPSA } from '../types/SPSA';
-import { HSL } from '../types/HSL';
 
 export class ColorToFilter {
   private readonly targetRGBColor: RgbColor;
-
-  private readonly targetColorHSL: HSL;
 
   private readonly reusedRGBColor: RgbColor;
 
   constructor(targetColor: RgbColor) {
     this.targetRGBColor = targetColor;
-    this.targetColorHSL = targetColor.hsl();
     this.reusedRGBColor = new RgbColor();
   }
 
@@ -35,14 +31,10 @@ export class ColorToFilter {
     this.reusedRGBColor.brightness(filters[4] / 100);
     this.reusedRGBColor.contrast(filters[5] / 100);
 
-    const colorHSL = this.reusedRGBColor.hsl();
     return (
       Math.abs(this.reusedRGBColor.r - this.targetRGBColor.r) +
       Math.abs(this.reusedRGBColor.g - this.targetRGBColor.g) +
-      Math.abs(this.reusedRGBColor.b - this.targetRGBColor.b) +
-      Math.abs(colorHSL.h - this.targetColorHSL.h) +
-      Math.abs(colorHSL.s - this.targetColorHSL.s) +
-      Math.abs(colorHSL.l - this.targetColorHSL.l)
+      Math.abs(this.reusedRGBColor.b - this.targetRGBColor.b)
     );
   }
 
