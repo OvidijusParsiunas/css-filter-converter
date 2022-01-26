@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/OvidijusParsiunas/css-filter-converter#readme",
   "devDependencies": {
+    "@types/color-convert": "^2.0.0",
     "@types/dom-to-image": "^2.6.4",
     "@types/node": "^17.0.8",
     "@types/puppeteer": "^5.4.4",
@@ -43,6 +44,7 @@
     "lib/**/*"
   ],
   "dependencies": {
+    "color-convert": "^2.0.1",
     "dom-to-image": "^2.6.0"
   }
 }

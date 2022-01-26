@@ -1,15 +1,16 @@
+import { ColorParser } from './colorToFilter/color/colorParser';
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
-import { RgbParser } from './colorToFilter/color/rgbParser';
 import { ErrorHandler } from './colorToFilter/errorHandler';
-import { ColorStringTypes } from './types/colorStringTypes';
 import { RgbColor } from './colorToFilter/color/rgbColor';
+import { KEYWORD, RGB } from 'color-convert/conversions';
+import * as Converter from 'color-convert';
 import { Result } from './types/result';
 
+// NO EXCEPTION - just warnings
 export default class CssFilterConverter {
-  private static convertToFilter(colorString: string, type: ColorStringTypes): Result {
+  private static convertToFilter(rgb: RGB): Result {
     try {
-      const rgb = RgbParser.colorStringToRgb(colorString, type);
       const rgbColor = new RgbColor(rgb);
       const cssGenerator = new ColorToFilter(rgbColor);
       return cssGenerator.generate();
@@ -18,14 +19,27 @@ export default class CssFilterConverter {
     }
   }
 
-  // WORK - regex validator
-  public static hexToFilter(hex: string): Result {
-    return CssFilterConverter.convertToFilter(hex, ColorStringTypes.HEX);
+  public static rgbToFilter(rgb: string): Result {
+    const result = ColorParser.parseAndValidateRGB(rgb);
+    return CssFilterConverter.convertToFilter(result);
   }
 
-  // WORK - regex validator
-  public static rgbToFilter(rgb: string): Result {
-    return CssFilterConverter.convertToFilter(rgb, ColorStringTypes.RGB);
+  public static hexToFilter(hex: string): Result {
+    ColorParser.validateHex(hex);
+    const rgb = Converter.hex.rgb(hex);
+    return CssFilterConverter.convertToFilter(rgb);
+  }
+
+  public static hslToFilter(hsl: string): Result {
+    const result = ColorParser.parseAndValidateHSL(hsl);
+    const rgb = Converter.hsl.rgb(result);
+    return CssFilterConverter.convertToFilter(rgb);
+  }
+
+  public static keywordToFilter(keyword: KEYWORD): Result {
+    const rgb = Converter.keyword.rgb(keyword);
+    if (!rgb) throw new Error('error');
+    return CssFilterConverter.convertToFilter(rgb);
   }
 
   // WORK - regex validator

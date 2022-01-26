@@ -1,4 +1,4 @@
-import { RGB } from '../../types/RGB';
+import { RGB } from 'color-convert/conversions';
 
 export class RgbColor {
   public r!: number;
