@@ -26,12 +26,6 @@ function App() {
         <button type="button" onClick={DynamicImportClass.import}>
           Dynamic
         </button>
-        <div id="capture" style={{ padding: '10px', background: '#f5da55', top: '0px' }}>
-          <img id="hidden-svg" src="edit-red.svg" alt="triangle with all three sides equal" height="87" width="100" />
-        </div>
-        <div style={{ position: 'absolute', padding: '10px', background: '#f5da55', top: '400px' }}>
-          <div style={{ height: '87px', width: '100px', backgroundColor: 'red' }} />
-        </div>
       </header>
     </div>
   );
