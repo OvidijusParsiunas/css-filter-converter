@@ -12,13 +12,19 @@ module.exports = {
   },
   extends: ['plugin:react/recommended', 'airbnb'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: 'tsconfig.json',
+      },
     },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
+  ],
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],

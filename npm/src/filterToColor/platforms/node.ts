@@ -20,9 +20,11 @@ export class FilterToColorNode {
   }
 
   private static async goToPage(browser: puppeteerType.Browser): Promise<puppeteerType.Page> {
-    const viewport = { width: FilterToColorNode.SVG_SIDE_LENGTH_PX, height: FilterToColorNode.SVG_SIDE_LENGTH_PX };
     const page = await browser.newPage();
-    await page.setViewport(viewport);
+    await page.setViewport({
+      width: FilterToColorNode.SVG_SIDE_LENGTH_PX,
+      height: FilterToColorNode.SVG_SIDE_LENGTH_PX,
+    });
     await page.goto(FilterToColorNode.TARGET_URL);
     return page;
   }
@@ -46,8 +48,10 @@ export class FilterToColorNode {
     return puppeteer.launch({ headless: FilterToColorNode.IS_HEADLESS });
   }
 
-  // selector does not work with versions + 6.0.0 and don't want to ask the user to install this particular version,
-  // especially if they already have puppeteer installed
+  // puppeteer versions higher than 6.0.0 have a bug where the view blinks when taking a screnshot of a specific
+  // element, hence in order to not have to force the user to install a specific version of puppeteer (especially if
+  // they are already using it for another use-case), the logic here is configured to reduce the viewport to the svg
+  // size and then proceed to take a screenshot of the viewport via the page.screenshot api
   public static async generate(filter: string): Promise<string> {
     const browser = await FilterToColorNode.preparePuppeteerBrowser();
     const page = await FilterToColorNode.goToPage(browser);

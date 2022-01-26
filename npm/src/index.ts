@@ -29,7 +29,9 @@ export default class CssFilterConverter {
   }
 
   // WORK - regex validator
-  public static async filterToRgb(): Promise<string | null> {
-    return FilterToColor.generate();
+  public static async filterToRgb(): Promise<string> {
+    return FilterToColor.generate(
+      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+    );
   }
 }
