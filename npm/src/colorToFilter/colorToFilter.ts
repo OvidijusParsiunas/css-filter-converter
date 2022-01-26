@@ -1,4 +1,4 @@
-import { RgbColor } from './color/rgbColor';
+import { RgbColor } from './rgbColor/rgbColor';
 import { Result } from '../types/result';
 import { SPSA } from '../types/SPSA';
 

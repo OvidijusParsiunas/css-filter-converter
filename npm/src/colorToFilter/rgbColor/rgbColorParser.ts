@@ -1,6 +1,6 @@
 import { RGB } from 'color-convert/conversions';
 
-export class ColorParser {
+export class RgbColorParser {
   private static createErrorMessage(colorString: string, format: string): string {
     return `Input color string could not be parsed. Expected format: ${format}. String received: ${colorString}.`;
   }

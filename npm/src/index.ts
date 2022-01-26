@@ -1,8 +1,7 @@
-import { ColorParser } from './colorToFilter/color/colorParser';
+import { RgbColorParser } from './colorToFilter/rgbColor/rgbColorParser';
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
-import { ErrorHandler } from './colorToFilter/errorHandler';
-import { RgbColor } from './colorToFilter/color/rgbColor';
+import { RgbColor } from './colorToFilter/rgbColor/rgbColor';
 import { KEYWORD, RGB } from 'color-convert/conversions';
 import * as Converter from 'color-convert';
 import { Result } from './types/result';
@@ -10,35 +9,31 @@ import { Result } from './types/result';
 // NO EXCEPTION - just warnings
 export default class CssFilterConverter {
   private static convertToFilter(rgb: RGB): Result {
-    try {
-      const rgbColor = new RgbColor(rgb);
-      const cssGenerator = new ColorToFilter(rgbColor);
-      return cssGenerator.generate();
-    } catch (error: unknown) {
-      return ErrorHandler.returnErrorResult(error);
-    }
+    const rgbColor = new RgbColor(rgb);
+    const cssGenerator = new ColorToFilter(rgbColor);
+    return cssGenerator.generate();
   }
 
   public static rgbToFilter(rgb: string): Result {
-    const result = ColorParser.parseAndValidateRGB(rgb);
+    const result = RgbColorParser.parseAndValidateRGB(rgb);
     return CssFilterConverter.convertToFilter(result);
   }
 
   public static hexToFilter(hex: string): Result {
-    ColorParser.validateHex(hex);
+    RgbColorParser.validateHex(hex);
     const rgb = Converter.hex.rgb(hex);
     return CssFilterConverter.convertToFilter(rgb);
   }
 
   public static hslToFilter(hsl: string): Result {
-    const result = ColorParser.parseAndValidateHSL(hsl);
+    const result = RgbColorParser.parseAndValidateHSL(hsl);
     const rgb = Converter.hsl.rgb(result);
     return CssFilterConverter.convertToFilter(rgb);
   }
 
   public static keywordToFilter(keyword: KEYWORD): Result {
     const rgb = Converter.keyword.rgb(keyword);
-    if (!rgb) throw new Error('error');
+    if (!rgb) return { filter: null, error: { message: 'Input value for keyword is invalid' } };
     return CssFilterConverter.convertToFilter(rgb);
   }
 
@@ -49,3 +44,6 @@ export default class CssFilterConverter {
     );
   }
 }
+
+// CssFilterConverter.filterToRgb().then((result) => console.log(result));
+console.log(CssFilterConverter.keywordToFilter('blue' as unknown as 'red'));
