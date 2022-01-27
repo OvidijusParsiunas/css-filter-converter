@@ -2,7 +2,7 @@ import { Result } from '../../shared/types/result';
 import { RgbColor } from '../rgbColor/rgbColor';
 import { SPSA } from '../../shared/types/SPSA';
 
-export class RgbToFilter {
+export class RgbToFilterWorker {
   private readonly targetRgbColor: RgbColor;
 
   private readonly reusedRgbColor: RgbColor;
@@ -19,7 +19,7 @@ export class RgbToFilter {
   private generateCss(filters: number[]): string {
     // prettier-ignore
     // eslint-disable-next-line max-len
-    return `brightness(0) saturate(100%) invert(${RgbToFilter.fmt(filters, 0)}%) sepia(${RgbToFilter.fmt(filters, 1)}%) saturate(${RgbToFilter.fmt(filters, 2)}%) hue-rotate(${RgbToFilter.fmt(filters, 3, 3.6)}deg) brightness(${RgbToFilter.fmt(filters, 4)}%) contrast(${RgbToFilter.fmt(filters, 5)}%)`;
+    return `brightness(0) saturate(100%) invert(${RgbToFilterWorker.fmt(filters, 0)}%) sepia(${RgbToFilterWorker.fmt(filters, 1)}%) saturate(${RgbToFilterWorker.fmt(filters, 2)}%) hue-rotate(${RgbToFilterWorker.fmt(filters, 3, 3.6)}deg) brightness(${RgbToFilterWorker.fmt(filters, 4)}%) contrast(${RgbToFilterWorker.fmt(filters, 5)}%)`;
   }
 
   private loss(filters: number[]): number {
@@ -82,7 +82,7 @@ export class RgbToFilter {
       for (let i = 0; i < 6; i += 1) {
         const g = (lossDiff / (2 * ck)) * deltas[i];
         const ak = a[i] / Math.pow(A + k + 1, alpha);
-        values[i] = RgbToFilter.fixSpsa(values[i] - ak * g, i);
+        values[i] = RgbToFilterWorker.fixSpsa(values[i] - ak * g, i);
       }
 
       const loss = this.loss(values);

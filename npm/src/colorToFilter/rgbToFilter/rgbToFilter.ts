@@ -1,8 +1,8 @@
 import { INVALID_INPUT_DEFAULT_MESSAGE, UNEXPECTED_ERROR_MESSAGE_PREFIX } from '../../shared/consts/errors';
+import { RgbToFilterWorker } from './rgbToFilterWorker';
 import { Result } from '../../shared/types/result';
 import { RGB } from 'color-convert/conversions';
 import { RgbColor } from '../rgbColor/rgbColor';
-import { RgbToFilter } from './rgbToFilter';
 
 type ValidateAndParse<T> = (color: string) => T | undefined;
 
@@ -14,10 +14,10 @@ type ConvertObject<T> = {
   invalidInputMessage?: string;
 };
 
-export class RgbToFilterConverter {
+export class RgbToFilter {
   private static execute(rgb: RGB): Result {
     const rgbColor = new RgbColor(rgb);
-    const rgbToFilter = new RgbToFilter(rgbColor);
+    const rgbToFilter = new RgbToFilterWorker(rgbColor);
     return rgbToFilter.convert();
   }
 
@@ -30,9 +30,9 @@ export class RgbToFilterConverter {
   public static convert<T>(convertObject: ConvertObject<T>): Result {
     try {
       const { color, validateAndParse, convertToRgb: convert, invalidInputMessage } = convertObject;
-      const rgb = RgbToFilterConverter.getRgb(color, validateAndParse, convert);
+      const rgb = RgbToFilter.getRgb(color, validateAndParse, convert);
       if (!rgb) return { filter: null, error: { message: invalidInputMessage || INVALID_INPUT_DEFAULT_MESSAGE } };
-      return RgbToFilterConverter.execute(rgb);
+      return RgbToFilter.execute(rgb);
     } catch (error) {
       return { filter: null, error: { message: `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: ${(error as Error).message}` } };
     }
