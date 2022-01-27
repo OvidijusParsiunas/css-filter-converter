@@ -1,15 +1,15 @@
-import { RgbColor } from './rgbColor/rgbColor';
-import { Result } from '../types/result';
-import { SPSA } from '../types/SPSA';
+import { Result } from '../../shared/types/result';
+import { RgbColor } from '../rgbColor/rgbColor';
+import { SPSA } from '../../shared/types/SPSA';
 
 export class RgbToFilter {
-  private readonly targetRGBColor: RgbColor;
+  private readonly targetRgbColor: RgbColor;
 
-  private readonly reusedRGBColor: RgbColor;
+  private readonly reusedRgbColor: RgbColor;
 
-  constructor(targetColor: RgbColor) {
-    this.targetRGBColor = targetColor;
-    this.reusedRGBColor = new RgbColor();
+  constructor(targetRgbColor: RgbColor) {
+    this.targetRgbColor = targetRgbColor;
+    this.reusedRgbColor = new RgbColor();
   }
 
   private static fmt(filters: number[], idx: number, multiplier = 1): number {
@@ -23,18 +23,18 @@ export class RgbToFilter {
   }
 
   private loss(filters: number[]): number {
-    this.reusedRGBColor.setRgb(0, 0, 0);
-    this.reusedRGBColor.invert(filters[0] / 100);
-    this.reusedRGBColor.sepia(filters[1] / 100);
-    this.reusedRGBColor.saturate(filters[2] / 100);
-    this.reusedRGBColor.hueRotate(filters[3] * 3.6);
-    this.reusedRGBColor.brightness(filters[4] / 100);
-    this.reusedRGBColor.contrast(filters[5] / 100);
+    this.reusedRgbColor.setRgb(0, 0, 0);
+    this.reusedRgbColor.invert(filters[0] / 100);
+    this.reusedRgbColor.sepia(filters[1] / 100);
+    this.reusedRgbColor.saturate(filters[2] / 100);
+    this.reusedRgbColor.hueRotate(filters[3] * 3.6);
+    this.reusedRgbColor.brightness(filters[4] / 100);
+    this.reusedRgbColor.contrast(filters[5] / 100);
 
     return (
-      Math.abs(this.reusedRGBColor.r - this.targetRGBColor.r) +
-      Math.abs(this.reusedRGBColor.g - this.targetRGBColor.g) +
-      Math.abs(this.reusedRGBColor.b - this.targetRGBColor.b)
+      Math.abs(this.reusedRgbColor.r - this.targetRgbColor.r) +
+      Math.abs(this.reusedRgbColor.g - this.targetRgbColor.g) +
+      Math.abs(this.reusedRgbColor.b - this.targetRgbColor.b)
     );
   }
 

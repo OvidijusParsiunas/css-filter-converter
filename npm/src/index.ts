@@ -1,7 +1,7 @@
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
 import { KEYWORD } from 'color-convert/conversions';
-import { Result } from './types/result';
+import { Result } from './shared/types/result';
 
 // NO EXCEPTION - just warnings
 export default class CssFilterConverter {
