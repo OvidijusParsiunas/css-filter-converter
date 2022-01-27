@@ -1,42 +1,50 @@
 import { HSL, RGB } from 'color-convert/conversions';
 
+export type ParseAndValidateResult<T> = {
+  result?: T;
+  errorMessage?: string;
+};
+
 export class RgbColorParser {
   private static createErrorMessage(colorString: string, format: string): string {
     return `Input color string could not be parsed. Expected format: ${format}. String received: ${colorString}.`;
   }
 
-  public static parsAndValidateHex(hexString: string): string {
+  private static readonly MATCH_INTEGER_AND_FLOAT_NUMBERS = /(\d+(?:\.\d+)?)/g;
+
+  public static parseAndValidateHex(hexString: string): ParseAndValidateResult<string> {
     // const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     // return shorthandHex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
 
     const hexRegex = /^#[0-9a-f]{3}([0-9a-f]{3})?$/i;
     const result = hexString.match(hexRegex);
-    if (!result) {
-      throw new Error('error');
-    }
-    return hexString;
+    if (!result) return { errorMessage: 'error' };
+    return { result: hexString };
   }
 
-  public static parseAndValidateRGB(rgbString: string): RGB {
-    // rgba and ignore the last value
-    // prettier-ignore
-    // eslint-disable-next-line max-len
-    const hexRegex = /^rgb\(\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*\)$/i;
-    const result = rgbString.match(hexRegex);
-    if (!result) {
-      throw new Error('error');
+  private static getFirstThreeNumbersFromString(color: string): RGB | HSL | null {
+    if (color.length < 20) {
+      const regexResult = color.match(RgbColorParser.MATCH_INTEGER_AND_FLOAT_NUMBERS);
+      if (regexResult && regexResult.length >= 3) {
+        return regexResult.slice(0, 3).map((numberString) => Number.parseInt(numberString)) as RGB | HSL;
+      }
     }
-    return [Number.parseFloat(result[1]), Number.parseFloat(result[2]), Number.parseFloat(result[3])];
+    return null;
   }
 
-  public static parseAndValidateHSL(hslString: string): HSL {
-    // prettier-ignore
-    // eslint-disable-next-line max-len
-    const hexRegex = /^hsl\(\s*(0|[1-9]\d?|[12]\d\d|3[0-5]\d)\s*,\s*((0|[1-9]\d?|100)%)\s*,\s*((0|[1-9]\d?|100)%)\s*\)$/i;
-    const result = hslString.match(hexRegex);
-    if (!result) {
-      throw new Error('error');
+  public static parseAndValidateRGB(rgbString: string): ParseAndValidateResult<RGB> {
+    const rgb = RgbColorParser.getFirstThreeNumbersFromString(rgbString);
+    if (rgb && rgb[0] < 256 && rgb[1] < 256 && rgb[2] < 256) {
+      return { result: rgb };
     }
-    return [Number.parseFloat(result[1]), Number.parseFloat(result[2]), Number.parseFloat(result[3])];
+    return { errorMessage: 'error' };
+  }
+
+  public static parseAndValidateHSL(hslString: string): ParseAndValidateResult<HSL> {
+    const hsl = RgbColorParser.getFirstThreeNumbersFromString(hslString);
+    if (hsl && hsl[0] < 361 && hsl[1] < 101 && hsl[2] < 101) {
+      return { result: hsl };
+    }
+    return { errorMessage: 'error' };
   }
 }

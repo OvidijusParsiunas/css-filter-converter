@@ -6,13 +6,16 @@ import * as Converter from 'color-convert';
 
 export class ColorToFilter {
   public static rgbToFilter(rgb: string): Result {
-    return RgbToFilter.convert({ color: rgb, validateAndParse: RgbColorParser.parseAndValidateRGB });
+    return RgbToFilter.convert({
+      color: rgb,
+      validateAndParse: RgbColorParser.parseAndValidateRGB,
+    });
   }
 
   public static hexToFilter(hex: string): Result {
     return RgbToFilter.convert({
       color: hex,
-      validateAndParse: RgbColorParser.parsAndValidateHex,
+      validateAndParse: RgbColorParser.parseAndValidateHex,
       convertToRgb: Converter.hex.rgb,
     });
   }

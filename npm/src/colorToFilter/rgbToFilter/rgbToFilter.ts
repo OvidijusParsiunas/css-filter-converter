@@ -1,10 +1,11 @@
 import { INVALID_INPUT_DEFAULT_MESSAGE, UNEXPECTED_ERROR_MESSAGE_PREFIX } from '../../shared/consts/errors';
+import { ParseAndValidateResult } from '../rgbColor/rgbColorParser';
 import { RgbToFilterWorker } from './rgbToFilterWorker';
 import { Result } from '../../shared/types/result';
 import { RGB } from 'color-convert/conversions';
 import { RgbColor } from '../rgbColor/rgbColor';
 
-type ValidateAndParse<T> = (color: string) => T | undefined;
+type ValidateAndParse<T> = (color: string) => ParseAndValidateResult<T>;
 
 type ConvertObject<T> = {
   color: string;
@@ -22,19 +23,19 @@ export class RgbToFilter {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private static getRgb<T>(color: string, validateAndParse?: ValidateAndParse<T>, convert?: any): RGB {
+  private static getRgb<T>(color: string, validateAndParse?: ValidateAndParse<T>, convertToRgb?: any): RGB {
     const result = validateAndParse?.(color) || color;
-    return convert?.(result) || [0, 0, 0];
+    return convertToRgb?.(result) || [0, 0, 0];
   }
 
   public static convert<T>(convertObject: ConvertObject<T>): Result {
     try {
-      const { color, validateAndParse, convertToRgb: convert, invalidInputMessage } = convertObject;
-      const rgb = RgbToFilter.getRgb(color, validateAndParse, convert);
+      const { color, validateAndParse, convertToRgb, invalidInputMessage } = convertObject;
+      const rgb = RgbToFilter.getRgb(color, validateAndParse, convertToRgb);
       if (!rgb) return { filter: null, error: { message: invalidInputMessage || INVALID_INPUT_DEFAULT_MESSAGE } };
       return RgbToFilter.execute(rgb);
     } catch (error) {
-      return { filter: null, error: { message: `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: ${(error as Error).message}` } };
+      return { filter: null, error: { message: `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${(error as Error).message}` } };
     }
   }
 }
