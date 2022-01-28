@@ -32,7 +32,7 @@ export class ColorToFilter {
     return RgbToFilter.convert({
       color: keyword,
       convertToRgb: Converter.keyword.rgb,
-      invalidInputMessage: 'Input value for keyword is invalid',
+      conversionErrorMessage: 'Input value for keyword is invalid',
     });
   }
 }

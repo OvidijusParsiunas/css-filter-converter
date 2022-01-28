@@ -10,7 +10,7 @@ export default class CssFilterConverter {
   }
 
   public static hexToFilter(hex: string): Result {
-    return ColorToFilter.rgbToFilter(hex);
+    return ColorToFilter.hexToFilter(hex);
   }
 
   public static hslToFilter(hsl: string): Result {

@@ -8,3 +8,19 @@ another format:
 return `invert(${FilterCssGenerator.fmt(filters, 0)}%) sepia(${FilterCssGenerator.fmt(filters, 1)}%) saturate(${FilterCssGenerator.fmt(filters, 2)}%) hue-rotate(${FilterCssGenerator.fmt(filters, 3, 3.6)}deg) brightness(${FilterCssGenerator.fmt(filters, 4)}%) contrast(${FilterCssGenerator.fmt(filters, 5)}%)`;
 
 place generation of machine learning model into another project
+
+Fallback regex:
+allow rgb
+/^rgb\(\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*\)$/i
+allow rgba
+/^rgba\(\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*((0.[1-9])|[01])\s*\)$/
+allow rgba - optionally
+/^rgb\(\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*(,\s*(\d?|(\d+\.\d{0,1}))\s*)?\)$/i
+allow hsl
+/^hsl\(\s*(0|[1-9]\d?|[12]\d\d|3[0-5]\d)\s*,\s*((0|[1-9]\d?|100)%)\s*,\s*((0|[1-9]\d?|100)%)\s*\)$/i;
+match integer and float numbers
+/(\d+(?:\.\d+)?)/g;
+O_TO_250
+\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*
+OPTIONAL_0_TO_1_DECIMAL
+(,\s*(\d?|(\d+\.\d{0,1}))\s*)?
