@@ -1,5 +1,8 @@
 import { MATCH_HEXADECIMAL, MATCH_INTEGER_AND_FLOAT_NUMBERS } from '../../shared/consts/regex';
 import { MAX_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
+import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
+import { ColorFormats } from '../../shared/consts/colorFormats';
+import { ColorTypes } from '../../shared/consts/colorTypes';
 import { HSL, RGB } from 'color-convert/conversions';
 
 export type ValidateAndParseResult<T> = {
@@ -8,21 +11,14 @@ export type ValidateAndParseResult<T> = {
 };
 
 export class RgbColorParser {
-  private static createErrorMessage(colorString: string, format: string): string {
-    return `Input color string could not be parsed. Expected format: ${format}. String received: ${colorString}.`;
-  }
-
   public static parseAndValidateHex(hexString: string): ValidateAndParseResult<string> {
-    // const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    // return shorthandHex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
-
     const result = hexString.match(MATCH_HEXADECIMAL);
-    if (!result) return { errorMessage: 'error' };
-    return { result: hexString };
+    if (result) return { result: hexString };
+    return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HEX, hexString, ColorFormats.HEX) };
   }
 
   // the reason why this is simply parsing the first three digits instead of the tailored format is because the number
-  // of variations of different inputs is very high. E.g. these are valid RGB values in chrome:
+  // of variations of different inputs is very high. E.g. these are valid RGB values:
   // rgb(1,2,3)
   // rgb(1%,2%,3%)
   // rgb(1,2,3,0.5)
@@ -46,7 +42,7 @@ export class RgbColorParser {
     if (rgb && rgb[0] <= 255 && rgb[1] <= 255 && rgb[2] <= 255) {
       return { result: rgb };
     }
-    return { errorMessage: 'error' };
+    return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.RGB, rgbString, ColorFormats.RGB) };
   }
 
   public static parseAndValidateHSL(hslString: string): ValidateAndParseResult<HSL> {
@@ -54,6 +50,6 @@ export class RgbColorParser {
     if (hsl && hsl[0] <= 360 && hsl[1] <= 100 && hsl[2] <= 100) {
       return { result: hsl };
     }
-    return { errorMessage: 'error' };
+    return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HSL, hslString, ColorFormats.HSL) };
   }
 }

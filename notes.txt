@@ -24,3 +24,6 @@ O_TO_250
 \s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*
 OPTIONAL_0_TO_1_DECIMAL
 (,\s*(\d?|(\d+\.\d{0,1}))\s*)?
+validate and expand shorthand hex to long
+// const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+// return shorthandHex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);

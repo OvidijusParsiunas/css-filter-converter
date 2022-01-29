@@ -17,16 +17,16 @@ type ConversionProps<T> = {
 export class RgbToFilter {
   private static generateUnexpectedError(error: Error): Result {
     const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
-    return ErrorHandling.generateError(errorMessage);
+    return ErrorHandling.generateErrorResult(errorMessage);
   }
 
   private static generateConversionError(conversionErrorMessage?: string): Result {
     const errorMessage = conversionErrorMessage || DEFAULT_CONVERSION_ERROR_MESSAGE;
-    return ErrorHandling.generateError(errorMessage);
+    return ErrorHandling.generateErrorResult(errorMessage);
   }
 
   private static generateValidateAndParseError(errorMessage: string): Result {
-    return ErrorHandling.generateError(errorMessage);
+    return ErrorHandling.generateErrorResult(errorMessage);
   }
 
   private static execute(rgb: RGB): Result {

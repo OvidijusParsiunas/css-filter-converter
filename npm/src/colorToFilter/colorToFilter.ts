@@ -1,4 +1,6 @@
+import { ErrorHandling } from '../shared/errorHandling/errorHandling';
 import { RgbColorParser } from './rgbColor/rgbColorParser';
+import { ColorTypes } from '../shared/consts/colorTypes';
 import { RgbToFilter } from './rgbToFilter/rgbToFilter';
 import { KEYWORD } from 'color-convert/conversions';
 import { Result } from '../shared/types/result';
@@ -32,7 +34,7 @@ export class ColorToFilter {
     return RgbToFilter.convert({
       color: keyword,
       convertToRgb: Converter.keyword.rgb,
-      conversionErrorMessage: 'Input value for keyword is invalid',
+      conversionErrorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.KEYWORD, keyword),
     });
   }
 }
