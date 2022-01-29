@@ -1,6 +1,8 @@
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorToFilterResult } from '../../shared/types/result';
+import { ColorFormats } from '../../shared/consts/colorFormats';
 import { FilterToColorShared, SVGAddResult } from './shared';
+import { ColorTypes } from '../../shared/consts/colorTypes';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as Puppeteer from 'puppeteer';
 
@@ -69,7 +71,8 @@ export class FilterToColorNode {
     const page = await FilterToColorNode.openBrowserPage(browser);
     const { error } = await FilterToColorNode.addSVGElementsAndValidateFilter(page, filterString);
     if (error) {
-      const errorResult = ErrorHandling.generateErrorResult('error');
+      const errorMesage = ErrorHandling.generateInputErrorMessage(ColorTypes.FILTER, filterString, ColorFormats.FILTER);
+      const errorResult = ErrorHandling.generateErrorResult(errorMesage);
       return FilterToColorNode.finishProcessing(errorResult, browser);
     }
     const byte64EncodedDataURL = await FilterToColorNode.getImageByte64ViaSVG(page);

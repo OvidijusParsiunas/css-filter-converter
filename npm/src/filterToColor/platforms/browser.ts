@@ -1,5 +1,7 @@
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorToFilterResult } from '../../shared/types/result';
+import { ColorFormats } from '../../shared/consts/colorFormats';
+import { ColorTypes } from '../../shared/consts/colorTypes';
 import { FilterToColorShared } from './shared';
 import DomToImage from 'dom-to-image';
 
@@ -21,7 +23,8 @@ export class FilterToColorBrowser {
   public static async generate(filterString: string): Promise<ColorToFilterResult> {
     const { error, svgContainerElement } = FilterToColorShared.addSVGElementsToDOMAndValidateFilter(filterString);
     if (error) {
-      const errorResult = ErrorHandling.generateErrorResult('error');
+      const errorMesage = ErrorHandling.generateInputErrorMessage(ColorTypes.FILTER, filterString, ColorFormats.FILTER);
+      const errorResult = ErrorHandling.generateErrorResult(errorMesage);
       return FilterToColorBrowser.finishProcessing(errorResult, svgContainerElement);
     }
     const byte64EncodedDataURL = await FilterToColorBrowser.getImageByte64ViaSVG(svgContainerElement);

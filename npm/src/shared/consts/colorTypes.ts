@@ -3,4 +3,5 @@ export enum ColorTypes {
   RGB = 'rgb',
   HSL = 'hsl',
   KEYWORD = 'keyword',
+  FILTER = 'filter',
 }
