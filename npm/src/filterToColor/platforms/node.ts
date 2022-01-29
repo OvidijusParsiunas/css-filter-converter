@@ -70,7 +70,7 @@ export class FilterToColorNode {
     const { error } = await FilterToColorNode.addSVGElementsAndValidateFilter(page, filterString);
     if (error) {
       const errorResult = ErrorHandling.generateErrorResult('error');
-      FilterToColorNode.finishProcessing(errorResult, browser);
+      return FilterToColorNode.finishProcessing(errorResult, browser);
     }
     const byte64EncodedDataURL = await FilterToColorNode.getImageByte64ViaSVG(page);
     const hexColor = await page.evaluate(FilterToColorShared.getColorViaImageDataURL, byte64EncodedDataURL);
