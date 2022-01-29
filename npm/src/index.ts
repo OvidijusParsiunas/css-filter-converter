@@ -1,28 +1,28 @@
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
+import { ColorToFilterResult } from './shared/types/result';
 import { KEYWORD } from 'color-convert/conversions';
-import { Result } from './shared/types/result';
 
 // NO EXCEPTION - just warnings
 export default class CssFilterConverter {
-  public static rgbToFilter(rgb: string): Result {
+  public static rgbToFilter(rgb: string): ColorToFilterResult {
     return ColorToFilter.rgbToFilter(rgb);
   }
 
-  public static hexToFilter(hex: string): Result {
+  public static hexToFilter(hex: string): ColorToFilterResult {
     return ColorToFilter.hexToFilter(hex);
   }
 
-  public static hslToFilter(hsl: string): Result {
+  public static hslToFilter(hsl: string): ColorToFilterResult {
     return ColorToFilter.hslToFilter(hsl);
   }
 
-  public static keywordToFilter(keyword: KEYWORD): Result {
+  public static keywordToFilter(keyword: KEYWORD): ColorToFilterResult {
     return ColorToFilter.keywordToFilter(keyword);
   }
 
   // WORK - regex validator
-  public static async filterToRgb(): Promise<string> {
+  public static async filterToRgb(): Promise<ColorToFilterResult> {
     return FilterToColor.generate(
       'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
     );

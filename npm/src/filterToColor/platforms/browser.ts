@@ -1,9 +1,16 @@
+import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
+import { ColorToFilterResult } from '../../shared/types/result';
 import { FilterToColorShared } from './shared';
 import DomToImage from 'dom-to-image';
 
 export class FilterToColorBrowser {
-  public static cleanup(svgContainerElement: HTMLElement): void {
+  private static cleanup(svgContainerElement: HTMLElement): void {
     svgContainerElement.remove();
+  }
+
+  private static finishProcessing(result: ColorToFilterResult, svgContainerElement: HTMLElement): ColorToFilterResult {
+    FilterToColorBrowser.cleanup(svgContainerElement);
+    return result;
   }
 
   private static async getImageByte64ViaSVG(svgContainerElement: HTMLElement): Promise<string> {
@@ -11,11 +18,14 @@ export class FilterToColorBrowser {
     return domToImage.toPng(svgContainerElement);
   }
 
-  public static async generate(filter: string): Promise<string> {
-    const svgContainerElement = FilterToColorShared.addSVGElementsToDOM(filter);
+  public static async generate(filterString: string): Promise<ColorToFilterResult> {
+    const { error, svgContainerElement } = FilterToColorShared.addSVGElementsToDOMAndValidateFilter(filterString);
+    if (error) {
+      const errorResult = ErrorHandling.generateErrorResult('error');
+      return FilterToColorBrowser.finishProcessing(errorResult, svgContainerElement);
+    }
     const byte64EncodedDataURL = await FilterToColorBrowser.getImageByte64ViaSVG(svgContainerElement);
     const hexColor = await FilterToColorShared.getColorViaImageDataURL(byte64EncodedDataURL);
-    FilterToColorBrowser.cleanup(svgContainerElement);
-    return hexColor;
+    return FilterToColorBrowser.finishProcessing({ result: hexColor }, svgContainerElement);
   }
 }

@@ -3,9 +3,12 @@ interface Error {
 }
 
 // WORK - optionals will need to be set as required
-export interface Result {
+export interface FilterToColorResult {
+  result: string | null;
+  error?: Error;
+}
+
+export interface ColorToFilterResult extends FilterToColorResult {
   values?: number[];
   loss?: number;
-  filter: string | null;
-  error?: Error;
 }

@@ -1,10 +1,15 @@
+export interface SVGAddResult {
+  svgContainerElement: HTMLElement;
+  error?: boolean;
+}
+
 export class FilterToColorShared {
   // functions are encapsulated within a single method in order to allow them to be executed within the same context
   // of the puppeteer evaluate method
-  public static addSVGElementsToDOM(filter: string, svgSideLength = 1): HTMLElement {
+  public static addSVGElementsToDOMAndValidateFilter(filterString: string, svgSideLength = 1): SVGAddResult {
     function createSVGElement(): SVGSVGElement {
       const iconFilterPrefix = 'brightness(0) saturate(100%)';
-      const svgFill = `${iconFilterPrefix} ${filter}`;
+      const svgFill = `${iconFilterPrefix} ${filterString}`;
       const xmlns = 'http://www.w3.org/2000/svg';
       const svgElement = document.createElementNS(xmlns, 'svg');
       svgElement.style.height = 'inherit';
@@ -30,9 +35,10 @@ export class FilterToColorShared {
 
     const svgContainerElement = createSVGContainerElement();
     const svgElement = createSVGElement();
+    if (svgElement.style.filter === '') return { error: true, svgContainerElement };
     svgContainerElement.appendChild(svgElement);
     document.body.appendChild(svgContainerElement);
-    return svgContainerElement;
+    return { svgContainerElement };
   }
 
   // functions are encapsulated within a single method in order to allow them to be executed within the same context

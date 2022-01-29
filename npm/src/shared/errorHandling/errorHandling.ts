@@ -1,10 +1,10 @@
 import { ColorFormats } from '../consts/colorFormats';
+import { ColorToFilterResult } from '../types/result';
 import { ColorTypes } from '../consts/colorTypes';
-import { Result } from '../types/result';
 
 export class ErrorHandling {
-  public static generateErrorResult(message: string): Result {
-    return { filter: null, error: { message } };
+  public static generateErrorResult(message: string): ColorToFilterResult {
+    return { result: null, error: { message } };
   }
 
   public static generateInputErrorMessage(colorType: ColorTypes, colorString: string, format?: ColorFormats): string {

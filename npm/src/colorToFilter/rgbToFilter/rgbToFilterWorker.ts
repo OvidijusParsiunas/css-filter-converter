@@ -1,4 +1,4 @@
-import { Result } from '../../shared/types/result';
+import { ColorToFilterResult } from '../../shared/types/result';
 import { RgbColor } from '../rgbColor/rgbColor';
 import { SPSA } from '../../shared/types/SPSA';
 
@@ -118,12 +118,12 @@ export class RgbToFilterWorker {
     return best;
   }
 
-  public convert(): Result {
+  public convert(): ColorToFilterResult {
     const result = this.solveNarrow(this.solveWide());
     return {
       values: result.values,
       loss: result.loss,
-      filter: this.generateCss(result.values),
+      result: this.generateCss(result.values),
     };
   }
 }

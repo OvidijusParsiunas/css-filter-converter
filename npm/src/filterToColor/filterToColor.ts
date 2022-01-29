@@ -1,11 +1,12 @@
+import { ColorToFilterResult } from '../shared/types/result';
 import { FilterToColorBrowser } from './platforms/browser';
 
 export class FilterToColor {
-  public static async generate(filter: string): Promise<string> {
+  public static async generate(filterString: string): Promise<ColorToFilterResult> {
     if (typeof window === 'undefined') {
       const { FilterToColorNode } = await import('./platforms/node');
-      return FilterToColorNode.generate(filter);
+      return FilterToColorNode.generate(filterString);
     }
-    return FilterToColorBrowser.generate(filter);
+    return FilterToColorBrowser.generate(filterString);
   }
 }
