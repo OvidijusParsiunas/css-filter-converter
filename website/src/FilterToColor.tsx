@@ -1,6 +1,6 @@
 import domtoimage from 'dom-to-image';
 
-export class FilterToColorBrowser {
+export class FilterToHexBrowser {
   private static cleanup(svgContainer: HTMLElement): void {
     svgContainer.remove();
   }
@@ -20,8 +20,8 @@ export class FilterToColorBrowser {
   }
 
   private static async getCanvasDetails(canvas: HTMLCanvasElement): Promise<string> {
-    const data = FilterToColorBrowser.getData(canvas);
-    return `#${`000000${FilterToColorBrowser.rgbToHex(data[0], data[1], data[2])}`.slice(-6)}`;
+    const data = FilterToHexBrowser.getData(canvas);
+    return `#${`000000${FilterToHexBrowser.rgbToHex(data[0], data[1], data[2])}`.slice(-6)}`;
   }
 
   private static createCanvasElement(imageElement: HTMLImageElement): HTMLCanvasElement {
@@ -72,19 +72,19 @@ export class FilterToColorBrowser {
   }
 
   private static addSVGElementsToDOM(filter: string): HTMLElement {
-    const svgContainer = FilterToColorBrowser.createSVGContainer();
-    const svg = FilterToColorBrowser.createSVG(filter);
+    const svgContainer = FilterToHexBrowser.createSVGContainer();
+    const svg = FilterToHexBrowser.createSVG(filter);
     svgContainer.appendChild(svg);
     document.body.appendChild(svgContainer);
     return svgContainer;
   }
 
   public static async generate(filter: string): Promise<string> {
-    const svgContainer = FilterToColorBrowser.addSVGElementsToDOM(filter);
-    const imageElement = await FilterToColorBrowser.createImageElement(svgContainer);
-    const canvas = FilterToColorBrowser.createCanvasElement(imageElement);
-    FilterToColorBrowser.cleanup(svgContainer);
-    return FilterToColorBrowser.getCanvasDetails(canvas);
+    const svgContainer = FilterToHexBrowser.addSVGElementsToDOM(filter);
+    const imageElement = await FilterToHexBrowser.createImageElement(svgContainer);
+    const canvas = FilterToHexBrowser.createCanvasElement(imageElement);
+    FilterToHexBrowser.cleanup(svgContainer);
+    return FilterToHexBrowser.getCanvasDetails(canvas);
   }
 }
 
@@ -92,7 +92,7 @@ function FilterToColor() {
   async function generate() {
     const textInputElement = document.getElementById('textInput') as HTMLInputElement;
     const input = textInputElement.value;
-    const result = await FilterToColorBrowser.generate(input);
+    const result = await FilterToHexBrowser.generate(input);
     console.log(result);
   }
 

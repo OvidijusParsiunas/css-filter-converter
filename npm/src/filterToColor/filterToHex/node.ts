@@ -2,18 +2,18 @@ import { ColorToFilterResult, FilterToColorResult } from '../../shared/types/res
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { MUST_INSTALL_PUPPETEER } from '../../shared/consts/errors';
 import { ColorFormats } from '../../shared/consts/colorFormats';
-import { FilterToColorShared, SVGAddResult } from './shared';
 import { ColorTypes } from '../../shared/consts/colorTypes';
+import { FilterToHexShared, SVGAddResult } from './shared';
 import { Error } from '../../shared/types/error';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as Puppeteer from 'puppeteer';
 
 type ObjctsWithError = Puppeteer.PuppeteerNode | Puppeteer.Browser | SVGAddResult;
 
-export class FilterToColorNode extends FilterToColorShared {
+export class FilterToHexNode extends FilterToHexShared {
   private static readonly BASE_64_ENCODING = 'base64';
 
-  private static readonly ENCODED_DATA_URL_PREFIX = `data:image/png;${FilterToColorNode.BASE_64_ENCODING},`;
+  private static readonly ENCODED_DATA_URL_PREFIX = `data:image/png;${FilterToHexNode.BASE_64_ENCODING},`;
 
   private static readonly IS_HEADLESS = true;
 
@@ -21,13 +21,13 @@ export class FilterToColorNode extends FilterToColorShared {
   private static readonly SVG_SIDE_LENGTH_PX = 2;
 
   private static finishProcessing(result: ColorToFilterResult, browser?: Puppeteer.Browser): ColorToFilterResult {
-    if (FilterToColorNode.IS_HEADLESS) browser?.close();
+    if (FilterToHexNode.IS_HEADLESS) browser?.close();
     return result;
   }
 
   private static returnError(errorMsg: string, browser?: Puppeteer.Browser): ColorToFilterResult {
     const errorResult = ErrorHandling.generateErrorResult(errorMsg);
-    return FilterToColorNode.finishProcessing(errorResult, browser);
+    return FilterToHexNode.finishProcessing(errorResult, browser);
   }
 
   private static hasError(param: ObjctsWithError | Error): param is Error {
@@ -35,24 +35,24 @@ export class FilterToColorNode extends FilterToColorShared {
   }
 
   private static async getImageByte64ViaSVG(page: Puppeteer.Page): Promise<string> {
-    const endodedScreenshotData = await page.screenshot({ encoding: FilterToColorNode.BASE_64_ENCODING });
-    return `${FilterToColorNode.ENCODED_DATA_URL_PREFIX}${endodedScreenshotData}`;
+    const endodedScreenshotData = await page.screenshot({ encoding: FilterToHexNode.BASE_64_ENCODING });
+    return `${FilterToHexNode.ENCODED_DATA_URL_PREFIX}${endodedScreenshotData}`;
   }
 
   private static async openBrowserPage(browser: Puppeteer.Browser): Promise<Puppeteer.Page> {
     const page = await browser.newPage();
     await page.setViewport({
-      width: FilterToColorNode.SVG_SIDE_LENGTH_PX,
-      height: FilterToColorNode.SVG_SIDE_LENGTH_PX,
+      width: FilterToHexNode.SVG_SIDE_LENGTH_PX,
+      height: FilterToHexNode.SVG_SIDE_LENGTH_PX,
     });
     return page;
   }
 
   private static async addSVGAndValidateFilter(page: Puppeteer.Page, filterString: string): Promise<SVGAddResult | Error> {
     const svgAddResult = await page.evaluate(
-      FilterToColorShared.addSVGElementsToDOMAndValidateFilter,
+      FilterToHexShared.addSVGElementsToDOMAndValidateFilter,
       filterString,
-      FilterToColorNode.SVG_SIDE_LENGTH_PX,
+      FilterToHexNode.SVG_SIDE_LENGTH_PX,
     );
     if (svgAddResult.errorMessage) {
       return {
@@ -74,9 +74,9 @@ export class FilterToColorNode extends FilterToColorShared {
   }
 
   private static async preparePuppeteerBrowser(): Promise<Puppeteer.Browser | Error> {
-    const puppeteer = await FilterToColorNode.getPuppeteerDependency();
+    const puppeteer = await FilterToHexNode.getPuppeteerDependency();
     if (this.hasError(puppeteer)) return puppeteer;
-    return puppeteer.launch({ headless: FilterToColorNode.IS_HEADLESS });
+    return puppeteer.launch({ headless: FilterToHexNode.IS_HEADLESS });
   }
 
   // puppeteer versions higher than 6.0.0 have a bug where the view blinks when taking a screnshot of a specific
@@ -84,13 +84,13 @@ export class FilterToColorNode extends FilterToColorShared {
   // they are already using it for another use-case), the logic here is configured to reduce the viewport to the svg
   // size and then proceed to take a screenshot of the viewport via the page.screenshot api
   public static async generate(filterString: string): Promise<FilterToColorResult> {
-    const browser = await FilterToColorNode.preparePuppeteerBrowser();
-    if (this.hasError(browser)) return FilterToColorNode.returnError(browser.errorMessage);
-    const page = await FilterToColorNode.openBrowserPage(browser);
-    const addSvgResult = await FilterToColorNode.addSVGAndValidateFilter(page, filterString);
-    if (this.hasError(addSvgResult)) return FilterToColorNode.returnError(addSvgResult.errorMessage, browser);
-    const byte64EncodedDataURL = await FilterToColorNode.getImageByte64ViaSVG(page);
-    const hexColor = await page.evaluate(FilterToColorShared.getColorViaImageDataURL, byte64EncodedDataURL);
-    return FilterToColorNode.finishProcessing({ color: hexColor }, browser);
+    const browser = await FilterToHexNode.preparePuppeteerBrowser();
+    if (this.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
+    const page = await FilterToHexNode.openBrowserPage(browser);
+    const addSvgResult = await FilterToHexNode.addSVGAndValidateFilter(page, filterString);
+    if (this.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
+    const byte64EncodedDataURL = await FilterToHexNode.getImageByte64ViaSVG(page);
+    const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, byte64EncodedDataURL);
+    return FilterToHexNode.finishProcessing({ color: hexColor }, browser);
   }
 }

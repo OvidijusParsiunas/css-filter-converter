@@ -1,3 +1,4 @@
+import { UNEXPECTED_ERROR_MESSAGE_PREFIX } from '../consts/errors';
 import { ColorFormats } from '../consts/colorFormats';
 import { ColorToFilterResult } from '../types/result';
 import { ColorTypes } from '../consts/colorTypes';
@@ -16,5 +17,10 @@ export class ErrorHandling {
       messageStrings.splice(1, 0, expectedFormat);
     }
     return messageStrings.join(' ');
+  }
+
+  public static generateUnexpectedError(error: Error): ColorToFilterResult {
+    const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
+    return ErrorHandling.generateErrorResult(errorMessage);
   }
 }

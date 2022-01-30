@@ -1,4 +1,4 @@
-import { DEFAULT_CONVERSION_ERROR_MESSAGE, UNEXPECTED_ERROR_MESSAGE_PREFIX } from '../../shared/consts/errors';
+import { DEFAULT_CONVERSION_ERROR_MESSAGE } from '../../shared/consts/errors';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ValidateAndParseResult } from '../rgbColor/rgbColorParser';
 import { ColorToFilterResult } from '../../shared/types/result';
@@ -15,11 +15,6 @@ type ConversionProps<T> = {
 };
 
 export class RgbToFilter {
-  private static generateUnexpectedError(error: Error): ColorToFilterResult {
-    const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
-    return ErrorHandling.generateErrorResult(errorMessage);
-  }
-
   private static generateConversionError(conversionErrorMessage?: string): ColorToFilterResult {
     const errorMessage = conversionErrorMessage || DEFAULT_CONVERSION_ERROR_MESSAGE;
     return ErrorHandling.generateErrorResult(errorMessage);
@@ -44,7 +39,7 @@ export class RgbToFilter {
       if (!conversionResult) return RgbToFilter.generateConversionError(conversionErrorMessage);
       return RgbToFilter.execute(conversionResult);
     } catch (error) {
-      return RgbToFilter.generateUnexpectedError(error as Error);
+      return ErrorHandling.generateUnexpectedError(error as Error);
     }
   }
 }

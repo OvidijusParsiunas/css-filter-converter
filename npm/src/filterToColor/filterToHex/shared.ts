@@ -7,7 +7,7 @@ export interface SVGAddResult extends Partial<Error> {
   svgContainerElement: HTMLElement;
 }
 
-export class FilterToColorShared {
+export class FilterToHexShared {
   protected static generateInputErrorMessage(filterString: string): string {
     return ErrorHandling.generateInputErrorMessage(ColorTypes.FILTER, filterString, ColorFormats.FILTER);
   }
