@@ -1,5 +1,5 @@
+import { ColorToFilterResult, FilterToColorResult } from '../../shared/types/result';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
-import { ColorToFilterResult } from '../../shared/types/result';
 import { ColorFormats } from '../../shared/consts/colorFormats';
 import { FilterToColorShared, SVGAddResult } from './shared';
 import { ColorTypes } from '../../shared/consts/colorTypes';
@@ -66,7 +66,7 @@ export class FilterToColorNode {
   // element, hence in order to not have to force the user to install a specific version of puppeteer (especially if
   // they are already using it for another use-case), the logic here is configured to reduce the viewport to the svg
   // size and then proceed to take a screenshot of the viewport via the page.screenshot api
-  public static async generate(filterString: string): Promise<ColorToFilterResult> {
+  public static async generate(filterString: string): Promise<FilterToColorResult> {
     const browser = await FilterToColorNode.preparePuppeteerBrowser();
     const page = await FilterToColorNode.openBrowserPage(browser);
     const { error } = await FilterToColorNode.addSVGElementsAndValidateFilter(page, filterString);
@@ -77,6 +77,6 @@ export class FilterToColorNode {
     }
     const byte64EncodedDataURL = await FilterToColorNode.getImageByte64ViaSVG(page);
     const hexColor = await page.evaluate(FilterToColorShared.getColorViaImageDataURL, byte64EncodedDataURL);
-    return FilterToColorNode.finishProcessing({ result: hexColor }, browser);
+    return FilterToColorNode.finishProcessing({ color: hexColor }, browser);
   }
 }

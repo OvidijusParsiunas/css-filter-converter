@@ -21,9 +21,20 @@ export default class CssFilterConverter {
     return ColorToFilter.keywordToFilter(keyword);
   }
 
-  // WORK - regex validator
   public static async filterToRgb(): Promise<ColorToFilterResult> {
-    return FilterToColor.generate(
+    return FilterToColor.filterToRgb(
+      'invert(38%) sepia(78%) saturdfate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+    );
+  }
+
+  public static async filterToHex(): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(
+      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+    );
+  }
+
+  public static async filterToHsl(): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(
       'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
     );
   }

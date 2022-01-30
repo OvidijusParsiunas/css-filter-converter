@@ -4,7 +4,7 @@ import { ColorTypes } from '../consts/colorTypes';
 
 export class ErrorHandling {
   public static generateErrorResult(message: string): ColorToFilterResult {
-    return { result: null, error: { message } };
+    return { color: null, error: { message } };
   }
 
   public static generateInputErrorMessage(colorType: ColorTypes, colorString: string, format?: ColorFormats): string {

@@ -29,6 +29,6 @@ export class FilterToColorBrowser {
     }
     const byte64EncodedDataURL = await FilterToColorBrowser.getImageByte64ViaSVG(svgContainerElement);
     const hexColor = await FilterToColorShared.getColorViaImageDataURL(byte64EncodedDataURL);
-    return FilterToColorBrowser.finishProcessing({ result: hexColor }, svgContainerElement);
+    return FilterToColorBrowser.finishProcessing({ color: hexColor }, svgContainerElement);
   }
 }

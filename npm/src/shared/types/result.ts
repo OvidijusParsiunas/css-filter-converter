@@ -4,7 +4,7 @@ interface Error {
 
 // WORK - optionals will need to be set as required
 export interface FilterToColorResult {
-  result: string | null;
+  color: string | null;
   error?: Error;
 }
 

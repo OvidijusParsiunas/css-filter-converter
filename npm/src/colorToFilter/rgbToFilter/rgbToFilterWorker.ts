@@ -123,7 +123,7 @@ export class RgbToFilterWorker {
     return {
       values: result.values,
       loss: result.loss,
-      result: this.generateCss(result.values),
+      color: this.generateCss(result.values),
     };
   }
 }
