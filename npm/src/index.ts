@@ -20,21 +20,20 @@ export default class CssFilterConverter {
     return ColorToFilter.keywordToFilter(keyword);
   }
 
-  public static async filterToRgb(): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToRgb(
-      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
-    );
+  public static async filterToRgb(filter: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToRgb(filter);
   }
 
-  public static async filterToHex(): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToHex(
-      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
-    );
+  public static async filterToHex(filter: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(filter);
   }
 
-  public static async filterToHsl(): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToHex(
-      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
-    );
+  public static async filterToHsl(filter: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(filter);
   }
 }
+
+// console.log(CssFilterConverter.keywordToFilter('blue' as unknown as 'red'));
+// CssFilterConverter.filterToRgb(
+//   'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+// ).then((result) => console.log(result));

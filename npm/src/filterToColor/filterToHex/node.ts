@@ -75,7 +75,7 @@ export class FilterToHexNode extends FilterToHexShared {
 
   private static async preparePuppeteerBrowser(): Promise<Puppeteer.Browser | Error> {
     const puppeteer = await FilterToHexNode.getPuppeteerDependency();
-    if (this.hasError(puppeteer)) return puppeteer;
+    if (FilterToHexNode.hasError(puppeteer)) return puppeteer;
     return puppeteer.launch({ headless: FilterToHexNode.IS_HEADLESS });
   }
 
@@ -85,10 +85,10 @@ export class FilterToHexNode extends FilterToHexShared {
   // size and then proceed to take a screenshot of the viewport via the page.screenshot api
   public static async generate(filterString: string): Promise<FilterToColorResult> {
     const browser = await FilterToHexNode.preparePuppeteerBrowser();
-    if (this.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
+    if (FilterToHexNode.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
     const page = await FilterToHexNode.openBrowserPage(browser);
     const addSvgResult = await FilterToHexNode.addSVGAndValidateFilter(page, filterString);
-    if (this.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
+    if (FilterToHexNode.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
     const byte64EncodedDataURL = await FilterToHexNode.getImageByte64ViaSVG(page);
     const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, byte64EncodedDataURL);
     return FilterToHexNode.finishProcessing({ color: hexColor }, browser);

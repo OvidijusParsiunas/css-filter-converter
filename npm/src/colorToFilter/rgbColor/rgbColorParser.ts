@@ -1,5 +1,5 @@
 import { MATCH_HEXADECIMAL, MATCH_INTEGER_AND_FLOAT_NUMBERS } from '../../shared/consts/regex';
-import { MAX_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
+import { MAX_COLOR_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorFormats } from '../../shared/consts/colorFormats';
 import { ColorTypes } from '../../shared/consts/colorTypes';
@@ -27,7 +27,7 @@ export class RgbColorParser {
   // Hence because the first three values are always consistent integers and the fourth is irrelevant, it is simpler to
   // parse the first three integers and use them accordingly
   private static parseFirstThreeIntegersFromString<T>(color: string): T | null {
-    if (color.length < MAX_INPUT_STRING_LENGTH) {
+    if (color.length < MAX_COLOR_INPUT_STRING_LENGTH) {
       const regexResult = color.match(MATCH_INTEGER_AND_FLOAT_NUMBERS);
       MATCH_INTEGER_AND_FLOAT_NUMBERS.lastIndex = 0;
       if (regexResult && regexResult.length >= 3) {

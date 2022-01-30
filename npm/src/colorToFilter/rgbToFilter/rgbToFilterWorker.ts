@@ -1,3 +1,6 @@
+// the code used within this class has been taken and modified from the following codepen owned by Barrett Sonntag:
+// https://codepen.io/sosuke/pen/Pjoqqp
+
 import { ColorToFilterResult } from '../../shared/types/result';
 import { RgbColor } from '../rgbColor/rgbColor';
 import { SPSA } from '../../shared/types/SPSA';
@@ -121,7 +124,6 @@ export class RgbToFilterWorker {
   public convert(): ColorToFilterResult {
     const result = this.solveNarrow(this.solveWide());
     return {
-      values: result.values,
       loss: result.loss,
       color: this.generateCss(result.values),
     };
