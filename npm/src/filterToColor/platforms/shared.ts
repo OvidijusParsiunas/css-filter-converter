@@ -1,12 +1,20 @@
-export interface SVGAddResult {
+import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
+import { ColorFormats } from '../../shared/consts/colorFormats';
+import { ColorTypes } from '../../shared/consts/colorTypes';
+import { Error } from '../../shared/types/error';
+
+export interface SVGAddResult extends Partial<Error> {
   svgContainerElement: HTMLElement;
-  error?: boolean;
 }
 
 export class FilterToColorShared {
+  protected static generateInputErrorMessage(filterString: string): string {
+    return ErrorHandling.generateInputErrorMessage(ColorTypes.FILTER, filterString, ColorFormats.FILTER);
+  }
+
   // functions are encapsulated within a single method in order to allow them to be executed within the same context
   // of the puppeteer evaluate method
-  public static addSVGElementsToDOMAndValidateFilter(filterString: string, svgSideLength = 1): SVGAddResult {
+  protected static addSVGElementsToDOMAndValidateFilter(filterString: string, svgSideLength = 1): SVGAddResult {
     function createSVGElement(): SVGSVGElement {
       const iconFilterPrefix = 'brightness(0) saturate(100%)';
       const svgFill = `${iconFilterPrefix} ${filterString}`;
@@ -35,7 +43,7 @@ export class FilterToColorShared {
 
     const svgContainerElement = createSVGContainerElement();
     const svgElement = createSVGElement();
-    if (svgElement.style.filter === '') return { error: true, svgContainerElement };
+    if (svgElement.style.filter === '') return { errorMessage: 'error indicator', svgContainerElement };
     svgContainerElement.appendChild(svgElement);
     document.body.appendChild(svgContainerElement);
     return { svgContainerElement };
@@ -43,7 +51,7 @@ export class FilterToColorShared {
 
   // functions are encapsulated within a single method in order to allow them to be executed within the same context
   // of the puppeteer evaluate method
-  public static async getColorViaImageDataURL(byte64EncodedDataURL: string): Promise<string> {
+  protected static async getColorViaImageDataURL(byte64EncodedDataURL: string): Promise<string> {
     function rgbToHex(r: number, g: number, b: number): string {
       if (r > 255 || g > 255 || b > 255) throw new Error('Invalid color component');
       return ((r << 16) | (g << 8) | b).toString(16);

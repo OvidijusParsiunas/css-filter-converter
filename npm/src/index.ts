@@ -3,7 +3,6 @@ import { FilterToColor } from './filterToColor/filterToColor';
 import { ColorToFilterResult } from './shared/types/result';
 import { KEYWORD } from 'color-convert/conversions';
 
-// NO EXCEPTION - just warnings
 export default class CssFilterConverter {
   public static rgbToFilter(rgb: string): ColorToFilterResult {
     return ColorToFilter.rgbToFilter(rgb);
@@ -23,7 +22,7 @@ export default class CssFilterConverter {
 
   public static async filterToRgb(): Promise<ColorToFilterResult> {
     return FilterToColor.filterToRgb(
-      'invert(38%) sepia(78%) saturdfate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
+      'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
     );
   }
 
@@ -39,6 +38,3 @@ export default class CssFilterConverter {
     );
   }
 }
-
-// CssFilterConverter.filterToRgb().then((result) => console.log(result));
-console.log(CssFilterConverter.keywordToFilter('blue' as unknown as 'red'));
