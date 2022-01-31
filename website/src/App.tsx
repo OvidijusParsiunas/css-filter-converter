@@ -1,8 +1,7 @@
+import ConvertButton from './convertButton/ConvertButton';
 import WindowColumn from './reactChildren/WindowColumn';
-import Convert from './convert/Convert';
-import Result from './result/Result';
-import Input from './input/Input';
-import 'bulma/css/bulma.min.css';
+import Result from './resultColumn/Result';
+import Input from './inputColumn/Input';
 import './App.css';
 
 function App() {
@@ -10,8 +9,8 @@ function App() {
     <div className="app">
       <WindowColumn transformXValue="-50%">
         <Input />
-        <Convert />
       </WindowColumn>
+      <ConvertButton />
       <WindowColumn transformXValue="0%">
         <Result />
       </WindowColumn>

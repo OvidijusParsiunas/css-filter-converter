@@ -1,3 +1,4 @@
+import { ELEMENT_IDS } from '../consts/elementIds';
 import './result.css';
 
 function Result() {
@@ -6,8 +7,8 @@ function Result() {
       <div id="result-header">
         <div>Result:</div>
       </div>
-      <div id="result-value">
-        <div id="result" />
+      <div id="result-value-field">
+        <div id={ELEMENT_IDS.RESULT_VALUE} />
       </div>
     </div>
   );
