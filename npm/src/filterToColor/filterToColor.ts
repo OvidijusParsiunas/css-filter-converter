@@ -1,6 +1,6 @@
 import { FilterToColorResult } from '../shared/types/result';
 import { FilterToHex } from './filterToHex/filterToHex';
-import * as Converter from 'color-convert';
+import Converter from 'color-convert';
 
 export class FilterToColor {
   public static async filterToHex(filterString: string): Promise<FilterToColorResult> {

@@ -1,14 +1,15 @@
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { BASIC_COLOR_TYPE_STRING } from '../types/colorTypeString';
 import { BASIC_COLOR_TYPES } from '../consts/colorTypes';
 import { ELEMENT_IDS } from '../consts/elementIds';
 import React from 'react';
 import './input.css';
 
 function Input() {
-  const [colorType, setColorType] = React.useState<string>(BASIC_COLOR_TYPES.HEX);
+  const [colorType, setColorType] = React.useState<BASIC_COLOR_TYPE_STRING>(BASIC_COLOR_TYPES.HEX);
 
   const changeColorType = (event: SelectChangeEvent<string>): void => {
-    setColorType(event.target.value);
+    setColorType(event.target.value as BASIC_COLOR_TYPE_STRING);
   };
 
   return (

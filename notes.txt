@@ -18,3 +18,7 @@ OPTIONAL_0_TO_1_DECIMAL
 validate and expand shorthand hex to long
 // const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 // return shorthandHex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+
+Website:
+
+check if project starts with no color convert

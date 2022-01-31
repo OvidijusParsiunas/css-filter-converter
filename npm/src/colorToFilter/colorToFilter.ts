@@ -4,7 +4,7 @@ import { RgbColorParser } from './rgbColor/rgbColorParser';
 import { ColorTypes } from '../shared/consts/colorTypes';
 import { RgbToFilter } from './rgbToFilter/rgbToFilter';
 import { KEYWORD } from 'color-convert/conversions';
-import * as Converter from 'color-convert';
+import Converter from 'color-convert';
 
 export class ColorToFilter {
   public static rgbToFilter(rgbString: string): ColorToFilterResult {

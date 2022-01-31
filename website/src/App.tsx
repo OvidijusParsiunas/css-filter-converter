@@ -10,10 +10,10 @@ function App() {
       <WindowColumn transformXValue="-50%">
         <Input />
       </WindowColumn>
-      <ConvertButton />
       <WindowColumn transformXValue="0%">
         <Result />
       </WindowColumn>
+      <ConvertButton />
     </div>
   );
 }

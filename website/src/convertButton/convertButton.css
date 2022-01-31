@@ -8,7 +8,3 @@
   width: fit-content;
   transform: translateY(-50%);
 }
-
-#convert-button {
-  z-index: 1;
-}
