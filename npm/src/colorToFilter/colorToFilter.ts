@@ -7,24 +7,24 @@ import { KEYWORD } from 'color-convert/conversions';
 import * as Converter from 'color-convert';
 
 export class ColorToFilter {
-  public static rgbToFilter(rgb: string): ColorToFilterResult {
+  public static rgbToFilter(rgbString: string): ColorToFilterResult {
     return RgbToFilter.convert({
-      color: rgb,
+      colorString: rgbString,
       validateAndParse: RgbColorParser.parseAndValidateRGB,
     });
   }
 
-  public static hexToFilter(hex: string): ColorToFilterResult {
+  public static hexToFilter(hexString: string): ColorToFilterResult {
     return RgbToFilter.convert({
-      color: hex,
+      colorString: hexString,
       validateAndParse: RgbColorParser.parseAndValidateHex,
       convertToRgb: Converter.hex.rgb,
     });
   }
 
-  public static hslToFilter(hsl: string): ColorToFilterResult {
+  public static hslToFilter(hslString: string): ColorToFilterResult {
     return RgbToFilter.convert({
-      color: hsl,
+      colorString: hslString,
       validateAndParse: RgbColorParser.parseAndValidateHSL,
       convertToRgb: Converter.hsl.rgb,
     });
@@ -32,7 +32,7 @@ export class ColorToFilter {
 
   public static keywordToFilter(keyword: KEYWORD): ColorToFilterResult {
     return RgbToFilter.convert({
-      color: keyword,
+      colorString: keyword,
       convertToRgb: Converter.keyword.rgb,
       conversionErrorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.KEYWORD, keyword),
     });

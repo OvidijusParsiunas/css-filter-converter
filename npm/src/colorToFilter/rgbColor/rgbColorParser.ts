@@ -3,17 +3,16 @@ import { MAX_COLOR_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorFormats } from '../../shared/consts/colorFormats';
 import { ColorTypes } from '../../shared/consts/colorTypes';
+import { ColorResult } from '../../shared/types/result';
 import { HSL, RGB } from 'color-convert/conversions';
+import { Error } from '../../shared/types/error';
 
-export type ValidateAndParseResult<T> = {
-  result?: T;
-  errorMessage?: string;
-};
+export type ValidateAndParseResult<T> = Error | ColorResult<T>;
 
 export class RgbColorParser {
   public static parseAndValidateHex(hexString: string): ValidateAndParseResult<string> {
     const result = hexString.match(MATCH_HEXADECIMAL);
-    if (result) return { result: hexString };
+    if (result) return { color: hexString };
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HEX, hexString, ColorFormats.HEX) };
   }
 
@@ -40,7 +39,7 @@ export class RgbColorParser {
   public static parseAndValidateRGB(rgbString: string): ValidateAndParseResult<RGB> {
     const rgb = <RGB>RgbColorParser.parseFirstThreeIntegersFromString(rgbString);
     if (rgb && rgb[0] <= 255 && rgb[1] <= 255 && rgb[2] <= 255) {
-      return { result: rgb };
+      return { color: rgb };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.RGB, rgbString, ColorFormats.RGB) };
   }
@@ -48,7 +47,7 @@ export class RgbColorParser {
   public static parseAndValidateHSL(hslString: string): ValidateAndParseResult<HSL> {
     const hsl = <HSL>RgbColorParser.parseFirstThreeIntegersFromString(hslString);
     if (hsl && hsl[0] <= 360 && hsl[1] <= 100 && hsl[2] <= 100) {
-      return { result: hsl };
+      return { color: hsl };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HSL, hslString, ColorFormats.HSL) };
   }

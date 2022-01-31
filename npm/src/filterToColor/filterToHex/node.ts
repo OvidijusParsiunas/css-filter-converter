@@ -8,8 +8,6 @@ import { Error } from '../../shared/types/error';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as Puppeteer from 'puppeteer';
 
-type ObjctsWithError = Puppeteer.PuppeteerNode | Puppeteer.Browser | SVGAddResult;
-
 export class FilterToHexNode extends FilterToHexShared {
   private static readonly BASE_64_ENCODING = 'base64';
 
@@ -28,10 +26,6 @@ export class FilterToHexNode extends FilterToHexShared {
   private static returnError(errorMsg: string, browser?: Puppeteer.Browser): ColorToFilterResult {
     const errorResult = ErrorHandling.generateErrorResult(errorMsg);
     return FilterToHexNode.finishProcessing(errorResult, browser);
-  }
-
-  private static hasError(param: ObjctsWithError | Error): param is Error {
-    return !!(param as Error).errorMessage;
   }
 
   private static async getImageByte64ViaSVG(page: Puppeteer.Page): Promise<string> {
@@ -75,7 +69,7 @@ export class FilterToHexNode extends FilterToHexShared {
 
   private static async preparePuppeteerBrowser(): Promise<Puppeteer.Browser | Error> {
     const puppeteer = await FilterToHexNode.getPuppeteerDependency();
-    if (FilterToHexNode.hasError(puppeteer)) return puppeteer;
+    if (ErrorHandling.hasError(puppeteer)) return puppeteer;
     return puppeteer.launch({ headless: FilterToHexNode.IS_HEADLESS });
   }
 
@@ -83,12 +77,12 @@ export class FilterToHexNode extends FilterToHexShared {
   // element, hence in order to not have to force the user to install a specific version of puppeteer (especially if
   // they are already using it for another use-case), the logic here is configured to reduce the viewport to the svg
   // size and then proceed to take a screenshot of the viewport via the page.screenshot api
-  public static async generate(filterString: string): Promise<FilterToColorResult> {
+  public static async convert(filterString: string): Promise<FilterToColorResult> {
     const browser = await FilterToHexNode.preparePuppeteerBrowser();
-    if (FilterToHexNode.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
+    if (ErrorHandling.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
     const page = await FilterToHexNode.openBrowserPage(browser);
     const addSvgResult = await FilterToHexNode.addSVGAndValidateFilter(page, filterString);
-    if (FilterToHexNode.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
+    if (ErrorHandling.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
     const byte64EncodedDataURL = await FilterToHexNode.getImageByte64ViaSVG(page);
     const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, byte64EncodedDataURL);
     return FilterToHexNode.finishProcessing({ color: hexColor }, browser);

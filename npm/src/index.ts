@@ -4,32 +4,32 @@ import { ColorToFilterResult } from './shared/types/result';
 import { KEYWORD } from 'color-convert/conversions';
 
 export default class CssFilterConverter {
-  public static rgbToFilter(rgb: string): ColorToFilterResult {
-    return ColorToFilter.rgbToFilter(rgb);
+  public static rgbToFilter(rgbString: string): ColorToFilterResult {
+    return ColorToFilter.rgbToFilter(rgbString);
   }
 
-  public static hexToFilter(hex: string): ColorToFilterResult {
-    return ColorToFilter.hexToFilter(hex);
+  public static hexToFilter(hexString: string): ColorToFilterResult {
+    return ColorToFilter.hexToFilter(hexString);
   }
 
-  public static hslToFilter(hsl: string): ColorToFilterResult {
-    return ColorToFilter.hslToFilter(hsl);
+  public static hslToFilter(hslString: string): ColorToFilterResult {
+    return ColorToFilter.hslToFilter(hslString);
   }
 
   public static keywordToFilter(keyword: KEYWORD): ColorToFilterResult {
     return ColorToFilter.keywordToFilter(keyword);
   }
 
-  public static async filterToRgb(filter: string): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToRgb(filter);
+  public static async filterToRgb(filterString: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToRgb(filterString);
   }
 
-  public static async filterToHex(filter: string): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToHex(filter);
+  public static async filterToHex(filterString: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(filterString);
   }
 
-  public static async filterToHsl(filter: string): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToHex(filter);
+  public static async filterToHsl(filterString: string): Promise<ColorToFilterResult> {
+    return FilterToColor.filterToHex(filterString);
   }
 }
 

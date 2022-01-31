@@ -24,7 +24,7 @@ export class FilterToHexBrowser extends FilterToHexShared {
     return domToImage.toPng(svgContainerElement);
   }
 
-  public static async generate(filterString: string): Promise<ColorToFilterResult> {
+  public static async convert(filterString: string): Promise<ColorToFilterResult> {
     const { errorMessage, svgContainerElement } = FilterToHexShared.addSVGElementsToDOMAndValidateFilter(filterString);
     if (errorMessage) return FilterToHexBrowser.returnInputError(filterString, svgContainerElement);
     const byte64EncodedDataURL = await FilterToHexBrowser.getImageByte64ViaSVG(svgContainerElement);

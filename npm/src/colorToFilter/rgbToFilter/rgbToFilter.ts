@@ -1,5 +1,6 @@
 import { DEFAULT_CONVERSION_ERROR_MESSAGE } from '../../shared/consts/errors';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
+import { UnexpectedError } from '../../shared/types/unexpectedError';
 import { ValidateAndParseResult } from '../rgbColor/rgbColorParser';
 import { ColorToFilterResult } from '../../shared/types/result';
 import { RgbToFilterWorker } from './rgbToFilterWorker';
@@ -7,10 +8,9 @@ import { RGB } from 'color-convert/conversions';
 import { RgbColor } from '../rgbColor/rgbColor';
 
 type ConversionProps<T> = {
-  color: string;
-  validateAndParse?: (color: string) => ValidateAndParseResult<T>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  convertToRgb?: any;
+  colorString: string;
+  validateAndParse?: (colorString: string) => ValidateAndParseResult<T>;
+  convertToRgb?: (color: T) => RGB;
   conversionErrorMessage?: string;
 };
 
@@ -32,14 +32,14 @@ export class RgbToFilter {
 
   public static convert<T>(conversionProps: ConversionProps<T>): ColorToFilterResult {
     try {
-      const { color, validateAndParse, convertToRgb, conversionErrorMessage } = conversionProps;
-      const parseResult = validateAndParse?.(color) || { result: color as unknown as T };
-      if (parseResult.errorMessage) return RgbToFilter.generateValidateAndParseError(parseResult.errorMessage);
-      const conversionResult = convertToRgb?.(parseResult.result);
+      const { colorString, validateAndParse, convertToRgb, conversionErrorMessage } = conversionProps;
+      const parseResult = validateAndParse?.(colorString) || { color: colorString as unknown as T };
+      if (ErrorHandling.hasError(parseResult)) return RgbToFilter.generateValidateAndParseError(parseResult.errorMessage);
+      const conversionResult = convertToRgb?.(parseResult.color);
       if (!conversionResult) return RgbToFilter.generateConversionError(conversionErrorMessage);
       return RgbToFilter.execute(conversionResult);
     } catch (error) {
-      return ErrorHandling.generateUnexpectedError(error as Error);
+      return ErrorHandling.generateUnexpectedError(error as UnexpectedError);
     }
   }
 }
