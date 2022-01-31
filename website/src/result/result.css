@@ -1,0 +1,16 @@
+#result-container {
+  width: 50%;
+  background-color: yellow;
+  transform: translateX(-50%);
+  left: 50%;
+  display: flex;
+}
+
+#result-header {
+  width: 20%;
+  float: left;
+}
+
+#result-value {
+  width: 80%;
+}

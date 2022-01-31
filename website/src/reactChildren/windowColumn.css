@@ -1,0 +1,14 @@
+.window-column {
+  width: 50%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+
+.window-column-contents {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  width: 100%;
+}

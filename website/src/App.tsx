@@ -1,32 +1,20 @@
-import DynamicImportClass from './dynamicImportClass';
-import FilterToColor from './FilterToColor';
-import logo from './logo.svg';
+import WindowColumn from './reactChildren/WindowColumn';
+import Convert from './convert/Convert';
+import Result from './result/Result';
+import Input from './input/Input';
+import 'bulma/css/bulma.min.css';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          <code>src/App.tsx</code>
-          and save to reload.
-        </p>
-        <input
-          readOnly
-          type="text"
-          id="textInput"
-          value="invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)"
-        />
-        <FilterToColor />
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-        <button type="button" onClick={DynamicImportClass.import}>
-          Dynamic
-        </button>
-      </header>
+    <div className="app">
+      <WindowColumn transformXValue="-50%">
+        <Input />
+        <Convert />
+      </WindowColumn>
+      <WindowColumn transformXValue="0%">
+        <Result />
+      </WindowColumn>
     </div>
   );
 }
