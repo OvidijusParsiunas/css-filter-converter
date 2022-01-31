@@ -1,6 +1,5 @@
 #result-container {
   width: 50%;
-  background-color: yellow;
   transform: translateX(-50%);
   left: 50%;
   display: flex;
