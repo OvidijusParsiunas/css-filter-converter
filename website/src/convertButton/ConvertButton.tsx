@@ -1,4 +1,4 @@
-import { BasicColorType } from '../types/colorTypeString';
+import { BasicColorTypes } from '../consts/colorTypes';
 import { ELEMENT_IDS } from '../consts/elementIds';
 import { ColorToFilter } from './colorToFilter';
 import Button from '@mui/material/Button';
@@ -6,7 +6,7 @@ import './convertButton.css';
 
 interface ConvertionInputValues {
   input: string;
-  colorType: BasicColorType;
+  colorType: BasicColorTypes;
 }
 
 function ConvertButton() {
@@ -19,7 +19,7 @@ function ConvertButton() {
     const textInputElement = document.getElementById(ELEMENT_IDS.COLOR_INPUT_FIELD) as HTMLInputElement;
     const input = textInputElement.value;
     const colorTypeDropdownElement = document.getElementById(ELEMENT_IDS.COLOR_TYPE_DROPDOWN) as HTMLElement;
-    const colorType = colorTypeDropdownElement.textContent as BasicColorType;
+    const colorType = colorTypeDropdownElement.textContent as BasicColorTypes;
     return { input, colorType };
   };
 

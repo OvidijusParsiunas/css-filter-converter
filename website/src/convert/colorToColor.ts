@@ -1,66 +1,62 @@
+import { ErrorHandling } from '../../node_modules/css-filter-converter/lib/shared/errorHandling/errorHandling.js';
+import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
+import { BasicColorTypes } from '../consts/colorTypes';
+import ColorConvert from 'color-convert';
 import {
   ColorParser,
   ParseResult,
 } from '../../node_modules/css-filter-converter/lib/colorToFilter/colorParser/colorParser.js';
-import { ErrorHandling } from '../../node_modules/css-filter-converter/lib/shared/errorHandling/errorHandling.js';
-import { ColorConvert, RGB, HEX, HSL, KEYWORD } from '../consts/importsAliases';
-import { BasicColorType } from '../types/colorTypeString';
-import { BASIC_COLOR_TYPES } from '../consts/colorTypes';
 
 type PossibleReturnColors = RGB | HEX | HSL | KEYWORD;
 
 type ConversionResult = PossibleReturnColors | 'error';
 
-// eslint-disable-next-line no-unused-vars
-type ColorPrefix = { [key in BasicColorType]?: string };
+type ColorPrefix = { [key in BasicColorTypes]?: string };
 
-// eslint-disable-next-line no-unused-vars
-type ColorToConverter<T> = { [key in BasicColorType]?: (color: T) => PossibleReturnColors };
+type ColorToConverter<T> = { [key in BasicColorTypes]?: (color: T) => PossibleReturnColors };
 
-// eslint-disable-next-line no-unused-vars
 type Parser<T = PossibleReturnColors> = (rgbString: string) => ParseResult<T>;
 
-// eslint-disable-next-line no-unused-vars
 type Converter<T> = (color: T) => PossibleReturnColors;
 
 export class ColorToColor {
   private static readonly COLOR_PREFIX: ColorPrefix = {
-    [BASIC_COLOR_TYPES.HEX]: '#',
-    [BASIC_COLOR_TYPES.RGB]: 'rgb(',
-    [BASIC_COLOR_TYPES.HSL]: 'hsl(',
+    [BasicColorTypes.HEX]: '#',
+    [BasicColorTypes.RGB]: 'rgb(',
+    [BasicColorTypes.HSL]: 'hsl(',
   };
 
   private static readonly COLOR_POSTFIX: ColorPrefix = {
-    [BASIC_COLOR_TYPES.RGB]: ')',
-    [BASIC_COLOR_TYPES.HSL]: ')',
+    [BasicColorTypes.RGB]: ')',
+    [BasicColorTypes.HSL]: ')',
   };
 
   private static readonly HEX_TO_COLOR: ColorToConverter<string> = {
-    [BASIC_COLOR_TYPES.RGB]: ColorConvert.hex.rgb,
-    [BASIC_COLOR_TYPES.HSL]: ColorConvert.hex.hsl,
-    [BASIC_COLOR_TYPES.KEYWORD]: ColorConvert.hex.keyword,
+    [BasicColorTypes.RGB]: ColorConvert.hex.rgb,
+    [BasicColorTypes.HSL]: ColorConvert.hex.hsl,
+    [BasicColorTypes.KEYWORD]: ColorConvert.hex.keyword,
   };
 
   private static readonly RGB_TO_COLOR: ColorToConverter<RGB> = {
-    [BASIC_COLOR_TYPES.HEX]: ColorConvert.rgb.hex,
-    [BASIC_COLOR_TYPES.HSL]: ColorConvert.rgb.hsl,
-    [BASIC_COLOR_TYPES.KEYWORD]: ColorConvert.rgb.keyword,
+    [BasicColorTypes.HEX]: ColorConvert.rgb.hex,
+    [BasicColorTypes.HSL]: ColorConvert.rgb.hsl,
+    [BasicColorTypes.KEYWORD]: ColorConvert.rgb.keyword,
   };
 
   private static readonly HSL_TO_COLOR: ColorToConverter<HSL> = {
-    [BASIC_COLOR_TYPES.HEX]: ColorConvert.hsl.hex,
-    [BASIC_COLOR_TYPES.RGB]: ColorConvert.hsl.rgb,
-    [BASIC_COLOR_TYPES.KEYWORD]: ColorConvert.hsl.keyword,
+    [BasicColorTypes.HEX]: ColorConvert.hsl.hex,
+    [BasicColorTypes.RGB]: ColorConvert.hsl.rgb,
+    [BasicColorTypes.KEYWORD]: ColorConvert.hsl.keyword,
   };
 
   private static readonly KEYWORD_TO_COLOR: ColorToConverter<KEYWORD> = {
-    [BASIC_COLOR_TYPES.HEX]: ColorConvert.keyword.hex,
-    [BASIC_COLOR_TYPES.RGB]: ColorConvert.keyword.rgb,
-    [BASIC_COLOR_TYPES.HSL]: ColorConvert.keyword.hsl,
+    [BasicColorTypes.HEX]: ColorConvert.keyword.hex,
+    [BasicColorTypes.RGB]: ColorConvert.keyword.rgb,
+    [BasicColorTypes.HSL]: ColorConvert.keyword.hsl,
   };
 
-  private static processResult(newType: BasicColorType, result: PossibleReturnColors): string {
-    if (newType === BASIC_COLOR_TYPES.HSL) {
+  private static processResult(newType: BasicColorTypes, result: PossibleReturnColors): string {
+    if (newType === BasicColorTypes.HSL) {
       result = `${result[0]}deg, ${result[1]}%, ${result[2]}%`;
     } else {
       result = result.toString();
@@ -82,20 +78,20 @@ export class ColorToColor {
     return 'error';
   }
 
-  private static convertOldToNew(color: string, oldType: BasicColorType, newType: BasicColorType): PossibleReturnColors {
-    if (oldType === BASIC_COLOR_TYPES.HEX) {
+  private static convertOldToNew(color: string, oldType: BasicColorTypes, newType: BasicColorTypes): PossibleReturnColors {
+    if (oldType === BasicColorTypes.HEX) {
       return ColorToColor.execute<string>(color, ColorToColor.HEX_TO_COLOR[newType], ColorParser.validateAndParseHex);
     }
-    if (oldType === BASIC_COLOR_TYPES.HSL) {
+    if (oldType === BasicColorTypes.HSL) {
       return ColorToColor.execute<HSL>(color, ColorToColor.HSL_TO_COLOR[newType], ColorParser.validateAndParseHsl);
     }
-    if (oldType === BASIC_COLOR_TYPES.RGB) {
+    if (oldType === BasicColorTypes.RGB) {
       return ColorToColor.execute<RGB>(color, ColorToColor.RGB_TO_COLOR[newType], ColorParser.validateAndParseRgb);
     }
     return ColorToColor.execute<KEYWORD>(color, ColorToColor.KEYWORD_TO_COLOR[newType]);
   }
 
-  public static convert(color: string, oldType: BasicColorType, newType: BasicColorType): string {
+  public static convert(color: string, oldType: BasicColorTypes, newType: BasicColorTypes): string {
     const result = ColorToColor.convertOldToNew(color, oldType, newType);
     return ColorToColor.processResult(newType, result);
   }

@@ -14,6 +14,7 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "css-filter-converter": "^1.0.82",
+    "eslint-config-airbnb-typescript": "^16.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",

@@ -1,11 +1,12 @@
-export const BASIC_COLOR_TYPES = {
-  HEX: 'Hex',
-  RGB: 'RGB',
-  HSL: 'HSL',
-  KEYWORD: 'Keyword',
-} as const;
+export enum BasicColorTypes {
+  HEX = 'Hex',
+  RGB = 'RGB',
+  HSL = 'HSL',
+  KEYWORD = 'Keyword',
+}
 
-export const ALL_COLOR_TYPES = {
-  ...BASIC_COLOR_TYPES,
-  FILTER: 'Filter',
-} as const;
+export enum SpecialColorTypes {
+  FILTER = 'Filter',
+}
+
+export type AllColorTypes = BasicColorTypes | SpecialColorTypes;

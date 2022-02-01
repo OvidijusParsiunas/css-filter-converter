@@ -1,18 +1,17 @@
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { BasicColorType } from '../types/colorTypeString';
-import { BASIC_COLOR_TYPES } from '../consts/colorTypes';
 import { ColorToColor } from '../convert/colorToColor';
+import { BasicColorTypes } from '../consts/colorTypes';
 import { ELEMENT_IDS } from '../consts/elementIds';
 import React from 'react';
 import './input.css';
 
 function Input() {
-  const [colorType, setColorType] = React.useState<BasicColorType>(BASIC_COLOR_TYPES.HEX);
+  const [colorType, setColorType] = React.useState<BasicColorTypes>(BasicColorTypes.HEX);
 
   const changeColorType = (event: SelectChangeEvent<string>): void => {
     const textInputElement = document.getElementById(ELEMENT_IDS.COLOR_INPUT_FIELD) as HTMLInputElement;
     const input = textInputElement.value as string;
-    const newColorType = event.target.value as BasicColorType;
+    const newColorType = event.target.value as BasicColorTypes;
     const result = ColorToColor.convert(input, colorType, newColorType);
     textInputElement.value = result;
     setColorType(newColorType);
@@ -27,10 +26,10 @@ function Input() {
           onChange={changeColorType}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
-          <MenuItem value={BASIC_COLOR_TYPES.HEX}>{BASIC_COLOR_TYPES.HEX}</MenuItem>
-          <MenuItem value={BASIC_COLOR_TYPES.RGB}>{BASIC_COLOR_TYPES.RGB}</MenuItem>
-          <MenuItem value={BASIC_COLOR_TYPES.HSL}>{BASIC_COLOR_TYPES.HSL}</MenuItem>
-          <MenuItem value={BASIC_COLOR_TYPES.KEYWORD}>{BASIC_COLOR_TYPES.KEYWORD}</MenuItem>
+          <MenuItem value={BasicColorTypes.HEX}>{BasicColorTypes.HEX}</MenuItem>
+          <MenuItem value={BasicColorTypes.RGB}>{BasicColorTypes.RGB}</MenuItem>
+          <MenuItem value={BasicColorTypes.HSL}>{BasicColorTypes.HSL}</MenuItem>
+          <MenuItem value={BasicColorTypes.KEYWORD}>{BasicColorTypes.KEYWORD}</MenuItem>
         </Select>
       </FormControl>
       <TextField size="small" id={ELEMENT_IDS.COLOR_INPUT_FIELD} variant="outlined" defaultValue="#3c3ce8" />
