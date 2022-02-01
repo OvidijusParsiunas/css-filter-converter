@@ -1,7 +1,7 @@
-import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
-import { ColorFormats } from '../../shared/consts/colorFormats';
-import { ColorTypes } from '../../shared/consts/colorTypes';
-import { Error } from '../../shared/types/error';
+import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
+import { ColorFormats } from '../../../shared/consts/colorFormats';
+import { ColorTypes } from '../../../shared/consts/colorTypes';
+import { Error } from '../../../shared/types/error';
 
 export interface SVGAddResult extends Partial<Error> {
   svgContainerElement: HTMLElement;

@@ -4,15 +4,17 @@ import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorFormats } from '../../shared/consts/colorFormats';
 import { ColorTypes } from '../../shared/consts/colorTypes';
 import { ColorResult } from '../../shared/types/result';
-import { HSL, RGB } from 'color-convert/conversions';
+import { RGB, HSL } from 'color-convert/conversions';
 import { Error } from '../../shared/types/error';
 
-export type ValidateAndParseResult<T> = Error | ColorResult<T>;
+export type ParseResult<T> = Error | ColorResult<T>;
 
-export class RgbColorParser {
-  public static parseAndValidateHex(hexString: string): ValidateAndParseResult<string> {
-    const result = hexString.match(MATCH_HEXADECIMAL);
-    if (result) return { color: hexString };
+export class ColorParser {
+  public static validateAndParseHex(hexString: string): ParseResult<string> {
+    if (hexString.length < MAX_COLOR_INPUT_STRING_LENGTH) {
+      const result = hexString.match(MATCH_HEXADECIMAL);
+      if (result) return { color: hexString };
+    }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HEX, hexString, ColorFormats.HEX) };
   }
 
@@ -36,19 +38,25 @@ export class RgbColorParser {
     return null;
   }
 
-  public static parseAndValidateRGB(rgbString: string): ValidateAndParseResult<RGB> {
-    const rgb = <RGB>RgbColorParser.parseFirstThreeIntegersFromString(rgbString);
+  public static validateAndParseRgb(rgbString: string): ParseResult<RGB> {
+    const rgb = <RGB>ColorParser.parseFirstThreeIntegersFromString(rgbString);
     if (rgb && rgb[0] <= 255 && rgb[1] <= 255 && rgb[2] <= 255) {
       return { color: rgb };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.RGB, rgbString, ColorFormats.RGB) };
   }
 
-  public static parseAndValidateHSL(hslString: string): ValidateAndParseResult<HSL> {
-    const hsl = <HSL>RgbColorParser.parseFirstThreeIntegersFromString(hslString);
+  public static validateAndParseHsl(hslString: string): ParseResult<HSL> {
+    const hsl = <HSL>ColorParser.parseFirstThreeIntegersFromString(hslString);
     if (hsl && hsl[0] <= 360 && hsl[1] <= 100 && hsl[2] <= 100) {
       return { color: hsl };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HSL, hslString, ColorFormats.HSL) };
   }
 }
+
+// There is a unique opportunity to validate the color input when this library operates in the browser
+// by creating a new element on the dom and adding the color to it to see if it is valid.
+// However it was decided not to use this approach as formats like hsl(1,2,3) are invalid in html elements.
+// Additionally, it can also be time consuming to create/find an element, adding color to it and validating
+// that color.

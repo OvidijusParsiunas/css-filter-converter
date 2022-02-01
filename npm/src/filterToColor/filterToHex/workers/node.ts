@@ -1,10 +1,10 @@
-import { ColorToFilterResult, FilterToColorResult } from '../../shared/types/result';
-import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
-import { MUST_INSTALL_PUPPETEER } from '../../shared/consts/errors';
-import { ColorFormats } from '../../shared/consts/colorFormats';
-import { ColorTypes } from '../../shared/consts/colorTypes';
+import { ColorToFilterResult, FilterToColorResult } from '../../../shared/types/result';
+import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
+import { MUST_INSTALL_PUPPETEER } from '../../../shared/consts/errors';
+import { ColorFormats } from '../../../shared/consts/colorFormats';
+import { ColorTypes } from '../../../shared/consts/colorTypes';
 import { FilterToHexShared, SVGAddResult } from './shared';
-import { Error } from '../../shared/types/error';
+import { Error } from '../../../shared/types/error';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as Puppeteer from 'puppeteer';
 

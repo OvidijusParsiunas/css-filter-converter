@@ -2,8 +2,8 @@
 // https://codepen.io/sosuke/pen/Pjoqqp
 
 import { ColorToFilterResult } from '../../shared/types/result';
-import { RgbColor } from '../rgbColor/rgbColor';
 import { SPSA } from '../../shared/types/SPSA';
+import { RgbColor } from './rgbColor';
 
 export class RgbToFilterWorker {
   private readonly targetRgbColor: RgbColor;

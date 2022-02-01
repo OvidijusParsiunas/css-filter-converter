@@ -1,4 +1,4 @@
-import { BASIC_COLOR_TYPE_STRING } from '../types/colorTypeString';
+import { BasicColorType } from '../types/colorTypeString';
 import { BASIC_COLOR_TYPES } from '../consts/colorTypes';
 import CssFilterConverter from 'css-filter-converter';
 import { KEYWORD } from '../consts/importsAliases';
@@ -15,7 +15,7 @@ export class ColorToFilter {
   };
 
   // deal with null checks
-  public static convert(inputColor: string | KEYWORD, colorType: BASIC_COLOR_TYPE_STRING): string {
+  public static convert(inputColor: string | KEYWORD, colorType: BasicColorType): string {
     if (colorType === BASIC_COLOR_TYPES.KEYWORD) {
       return ColorToFilter.COLOR_TYPE_TO_KEYWORD_CONVERTER[colorType](inputColor as KEYWORD).color as string;
     }

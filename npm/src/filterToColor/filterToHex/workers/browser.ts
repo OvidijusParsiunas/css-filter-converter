@@ -1,5 +1,5 @@
-import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
-import { ColorToFilterResult } from '../../shared/types/result';
+import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
+import { ColorToFilterResult } from '../../../shared/types/result';
 import { FilterToHexShared } from './shared';
 import DomToImage from 'dom-to-image';
 

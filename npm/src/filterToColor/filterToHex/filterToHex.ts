@@ -1,7 +1,7 @@
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { FilterToColorResult } from '../../shared/types/result';
+import { FilterToHexBrowser } from './workers/browser';
 import { HEX } from 'color-convert/conversions';
-import { FilterToHexBrowser } from './browser';
 
 type Converter<T> = (color: HEX) => T & { toString: () => string };
 
@@ -10,7 +10,7 @@ export class FilterToHex {
     try {
       let result: FilterToColorResult;
       if (typeof window === 'undefined') {
-        const { FilterToHexNode } = await import('./node');
+        const { FilterToHexNode } = await import('./workers/node');
         result = await FilterToHexNode.convert(filterString);
       } else {
         result = await FilterToHexBrowser.convert(filterString);

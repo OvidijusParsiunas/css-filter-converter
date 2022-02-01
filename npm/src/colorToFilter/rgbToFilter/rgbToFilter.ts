@@ -1,15 +1,15 @@
 import { DEFAULT_CONVERSION_ERROR_MESSAGE } from '../../shared/consts/errors';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { UnexpectedError } from '../../shared/types/unexpectedError';
-import { ValidateAndParseResult } from '../rgbColor/rgbColorParser';
 import { ColorToFilterResult } from '../../shared/types/result';
+import { ParseResult } from '../colorParser/colorParser';
 import { RgbToFilterWorker } from './rgbToFilterWorker';
 import { RGB } from 'color-convert/conversions';
-import { RgbColor } from '../rgbColor/rgbColor';
+import { RgbColor } from './rgbColor';
 
 type ConversionProps<T> = {
   colorString: string;
-  validateAndParse?: (colorString: string) => ValidateAndParseResult<T>;
+  validateAndParse?: (colorString: string) => ParseResult<T>;
   convertToRgb?: (color: T) => RGB;
   conversionErrorMessage?: string;
 };

@@ -1,8 +1,8 @@
 import { ErrorHandling } from '../shared/errorHandling/errorHandling';
 import { ColorToFilterResult } from '../shared/types/result';
-import { RgbColorParser } from './rgbColor/rgbColorParser';
 import { ColorTypes } from '../shared/consts/colorTypes';
 import { RgbToFilter } from './rgbToFilter/rgbToFilter';
+import { ColorParser } from './colorParser/colorParser';
 import { KEYWORD } from 'color-convert/conversions';
 import Converter from 'color-convert';
 
@@ -10,14 +10,14 @@ export class ColorToFilter {
   public static rgbToFilter(rgbString: string): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: rgbString,
-      validateAndParse: RgbColorParser.parseAndValidateRGB,
+      validateAndParse: ColorParser.validateAndParseRgb,
     });
   }
 
   public static hexToFilter(hexString: string): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: hexString,
-      validateAndParse: RgbColorParser.parseAndValidateHex,
+      validateAndParse: ColorParser.validateAndParseHex,
       convertToRgb: Converter.hex.rgb,
     });
   }
@@ -25,7 +25,7 @@ export class ColorToFilter {
   public static hslToFilter(hslString: string): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: hslString,
-      validateAndParse: RgbColorParser.parseAndValidateHSL,
+      validateAndParse: ColorParser.validateAndParseHsl,
       convertToRgb: Converter.hsl.rgb,
     });
   }
