@@ -13,7 +13,7 @@ function Input() {
     const textInputElement = document.getElementById(ELEMENT_IDS.COLOR_INPUT_FIELD) as HTMLInputElement;
     const input = textInputElement.value as string;
     const newColorType = event.target.value as BasicColorType;
-    const result = ColorToColor.convert(colorType, newColorType, input);
+    const result = ColorToColor.convert(input, colorType, newColorType);
     textInputElement.value = result;
     setColorType(newColorType);
   };
