@@ -1,5 +1,6 @@
 import ConvertButton from './convertButton/ConvertButton';
 import WindowColumn from './reactChildren/WindowColumn';
+import { ELEMENT_IDS } from './consts/elementIds';
 import Result from './resultColumn/Result';
 import Input from './inputColumn/Input';
 import './App.css';
@@ -14,6 +15,7 @@ function App() {
         <Result />
       </WindowColumn>
       <ConvertButton />
+      <div id={ELEMENT_IDS.COLOR_VALIDATION_ELEMENT} />
     </div>
   );
 }

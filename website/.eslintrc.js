@@ -43,6 +43,7 @@ module.exports = {
     'object-curly-newline': 'off',
     'import/order': 'off',
     'import/prefer-default-export': 'off',
+    'no-param-reassign': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
