@@ -8,5 +8,3 @@ export enum BasicColorTypes {
 export enum SpecialColorTypes {
   FILTER = 'Filter',
 }
-
-export type AllColorTypes = BasicColorTypes | SpecialColorTypes;

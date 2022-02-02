@@ -1,4 +1,4 @@
-import { ELEMENT_IDS } from '../consts/elementIds';
+import { ElementIds } from '../../../shared/consts/elementIds';
 import './result.css';
 
 function Result() {
@@ -8,7 +8,7 @@ function Result() {
         <div>Result:</div>
       </div>
       <div id="result-value-field">
-        <div id={ELEMENT_IDS.RESULT_VALUE} />
+        <div id={ElementIds.RESULT_VALUE} />
       </div>
     </div>
   );

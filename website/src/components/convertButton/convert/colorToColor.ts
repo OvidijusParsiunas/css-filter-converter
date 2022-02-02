@@ -1,11 +1,8 @@
-import { ErrorHandling } from '../../node_modules/css-filter-converter/lib/shared/errorHandling/errorHandling.js';
+import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
+import { ErrorHandling } from 'css-filter-converter/lib/shared/errorHandling/errorHandling';
 import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
-import { BasicColorTypes } from '../consts/colorTypes';
+import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import ColorConvert from 'color-convert';
-import {
-  ColorParser,
-  ParseResult,
-} from '../../node_modules/css-filter-converter/lib/colorToFilter/colorParser/colorParser.js';
 
 type PossibleReturnColors = RGB | HEX | HSL | KEYWORD;
 

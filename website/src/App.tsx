@@ -1,7 +1,7 @@
-import ConvertButton from './convertButton/ConvertButton';
-import WindowColumn from './reactChildren/WindowColumn';
-import Result from './resultColumn/Result';
-import Input from './inputColumn/Input';
+import ConvertButton from './components/convertButton/ConvertButton';
+import WindowColumn from './components/columns/reactChildren/WindowColumn';
+import Result from './components/columns/resultColumn/Result';
+import Input from './components/columns/inputColumn/Input';
 import './App.css';
 
 function App() {
