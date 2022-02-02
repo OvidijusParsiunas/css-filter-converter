@@ -19,13 +19,13 @@ export class HSLBasicColor extends BasicColor {
   }
 
   protected convert(parseResult: HSL): ConversionResult {
-    const converter = HSLBasicColor.HSL_TO_COLOR[this.newType];
+    const converter = HSLBasicColor.HSL_TO_COLOR[this.newColor.colorType];
     if (converter) return converter(parseResult);
     return 'error';
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatTargetString(result: PossibleReturnColors): string {
+  protected formatResult(result: PossibleReturnColors): string {
     return `hsl(${result[0]}deg, ${result[1]}%, ${result[2]}%)`;
   }
 }

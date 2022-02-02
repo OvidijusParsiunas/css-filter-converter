@@ -6,7 +6,7 @@ import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class RGBBasicColor extends BasicColor {
-  public colorType: BasicColorTypes = BasicColorTypes.HEX;
+  public colorType: BasicColorTypes = BasicColorTypes.RGB;
 
   private static readonly RGB_TO_COLOR: ColorToConverter<RGB> = {
     [BasicColorTypes.HEX]: ColorConvert.rgb.hex,
@@ -19,13 +19,13 @@ export class RGBBasicColor extends BasicColor {
   }
 
   protected convert(parseResult: RGB): ConversionResult {
-    const converter = RGBBasicColor.RGB_TO_COLOR[this.newType];
+    const converter = RGBBasicColor.RGB_TO_COLOR[this.newColor.colorType];
     if (converter) return converter(parseResult);
     return 'error';
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatTargetString(result: PossibleReturnColors): string {
+  protected formatResult(result: PossibleReturnColors): string {
     return `rgb(${result.toString()})`;
   }
 }

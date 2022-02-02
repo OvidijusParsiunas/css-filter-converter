@@ -1,14 +1,9 @@
+import { ColorToConverter, ConversionResult, PossibleReturnColors } from '../../../../shared/types/basicColorFactory';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
-import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { KEYWORD } from 'color-convert/conversions';
 import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
-
-type PossibleReturnColors = RGB | HEX | HSL | KEYWORD;
-
-type ColorToConverter<T> = { [key in BasicColorTypes]?: (color: T) => PossibleReturnColors };
-
-type ConversionResult = PossibleReturnColors | 'error';
 
 export class KeywordBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.KEYWORD;
@@ -24,13 +19,13 @@ export class KeywordBasicColor extends BasicColor {
   }
 
   protected convert(parseResult: KEYWORD): ConversionResult {
-    const converter = KeywordBasicColor.KEYWORD_TO_COLOR[this.newType];
+    const converter = KeywordBasicColor.KEYWORD_TO_COLOR[this.newColor.colorType];
     if (converter) return converter(parseResult);
     return 'error';
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatTargetString(result: PossibleReturnColors): string {
+  protected formatResult(result: PossibleReturnColors): string {
     return result.toString();
   }
 }

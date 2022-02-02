@@ -5,7 +5,7 @@ import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class HexBasicColor extends BasicColor {
-  public colorType: BasicColorTypes = BasicColorTypes.RGB;
+  public colorType: BasicColorTypes = BasicColorTypes.HEX;
 
   private static readonly HEX_TO_COLOR: ColorToConverter<string> = {
     [BasicColorTypes.RGB]: ColorConvert.hex.rgb,
@@ -18,13 +18,13 @@ export class HexBasicColor extends BasicColor {
   }
 
   protected convert(parseResult: string): ConversionResult {
-    const converter = HexBasicColor.HEX_TO_COLOR[this.newType];
+    const converter = HexBasicColor.HEX_TO_COLOR[this.newColor.colorType];
     if (converter) return converter(parseResult);
     return 'error';
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatTargetString(result: PossibleReturnColors): string {
+  protected formatResult(result: PossibleReturnColors): string {
     return `#${result.toString()}`;
   }
 }

@@ -22,3 +22,6 @@ validate and expand shorthand hex to long
 Website:
 
 check if project starts with no color convert
+
+result history should fade in
+result history should then animate with new at top and the rest of the text gets pushed down
