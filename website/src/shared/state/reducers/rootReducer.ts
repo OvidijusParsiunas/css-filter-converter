@@ -1,8 +1,9 @@
-import { ColorInputReducer, ValidationState } from './colorInputReducer';
+import { ColorInputState } from '../../types/state/colorInputState';
 import { CombinedState, combineReducers, Reducer } from 'redux';
+import { ColorInputReducer } from './colorInputReducer';
 
 export type RootReducer = {
-  colorInput: ValidationState;
+  colorInput: ColorInputState;
 };
 
 export const rootReducer: Reducer<CombinedState<RootReducer>, never> = combineReducers({

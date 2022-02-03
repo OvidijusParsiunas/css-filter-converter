@@ -1,5 +1,5 @@
+import { RootReducer } from '../../shared/state/reducers/rootReducer';
 import { BasicColorTypes } from '../../shared/consts/colorTypes';
-import { RootReducer } from '../../state/reducers/rootReducer';
 import { ElementIds } from '../../shared/consts/elementIds';
 import { ColorToFilter } from './colorToFilter';
 import Button from '@mui/material/Button';

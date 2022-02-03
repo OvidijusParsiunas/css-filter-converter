@@ -1,6 +1,6 @@
 import reportWebVitals from './reportWebVitals';
+import { store } from './shared/state/store';
 import { Provider } from 'react-redux';
-import { store } from './state/store';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './App';

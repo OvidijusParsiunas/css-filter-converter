@@ -1,15 +1,11 @@
-import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { ColorInputAction } from '../../types/state/colorInputActions';
+import { ColorInputState } from '../../types/state/colorInputState';
+import { BasicColorTypes } from '../../consts/colorTypes';
 
 // configure initial value consts
 // consts for actions
 
-export interface ValidationState {
-  isValid: boolean;
-  text: string;
-  colorType: BasicColorTypes;
-}
-
-const initialState: ValidationState = {
+const initialState: ColorInputState = {
   isValid: true,
   text: '#3c3ce8',
   colorType: BasicColorTypes.HEX,
@@ -20,16 +16,10 @@ const initialAction: ColorInputAction = {
   payload: { text: '#3c3ce8' },
 };
 
-export type UpdateTextAction = { type: 'UPDATE_TEXT'; payload: { text: string } };
-export type UpdateIsValidAction = { type: 'UPDATE_IS_VALID'; payload: { isValid: boolean } };
-export type UpdateColorTypeAction = { type: 'UPDATE_COLOR_TYPE'; payload: { colorType: BasicColorTypes } };
-
-export type ColorInputAction = UpdateTextAction | UpdateIsValidAction | UpdateColorTypeAction;
-
 export const ColorInputReducer = (
-  state: ValidationState = initialState,
+  state: ColorInputState = initialState,
   action: ColorInputAction = initialAction,
-): ValidationState => {
+): ColorInputState => {
   switch (action.type) {
     case 'UPDATE_IS_VALID': {
       return { ...state, isValid: action.payload.isValid };

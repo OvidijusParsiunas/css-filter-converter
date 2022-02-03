@@ -1,10 +1,10 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { ColorInputAction } from '../../../shared/types/state/colorInputActions';
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
-import { ColorInputAction } from '../../../state/reducers/colorInputReducer';
 import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
+import { RootReducer } from '../../../shared/state/reducers/rootReducer';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
-import { RootReducer } from '../../../state/reducers/rootReducer';
 import { ElementIds } from '../../../shared/consts/elementIds';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
@@ -12,11 +12,12 @@ import './input.css';
 
 function Input() {
   const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(new HexBasicColor());
-  const dispatch = useDispatch();
 
   const isColorInputValid = useSelector<RootReducer, RootReducer['colorInput']['isValid']>(
     (state) => state.colorInput.isValid,
   );
+
+  const dispatch = useDispatch();
 
   const setIsColorValid = (isValid: boolean) => {
     dispatch({ type: 'UPDATE_IS_VALID', payload: { isValid } } as ColorInputAction);
