@@ -1,15 +1,26 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
+import { ColorInputAction } from '../../../state/reducers/colorInputReducer';
 import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
+import { RootReducer } from '../../../state/reducers/rootReducer';
 import { ElementIds } from '../../../shared/consts/elementIds';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import './input.css';
 
 function Input() {
-  const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(new HexBasicColor('#3c3ce8'));
-  const [isInputValid, setIsInputValid] = React.useState(true);
+  const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(new HexBasicColor());
+  const dispatch = useDispatch();
+
+  const isColorInputValid = useSelector<RootReducer, RootReducer['colorInput']['isValid']>(
+    (state) => state.colorInput.isValid,
+  );
+
+  const setIsColorValid = (isValid: boolean) => {
+    dispatch({ type: 'UPDATE_IS_VALID', payload: { isValid } } as ColorInputAction);
+  };
 
   const changeColorType = (event: SelectChangeEvent<string>): void => {
     const textInputElement = document.getElementById(ElementIds.COLOR_INPUT_FIELD) as HTMLInputElement;
@@ -18,12 +29,11 @@ function Input() {
     selectedBasicColor.convertAndSetColorStringOnNewColor(newBasicColor);
     textInputElement.value = newBasicColor.colorString;
     setSelectedBasicColor(newBasicColor);
-    setIsInputValid(!!newBasicColor.parseResult);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     selectedBasicColor.setAndParseColorString(event.target.value);
-    setIsInputValid(!!selectedBasicColor.parseResult);
+    setIsColorValid(!!selectedBasicColor.parseResult);
   };
 
   return (
@@ -42,7 +52,7 @@ function Input() {
         </Select>
       </FormControl>
       <TextField
-        error={!isInputValid}
+        error={!isColorInputValid}
         size="small"
         id={ElementIds.COLOR_INPUT_FIELD}
         variant="outlined"

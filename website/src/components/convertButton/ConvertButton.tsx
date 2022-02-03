@@ -1,7 +1,9 @@
 import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { RootReducer } from '../../state/reducers/rootReducer';
 import { ElementIds } from '../../shared/consts/elementIds';
 import { ColorToFilter } from './colorToFilter';
 import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
 import './convertButton.css';
 
 interface ConvertionInputValues {
@@ -10,6 +12,10 @@ interface ConvertionInputValues {
 }
 
 function ConvertButton() {
+  const isColorInputValid = useSelector<RootReducer, RootReducer['colorInput']['isValid']>(
+    (state) => state.colorInput.isValid,
+  );
+
   const setResult = (result: string): void => {
     const resultElement = document.getElementById(ElementIds.RESULT_VALUE) as HTMLInputElement;
     resultElement.innerText = result;
@@ -31,7 +37,7 @@ function ConvertButton() {
 
   return (
     <div id="convert-button-container">
-      <Button variant="contained" color="primary" id="convert-button" onClick={convert}>
+      <Button disabled={!isColorInputValid} variant="contained" color="primary" id="convert-button" onClick={convert}>
         Convert
       </Button>
     </div>

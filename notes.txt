@@ -21,6 +21,10 @@ validate and expand shorthand hex to long
 
 Website:
 
+rgb(1,2,3) in hex then changed to rgb returns a weird error
+
+need validation for keyword
+
 check if project starts with no color convert
 
 result history should fade in
