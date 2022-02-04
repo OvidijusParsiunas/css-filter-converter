@@ -1,9 +1,9 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { ColorInputAction } from '../../../shared/types/state/colorInputActions';
+import { updateIsColorValid } from '../../../shared/state/colorInput/colorInputActions';
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
 import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
-import { RootReducer } from '../../../shared/state/reducers/rootReducer';
+import { RootReducer } from '../../../shared/types/state/rootReducer';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { ElementIds } from '../../../shared/consts/elementIds';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +19,6 @@ function Input() {
 
   const dispatch = useDispatch();
 
-  const setIsColorValid = (isValid: boolean) => {
-    dispatch({ type: 'UPDATE_IS_VALID', payload: { isValid } } as ColorInputAction);
-  };
-
   const changeColorType = (event: SelectChangeEvent<string>): void => {
     const textInputElement = document.getElementById(ElementIds.COLOR_INPUT_FIELD) as HTMLInputElement;
     const newColorType = event.target.value as BasicColorTypes;
@@ -34,7 +30,7 @@ function Input() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     selectedBasicColor.setAndParseColorString(event.target.value);
-    setIsColorValid(!!selectedBasicColor.parseResult);
+    dispatch(updateIsColorValid(!!selectedBasicColor.parseResult));
   };
 
   return (

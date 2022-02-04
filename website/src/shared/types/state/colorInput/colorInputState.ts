@@ -1,4 +1,4 @@
-import { BasicColorTypes } from '../../consts/colorTypes';
+import { BasicColorTypes } from '../../../consts/colorTypes';
 
 export interface ColorInputState {
   isValid: boolean;

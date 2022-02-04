@@ -1,4 +1,4 @@
-import { RootReducer } from '../../shared/state/reducers/rootReducer';
+import { RootReducer } from '../../shared/types/state/rootReducer';
 import { BasicColorTypes } from '../../shared/consts/colorTypes';
 import { ElementIds } from '../../shared/consts/elementIds';
 import { ColorToFilter } from './colorToFilter';

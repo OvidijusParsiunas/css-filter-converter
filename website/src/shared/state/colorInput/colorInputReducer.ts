@@ -1,5 +1,5 @@
-import { ColorInputAction } from '../../types/state/colorInputActions';
-import { ColorInputState } from '../../types/state/colorInputState';
+import { ColorInputAction } from '../../types/state/colorInput/colorInputActions';
+import { ColorInputState } from '../../types/state/colorInput/colorInputState';
 import { BasicColorTypes } from '../../consts/colorTypes';
 
 // configure initial value consts
