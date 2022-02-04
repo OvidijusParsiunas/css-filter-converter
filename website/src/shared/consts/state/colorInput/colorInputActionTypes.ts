@@ -1,0 +1,5 @@
+export enum ColorInputActionTypes {
+  UPDATE_TEXT = 'UPDATE_TEXT',
+  UPDATE_IS_VALID = 'UPDATE_IS_VALID',
+  UPDATE_COLOR_TYPE = 'UPDATE_COLOR_TYPE',
+}

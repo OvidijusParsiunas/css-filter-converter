@@ -1,9 +1,9 @@
+import { ColorInputActionTypes } from '../../consts/state/colorInput/colorInputActionTypes';
 import { ColorInputAction } from '../../types/state/colorInput/colorInputActions';
 import { ColorInputState } from '../../types/state/colorInput/colorInputState';
 import { BasicColorTypes } from '../../consts/colorTypes';
 
 // configure initial value consts
-// consts for actions
 
 const initialState: ColorInputState = {
   isValid: true,
@@ -12,7 +12,7 @@ const initialState: ColorInputState = {
 };
 
 const initialAction: ColorInputAction = {
-  type: 'UPDATE_TEXT',
+  type: ColorInputActionTypes.UPDATE_TEXT,
   payload: { text: '#3c3ce8' },
 };
 
@@ -21,13 +21,13 @@ export const ColorInputReducer = (
   action: ColorInputAction = initialAction,
 ): ColorInputState => {
   switch (action.type) {
-    case 'UPDATE_IS_VALID': {
+    case ColorInputActionTypes.UPDATE_IS_VALID: {
       return { ...state, isValid: action.payload.isValid };
     }
-    case 'UPDATE_TEXT': {
+    case ColorInputActionTypes.UPDATE_TEXT: {
       return { ...state, text: action.payload.text };
     }
-    case 'UPDATE_COLOR_TYPE': {
+    case ColorInputActionTypes.UPDATE_COLOR_TYPE: {
       return { ...state, colorType: action.payload.colorType };
     }
     default:
