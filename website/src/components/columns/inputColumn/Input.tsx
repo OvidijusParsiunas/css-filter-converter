@@ -42,7 +42,6 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
     <div>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
         <Select
-          id={ElementIds.COLOR_TYPE_DROPDOWN}
           value={selectedBasicColor.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
