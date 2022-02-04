@@ -2,9 +2,14 @@ import { ColorInputActionTypes } from '../../consts/state/colorInput/colorInputA
 import { ColorInputAction } from '../../types/state/colorInput/colorInputActions';
 import { BasicColorTypes } from '../../consts/colorTypes';
 
-export const updateColorTextAndIsValid = (text: string, isValid: boolean): ColorInputAction => ({
-  type: ColorInputActionTypes.UPDATE_TEXT_AND_IS_VALID,
-  payload: { text, isValid },
+export const updateColorText = (text: string): ColorInputAction => ({
+  type: ColorInputActionTypes.UPDATE_TEXT,
+  payload: { text },
+});
+
+export const updateIsValid = (isValid: boolean): ColorInputAction => ({
+  type: ColorInputActionTypes.UPDATE_IS_VALID,
+  payload: { isValid },
 });
 
 export const updateColorType = (colorType: BasicColorTypes): ColorInputAction => ({

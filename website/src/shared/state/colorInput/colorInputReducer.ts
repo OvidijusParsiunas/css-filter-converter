@@ -10,8 +10,8 @@ const initialState: ColorInputState = {
 };
 
 const initialAction: ColorInputAction = {
-  type: ColorInputActionTypes.UPDATE_TEXT_AND_IS_VALID,
-  payload: { text: initialState.text, isValid: initialState.isValid },
+  type: ColorInputActionTypes.UPDATE_TEXT,
+  payload: { text: initialState.text },
 };
 
 export const ColorInputReducer = (
@@ -19,8 +19,11 @@ export const ColorInputReducer = (
   action: ColorInputAction = initialAction,
 ): ColorInputState => {
   switch (action.type) {
-    case ColorInputActionTypes.UPDATE_TEXT_AND_IS_VALID: {
-      return { ...state, text: action.payload.text, isValid: action.payload.isValid };
+    case ColorInputActionTypes.UPDATE_TEXT: {
+      return { ...state, text: action.payload.text };
+    }
+    case ColorInputActionTypes.UPDATE_IS_VALID: {
+      return { ...state, isValid: action.payload.isValid };
     }
     case ColorInputActionTypes.UPDATE_COLOR_TYPE: {
       return { ...state, colorType: action.payload.colorType };

@@ -9,6 +9,8 @@ import { Error } from 'css-filter-converter/lib/shared/types/error';
 export abstract class BasicColor {
   public abstract colorType: BasicColorTypes;
 
+  protected abstract defaultColorString: string;
+
   public abstract colorString: string;
 
   public abstract parseResult: ColorConversionTypes | null;
@@ -40,12 +42,17 @@ export abstract class BasicColor {
     this.setAndParseColorString(formattedString);
   }
 
-  public convertAndSetColorStringOnNewColor(newColor: BasicColor): void {
+  public convertAndSetColorStringOnNewBasicColor(newColor: BasicColor): void {
     try {
+      let wasColorStringSet = false;
       if (this.parseResult) {
         const conversionResult = this.convert(newColor.colorType);
-        if (conversionResult) newColor.setPostConversionResult(conversionResult);
+        if (conversionResult) {
+          newColor.setPostConversionResult(conversionResult);
+          wasColorStringSet = true;
+        }
       }
+      if (!wasColorStringSet) newColor.setAndParseColorString(newColor.defaultColorString);
     } catch (error) {
       // should throw here and error should be caught in the ui
       BasicColor.generateUnexpectedError(error as UnexpectedError);

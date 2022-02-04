@@ -1,7 +1,7 @@
 import { ReactChild } from 'react';
 import './column.css';
 
-function Column(props: { children: ReactChild; transformXValue: string }) {
+export default function Column(props: { children: ReactChild; transformXValue: string }) {
   const { children, transformXValue } = props;
   return (
     <div className="column">
@@ -11,5 +11,3 @@ function Column(props: { children: ReactChild; transformXValue: string }) {
     </div>
   );
 }
-
-export default Column;

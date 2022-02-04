@@ -1,7 +1,7 @@
 import { ElementIds } from '../../../shared/consts/elementIds';
 import './result.css';
 
-function Result() {
+export default function Result() {
   return (
     <div id="result-container">
       <div id="result-header">
@@ -13,5 +13,3 @@ function Result() {
     </div>
   );
 }
-
-export default Result;

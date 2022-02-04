@@ -8,9 +8,11 @@ import ColorConvert from 'color-convert';
 export class KeywordBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.KEYWORD;
 
-  public colorString: KEYWORD = 'darkblue';
+  protected defaultColorString: KEYWORD = 'lightskyblue';
 
-  public parseResult: KEYWORD = 'darkblue';
+  public colorString: KEYWORD = this.defaultColorString;
+
+  public parseResult: KEYWORD = this.colorString;
 
   private static readonly KEYWORD_TO_COLOR: ColorToConverter<KEYWORD> = {
     [BasicColorTypes.HEX]: ColorConvert.keyword.hex,

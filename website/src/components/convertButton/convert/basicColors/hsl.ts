@@ -1,5 +1,6 @@
 import { ColorToConverter, ConversionResult, ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
+import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { HSL } from 'color-convert/conversions';
 import { BasicColor } from './basicColor';
@@ -8,9 +9,11 @@ import ColorConvert from 'color-convert';
 export class HSLBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.HSL;
 
-  public colorString = 'hsl(240deg 79% 57%)';
+  protected defaultColorString = 'hsl(203deg, 92%, 75%)';
 
-  public parseResult: HSL = [240, 79, 57];
+  public colorString = this.defaultColorString;
+
+  public parseResult = (this.parse() as ColorResult<HSL>).color as HSL;
 
   private static readonly HSL_TO_COLOR: ColorToConverter<HSL> = {
     [BasicColorTypes.HEX]: ColorConvert.hsl.hex,

@@ -1,5 +1,6 @@
 import { ColorToConverter, ConversionResult, ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
+import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
@@ -7,9 +8,11 @@ import ColorConvert from 'color-convert';
 export class HexBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.HEX;
 
-  public colorString = '#3c3ce8';
+  protected defaultColorString = '#87CEFA';
 
-  public parseResult = '#3c3ce8';
+  public colorString = this.defaultColorString;
+
+  public parseResult = (this.parse() as ColorResult).color as string;
 
   private static readonly HEX_TO_COLOR: ColorToConverter<string> = {
     [BasicColorTypes.RGB]: ColorConvert.hex.rgb,
