@@ -3,7 +3,7 @@ import ConvertButton from './components/convertButton/ConvertButton';
 import Column from './components/columns/reactChildren/column';
 import Result from './components/columns/resultColumn/Result';
 import Input from './components/columns/inputColumn/Input';
-import { store } from './shared/state/store';
+import { store } from './state/store';
 import './App.css';
 
 export default function App() {

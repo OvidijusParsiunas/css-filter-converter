@@ -1,7 +1,6 @@
-import { ColorInputActionTypes } from '../../consts/state/colorInput/colorInputActionTypes';
-import { ColorInputAction } from '../../types/state/colorInput/colorInputActions';
-import { ColorInputState } from '../../types/state/colorInput/colorInputState';
-import { BasicColorTypes } from '../../consts/colorTypes';
+import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { ColorInputAction, ColorInputState } from './types';
+import { ColorInputActionTypes } from './consts';
 
 const initialState: ColorInputState = {
   isValid: true,

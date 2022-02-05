@@ -1,6 +1,6 @@
-import { ColorInputActionTypes } from '../../consts/state/colorInput/colorInputActionTypes';
-import { ColorInputAction } from '../../types/state/colorInput/colorInputActions';
-import { BasicColorTypes } from '../../consts/colorTypes';
+import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { ColorInputActionTypes } from './consts';
+import { ColorInputAction } from './types';
 
 export const updateColorText = (text: string): ColorInputAction => ({
   type: ColorInputActionTypes.UPDATE_TEXT,

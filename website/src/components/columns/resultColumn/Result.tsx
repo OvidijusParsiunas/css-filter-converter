@@ -1,4 +1,4 @@
-import { RootReducer } from '../../../shared/types/state/rootReducer';
+import { RootReducer } from '../../../state/rootReducer';
 import { useSelector } from 'react-redux';
 import './result.css';
 

@@ -1,8 +1,8 @@
-import { updateResult } from '../../shared/state/result/resultActions';
-import { RootReducer } from '../../shared/types/state/rootReducer';
+import { updateResult } from '../../state/result/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { store } from '../../shared/state/store';
+import { RootReducer } from '../../state/rootReducer';
 import { ColorToFilter } from './colorToFilter';
+import { store } from '../../state/store';
 import Button from '@mui/material/Button';
 import './convertButton.css';
 

@@ -1,4 +1,4 @@
-import { updateColorText, updateColorType, updateIsValid } from '../../../shared/state/colorInput/colorInputActions';
+import { updateIsValid, updateColorType, updateColorText } from '../../../state/colorInput/actions';
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';

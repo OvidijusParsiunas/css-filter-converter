@@ -1,6 +1,5 @@
-import { ResultActionTypes } from '../../consts/state/result/resultActionTypes';
-import { ResultAction } from '../../types/state/result/resultActions';
-import { ResultState } from '../../types/state/result/resultState';
+import { ResultAction, ResultState } from './type';
+import { ResultActionTypes } from './consts';
 
 const initialState: ResultState = {
   text: '',
