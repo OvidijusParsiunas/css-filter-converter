@@ -1,10 +1,10 @@
+import { addToResultHistory } from '../../state/history/actions';
 import { updateResult } from '../../state/result/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducer } from '../../state/rootReducer';
 import { ColorToFilter } from './colorToFilter';
 import { store } from '../../state/store';
 import Button from '@mui/material/Button';
-import './convertButton.css';
 
 function ConvertButton() {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ function ConvertButton() {
     const { text, colorType } = store.getState().colorInput;
     const resultColor = ColorToFilter.convert(text, colorType);
     dispatch(updateResult(resultColor));
+    dispatch(addToResultHistory(resultColor));
   };
 
   const styling = {
@@ -27,18 +28,9 @@ function ConvertButton() {
   };
 
   return (
-    <div id="convert-button-container">
-      <Button
-        sx={styling}
-        disabled={!isColorInputValid}
-        variant="contained"
-        color="primary"
-        id="convert-button"
-        onClick={convert}
-      >
-        Convert
-      </Button>
-    </div>
+    <Button sx={styling} disabled={!isColorInputValid} variant="contained" color="primary" onClick={convert}>
+      Convert
+    </Button>
   );
 }
 

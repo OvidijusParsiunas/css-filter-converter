@@ -1,0 +1,4 @@
+export enum HistoryActionTypes {
+  ADD_TO_INPUT_HISTORY = 'ADD_TO_INPUT_HISTORY',
+  ADD_TO_RESULT_HISTORY = 'ADD_TO_RESULT_HISTORY',
+}

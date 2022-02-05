@@ -1,5 +1,4 @@
 .column {
-  width: 50%;
   height: 100%;
   float: left;
   position: relative;
@@ -7,8 +6,9 @@
 
 .column-contents {
   position: absolute;
-  top: 50%;
+  top: 47%;
   left: 50%;
   margin: 0;
   width: 100%;
+  transform: translate(-50%, -50%);
 }

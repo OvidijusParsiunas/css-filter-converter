@@ -9,15 +9,19 @@ import './App.css';
 export default function App() {
   const defaultColorInput = store.getState().colorInput;
 
+  // this will need to be fixed
+  // side column width / center column width
   return (
     <div className="app">
-      <Column transformXValue="-50%">
+      <Column width="calc(50% - 52px)">
         <Input basicColor={new BASIC_COLOR_TYPE_TO_CLASS[defaultColorInput.colorType](defaultColorInput.text)} />
       </Column>
-      <Column transformXValue="0%">
+      <Column width="104px">
+        <ConvertButton />
+      </Column>
+      <Column width="calc(50% - 52px)">
         <Result />
       </Column>
-      <ConvertButton />
     </div>
   );
 }

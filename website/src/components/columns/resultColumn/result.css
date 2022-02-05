@@ -1,15 +1,4 @@
-#result-container {
-  width: 50%;
-  transform: translateX(-50%);
-  left: 50%;
-  display: flex;
-}
-
-#result-header {
-  width: 20%;
-  float: left;
-}
-
-#result-value-field {
+#result {
   width: 80%;
+  display: inline-block;
 }
