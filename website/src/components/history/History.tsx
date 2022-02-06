@@ -5,15 +5,15 @@ export default function History(props: { state: HistoryElement[] }) {
   const { state } = props;
 
   const listItems = state.map((result) => (
-    <div key={result.id} style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ display: 'inline-block', verticalAlign: 'top', color: 'white', userSelect: 'none' }}>Result:</div>
-      <div style={{ paddingLeft: '10px' }}>{result.text}</div>
+    <div key={result.id} className="history-item">
+      <div className="history-hidden-result-text">Result:</div>
+      <div className="history-text">{result.text}</div>
     </div>
   ));
 
   return (
-    <div className="results-container">
-      <div className="results">{listItems}</div>
+    <div className="history-component-container">
+      <div className="history-list-container">{listItems}</div>
     </div>
   );
 }

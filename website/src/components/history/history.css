@@ -1,14 +1,34 @@
-.results-container {
+.history-component-container {
   position: absolute;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
-.results {
+.history-list-container {
   display: flex;
   flex-flow: column wrap;
   overflow: hidden;
   margin-top: 50px;
   width: 80%;
   height: calc(50vh - 65px);
+}
+
+.history-item {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.history-hidden-result-text {
+  display: inline-block;
+  vertical-align: top;
+  color: white;
+  user-select: none;
+  margin-right: 10px;
+}
+
+.history-text {
+  color: grey;
 }
