@@ -6,7 +6,7 @@ export default function History() {
 
   const listItems = resultHistory.map((result) => (
     <div key={result} style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ display: 'inline-block', verticalAlign: 'top', color: 'white' }}>Result:</div>
+      <div style={{ display: 'inline-block', verticalAlign: 'top', color: 'white', userSelect: 'none' }}>Result:</div>
       <div style={{ paddingLeft: '10px' }}>{result}</div>
     </div>
   ));

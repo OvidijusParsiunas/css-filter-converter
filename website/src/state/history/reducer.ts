@@ -17,10 +17,10 @@ export const HistoryReducer = (
 ): HistoryState => {
   switch (action.type) {
     case HistoryActionTypes.ADD_TO_INPUT_HISTORY: {
-      return { ...state, input: [...state.input, action.payload.text] };
+      return { ...state, input: [action.payload.text, ...state.input] };
     }
     case HistoryActionTypes.ADD_TO_RESULT_HISTORY: {
-      return { ...state, result: [...state.result, action.payload.text] };
+      return { ...state, result: [action.payload.text, ...state.result] };
     }
     default:
       return state;

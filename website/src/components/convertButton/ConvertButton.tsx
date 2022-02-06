@@ -14,10 +14,11 @@ function ConvertButton() {
   );
 
   const convert = (): void => {
+    const currentResult = store.getState().result.text;
+    if (currentResult) dispatch(addToResultHistory(currentResult));
     const { text, colorType } = store.getState().colorInput;
     const resultColor = ColorToFilter.convert(text, colorType);
     dispatch(updateResult(resultColor));
-    dispatch(addToResultHistory(resultColor));
   };
 
   const styling = {
