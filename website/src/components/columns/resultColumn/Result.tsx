@@ -5,6 +5,7 @@ import './result.css';
 
 export default function Result() {
   const resultText = useSelector<RootReducer, RootReducer['result']['text']>((state) => state.result.text);
+  const resultHistory = useSelector<RootReducer, RootReducer['history']['result']>((state) => state.history.result);
 
   const text = resultText ? (
     <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
@@ -18,7 +19,7 @@ export default function Result() {
   return (
     <div>
       <div id="result">{text}</div>
-      <History />
+      <History state={resultHistory} />
     </div>
   );
 }

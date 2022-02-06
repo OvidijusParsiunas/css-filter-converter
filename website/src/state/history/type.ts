@@ -6,7 +6,12 @@ type AddToResultHistoryAction = { type: HistoryActionTypes.ADD_TO_RESULT_HISTORY
 
 export type HistoryAction = AddToInputHistoryAction | AddToResultHistoryAction;
 
+export interface HistoryElement {
+  id: number;
+  text: string;
+}
+
 export interface HistoryState {
-  input: string[];
-  result: string[];
+  input: HistoryElement[];
+  result: HistoryElement[];
 }

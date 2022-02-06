@@ -1,15 +1,19 @@
-import { updateIsValid, updateColorType, updateColorText } from '../../../state/colorInput/actions';
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
+import { updateIsValid, updateColorType, updateColorText } from '../../../state/colorInput/actions';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { ElementIds } from '../../../shared/consts/elementIds';
-import { useDispatch } from 'react-redux';
+import { RootReducer } from '../../../state/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import History from '../../history/History';
 import React from 'react';
 import './input.css';
 
 export default function Input({ basicColor }: { basicColor: BasicColor }) {
+  const inputHistory = useSelector<RootReducer, RootReducer['history']['input']>((state) => state.history.input);
+
   const dispatch = useDispatch();
 
   const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(basicColor);
@@ -60,6 +64,7 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
         defaultValue={selectedBasicColor.colorString}
         onChange={handleTextChange}
       />
+      <History state={inputHistory} />
     </div>
   );
 }

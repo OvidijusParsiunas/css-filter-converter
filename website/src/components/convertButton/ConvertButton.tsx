@@ -1,4 +1,4 @@
-import { addToResultHistory } from '../../state/history/actions';
+import { addToInputHistory, addToResultHistory } from '../../state/history/actions';
 import { updateResult } from '../../state/result/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducer } from '../../state/rootReducer';
@@ -15,7 +15,9 @@ function ConvertButton() {
 
   const convert = (): void => {
     const currentResult = store.getState().result.text;
+    const currentInput = store.getState().colorInput.text;
     if (currentResult) dispatch(addToResultHistory(currentResult));
+    if (currentResult) dispatch(addToInputHistory(currentInput));
     const { text, colorType } = store.getState().colorInput;
     const resultColor = ColorToFilter.convert(text, colorType);
     dispatch(updateResult(resultColor));
