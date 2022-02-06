@@ -21,6 +21,8 @@ validate and expand shorthand hex to long
 
 Website:
 
+copy button
+
 need validation for keyword
 
 result history should fade in

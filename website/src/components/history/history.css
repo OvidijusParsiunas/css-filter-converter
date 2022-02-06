@@ -1,0 +1,14 @@
+.results-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.results {
+  display: flex;
+  flex-flow: column wrap;
+  overflow: hidden;
+  margin-top: 50px;
+  width: 80%;
+  height: calc(50vh - 65px);
+}

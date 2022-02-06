@@ -1,5 +1,6 @@
 import { RootReducer } from '../../state/rootReducer';
 import { useSelector } from 'react-redux';
+import './history.css';
 
 export default function History() {
   const resultHistory = useSelector<RootReducer, RootReducer['history']['result']>((state) => state.history.result);
@@ -11,5 +12,9 @@ export default function History() {
     </div>
   ));
 
-  return <div style={{ marginTop: '50px', width: '80%', display: 'inline-block' }}>{listItems}</div>;
+  return (
+    <div className="results-container">
+      <div className="results">{listItems}</div>
+    </div>
+  );
 }
