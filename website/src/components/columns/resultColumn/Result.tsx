@@ -1,7 +1,7 @@
+import OutputText from './history/outputTextWrapper/outputText';
 import { RootReducer } from '../../../state/rootReducer';
-import OutputText from '../reactChildren/outputText';
-import History from '../../history/history';
 import { useSelector } from 'react-redux';
+import History from './history/history';
 import './result.css';
 
 export default function Result() {
@@ -12,6 +12,8 @@ export default function Result() {
     return <div className={resultText ? 'result-header-text' : ''}>Result:</div>;
   }
 
+  // The reason why history is a child of the result component is because it has to always safely be below the result text
+  // which can usually get high with long filter results (especially when window width is narrow).
   return (
     <div id="result">
       <OutputText>

@@ -1,15 +1,14 @@
-.history-container {
+#history {
   position: absolute;
   width: 100vw;
   height: calc(50vh - 65px);
-  left: calc(-50vw - 52px);
   display: flex;
   flex-flow: column wrap;
   overflow: hidden;
   margin-top: 50px;
 }
 
-.history-container-item {
+.history-item {
   margin-top: 10px;
   width: 100vw;
 }

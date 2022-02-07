@@ -1,0 +1,5 @@
+export const MIDDLE_COLUMN_WIDTH_NUMBER = 104;
+
+export const MIDDLE_COLUMN_WIDTH_PX = `${MIDDLE_COLUMN_WIDTH_NUMBER}px`;
+
+export const SIDE_COLUMN_WIDTH_PX = `calc(50% - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)`;
