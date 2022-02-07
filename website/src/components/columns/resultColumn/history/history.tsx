@@ -2,6 +2,7 @@ import { MIDDLE_COLUMN_WIDTH_NUMBER, SIDE_COLUMN_WIDTH_PX } from '../../../../sh
 import { HistoryElement, HistoryState } from '../../../../state/history/type';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from './outputTextWrapper/outputText';
+import ResultHeaderText from '../resultHeaderText';
 import { useSelector } from 'react-redux';
 import CSS from 'csstype';
 import './history.css';
@@ -12,15 +13,10 @@ import './history.css';
 export default function History() {
   const historyState = useSelector<RootReducer, RootReducer['history']>((state) => state.history);
 
-  // WORK 1 - extract
-  function getResultHeaderText(isResult: boolean): JSX.Element | null {
-    return isResult ? <div className="result-header-text history-padding-text">Result:</div> : null;
-  }
-
   function getHistoryColumn(historyElement: HistoryElement, float: CSS.Property.Float, isResult: boolean): JSX.Element {
     return (
       <OutputText float={float} width={SIDE_COLUMN_WIDTH_PX}>
-        {getResultHeaderText(isResult)}
+        {isResult ? <ResultHeaderText classes={['history-padding-text']} /> : null}
         <div className="history-text">{historyElement.text}</div>
       </OutputText>
     );

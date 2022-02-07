@@ -1,10 +1,9 @@
-import { ReactChild } from 'react';
+import { ComponentsAsProp } from '../../../../../shared/types/componentAsProp';
 import CSS from 'csstype';
 import './outputText.css';
 
-// WORK 1 - refactor
 type Props = {
-  children: (ReactChild | null) | (ReactChild | null)[];
+  children: ComponentsAsProp;
   float?: CSS.Property.Float;
   width?: CSS.Property.Width;
 };
