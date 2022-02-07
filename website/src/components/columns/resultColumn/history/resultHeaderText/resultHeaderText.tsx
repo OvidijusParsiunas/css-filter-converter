@@ -1,4 +1,4 @@
-import './result.css';
+import './resultHeaderText.css';
 
 type Props = {
   classes?: string[];

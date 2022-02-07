@@ -2,13 +2,14 @@ import { ColorToConverter, ConversionResult, ColorConversionTypes } from '../../
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { store } from '../../../../state/store';
 import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class HexBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.HEX;
 
-  protected defaultColorString = '#87CEFA';
+  protected defaultColorString = store.getState().colorInput.text;
 
   public colorString = this.defaultColorString;
 

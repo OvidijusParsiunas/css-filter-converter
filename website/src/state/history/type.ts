@@ -1,17 +1,16 @@
 import { HistoryActionTypes } from './consts';
 
-type AddToInputHistoryAction = { type: HistoryActionTypes.ADD_TO_INPUT_HISTORY; payload: { text: string } };
+type AddToHistoryAction = { type: HistoryActionTypes.ADD_TO_HISTORY; payload: { input: string; result: string } };
 
-type AddToResultHistoryAction = { type: HistoryActionTypes.ADD_TO_RESULT_HISTORY; payload: { text: string } };
-
-export type HistoryAction = AddToInputHistoryAction | AddToResultHistoryAction;
+export type HistoryAction = AddToHistoryAction;
 
 export interface HistoryElement {
   id: number;
-  text: string;
+  input: string;
+  result: string;
 }
 
 export interface HistoryState {
-  input: HistoryElement[];
-  result: HistoryElement[];
+  history: HistoryElement[];
+  latestId: number;
 }

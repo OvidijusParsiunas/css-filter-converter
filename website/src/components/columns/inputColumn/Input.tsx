@@ -4,13 +4,13 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mu
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
-import { ElementIds } from '../../../shared/consts/elementIds';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import './input.css';
 
 export default function Input({ basicColor }: { basicColor: BasicColor }) {
   const dispatch = useDispatch();
+  const inputElement = React.createRef<HTMLInputElement>();
 
   const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(basicColor);
   const [isSelectedColorValid, setIsSelectedColorValid] = React.useState<boolean>(true);
@@ -22,11 +22,10 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
   };
 
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
-    const textInputElement = document.getElementById(ElementIds.COLOR_INPUT_FIELD) as HTMLInputElement;
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
     selectedBasicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    textInputElement.value = newBasicColor.colorString;
+    if (inputElement.current) inputElement.current.value = newBasicColor.colorString;
     setSelectedBasicColor(newBasicColor);
     dispatch(updateColorType(newColorType));
     updateIsValidState(newBasicColor.parseResult);
@@ -55,9 +54,9 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
       <TextField
         error={!isSelectedColorValid}
         size="small"
-        id={ElementIds.COLOR_INPUT_FIELD}
         variant="outlined"
         defaultValue={selectedBasicColor.colorString}
+        inputRef={inputElement}
         onChange={handleTextChange}
       />
     </div>

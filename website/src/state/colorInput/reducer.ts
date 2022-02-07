@@ -4,7 +4,7 @@ import { ColorInputActionTypes } from './consts';
 
 const initialState: ColorInputState = {
   isValid: true,
-  text: '#3c3ce8',
+  text: '#87CEFA',
   colorType: BasicColorTypes.HEX,
 };
 

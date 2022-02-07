@@ -1,30 +1,29 @@
 import { HistoryAction, HistoryState } from './type';
 import { HistoryActionTypes } from './consts';
 
-// refactor how id is set
-let id = 0;
-
 const initialState: HistoryState = {
-  input: [],
-  result: [],
+  history: [],
+  latestId: 0,
 };
 
 const defaultAction: HistoryAction = {
-  type: HistoryActionTypes.ADD_TO_RESULT_HISTORY,
-  payload: { text: 'error' },
+  type: HistoryActionTypes.ADD_TO_HISTORY,
+  payload: { input: 'error', result: 'error' },
 };
+
+function updateInput(state: HistoryState, action: HistoryAction): HistoryState {
+  state.history.unshift({ ...action.payload, id: state.latestId });
+  state.latestId += 1;
+  return { ...state };
+}
 
 export const HistoryReducer = (
   state: HistoryState = initialState,
   action: HistoryAction = defaultAction,
 ): HistoryState => {
-  id += 1;
   switch (action.type) {
-    case HistoryActionTypes.ADD_TO_INPUT_HISTORY: {
-      return { ...state, input: [{ id, text: action.payload.text }, ...state.input] };
-    }
-    case HistoryActionTypes.ADD_TO_RESULT_HISTORY: {
-      return { ...state, result: [{ id, text: action.payload.text }, ...state.result] };
+    case HistoryActionTypes.ADD_TO_HISTORY: {
+      return updateInput(state, action);
     }
     default:
       return state;
