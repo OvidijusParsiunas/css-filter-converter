@@ -1,25 +1,24 @@
 import { RootReducer } from '../../../state/rootReducer';
-import History from '../../history/History';
+import OutputText from '../reactChildren/outputText';
+import History from '../../history/history';
 import { useSelector } from 'react-redux';
 import './result.css';
 
 export default function Result() {
   const resultText = useSelector<RootReducer, RootReducer['result']['text']>((state) => state.result.text);
-  const resultHistory = useSelector<RootReducer, RootReducer['history']['result']>((state) => state.history.result);
 
-  const text = resultText ? (
-    <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ display: 'inline-block', verticalAlign: 'top' }}>Result:</div>
-      <div style={{ paddingLeft: '10px' }}>{resultText}</div>
-    </div>
-  ) : (
-    <div>Result</div>
-  );
+  // WORK 1 - move this to another component
+  function getHeaderText(): JSX.Element {
+    return <div className={resultText ? 'result-header-text' : ''}>Result:</div>;
+  }
 
   return (
-    <div>
-      <div id="result">{text}</div>
-      <History state={resultHistory} />
+    <div id="result">
+      <OutputText>
+        {getHeaderText()}
+        <div>{resultText}</div>
+      </OutputText>
+      <History />
     </div>
   );
 }

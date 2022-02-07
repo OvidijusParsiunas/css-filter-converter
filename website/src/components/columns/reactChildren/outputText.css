@@ -1,0 +1,8 @@
+.output-text-item {
+  width: 80%;
+}
+
+.output-text-item-content-centering {
+  display: flex;
+  justify-content: center;
+}
