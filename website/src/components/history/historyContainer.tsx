@@ -1,50 +1,46 @@
-import { HistoryState } from '../../state/history/type';
+import { HistoryElement, HistoryState } from '../../state/history/type';
 import { RootReducer } from '../../state/rootReducer';
 import { useSelector } from 'react-redux';
+import CSS from 'csstype';
 import './history.css';
 
 export default function HistoryContainer() {
   const historyState = useSelector<RootReducer, RootReducer['history']>((state) => state.history);
 
+  function getColumnResult(historyElement: HistoryElement, float: CSS.Property.Float): JSX.Element {
+    return (
+      <div
+        style={{
+          float,
+          position: 'relative',
+          width: 'calc(50% - 52px)',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              verticalAlign: 'top',
+              color: 'white',
+              userSelect: 'none',
+              marginRight: '10px',
+            }}
+          >
+            Result:
+          </div>
+          <div style={{ color: 'grey' }}>{historyElement.text}</div>
+        </div>
+      </div>
+    );
+  }
+
   function generateHistoryItems(state: HistoryState): JSX.Element[] {
     return state.input.map((historyElement, index) => (
-      <div key={historyElement.id} style={{ marginTop: '10px' }}>
-        <div style={{ float: 'left', position: 'relative', width: '50%' }}>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
-              <div
-                style={{
-                  display: 'inline-block',
-                  verticalAlign: 'top',
-                  color: 'white',
-                  userSelect: 'none',
-                  marginRight: '10px',
-                }}
-              >
-                Result:
-              </div>
-              <div style={{ color: 'red' }}>{historyElement.text}</div>
-            </div>
-          </div>
-        </div>
-        <div style={{ float: 'right', position: 'relative', width: '50%' }}>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
-              <div
-                style={{
-                  display: 'inline-block',
-                  verticalAlign: 'top',
-                  color: 'white',
-                  userSelect: 'none',
-                  marginRight: '10px',
-                }}
-              >
-                Result:
-              </div>
-              <div style={{ color: 'grey' }}>{historyState.result[index].text}</div>
-            </div>
-          </div>
-        </div>
+      <div key={historyElement.id} style={{ marginTop: '10px', width: '100%' }}>
+        {getColumnResult(historyElement, 'left')}
+        {getColumnResult(historyState.result[index], 'right')}
       </div>
     ));
   }
