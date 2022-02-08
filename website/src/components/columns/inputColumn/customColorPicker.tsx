@@ -12,6 +12,7 @@ export default function CustomColorPicker() {
     isDislayed
       ? (
         <div id="color-picker-panel">
+          {/* the reason why all text opts are hidden is because the picker does not support hsl */}
           <ColorPicker width={250} height={150} color={color} onChange={setColor} hideHSV hideRGB hideHEX />
         </div>
       ) : null);

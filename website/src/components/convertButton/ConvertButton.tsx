@@ -30,9 +30,29 @@ function ConvertButton() {
   };
 
   return (
-    <Button sx={styling} disabled={!isColorInputValid} variant="contained" color="primary" onClick={convert}>
-      Convert
-    </Button>
+    <div style={{ position: 'relative' }}>
+      <Button sx={styling} disabled={!isColorInputValid} variant="contained" color="primary" onClick={convert}>
+        Convert
+      </Button>
+      <Button
+        style={{
+          position: 'absolute',
+          marginTop: 205,
+          left: 17,
+          width: 30,
+          backgroundColor: 'grey',
+          opacity: 0.7,
+          fontSize: '8px',
+        }}
+        sx={styling}
+        disabled={!isColorInputValid}
+        variant="contained"
+        color="primary"
+        onClick={convert}
+      >
+        Switch
+      </Button>
+    </div>
   );
 }
 
