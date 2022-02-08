@@ -4,6 +4,8 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mu
 import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
+import 'react-color-palette/lib/css/styles.css';
+import CustomColorPicker from './customColorPicker';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import './input.css';
@@ -59,6 +61,7 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
         inputRef={inputElement}
         onChange={handleTextChange}
       />
+      <CustomColorPicker />
     </div>
   );
 }

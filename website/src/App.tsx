@@ -14,7 +14,7 @@ export default function App() {
   // side column width / center column width
   return (
     <div className="app">
-      <Column width={SIDE_COLUMN_WIDTH_PX}>
+      <Column width={SIDE_COLUMN_WIDTH_PX} zIndex={1}>
         <Input basicColor={new BASIC_COLOR_TYPE_TO_CLASS[defaultColorInput.colorType](defaultColorInput.text)} />
       </Column>
       <Column width={MIDDLE_COLUMN_WIDTH_PX}>

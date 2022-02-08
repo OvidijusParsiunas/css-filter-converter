@@ -16,6 +16,7 @@
     "css-filter-converter": "^1.0.82",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "react": "^17.0.2",
+    "react-color-palette": "^6.2.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "5.0.0",
@@ -49,6 +50,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
+    "csstype": "^3.0.10",
     "eslint": "^8.7.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",
@@ -57,7 +59,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "csstype": "^3.0.10",
     "prettier": "^2.5.1"
   },
   "browser": {
