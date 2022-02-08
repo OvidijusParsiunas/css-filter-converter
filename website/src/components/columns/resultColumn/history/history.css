@@ -11,12 +11,9 @@
 .history-item {
   margin-top: 10px;
   width: 100vw;
+  color: grey;
 }
 
 .history-padding-text {
   color: white;
-}
-
-.history-text {
-  color: grey;
 }
