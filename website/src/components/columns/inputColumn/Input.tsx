@@ -1,6 +1,6 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
-import { updateColorText, updateColorType, updateIsValid } from '../../../state/colorInput/actions';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { updateColor, updateIsValid } from '../../../state/colorInput/actions';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../state/rootReducer';
@@ -25,23 +25,21 @@ export default function Input() {
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputColor.colorType.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateColorText(newBasicColor.colorString));
-    dispatch(updateColorType(newBasicColor));
+    inputColor.color.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    dispatch(updateColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputColor.colorType.setAndParseColorString(event.target.value);
-    dispatch(updateColorText(inputColor.colorType.colorString));
-    updateIsValidState(inputColor.colorType.parseResult);
+    inputColor.color.setAndParseColorString(event.target.value);
+    updateIsValidState(inputColor.color.parseResult);
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
         <Select
-          value={inputColor.colorType.colorType}
+          value={inputColor.color.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
@@ -55,7 +53,7 @@ export default function Input() {
         error={!isSelectedColorValid}
         size="small"
         variant="outlined"
-        value={inputColor.text}
+        value={inputColor.color.colorString}
         onChange={handleTextChange}
       />
       <CustomColorPicker />
