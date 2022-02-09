@@ -1,4 +1,4 @@
-import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { BasicColor } from '../../components/convertButton/convert/basicColors/basicColor';
 import { ColorInputActionTypes } from './consts';
 import { ColorInputAction } from './types';
 
@@ -12,7 +12,7 @@ export const updateIsValid = (isValid: boolean): ColorInputAction => ({
   payload: { isValid },
 });
 
-export const updateColorType = (colorType: BasicColorTypes): ColorInputAction => ({
+export const updateColorType = (colorType: BasicColor): ColorInputAction => ({
   type: ColorInputActionTypes.UPDATE_COLOR_TYPE,
   payload: { colorType },
 });

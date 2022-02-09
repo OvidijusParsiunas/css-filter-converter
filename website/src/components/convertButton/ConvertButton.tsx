@@ -18,7 +18,7 @@ function ConvertButton() {
     const currentInput = store.getState().colorInput.text;
     if (currentResult) dispatch(addToHistory(currentInput, currentResult));
     const { text, colorType } = store.getState().colorInput;
-    const resultColor = ColorToFilter.convert(text, colorType);
+    const resultColor = ColorToFilter.convert(text, colorType.colorType);
     dispatch(updateResult(resultColor));
   };
 

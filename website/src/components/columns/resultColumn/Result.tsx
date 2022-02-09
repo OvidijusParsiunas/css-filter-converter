@@ -14,7 +14,7 @@ export default function Result() {
     <div id="result">
       <OutputText>
         <ResultHeaderText applyClasses={!!resultText} />
-        <div>{resultText}</div>
+        <div id="result-text">{resultText}</div>
       </OutputText>
       <History />
     </div>

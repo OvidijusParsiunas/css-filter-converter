@@ -1,11 +1,14 @@
-import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { BASIC_COLOR_TYPE_TO_CLASS } from '../../components/convertButton/convert/basicColors/colorTypeToClass';
+import { DEFAULT_VALUES } from '../../shared/consts/defaultValues';
 import { ColorInputAction, ColorInputState } from './types';
 import { ColorInputActionTypes } from './consts';
 
+// WORK - text deos not need to be used
+// WORK - rename color type to basicColor
 const initialState: ColorInputState = {
   isValid: true,
-  text: '#87CEFA',
-  colorType: BasicColorTypes.HEX,
+  text: DEFAULT_VALUES.text,
+  colorType: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](DEFAULT_VALUES.text),
 };
 
 const initialAction: ColorInputAction = {

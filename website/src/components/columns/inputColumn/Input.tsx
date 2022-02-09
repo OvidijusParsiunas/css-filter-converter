@@ -1,20 +1,19 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { updateColorText, updateColorType, updateIsValid } from '../../../state/colorInput/actions';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { BasicColor } from '../../convertButton/convert/basicColors/basicColor';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
-import 'react-color-palette/lib/css/styles.css';
+import { RootReducer } from '../../../state/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomColorPicker from './customColorPicker';
-import { useDispatch } from 'react-redux';
+import 'react-color-palette/lib/css/styles.css';
 import React from 'react';
 import './input.css';
 
-export default function Input({ basicColor }: { basicColor: BasicColor }) {
+export default function Input() {
   const dispatch = useDispatch();
-  const inputElement = React.createRef<HTMLInputElement>();
+  const inputColor = useSelector<RootReducer, RootReducer['colorInput']>((state) => state.colorInput);
 
-  const [selectedBasicColor, setSelectedBasicColor] = React.useState<BasicColor>(basicColor);
   const [isSelectedColorValid, setIsSelectedColorValid] = React.useState<boolean>(true);
 
   const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
@@ -26,24 +25,23 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    selectedBasicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    if (inputElement.current) inputElement.current.value = newBasicColor.colorString;
-    setSelectedBasicColor(newBasicColor);
-    dispatch(updateColorType(newColorType));
+    inputColor.colorType.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    dispatch(updateColorText(newBasicColor.colorString));
+    dispatch(updateColorType(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    selectedBasicColor.setAndParseColorString(event.target.value);
-    dispatch(updateColorText(selectedBasicColor.colorString));
-    updateIsValidState(selectedBasicColor.parseResult);
+    inputColor.colorType.setAndParseColorString(event.target.value);
+    dispatch(updateColorText(inputColor.colorType.colorString));
+    updateIsValidState(inputColor.colorType.parseResult);
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
         <Select
-          value={selectedBasicColor.colorType}
+          value={inputColor.colorType.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
@@ -57,8 +55,7 @@ export default function Input({ basicColor }: { basicColor: BasicColor }) {
         error={!isSelectedColorValid}
         size="small"
         variant="outlined"
-        defaultValue={selectedBasicColor.colorString}
-        inputRef={inputElement}
+        value={inputColor.text}
         onChange={handleTextChange}
       />
       <CustomColorPicker />
