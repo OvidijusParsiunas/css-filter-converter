@@ -6,8 +6,6 @@ import Column from './components/columns/wrapper/column';
 import './App.css';
 
 export default function App() {
-  // this will need to be fixed
-  // side column width / center column width
   return (
     <div className="app">
       <Column width={SIDE_COLUMN_WIDTH_PX} zIndex={1}>

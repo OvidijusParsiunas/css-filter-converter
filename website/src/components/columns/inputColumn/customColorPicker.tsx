@@ -2,6 +2,7 @@ import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
 import { updateColor } from '../../../state/input/actions';
+import ClickOutsideListener from './clickOutsideListener';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import './customColorPicker.css';
@@ -13,10 +14,7 @@ export default function CustomColorPicker() {
 
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  // WORK - global state
-  // WORK - close the window when clicked anywhere on the screen
-  // or pressing enter or escape on the keyboard
-  const [isDislayed, setIsDisplayed] = React.useState(false);
+  const [isDisplayed, setIsDisplayed] = React.useState(false);
 
   // WORK - optimization opportunity for not having to convert RGB
   // WORK - default to 0 when invalid
@@ -41,8 +39,8 @@ export default function CustomColorPicker() {
   };
 
   // prettier-ignore
-  const getColorPicker = () => (
-    isDislayed
+  const getColorPickerPanel = () => (
+    isDisplayed
       ? (
         <div id="color-picker-panel">
           {/* the reason why all text opts are hidden is because the picker does not support hsl */}
@@ -58,21 +56,31 @@ export default function CustomColorPicker() {
         </div>
       ) : null);
 
-  const displayColorPicker = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if ((event.target as HTMLElement).tagName === 'BUTTON') {
-      setIsDisplayed(!isDislayed);
+  const displayColorPickerPanel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    // if not key down - Enter
+    if ((event.nativeEvent as PointerEvent).pointerId !== -1 && (event.target as HTMLElement).tagName === 'BUTTON') {
+      setIsDisplayed(true);
+    }
+  };
+
+  const closeColorPickerPanel = () => {
+    if (isDisplayed) {
+      setIsDisplayed(false);
     }
   };
 
   return (
-    <button
-      id="color-picker-button"
-      type="button"
-      style={{ backgroundColor: inputState.color.colorString }}
-      onClick={(e) => displayColorPicker(e)}
-    >
-      <div />
-      {getColorPicker()}
-    </button>
+    <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>
+      <button
+        id="color-picker-button"
+        type="button"
+        tabIndex={-1}
+        style={{ backgroundColor: inputState.color.colorString }}
+        onClick={(e) => displayColorPickerPanel(e)}
+      >
+        <div />
+        {getColorPickerPanel()}
+      </button>
+    </ClickOutsideListener>
   );
 }
