@@ -1,7 +1,7 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { updateColor, updateIsValid } from '../../../state/colorInput/actions';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
+import { updateColor, updateIsValid } from '../../../state/input/actions';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import './input.css';
 
 export default function Input() {
   const dispatch = useDispatch();
-  const inputColor = useSelector<RootReducer, RootReducer['colorInput']>((state) => state.colorInput);
+  const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   const [isSelectedColorValid, setIsSelectedColorValid] = React.useState<boolean>(true);
 
@@ -25,21 +25,21 @@ export default function Input() {
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputColor.color.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    inputState.color.convertAndSetColorStringOnNewBasicColor(newBasicColor);
     dispatch(updateColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputColor.color.setAndParseColorString(event.target.value);
-    updateIsValidState(inputColor.color.parseResult);
+    inputState.color.setAndParseColorString(event.target.value);
+    updateIsValidState(inputState.color.parseResult);
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
         <Select
-          value={inputColor.color.colorType}
+          value={inputState.color.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
@@ -53,7 +53,7 @@ export default function Input() {
         error={!isSelectedColorValid}
         size="small"
         variant="outlined"
-        value={inputColor.color.colorString}
+        value={inputState.color.colorString}
         onChange={handleTextChange}
       />
       <CustomColorPicker />

@@ -9,13 +9,11 @@ import Button from '@mui/material/Button';
 function ConvertButton() {
   const dispatch = useDispatch();
 
-  const isColorInputValid = useSelector<RootReducer, RootReducer['colorInput']['isValid']>(
-    (state) => state.colorInput.isValid,
-  );
+  const isInputValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
 
   const convert = (): void => {
     const currentResult = store.getState().result.text;
-    const { colorString, colorType } = store.getState().colorInput.color;
+    const { colorString, colorType } = store.getState().input.color;
     if (currentResult) dispatch(addToHistory(colorString, currentResult));
     const resultColor = ColorToFilter.convert(colorString, colorType);
     dispatch(updateResult(resultColor));
@@ -30,7 +28,7 @@ function ConvertButton() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <Button sx={styling} disabled={!isColorInputValid} variant="contained" color="primary" onClick={convert}>
+      <Button sx={styling} disabled={!isInputValidState} variant="contained" color="primary" onClick={convert}>
         Convert
       </Button>
       <Button
@@ -44,7 +42,7 @@ function ConvertButton() {
           fontSize: '8px',
         }}
         sx={styling}
-        disabled={!isColorInputValid}
+        disabled={!isInputValidState}
         variant="contained"
         color="primary"
         onClick={convert}

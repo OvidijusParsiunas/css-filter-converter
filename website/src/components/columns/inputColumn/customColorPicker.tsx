@@ -1,7 +1,7 @@
 import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
-import { updateColor } from '../../../state/colorInput/actions';
+import { updateColor } from '../../../state/input/actions';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import './customColorPicker.css';
@@ -11,7 +11,7 @@ export default function CustomColorPicker() {
   const dispatch = useDispatch();
   const hexBasicColor = new HexBasicColor();
 
-  const colorInput = useSelector<RootReducer, RootReducer['colorInput']>((state) => state.colorInput);
+  const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   // WORK - global state
   // WORK - close the window when clicked anywhere on the screen
@@ -22,22 +22,22 @@ export default function CustomColorPicker() {
   // WORK - default to 0 when invalid
   // WORK - set back to valid when using
   const setColor = (color: Color) => {
-    if (colorInput.color.colorType !== BasicColorTypes.HEX) {
+    if (inputState.color.colorType !== BasicColorTypes.HEX) {
       hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
-      hexBasicColor.convertAndSetColorStringOnNewBasicColor(colorInput.color);
+      hexBasicColor.convertAndSetColorStringOnNewBasicColor(inputState.color);
     } else {
-      colorInput.color.setAndParseColorString(color.hex.toLocaleUpperCase());
+      inputState.color.setAndParseColorString(color.hex.toLocaleUpperCase());
     }
     // this is used to force an update of this component and the input component
-    dispatch(updateColor(colorInput.color));
+    dispatch(updateColor(inputState.color));
   };
 
   const getCurrentColor = (): string => {
-    if (colorInput.color.colorType !== BasicColorTypes.HEX) {
-      colorInput.color.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
+    if (inputState.color.colorType !== BasicColorTypes.HEX) {
+      inputState.color.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
       return hexBasicColor.colorString;
     }
-    return colorInput.color.colorString;
+    return inputState.color.colorString;
   };
 
   // prettier-ignore
@@ -68,7 +68,7 @@ export default function CustomColorPicker() {
     <button
       id="color-picker-button"
       type="button"
-      style={{ backgroundColor: colorInput.color.colorString }}
+      style={{ backgroundColor: inputState.color.colorString }}
       onClick={(e) => displayColorPicker(e)}
     >
       <div />
