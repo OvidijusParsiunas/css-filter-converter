@@ -1,7 +1,7 @@
 import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
-import { updateColor } from '../../../state/input/actions';
+import { updateIsValid } from '../../../state/input/actions';
 import ClickOutsideListener from './clickOutsideListener';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,18 +16,19 @@ export default function CustomColorPicker() {
 
   const [isDisplayed, setIsDisplayed] = React.useState(false);
 
-  // WORK - optimization opportunity for not having to convert RGB
-  // WORK - default to 0 when invalid
-  // WORK - set back to valid when using
   const setColor = (color: Color) => {
-    if (inputState.color.colorType !== BasicColorTypes.HEX) {
+    if (inputState.color.colorType === BasicColorTypes.HEX) {
+      inputState.color.setAndParseColorString(color.hex.toLocaleUpperCase());
+    } else if (inputState.color.colorType === BasicColorTypes.RGB) {
+      const { r, g, b } = color.rgb;
+      inputState.color.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
+    } else {
       hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
       hexBasicColor.convertAndSetColorStringOnNewBasicColor(inputState.color);
-    } else {
-      inputState.color.setAndParseColorString(color.hex.toLocaleUpperCase());
     }
-    // this is used to force an update of this component and the input component
-    dispatch(updateColor(inputState.color));
+    // as well as setting the input isValid to true, this is additionally used to force an update of
+    // this component and the input component
+    dispatch(updateIsValid(true));
   };
 
   const getCurrentColor = (): string => {
@@ -69,13 +70,15 @@ export default function CustomColorPicker() {
     }
   };
 
+  const getButtonColor = () => (inputState.isValid ? inputState.color.colorString : '#000000');
+
   return (
     <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>
       <button
         id="color-picker-button"
         type="button"
         tabIndex={-1}
-        style={{ backgroundColor: inputState.color.colorString }}
+        style={{ backgroundColor: getButtonColor() }}
         onClick={(e) => displayColorPickerPanel(e)}
       >
         <div />

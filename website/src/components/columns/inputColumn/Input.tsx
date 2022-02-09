@@ -14,11 +14,8 @@ export default function Input() {
   const dispatch = useDispatch();
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  const [isSelectedColorValid, setIsSelectedColorValid] = React.useState<boolean>(true);
-
   const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
     const isValid = !!parseResult;
-    setIsSelectedColorValid(isValid);
     dispatch(updateIsValid(isValid));
   };
 
@@ -50,7 +47,7 @@ export default function Input() {
         </Select>
       </FormControl>
       <TextField
-        error={!isSelectedColorValid}
+        error={!inputState.isValid}
         size="small"
         variant="outlined"
         value={inputState.color.colorString}
