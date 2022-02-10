@@ -24,7 +24,7 @@ export default function History() {
   function getHistoryColumn(text: string, float: CSS.Property.Float, isResult: boolean, hItem: HistoryItem): JSX.Element {
     return (
       <OutputText float={float} width={SIDE_COLUMN_WIDTH_PX}>
-        {isResult ? <ResultHeaderText classes={['history-padding-text']} /> : null}
+        {isResult ? <ResultHeaderText prefixClasses={['history-padding-text']} /> : null}
         <div
           className="history-text"
           onMouseEnter={() => changeTextColor('black', hItem)}

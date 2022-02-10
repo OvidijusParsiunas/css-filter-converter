@@ -1,17 +1,21 @@
 import './resultHeaderText.css';
 
 type Props = {
-  classes?: string[];
-  applyClasses?: boolean;
+  prefixClasses?: string[];
+  applyPrefixClasses?: boolean;
 };
 
 export default function ResultHeaderText(props: Props) {
-  const { classes, applyClasses } = props;
+  const { prefixClasses, applyPrefixClasses } = props;
 
-  return <div className={applyClasses ? `result-header-text ${classes?.join(' ')}` : ''}>Result:</div>;
+  function getClasses(): string {
+    return applyPrefixClasses ? `prefix-result-header-text ${prefixClasses?.join(' ')}` : '';
+  }
+
+  return <div className={`result-header-text ${getClasses()}`}>Result:</div>;
 }
 
 ResultHeaderText.defaultProps = {
-  classes: [],
-  applyClasses: true,
+  prefixClasses: [],
+  applyPrefixClasses: true,
 };

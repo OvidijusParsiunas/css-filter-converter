@@ -57,12 +57,7 @@ export default function CustomColorPicker() {
         </div>
       ) : null);
 
-  const displayColorPickerPanel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // if not key down - Enter
-    if ((event.nativeEvent as PointerEvent).pointerId !== -1 && (event.target as HTMLElement).tagName === 'BUTTON') {
-      setIsDisplayed(true);
-    }
-  };
+  const toggleColorPickerPanel = () => setIsDisplayed(!isDisplayed);
 
   const closeColorPickerPanel = () => {
     if (isDisplayed) {
@@ -74,16 +69,17 @@ export default function CustomColorPicker() {
 
   return (
     <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>
-      <button
+      {/* the reason why this is a div and not a button is because if the user clicks on it with a left mouse key,
+        onClick will be called again if they click they proceed to hit the Enter keyboard key */}
+      <div
         id="color-picker-button"
-        type="button"
-        tabIndex={-1}
+        aria-hidden="true"
         style={{ backgroundColor: getButtonColor() }}
-        onClick={(e) => displayColorPickerPanel(e)}
+        onClick={toggleColorPickerPanel}
       >
         <div />
         {getColorPickerPanel()}
-      </button>
+      </div>
     </ClickOutsideListener>
   );
 }

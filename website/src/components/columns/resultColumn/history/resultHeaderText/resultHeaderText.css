@@ -1,4 +1,7 @@
 .result-header-text {
   user-select: none;
+}
+
+.prefix-result-header-text {
   margin-right: 10px;
 }

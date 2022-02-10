@@ -13,7 +13,7 @@ export default function Result() {
   return (
     <div id="result">
       <OutputText>
-        <ResultHeaderText applyClasses={!!resultTextState} />
+        <ResultHeaderText applyPrefixClasses={!!resultTextState} />
         <div id="result-text">{resultTextState}</div>
       </OutputText>
       <History />
