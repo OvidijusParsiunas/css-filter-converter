@@ -1,4 +1,4 @@
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { KeywordBasicColor } from './keyword';
 import { HexBasicColor } from './hex';
 import { HSLBasicColor } from './hsl';

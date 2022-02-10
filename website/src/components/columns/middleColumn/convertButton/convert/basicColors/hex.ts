@@ -1,8 +1,12 @@
-import { ColorToConverter, ConversionResult, ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
+import {
+  ColorToConverter,
+  ConversionResult,
+  ColorConversionTypes,
+} from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
-import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { DEFAULT_VALUES } from '../../../../../../shared/consts/defaultValues';
+import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 

@@ -1,4 +1,4 @@
-import { BasicColorTypes } from '../../shared/consts/colorTypes';
+import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import CssFilterConverter from 'css-filter-converter';
 import { KEYWORD } from 'color-convert/conversions';
 

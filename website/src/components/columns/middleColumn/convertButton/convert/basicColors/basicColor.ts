@@ -1,9 +1,9 @@
-import { ConversionResult, ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
+import { ConversionResult, ColorConversionTypes } from '../../../../../../shared/types/basicColorFactory';
 import { UNEXPECTED_ERROR_MESSAGE_PREFIX } from 'css-filter-converter/lib/shared/consts/errors';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ErrorHandling } from 'css-filter-converter/lib/shared/errorHandling/errorHandling';
 import { UnexpectedError } from 'css-filter-converter/lib/shared/types/unexpectedError';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { Error } from 'css-filter-converter/lib/shared/types/error';
 
 export abstract class BasicColor {

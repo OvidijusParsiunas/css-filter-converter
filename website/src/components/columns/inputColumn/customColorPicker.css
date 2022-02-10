@@ -1,8 +1,8 @@
 #color-picker-button {
-  margin-left: 20px;
-  margin-top: 2px;
-  width: 36px;
-  height: 36px;
+  margin-left: 18px;
+  margin-top: 1px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   border-width: 0;
   border-radius: 10px;
@@ -19,6 +19,6 @@
   position: absolute;
   z-index: 1;
   box-shadow: 0px 8px 20px 0px;
-  top: 35px;
-  margin-left: -8px;
+  top: 38px;
+  margin-left: -2px;
 }

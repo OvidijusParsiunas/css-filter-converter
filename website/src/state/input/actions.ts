@@ -1,4 +1,4 @@
-import { BasicColor } from '../../components/convertButton/convert/basicColors/basicColor';
+import { BasicColor } from '../../components/columns/middleColumn/convertButton/convert/basicColors/basicColor';
 import { InputActionTypes } from './consts';
 import { InputAction } from './types';
 

@@ -1,14 +1,14 @@
-import { ComponentAsProp } from '../../../shared/types/componentAsProp';
+import { ComponentsAsProp } from '../../../shared/types/componentAsProp';
 import './column.css';
 
 type Props = {
-  children: ComponentAsProp;
+  children: ComponentsAsProp;
   width: string;
   zIndex?: number;
 };
 
-// Current purpose for zIndex is to allow the color picker to be above the history items, yet allow
-// them to still be hovered. This is why it is applied to column-contents and not column div.
+// Current purpose for zIndex is to allow the color picker and switch button to be above the history items,
+// yet allow them to still be hovered. This is why it is applied to column-contents and not column div.
 export default function Column(props: Props) {
   const { children, width, zIndex } = props;
   return (

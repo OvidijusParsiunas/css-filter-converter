@@ -1,0 +1,20 @@
+#convert-button-container {
+  position: absolute;
+  width: 100%;
+}
+
+#convert-button {
+  background-color: white;
+  color: rgb(95, 95, 95);
+  width: 40px;
+  max-height: 35px;
+  min-width: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 110px;
+}
+
+#convert-button:hover {
+  background-color: rgb(231, 231, 231);
+  color: black;
+}

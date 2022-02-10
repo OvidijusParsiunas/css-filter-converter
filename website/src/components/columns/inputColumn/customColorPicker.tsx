@@ -1,4 +1,4 @@
-import { HexBasicColor } from '../../convertButton/convert/basicColors/hex';
+import { HexBasicColor } from '../middleColumn/convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
 import { updateIsValid } from '../../../state/input/actions';

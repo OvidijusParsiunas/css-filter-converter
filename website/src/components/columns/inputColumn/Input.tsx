@@ -1,4 +1,4 @@
-import { BASIC_COLOR_TYPE_TO_CLASS } from '../../convertButton/convert/basicColors/colorTypeToClass';
+import { BASIC_COLOR_TYPE_TO_CLASS } from '../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { updateColor, updateIsValid } from '../../../state/input/actions';
