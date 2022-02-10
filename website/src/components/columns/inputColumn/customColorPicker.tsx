@@ -17,14 +17,14 @@ export default function CustomColorPicker() {
   const [isDisplayed, setIsDisplayed] = React.useState(false);
 
   const setColor = (color: Color) => {
-    if (inputState.color.colorType === BasicColorTypes.HEX) {
-      inputState.color.setAndParseColorString(color.hex.toLocaleUpperCase());
-    } else if (inputState.color.colorType === BasicColorTypes.RGB) {
+    if (inputState.basicColor.colorType === BasicColorTypes.HEX) {
+      inputState.basicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
+    } else if (inputState.basicColor.colorType === BasicColorTypes.RGB) {
       const { r, g, b } = color.rgb;
-      inputState.color.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
+      inputState.basicColor.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
     } else {
       hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
-      hexBasicColor.convertAndSetColorStringOnNewBasicColor(inputState.color);
+      hexBasicColor.convertAndSetColorStringOnNewBasicColor(inputState.basicColor);
     }
     // as well as setting the input isValid to true, this is additionally used to force an update of
     // this component and the input component
@@ -32,11 +32,11 @@ export default function CustomColorPicker() {
   };
 
   const getCurrentColor = (): string => {
-    if (inputState.color.colorType !== BasicColorTypes.HEX) {
-      inputState.color.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
+    if (inputState.basicColor.colorType !== BasicColorTypes.HEX) {
+      inputState.basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
       return hexBasicColor.colorString;
     }
-    return inputState.color.colorString;
+    return inputState.basicColor.colorString;
   };
 
   // prettier-ignore
@@ -65,7 +65,7 @@ export default function CustomColorPicker() {
     }
   };
 
-  const getButtonColor = () => (inputState.isValid ? inputState.color.colorString : '#000000');
+  const getButtonColor = () => (inputState.isValid ? inputState.basicColor.colorString : '#000000');
 
   return (
     <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>

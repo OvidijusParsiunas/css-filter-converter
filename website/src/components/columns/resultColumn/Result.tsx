@@ -1,6 +1,6 @@
-import ResultHeaderText from './history/resultHeaderText/resultHeaderText';
-import OutputText from './history/outputTextWrapper/outputText';
+import ResultHeaderText from './resultHeaderText/resultHeaderText';
 import { RootReducer } from '../../../state/rootReducer';
+import OutputText from './outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
 import History from './history/history';
 import './result.css';

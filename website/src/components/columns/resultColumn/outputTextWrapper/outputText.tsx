@@ -1,4 +1,4 @@
-import { ComponentsAsProp } from '../../../../../shared/types/componentAsProp';
+import { ComponentsAsProp } from '../../../../shared/types/componentAsProp';
 import CSS from 'csstype';
 import './outputText.css';
 

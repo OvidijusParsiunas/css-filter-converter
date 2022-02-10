@@ -3,6 +3,7 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mu
 import { ColorConversionTypes } from '../../../shared/types/basicColorFactory';
 import { updateColor, updateIsValid } from '../../../state/input/actions';
 import { BasicColorTypes } from '../../../shared/consts/colorTypes';
+import { InputTypes } from '../../../shared/consts/inputTypes';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomColorPicker from './customColorPicker';
@@ -22,21 +23,26 @@ export default function Input() {
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputState.color.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
     dispatch(updateColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputState.color.setAndParseColorString(event.target.value);
-    updateIsValidState(inputState.color.parseResult);
+    inputState.basicColor.setAndParseColorString(event.target.value);
+    updateIsValidState(inputState.basicColor.parseResult);
   };
+
+  // prettier-ignore
+  const getInputColorValue = () => (
+    inputState.activeType === InputTypes.FILTER ? inputState.filter : inputState.basicColor.colorString
+  );
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
         <Select
-          value={inputState.color.colorType}
+          value={inputState.basicColor.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
@@ -50,7 +56,7 @@ export default function Input() {
         error={!inputState.isValid}
         size="small"
         variant="outlined"
-        value={inputState.color.colorString}
+        value={getInputColorValue()}
         onChange={handleTextChange}
       />
       <CustomColorPicker />

@@ -1,8 +1,8 @@
 import { MIDDLE_COLUMN_WIDTH_NUMBER, SIDE_COLUMN_WIDTH_PX } from '../../../../shared/consts/cssPropertyValues';
-import ResultHeaderText from './resultHeaderText/resultHeaderText';
+import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { HistoryElement } from '../../../../state/history/type';
 import { RootReducer } from '../../../../state/rootReducer';
-import OutputText from './outputTextWrapper/outputText';
+import OutputText from '../outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
 import CSS from 'csstype';
 import './history.css';

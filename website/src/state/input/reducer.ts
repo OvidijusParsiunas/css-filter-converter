@@ -3,12 +3,15 @@ import {
   BASIC_COLOR_TYPE_TO_CLASS,
 } from '../../components/columns/middleColumn/convertButton/convert/basicColors/colorTypeToClass';
 import { DEFAULT_VALUES } from '../../shared/consts/defaultValues';
+import { InputTypes } from '../../shared/consts/inputTypes';
 import { InputAction, InputState } from './types';
 import { InputActionTypes } from './consts';
 
 const initialState: InputState = {
   isValid: true,
-  color: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](DEFAULT_VALUES.text),
+  basicColor: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](DEFAULT_VALUES.text),
+  filter: '',
+  activeType: InputTypes.BASIC_COLOR,
 };
 
 const initialAction: InputAction = {
@@ -22,7 +25,13 @@ export const InputReducer = (state: InputState = initialState, action: InputActi
       return { ...state, isValid: action.payload.isValid };
     }
     case InputActionTypes.UPDATE_COLOR: {
-      return { ...state, color: action.payload.color };
+      return { ...state, basicColor: action.payload.color };
+    }
+    case InputActionTypes.UPDATE_FILTER: {
+      return { ...state, filter: action.payload.filter };
+    }
+    case InputActionTypes.UPDATE_ACTIVE_INPUT_TYPE: {
+      return { ...state, activeType: action.payload.activeType };
     }
     default:
       return state;

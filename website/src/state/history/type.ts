@@ -2,7 +2,9 @@ import { HistoryActionTypes } from './consts';
 
 type AddToHistoryAction = { type: HistoryActionTypes.ADD_TO_HISTORY; payload: { input: string; result: string } };
 
-export type HistoryAction = AddToHistoryAction;
+type SwitchHistoryAction = { type: HistoryActionTypes.SWITCH_HISTORY };
+
+export type HistoryAction = AddToHistoryAction | SwitchHistoryAction;
 
 export interface HistoryElement {
   id: number;
