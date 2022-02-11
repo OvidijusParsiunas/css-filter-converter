@@ -30,8 +30,8 @@ function SwitchButton() {
   // insert convert functionality
 
   return (
-    <div id="convert-button-container">
-      <Button id="convert-button" onClick={switchInputType}>
+    <div id="switch-button-container">
+      <Button id="switch-button" onClick={switchInputType}>
         ⇄
       </Button>
     </div>
