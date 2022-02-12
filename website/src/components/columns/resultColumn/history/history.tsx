@@ -54,6 +54,8 @@ export default function History() {
 
   return (
     <div id="history" style={{ left: `calc(-50vw - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)` }}>
+      {/* UX */}
+      {/* {getHistoryItems(historyState.slice(1))} */}
       {getHistoryItems(historyState)}
     </div>
   );

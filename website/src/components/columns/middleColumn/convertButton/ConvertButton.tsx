@@ -11,12 +11,12 @@ function ConvertButton() {
 
   const isInputValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
 
+  // WORK - doesn't work with RGB
   const convert = (): void => {
-    const currentResult = store.getState().result.text;
     const { colorString, colorType } = store.getState().input.basicColor;
-    if (currentResult) dispatch(addToHistory(colorString, currentResult));
     const resultColor = ColorToFilter.convert(colorString, colorType);
     dispatch(updateResult(resultColor));
+    dispatch(addToHistory(colorString, resultColor));
   };
 
   const styling = {

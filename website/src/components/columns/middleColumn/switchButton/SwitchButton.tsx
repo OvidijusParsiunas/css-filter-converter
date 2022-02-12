@@ -1,4 +1,4 @@
-import { updateActiveInputType, updateFilter } from '../../../../state/input/actions';
+import { updateActiveInputType, updateFilter, updateIsValid } from '../../../../state/input/actions';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { updateResult } from '../../../../state/result/actions';
@@ -10,22 +10,25 @@ import './switchButton.css';
 function SwitchButton() {
   const dispatch = useDispatch();
 
-  const switchInputType = () => {
-    const { basicColor, activeType: currentlyActiveType, filter } = store.getState().input;
+  const updateInput = (result: string) => {
+    const { basicColor, activeType: currentlyActiveType } = store.getState().input;
     if (currentlyActiveType === InputTypes.FILTER) {
-      dispatch(updateResult(filter));
+      basicColor.colorString = result;
       dispatch(updateActiveInputType(InputTypes.BASIC_COLOR));
     } else {
-      const result = store.getState().result.text;
       dispatch(updateFilter(result));
-      dispatch(updateResult(basicColor.colorString));
       dispatch(updateActiveInputType(InputTypes.FILTER));
     }
+  };
+
+  const switchInputType = () => {
+    const [{ result, input }] = store.getState().history.history;
+    updateInput(result);
+    dispatch(updateIsValid(true));
+    dispatch(updateResult(input));
     dispatch(switchHistory());
   };
 
-  // update is valid
-  // update to last valid color so it would woork with the result
   // remove input assets that are not required
   // insert convert functionality
 
