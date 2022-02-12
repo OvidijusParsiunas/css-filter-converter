@@ -17,12 +17,16 @@ export const HistoryReducer = (
 ): HistoryState => {
   switch (action.type) {
     case HistoryActionTypes.ADD_TO_HISTORY: {
-      state.history.unshift({ ...action.payload, id: state.latestId });
+      // using copy to trigger refresh of components that are using history array state as new entries that
+      // are exactly the same as the existing elements do not cause component to refresh
+      const historyCopy = state.history.slice();
+      historyCopy.unshift({ ...action.payload, id: state.latestId });
       state.latestId += 1;
-      return { ...state };
+      return { ...state, history: historyCopy };
     }
     case HistoryActionTypes.SWITCH_HISTORY: {
-      // using copy to trigger refresh of components that are using history array state
+      // using copy to trigger refresh of components that are using history array state as new entries that
+      // are exactly the same as the existing elements do not cause component to refresh
       const historyCopy = state.history.slice();
       historyCopy.forEach((historyElement) => {
         const temp = historyElement.input;

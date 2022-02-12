@@ -35,7 +35,7 @@ export class RgbToFilter {
       const { colorString, validateAndParse, convertToRgb, conversionErrorMessage } = conversionProps;
       const parseResult = validateAndParse?.(colorString) || { color: colorString as unknown as T };
       if (ErrorHandling.hasError(parseResult)) return RgbToFilter.generateValidateAndParseError(parseResult.errorMessage);
-      const conversionResult = convertToRgb?.(parseResult.color);
+      const conversionResult = convertToRgb?.(parseResult.color) || (parseResult.color as unknown as RGB);
       if (!conversionResult) return RgbToFilter.generateConversionError(conversionErrorMessage);
       return RgbToFilter.execute(conversionResult);
     } catch (error) {

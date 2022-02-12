@@ -4,7 +4,3 @@ export enum BasicColorTypes {
   HSL = 'HSL',
   KEYWORD = 'Keyword',
 }
-
-export enum SpecialColorTypes {
-  FILTER = 'Filter',
-}

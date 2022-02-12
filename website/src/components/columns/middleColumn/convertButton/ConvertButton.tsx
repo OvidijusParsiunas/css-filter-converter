@@ -1,22 +1,38 @@
+import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
+import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
 import { updateResult } from '../../../../state/result/actions';
 import { RootReducer } from '../../../../state/rootReducer';
+import { BasicColorToFilter } from './basicColorToFilter';
+import { FilterToBasicColor } from './filterToBasicColor';
 import { useDispatch, useSelector } from 'react-redux';
-import { ColorToFilter } from './colorToFilter';
 import { store } from '../../../../state/store';
 import Button from '@mui/material/Button';
 
 function ConvertButton() {
   const dispatch = useDispatch();
 
-  const isInputValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
+  const isInputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  // WORK - doesn't work with RGB
+  const updateResultAndHistory = (inputColorString: string, resultColorString: string) => {
+    dispatch(updateResult(resultColorString));
+    dispatch(addToHistory(inputColorString, resultColorString));
+  };
+
   const convert = (): void => {
-    const { colorString, colorType } = store.getState().input.basicColor;
-    const resultColor = ColorToFilter.convert(colorString, colorType);
-    dispatch(updateResult(resultColor));
-    dispatch(addToHistory(colorString, resultColor));
+    const {
+      basicColor: { colorString: inputColorString, colorType },
+      filter,
+      activeType,
+    } = store.getState().input;
+    if (activeType === InputTypes.BASIC_COLOR) {
+      const resultColorString = BasicColorToFilter.convert(inputColorString, colorType);
+      updateResultAndHistory(inputColorString, resultColorString);
+    } else {
+      FilterToBasicColor.convert(filter, colorType as FilterToColorResultType).then((resultColorString) => {
+        updateResultAndHistory(filter, resultColorString);
+      });
+    }
   };
 
   const styling = {
@@ -27,7 +43,7 @@ function ConvertButton() {
   };
 
   return (
-    <Button sx={styling} disabled={!isInputValidState} variant="contained" color="primary" onClick={convert}>
+    <Button sx={styling} disabled={!isInputState.isValid} variant="contained" color="primary" onClick={convert}>
       Convert
     </Button>
   );

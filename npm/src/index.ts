@@ -29,7 +29,7 @@ export default class CssFilterConverter {
   }
 
   public static async filterToHsl(filterString: string): Promise<ColorToFilterResult> {
-    return FilterToColor.filterToHex(filterString);
+    return FilterToColor.filterToHsl(filterString);
   }
 }
 

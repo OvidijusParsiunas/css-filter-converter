@@ -44,8 +44,7 @@ function SwitchButton() {
     dispatch(switchHistory());
   };
 
-  // have color picker for the result
-  // insert convert functionality
+  // WORK - have color picker for the result
 
   return (
     <div id="switch-button-container">
