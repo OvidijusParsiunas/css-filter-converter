@@ -1,5 +1,4 @@
 import { ComponentAsProp } from '../../../shared/types/componentAsProp';
-import './customColorPicker.css';
 import React from 'react';
 import CSS from 'csstype';
 

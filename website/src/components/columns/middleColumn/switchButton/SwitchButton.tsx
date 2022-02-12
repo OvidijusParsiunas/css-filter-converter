@@ -44,6 +44,7 @@ function SwitchButton() {
   };
 
   // remove input assets that are not required
+  // switching empty result should result in validation error
   // insert convert functionality
 
   return (
