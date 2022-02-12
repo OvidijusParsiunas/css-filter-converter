@@ -7,24 +7,38 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import './switchButton.css';
 
+interface InputAndResultStrings {
+  input: string;
+  result: string;
+}
+
 function SwitchButton() {
   const dispatch = useDispatch();
 
-  const updateInput = (result: string) => {
+  const updateInput = (currentResult: string) => {
     const { basicColor, activeType: currentlyActiveType } = store.getState().input;
     if (currentlyActiveType === InputTypes.FILTER) {
-      basicColor.colorString = result;
+      basicColor.colorString = currentResult;
       dispatch(updateActiveInputType(InputTypes.BASIC_COLOR));
     } else {
-      dispatch(updateFilter(result));
+      dispatch(updateFilter(currentResult));
       dispatch(updateActiveInputType(InputTypes.FILTER));
     }
+    dispatch(updateIsValid(true));
+  };
+
+  const getCurrentInputAndResultStrings = (): InputAndResultStrings => {
+    const { history } = store.getState().history;
+    if (history.length > 0) {
+      const [{ input, result }] = history;
+      return { input, result };
+    }
+    return { input: '', result: '' };
   };
 
   const switchInputType = () => {
-    const [{ result, input }] = store.getState().history.history;
+    const { input, result } = getCurrentInputAndResultStrings();
     updateInput(result);
-    dispatch(updateIsValid(true));
     dispatch(updateResult(input));
     dispatch(switchHistory());
   };
