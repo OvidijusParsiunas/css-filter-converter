@@ -13,7 +13,7 @@ import ColorConvert from 'color-convert';
 export class HexBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.HEX;
 
-  protected defaultColorString = DEFAULT_VALUES.text;
+  public defaultColorString = DEFAULT_VALUES.text;
 
   public colorString = this.defaultColorString;
 

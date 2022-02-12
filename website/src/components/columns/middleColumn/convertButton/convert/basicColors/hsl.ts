@@ -13,7 +13,7 @@ import ColorConvert from 'color-convert';
 export class HSLBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.HSL;
 
-  protected defaultColorString = 'hsl(203deg, 92%, 75%)';
+  public defaultColorString = 'hsl(203deg, 92%, 75%)';
 
   public colorString = this.defaultColorString;
 

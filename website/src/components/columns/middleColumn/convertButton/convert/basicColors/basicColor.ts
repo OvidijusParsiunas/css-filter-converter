@@ -9,7 +9,7 @@ import { Error } from 'css-filter-converter/lib/shared/types/error';
 export abstract class BasicColor {
   public abstract colorType: BasicColorTypes;
 
-  protected abstract defaultColorString: string;
+  public abstract defaultColorString: string;
 
   public abstract colorString: string;
 

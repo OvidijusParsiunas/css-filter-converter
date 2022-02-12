@@ -12,7 +12,7 @@ import ColorConvert from 'color-convert';
 export class KeywordBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.KEYWORD;
 
-  protected defaultColorString: KEYWORD = 'lightskyblue';
+  public defaultColorString: KEYWORD = 'lightskyblue';
 
   public colorString: KEYWORD = this.defaultColorString;
 

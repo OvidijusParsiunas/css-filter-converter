@@ -1,22 +1,23 @@
-import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
-import { updateIsValid } from '../../../../state/input/actions';
+import { updateFilter, updateIsValid } from '../../../../state/input/actions';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@mui/material';
+import React from 'react';
 
 export default function FilterColorInput() {
   const dispatch = useDispatch();
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
-    const isValid = !!parseResult;
-    dispatch(updateIsValid(isValid));
-  };
+  const filterTestElement = React.useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // updateIsValidState(inputState.basicColor.parseResult);
+    dispatch(updateFilter(event.target.value));
+    if (filterTestElement.current) {
+      const { style } = filterTestElement.current;
+      style.filter = '';
+      style.filter = event.target.value;
+      dispatch(updateIsValid(!!style.filter));
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -43,21 +44,17 @@ export default function FilterColorInput() {
 
   return (
     <div>
-      <TextField
-        size="small"
-        sx={headerClassOverwriteCss}
-        style={headerStyle}
-        value="Filter"
-        error={!inputState.isValid}
-      />
+      <TextField size="small" sx={headerClassOverwriteCss} style={headerStyle} value="Filter" />
       <TextField
         multiline
         size="small"
         style={inputStyle}
         variant="outlined"
         error={!inputState.isValid}
+        value={inputState.filter}
         onChange={handleTextChange}
       />
+      <div ref={filterTestElement} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import 'react-color-palette/lib/css/styles.css';
 import { useSelector } from 'react-redux';
 
 export default function Input() {
-  const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
+  const activeTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>((state) => state.input.activeType);
 
-  return <div>{inputState.activeType === InputTypes.BASIC_COLOR ? <BasicColorInput /> : <FilterColorInput />}</div>;
+  return <div>{activeTypeState === InputTypes.BASIC_COLOR ? <BasicColorInput /> : <FilterColorInput />}</div>;
 }

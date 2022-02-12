@@ -1,4 +1,5 @@
 import { updateActiveInputType, updateFilter, updateIsValid } from '../../../../state/input/actions';
+import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { updateResult } from '../../../../state/result/actions';
@@ -18,10 +19,10 @@ function SwitchButton() {
   const updateInput = (currentResult: string) => {
     const { basicColor, activeType: currentlyActiveType } = store.getState().input;
     if (currentlyActiveType === InputTypes.FILTER) {
-      basicColor.colorString = currentResult;
+      basicColor.colorString = currentResult || basicColor.defaultColorString;
       dispatch(updateActiveInputType(InputTypes.BASIC_COLOR));
     } else {
-      dispatch(updateFilter(currentResult));
+      dispatch(updateFilter(currentResult || DEFAULT_VALUES.filter));
       dispatch(updateActiveInputType(InputTypes.FILTER));
     }
     dispatch(updateIsValid(true));
@@ -43,8 +44,7 @@ function SwitchButton() {
     dispatch(switchHistory());
   };
 
-  // remove input assets that are not required
-  // switching empty result should result in validation error
+  // have color picker for the result
   // insert convert functionality
 
   return (

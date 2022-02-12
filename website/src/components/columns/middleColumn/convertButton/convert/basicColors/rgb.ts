@@ -13,7 +13,7 @@ import ColorConvert from 'color-convert';
 export class RGBBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.RGB;
 
-  protected defaultColorString = 'rgb(133,205,250)';
+  public defaultColorString = 'rgb(133,205,250)';
 
   public colorString = this.defaultColorString;
 

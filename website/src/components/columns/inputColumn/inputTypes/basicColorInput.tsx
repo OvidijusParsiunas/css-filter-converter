@@ -31,7 +31,7 @@ export default function BasicColorInput() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 84, margin: 0 }} size="small">
+      <FormControl sx={{ m: 1, minWidth: 84, margin: 0, marginRight: 1 }} size="small">
         <Select
           value={inputState.basicColor.colorType}
           onChange={handleColorTypeChange}

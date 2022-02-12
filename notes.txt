@@ -23,7 +23,5 @@ Website:
 
 copy button
 
-need validation for keyword
-
 result history should fade in
 result history should then animate with new at top and the rest of the text gets pushed down
