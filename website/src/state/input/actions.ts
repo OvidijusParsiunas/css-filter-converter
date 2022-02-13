@@ -8,13 +8,13 @@ export const updateIsValid = (isValid: boolean): InputAction => ({
   payload: { isValid },
 });
 
-export const updateColor = (color: BasicColor): InputAction => ({
-  type: InputActionTypes.UPDATE_COLOR,
+export const updateInputBasicColor = (color: BasicColor): InputAction => ({
+  type: InputActionTypes.UPDATE_INPUT_BASIC_COLOR,
   payload: { color },
 });
 
-export const updateFilter = (filter: string): InputAction => ({
-  type: InputActionTypes.UPDATE_FILTER,
+export const updateInputFilter = (filter: string): InputAction => ({
+  type: InputActionTypes.UPDATE_INPUT_FILTER,
   payload: { filter },
 });
 

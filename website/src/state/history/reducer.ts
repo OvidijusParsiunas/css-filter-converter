@@ -1,3 +1,4 @@
+import { BasicColorTypes } from '../../shared/consts/colorTypes';
 import { HistoryAction, HistoryState } from './type';
 import { HistoryActionTypes } from './consts';
 
@@ -8,7 +9,7 @@ const initialState: HistoryState = {
 
 const defaultAction: HistoryAction = {
   type: HistoryActionTypes.ADD_TO_HISTORY,
-  payload: { input: 'error', result: 'error' },
+  payload: { input: 'error', result: 'error', basicColorType: BasicColorTypes.HEX },
 };
 
 export const HistoryReducer = (

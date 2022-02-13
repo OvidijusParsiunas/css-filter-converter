@@ -2,9 +2,10 @@ import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/conv
 import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
 import { FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
-import { updateColor, updateIsValid } from '../../../../state/input/actions';
+import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
+import { updateIsValid } from '../../../../state/input/actions';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +13,9 @@ import History from '../history/history';
 
 export default function BasicColorResult() {
   const dispatch = useDispatch();
-  const resultTextState = useSelector<RootReducer, RootReducer['result']['text']>((state) => state.result.text);
-  const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
+  const resultColorState = useSelector<RootReducer, RootReducer['result']['basicColor']>(
+    (state) => state.result.basicColor,
+  );
 
   const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
     const isValid = !!parseResult;
@@ -23,8 +25,8 @@ export default function BasicColorResult() {
   const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateColor(newBasicColor));
+    resultColorState.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    dispatch(updateResultBasicColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
@@ -33,14 +35,13 @@ export default function BasicColorResult() {
     <div style={{ width: 84, height: 40, display: 'inline-flex', marginRight: 10 }}>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0, marginRight: 1 }} size="small">
         <Select
-          value={inputState.basicColor.colorType}
+          value={resultColorState.colorType}
           onChange={handleColorTypeChange}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
           <MenuItem value={BasicColorTypes.HEX}>{BasicColorTypes.HEX}</MenuItem>
           <MenuItem value={BasicColorTypes.RGB}>{BasicColorTypes.RGB}</MenuItem>
           <MenuItem value={BasicColorTypes.HSL}>{BasicColorTypes.HSL}</MenuItem>
-          <MenuItem value={BasicColorTypes.KEYWORD}>{BasicColorTypes.KEYWORD}</MenuItem>
         </Select>
       </FormControl>
     </div>
@@ -57,10 +58,11 @@ export default function BasicColorResult() {
         {true ? getBasicColorDropdown() : null}
         <div style={{ display: 'table' }}>
           <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-            <ResultHeaderText applyPrefixClasses={!!resultTextState} />
+            {/* WORK - should be if there are any existing results */}
+            <ResultHeaderText applyPrefixClasses={!!resultColorState.colorString} />
           </div>
           <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-            <div className="result-text">{resultTextState}</div>
+            <div className="result-text">{resultColorState.colorString}</div>
           </div>
         </div>
         <CustomColorPicker />

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import History from '../history/history';
 
 export default function FilterColorResult() {
-  const resultTextState = useSelector<RootReducer, RootReducer['result']['text']>((state) => state.result.text);
+  const resultTextState = useSelector<RootReducer, RootReducer['result']['filter']>((state) => state.result.filter);
 
   return (
     <div>

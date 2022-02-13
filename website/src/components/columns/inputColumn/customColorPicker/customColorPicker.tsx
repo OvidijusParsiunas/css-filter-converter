@@ -67,6 +67,7 @@ export default function CustomColorPicker() {
 
   const getButtonColor = () => (inputState.isValid ? inputState.basicColor.colorString : '#000000');
 
+  // WORK - color pointer is closing on mouse up
   return (
     <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>
       {/* the reason why this is a div and not a button is because if the user clicks on it with a left mouse key,

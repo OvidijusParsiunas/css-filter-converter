@@ -1,7 +1,7 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
 import { SelectChangeEvent, FormControl, Select, MenuItem, TextField } from '@mui/material';
+import { updateIsValid, updateInputBasicColor } from '../../../../state/input/actions';
 import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
-import { updateIsValid, updateColor } from '../../../../state/input/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import CustomColorPicker from '../customColorPicker/CustomColorPicker';
 import { RootReducer } from '../../../../state/rootReducer';
@@ -20,7 +20,7 @@ export default function BasicColorInput() {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
     inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateColor(newBasicColor));
+    dispatch(updateInputBasicColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 

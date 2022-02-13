@@ -1,6 +1,6 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
+import { updateInputBasicColor, updateInputFilter, updateIsValid } from '../../../../state/input/actions';
 import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { updateColor, updateFilter, updateIsValid } from '../../../../state/input/actions';
 import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../../state/rootReducer';
@@ -14,7 +14,7 @@ export default function FilterColorInput() {
   const filterTestElement = React.useRef<HTMLDivElement>(null);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateFilter(event.target.value));
+    dispatch(updateInputFilter(event.target.value));
     if (filterTestElement.current) {
       const { style } = filterTestElement.current;
       style.filter = '';
@@ -32,7 +32,7 @@ export default function FilterColorInput() {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
     inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateColor(newBasicColor));
+    dispatch(updateInputBasicColor(newBasicColor));
     updateIsValidState(newBasicColor.parseResult);
   };
 
