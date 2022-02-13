@@ -1,5 +1,5 @@
+import { ColorToFilterResult, FilterToColorResult } from '../../../shared/types/result';
 import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
-import { ColorToFilterResult } from '../../../shared/types/result';
 import { FilterToHexShared } from './shared';
 import DomToImage from 'dom-to-image';
 
@@ -8,15 +8,11 @@ export class FilterToHexBrowser extends FilterToHexShared {
     svgContainerElement.remove();
   }
 
-  private static finishProcessing(result: ColorToFilterResult, svgContainerElement: HTMLElement): ColorToFilterResult {
-    FilterToHexBrowser.cleanup(svgContainerElement);
-    return result;
-  }
-
-  private static returnInputError(filterString: string, svgContainerElement: HTMLElement): ColorToFilterResult {
+  private static returnInputError(filterString: string, svgContainerElement: HTMLElement): ColorToFilterResult<null> {
     const errorMessage = FilterToHexShared.generateInputErrorMessage(filterString);
     const errorResult = ErrorHandling.generateErrorResult(errorMessage);
-    return FilterToHexBrowser.finishProcessing(errorResult, svgContainerElement);
+    FilterToHexBrowser.cleanup(svgContainerElement);
+    return errorResult;
   }
 
   private static async getImageByte64ViaSVG(svgContainerElement: HTMLElement): Promise<string> {
@@ -24,11 +20,12 @@ export class FilterToHexBrowser extends FilterToHexShared {
     return domToImage.toPng(svgContainerElement);
   }
 
-  public static async convert(filterString: string): Promise<ColorToFilterResult> {
+  public static async convert<T>(filterString: string): Promise<FilterToColorResult<T>> {
     const { errorMessage, svgContainerElement } = FilterToHexShared.addSVGElementsToDOMAndValidateFilter(filterString);
     if (errorMessage) return FilterToHexBrowser.returnInputError(filterString, svgContainerElement);
     const byte64EncodedDataURL = await FilterToHexBrowser.getImageByte64ViaSVG(svgContainerElement);
     const hexColor = await FilterToHexShared.getColorViaImageDataURL(byte64EncodedDataURL);
-    return FilterToHexBrowser.finishProcessing({ color: hexColor }, svgContainerElement);
+    FilterToHexBrowser.cleanup(svgContainerElement);
+    return { color: hexColor as unknown as T };
   }
 }

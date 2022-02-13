@@ -1,7 +1,7 @@
+import { ColorToFilterResult, FilterToColorResult } from './shared/types/result';
+import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
-import { ColorToFilterResult } from './shared/types/result';
-import { KEYWORD } from 'color-convert/conversions';
 
 export default class CssFilterConverter {
   public static rgbToFilter(rgbString: string): ColorToFilterResult {
@@ -20,15 +20,15 @@ export default class CssFilterConverter {
     return ColorToFilter.keywordToFilter(keyword);
   }
 
-  public static async filterToRgb(filterString: string): Promise<ColorToFilterResult> {
+  public static async filterToRgb(filterString: string): Promise<FilterToColorResult<RGB>> {
     return FilterToColor.filterToRgb(filterString);
   }
 
-  public static async filterToHex(filterString: string): Promise<ColorToFilterResult> {
+  public static async filterToHex(filterString: string): Promise<FilterToColorResult<HEX>> {
     return FilterToColor.filterToHex(filterString);
   }
 
-  public static async filterToHsl(filterString: string): Promise<ColorToFilterResult> {
+  public static async filterToHsl(filterString: string): Promise<FilterToColorResult<HSL>> {
     return FilterToColor.filterToHsl(filterString);
   }
 }

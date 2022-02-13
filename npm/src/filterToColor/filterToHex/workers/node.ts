@@ -18,14 +18,14 @@ export class FilterToHexNode extends FilterToHexShared {
   // 1px SVG/viewport length is not enough to take a screenshot when headless mode is off, hence it is set to 2px
   private static readonly SVG_SIDE_LENGTH_PX = 2;
 
-  private static finishProcessing(result: ColorToFilterResult, browser?: Puppeteer.Browser): ColorToFilterResult {
+  private static cleanup(browser?: Puppeteer.Browser): void {
     if (FilterToHexNode.IS_HEADLESS) browser?.close();
-    return result;
   }
 
-  private static returnError(errorMsg: string, browser?: Puppeteer.Browser): ColorToFilterResult {
+  private static returnError(errorMsg: string, browser?: Puppeteer.Browser): ColorToFilterResult<null> {
     const errorResult = ErrorHandling.generateErrorResult(errorMsg);
-    return FilterToHexNode.finishProcessing(errorResult, browser);
+    FilterToHexNode.cleanup(browser);
+    return errorResult;
   }
 
   private static async getImageByte64ViaSVG(page: Puppeteer.Page): Promise<string> {
@@ -77,7 +77,7 @@ export class FilterToHexNode extends FilterToHexShared {
   // element, hence in order to not have to force the user to install a specific version of puppeteer (especially if
   // they are already using it for another use-case), the logic here is configured to reduce the viewport to the svg
   // size and then proceed to take a screenshot of the viewport via the page.screenshot api
-  public static async convert(filterString: string): Promise<FilterToColorResult> {
+  public static async convert<T>(filterString: string): Promise<FilterToColorResult<T>> {
     const browser = await FilterToHexNode.preparePuppeteerBrowser();
     if (ErrorHandling.hasError(browser)) return FilterToHexNode.returnError(browser.errorMessage);
     const page = await FilterToHexNode.openBrowserPage(browser);
@@ -85,6 +85,7 @@ export class FilterToHexNode extends FilterToHexShared {
     if (ErrorHandling.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
     const byte64EncodedDataURL = await FilterToHexNode.getImageByte64ViaSVG(page);
     const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, byte64EncodedDataURL);
-    return FilterToHexNode.finishProcessing({ color: hexColor }, browser);
+    FilterToHexNode.cleanup(browser);
+    return { color: hexColor as unknown as T };
   }
 }

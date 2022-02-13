@@ -50,7 +50,7 @@ export default function BasicColorInput() {
         value={inputState.basicColor.colorString}
         onChange={handleTextChange}
       />
-      <CustomColorPicker />
+      <CustomColorPicker state={inputState} />
     </div>
   );
 }

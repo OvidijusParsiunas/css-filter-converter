@@ -65,7 +65,7 @@ export default function BasicColorResult() {
             <div className="result-text">{resultColorState.colorString}</div>
           </div>
         </div>
-        <CustomColorPicker />
+        <CustomColorPicker state={{ basicColor: resultColorState, isValid: true }} />
       </OutputText>
       <History />
     </div>

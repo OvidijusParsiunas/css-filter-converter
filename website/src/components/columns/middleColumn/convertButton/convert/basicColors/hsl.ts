@@ -1,8 +1,4 @@
-import {
-  ColorToConverter,
-  ConversionResult,
-  ColorConversionTypes,
-} from '../../../../../../shared/types/basicColorFactory';
+import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
@@ -36,7 +32,7 @@ export class HSLBasicColor extends BasicColor {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatResult(conversionResult: ColorConversionTypes): string {
+  protected formatResult(conversionResult: HSL): string {
     return `hsl(${conversionResult[0]}deg, ${conversionResult[1]}%, ${conversionResult[2]}%)`;
   }
 }

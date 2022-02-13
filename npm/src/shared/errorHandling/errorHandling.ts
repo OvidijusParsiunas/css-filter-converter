@@ -6,7 +6,7 @@ import { ColorTypes } from '../consts/colorTypes';
 import { Error } from '../types/error';
 
 export class ErrorHandling {
-  public static generateErrorResult(message: string): ColorToFilterResult {
+  public static generateErrorResult(message: string): ColorToFilterResult<null> {
     return { color: null, error: { message } };
   }
 
@@ -21,7 +21,7 @@ export class ErrorHandling {
     return messageStrings.join(' ');
   }
 
-  public static generateUnexpectedError(error: UnexpectedError): ColorToFilterResult {
+  public static generateUnexpectedError(error: UnexpectedError): ColorToFilterResult<null> {
     const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
     return ErrorHandling.generateErrorResult(errorMessage);
   }

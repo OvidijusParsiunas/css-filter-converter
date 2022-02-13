@@ -1,8 +1,4 @@
-import {
-  ColorToConverter,
-  ConversionResult,
-  ColorConversionTypes,
-} from '../../../../../../shared/types/basicColorFactory';
+import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
@@ -13,7 +9,7 @@ import ColorConvert from 'color-convert';
 export class RGBBasicColor extends BasicColor {
   public colorType: BasicColorTypes = BasicColorTypes.RGB;
 
-  public defaultColorString = 'rgb(133,205,250)';
+  public defaultColorString = 'rgb(133, 205, 250)';
 
   public colorString = this.defaultColorString;
 
@@ -36,7 +32,7 @@ export class RGBBasicColor extends BasicColor {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatResult(conversionResult: ColorConversionTypes): string {
-    return `rgb(${conversionResult.toString()})`;
+  protected formatResult(conversionResult: RGB): string {
+    return `rgb(${conversionResult.join(', ')})`;
   }
 }

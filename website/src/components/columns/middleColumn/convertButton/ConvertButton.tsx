@@ -1,8 +1,9 @@
+import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
-import { updateResultFilter } from '../../../../state/result/actions';
+import { BASIC_COLOR_TYPE_TO_CLASS } from './convert/basicColors/colorTypeToClass';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
+import { BasicColor } from './convert/basicColors/basicColor';
 import { RootReducer } from '../../../../state/rootReducer';
 import { BasicColorToFilter } from './basicColorToFilter';
 import { FilterToBasicColor } from './filterToBasicColor';
@@ -15,24 +16,29 @@ function ConvertButton() {
 
   const isValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
 
-  const updateResultAndHistory = (inputColorString: string, resultColorString: string, colorType: BasicColorTypes) => {
+  const convertToBasicColor = (filter: string) => {
+    const { colorType } = store.getState().result.basicColor;
+    FilterToBasicColor.convert(filter, colorType as FilterToColorResultType).then((resultColorString) => {
+      const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[colorType]();
+      newBasicColor.setAndParseColorString(resultColorString);
+      dispatch(updateResultBasicColor(newBasicColor));
+      dispatch(addToHistory(filter, resultColorString, colorType));
+    });
+  };
+
+  const convertToFilter = (basicColor: BasicColor) => {
+    const { colorString: inputColorString, colorType } = basicColor;
+    const resultColorString = BasicColorToFilter.convert(inputColorString, colorType);
     dispatch(updateResultFilter(resultColorString));
     dispatch(addToHistory(inputColorString, resultColorString, colorType));
   };
 
   const convert = (): void => {
-    const {
-      basicColor: { colorString: inputColorString, colorType },
-      filter,
-      activeType,
-    } = store.getState().input;
+    const { basicColor, filter, activeType } = store.getState().input;
     if (activeType === InputTypes.BASIC_COLOR) {
-      const resultColorString = BasicColorToFilter.convert(inputColorString, colorType);
-      updateResultAndHistory(inputColorString, resultColorString, colorType);
+      convertToFilter(basicColor);
     } else {
-      FilterToBasicColor.convert(filter, colorType as FilterToColorResultType).then((resultColorString) => {
-        updateResultAndHistory(filter, resultColorString, colorType);
-      });
+      convertToBasicColor(filter);
     }
   };
 

@@ -1,8 +1,4 @@
-import {
-  ColorToConverter,
-  ConversionResult,
-  ColorConversionTypes,
-} from '../../../../../../shared/types/basicColorFactory';
+import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { KEYWORD } from 'color-convert/conversions';
@@ -36,7 +32,7 @@ export class KeywordBasicColor extends BasicColor {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected formatResult(conversionResult: ColorConversionTypes): string {
-    return conversionResult.toString();
+  protected formatResult(conversionResult: KEYWORD): string {
+    return conversionResult;
   }
 }

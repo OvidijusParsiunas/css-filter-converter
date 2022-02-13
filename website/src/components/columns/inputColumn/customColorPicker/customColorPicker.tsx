@@ -1,30 +1,38 @@
+import { BasicColor } from '../../middleColumn/convertButton/convert/basicColors/basicColor';
 import { HexBasicColor } from '../../middleColumn/convertButton/convert/basicColors/hex';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
 import { updateIsValid } from '../../../../state/input/actions';
-import { RootReducer } from '../../../../state/rootReducer';
 import ClickOutsideListener from '../ClickOutsideListener';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './customColorPicker.css';
 import React from 'react';
 
-export default function CustomColorPicker() {
+type Props = {
+  state: {
+    basicColor: BasicColor;
+    isValid: boolean;
+  };
+};
+
+export default function CustomColorPicker(props: Props) {
+  const {
+    state: { basicColor, isValid },
+  } = props;
   const dispatch = useDispatch();
   const hexBasicColor = new HexBasicColor();
-
-  const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   const [isDisplayed, setIsDisplayed] = React.useState(false);
 
   const setColor = (color: Color) => {
-    if (inputState.basicColor.colorType === BasicColorTypes.HEX) {
-      inputState.basicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
-    } else if (inputState.basicColor.colorType === BasicColorTypes.RGB) {
+    if (basicColor.colorType === BasicColorTypes.HEX) {
+      basicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
+    } else if (basicColor.colorType === BasicColorTypes.RGB) {
       const { r, g, b } = color.rgb;
-      inputState.basicColor.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
+      basicColor.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
     } else {
       hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
-      hexBasicColor.convertAndSetColorStringOnNewBasicColor(inputState.basicColor);
+      hexBasicColor.convertAndSetColorStringOnNewBasicColor(basicColor);
     }
     // as well as setting the input isValid to true, this is additionally used to force an update of
     // this component and the input component
@@ -32,11 +40,11 @@ export default function CustomColorPicker() {
   };
 
   const getCurrentColor = (): string => {
-    if (inputState.basicColor.colorType !== BasicColorTypes.HEX) {
-      inputState.basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
+    if (basicColor.colorType !== BasicColorTypes.HEX) {
+      basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
       return hexBasicColor.colorString;
     }
-    return inputState.basicColor.colorString;
+    return basicColor.colorString;
   };
 
   // prettier-ignore
@@ -65,7 +73,7 @@ export default function CustomColorPicker() {
     }
   };
 
-  const getButtonColor = () => (inputState.isValid ? inputState.basicColor.colorString : '#000000');
+  const getButtonColor = () => (isValid ? basicColor.colorString : '#000000');
 
   // WORK - color pointer is closing on mouse up
   return (

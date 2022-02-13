@@ -2,14 +2,14 @@ interface Error {
   message: string;
 }
 
-export interface ColorResult<T = string | null> {
-  color: T;
+export interface ColorResult<T = null> {
+  color: T | null;
 }
 
-export interface FilterToColorResult extends ColorResult {
+export interface FilterToColorResult<T = null> extends ColorResult<T> {
   error?: Error;
 }
 
-export interface ColorToFilterResult extends FilterToColorResult {
+export interface ColorToFilterResult<T = string | null> extends FilterToColorResult<T> {
   loss?: number;
 }
