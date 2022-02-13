@@ -3,10 +3,25 @@ import { InputTypes } from '../../../shared/consts/inputTypes';
 import BasicColorResult from './resultTypes/BasicColorResult';
 import { RootReducer } from '../../../state/rootReducer';
 import { useSelector } from 'react-redux';
+import History from './history/history';
 import './result.css';
 
 export default function Result() {
   const inputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>((state) => state.input.activeType);
 
-  return <div id="result">{inputTypeState === InputTypes.FILTER ? <BasicColorResult /> : <FilterColorResult />}</div>;
+  // The reason why history is a child of the result component is because it has to always safely be below the result text
+  // which can usually get high with long filter results (especially when window width is narrow).
+  return (
+    <div id="result">
+      {inputTypeState === InputTypes.FILTER ? (
+        <BasicColorResult>
+          <History />
+        </BasicColorResult>
+      ) : (
+        <FilterColorResult>
+          <History />
+        </FilterColorResult>
+      )}
+    </div>
+  );
 }

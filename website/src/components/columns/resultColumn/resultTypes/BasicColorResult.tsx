@@ -2,6 +2,7 @@ import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/conv
 import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
 import { FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
 import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
@@ -9,9 +10,14 @@ import { updateIsValid } from '../../../../state/input/actions';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useDispatch, useSelector } from 'react-redux';
-import History from '../history/history';
 
-export default function BasicColorResult() {
+type Props = {
+  children: ComponentAsProp;
+};
+
+export default function BasicColorResult(props: Props) {
+  const { children } = props;
+
   const dispatch = useDispatch();
   const resultColorState = useSelector<RootReducer, RootReducer['result']['basicColor']>(
     (state) => state.result.basicColor,
@@ -47,27 +53,26 @@ export default function BasicColorResult() {
     </div>
   );
 
-  // The reason why history is a child of the result component is because it has to always safely be below the result text
-  // which can usually get high with long filter results (especially when window width is narrow).
-  // WORK - pass history component as child
-  // WORK - color picker should use the result
-  // WORK - color picker should not be selectable
+  // prettier-ignore
+  const getColorPicker = () => (resultColorState.colorString ? (
+    <CustomColorPicker state={{ basicColor: resultColorState, isValid: true }} isSelectable={false} />
+  ) : null);
+
   return (
     <div>
       <OutputText>
-        {true ? getBasicColorDropdown() : null}
+        {true && resultColorState.colorString ? getBasicColorDropdown() : null}
         <div style={{ display: 'table' }}>
           <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-            {/* WORK - should be if there are any existing results */}
             <ResultHeaderText applyPrefixClasses={!!resultColorState.colorString} />
           </div>
           <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
             <div className="result-text">{resultColorState.colorString}</div>
           </div>
         </div>
-        <CustomColorPicker state={{ basicColor: resultColorState, isValid: true }} />
+        {getColorPicker()}
       </OutputText>
-      <History />
+      {children}
     </div>
   );
 }

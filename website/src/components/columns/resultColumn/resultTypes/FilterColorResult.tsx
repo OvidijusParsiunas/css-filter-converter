@@ -1,10 +1,16 @@
+import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
-import History from '../history/history';
 
-export default function FilterColorResult() {
+type Props = {
+  children: ComponentAsProp;
+};
+
+export default function FilterColorResult(props: Props) {
+  const { children } = props;
+
   const resultTextState = useSelector<RootReducer, RootReducer['result']['filter']>((state) => state.result.filter);
 
   return (
@@ -13,7 +19,7 @@ export default function FilterColorResult() {
         <ResultHeaderText applyPrefixClasses={!!resultTextState} />
         <div className="result-text">{resultTextState}</div>
       </OutputText>
-      <History />
+      {children}
     </div>
   );
 }
