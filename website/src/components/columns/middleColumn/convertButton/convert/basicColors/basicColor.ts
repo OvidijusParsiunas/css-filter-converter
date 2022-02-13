@@ -11,13 +11,10 @@ export abstract class BasicColor {
 
   public abstract defaultColorString: string;
 
+  // WORK - create getter for this so that colorString would not be directly overwritten
   public abstract colorString: string;
 
   public abstract parseResult: ColorConversionTypes | null;
-
-  constructor(colorString?: string) {
-    if (colorString) this.setAndParseColorString(colorString);
-  }
 
   protected abstract parse(): ParseResult<ColorConversionTypes>;
 

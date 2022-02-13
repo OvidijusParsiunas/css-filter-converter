@@ -24,6 +24,7 @@ export class KeywordBasicColor extends BasicColor {
     [BasicColorTypes.HSL]: ColorConvert.keyword.hsl,
   };
 
+  // WORK - validation for keyword
   protected parse(): ParseResult<KEYWORD> {
     return { color: this.colorString as KEYWORD };
   }

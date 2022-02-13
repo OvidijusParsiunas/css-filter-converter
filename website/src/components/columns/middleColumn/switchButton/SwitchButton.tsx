@@ -25,21 +25,47 @@ interface InputAndResultStrings {
 function SwitchButton() {
   const dispatch = useDispatch();
 
-  const convertColor = (lastConversionColorType: BasicColorTypes, currentBasicColor: BasicColor, inputString: string) => {
-    if (lastConversionColorType !== currentBasicColor.colorType) {
-      const lastBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[lastConversionColorType](inputString);
-      lastBasicColor.convertAndSetColorStringOnNewBasicColor(currentBasicColor);
-    }
+  const convertNewColorStringTypeToCurrent = (
+    lastConversionColorType: BasicColorTypes,
+    currentBasicColor: BasicColor,
+    newColorString: string,
+  ): void => {
+    const lastBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[lastConversionColorType]();
+    lastBasicColor.setAndParseColorString(newColorString);
+    lastBasicColor.convertAndSetColorStringOnNewBasicColor(currentBasicColor);
   };
 
+  const generateDefaultBasicColor = (currentBasicColor: BasicColor, newColorString: string) => {
+    if (!newColorString) currentBasicColor.setAndParseColorString(currentBasicColor.defaultColorString);
+    const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[BasicColorTypes.HEX]();
+    currentBasicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    return newBasicColor;
+  };
+
+  const generateConvertedColor = (
+    lastConversionColorType: BasicColorTypes,
+    basicColor: BasicColor,
+    newColorString: string,
+  ): BasicColor => {
+    if (basicColor.colorType === BasicColorTypes.KEYWORD) {
+      return generateDefaultBasicColor(basicColor, newColorString);
+    }
+    if (lastConversionColorType !== basicColor.colorType) {
+      convertNewColorStringTypeToCurrent(lastConversionColorType, basicColor, newColorString);
+    } else {
+      basicColor.setAndParseColorString(newColorString);
+    }
+    return basicColor;
+  };
+
+  // input and result strings are retrieved from the last successful conversion!
   const switchToFilterInput = (
     inputString: string,
     resultString: string,
     basicColor: BasicColor,
     lastConversionColorType: BasicColorTypes,
   ): void => {
-    basicColor.colorString = inputString;
-    convertColor(lastConversionColorType, basicColor, inputString);
+    basicColor = generateConvertedColor(lastConversionColorType, basicColor, inputString);
     dispatch(updateResultBasicColor(basicColor));
     dispatch(updateInputFilter(resultString || DEFAULT_VALUES.filter));
     dispatch(updateActiveInputType(InputTypes.FILTER));
@@ -51,8 +77,8 @@ function SwitchButton() {
     basicColor: BasicColor,
     lastConversionColorType: BasicColorTypes,
   ): void => {
-    basicColor.colorString = resultString || basicColor.defaultColorString;
-    convertColor(lastConversionColorType, basicColor, inputString);
+    const newColorString = resultString || basicColor.defaultColorString;
+    basicColor = generateConvertedColor(lastConversionColorType, basicColor, newColorString);
     dispatch(updateInputBasicColor(basicColor));
     dispatch(updateResultFilter(inputString));
     dispatch(updateActiveInputType(InputTypes.BASIC_COLOR));

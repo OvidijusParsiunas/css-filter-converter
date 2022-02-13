@@ -4,8 +4,8 @@ import {
   ColorConversionTypes,
 } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
-import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
+import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { RGB } from 'color-convert/conversions';
 import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';

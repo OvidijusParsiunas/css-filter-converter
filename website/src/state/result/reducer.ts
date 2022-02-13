@@ -9,7 +9,7 @@ import { ResultActionTypes } from './consts';
 const initialState: ResultState = {
   filter: '',
   // basicColor is overwritten by input basicColor object when switch button is clicked
-  basicColor: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](DEFAULT_VALUES.text),
+  basicColor: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](),
 };
 
 const initialAction: ResultAction = {

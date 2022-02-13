@@ -10,7 +10,7 @@ import { InputActionTypes } from './consts';
 const initialState: InputState = {
   isValid: true,
   // basicColor is overwritten by result basicColor object when switch button is clicked
-  basicColor: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](DEFAULT_VALUES.text),
+  basicColor: new BASIC_COLOR_TYPE_TO_CLASS[DEFAULT_VALUES.colorType](),
   filter: '',
   activeType: InputTypes.BASIC_COLOR,
 };
