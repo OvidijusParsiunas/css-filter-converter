@@ -1,14 +1,18 @@
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
-import { SelectChangeEvent, FormControl, Select, MenuItem, TextField } from '@mui/material';
+import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
-import { updateIsValid, updateColor } from '../../../../state/input/actions';
+import { FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { updateColor, updateIsValid } from '../../../../state/input/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
-import CustomColorPicker from '../customColorPicker/CustomColorPicker';
+import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { RootReducer } from '../../../../state/rootReducer';
+import OutputText from '../outputTextWrapper/outputText';
 import { useDispatch, useSelector } from 'react-redux';
+import History from '../history/history';
 
-export default function BasicColorInput() {
+export default function BasicColorResult() {
   const dispatch = useDispatch();
+  const resultTextState = useSelector<RootReducer, RootReducer['result']['text']>((state) => state.result.text);
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
@@ -24,13 +28,9 @@ export default function BasicColorInput() {
     updateIsValidState(newBasicColor.parseResult);
   };
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputState.basicColor.setAndParseColorString(event.target.value);
-    updateIsValidState(inputState.basicColor.parseResult);
-  };
-
-  return (
-    <div>
+  // WORK - basic color type should be a reusable component
+  const getBasicColorDropdown = () => (
+    <div style={{ width: 84, height: 40, display: 'inline-flex', marginRight: 10 }}>
       <FormControl sx={{ m: 1, minWidth: 84, margin: 0, marginRight: 1 }} size="small">
         <Select
           value={inputState.basicColor.colorType}
@@ -43,14 +43,29 @@ export default function BasicColorInput() {
           <MenuItem value={BasicColorTypes.KEYWORD}>{BasicColorTypes.KEYWORD}</MenuItem>
         </Select>
       </FormControl>
-      <TextField
-        error={!inputState.isValid}
-        size="small"
-        variant="outlined"
-        value={inputState.basicColor.colorString}
-        onChange={handleTextChange}
-      />
-      <CustomColorPicker />
+    </div>
+  );
+
+  // The reason why history is a child of the result component is because it has to always safely be below the result text
+  // which can usually get high with long filter results (especially when window width is narrow).
+  // WORK - pass history component as child
+  // WORK - color picker should use the result
+  // WORK - color picker should not be selectable
+  return (
+    <div>
+      <OutputText>
+        {true ? getBasicColorDropdown() : null}
+        <div style={{ display: 'table' }}>
+          <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+            <ResultHeaderText applyPrefixClasses={!!resultTextState} />
+          </div>
+          <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+            <div className="result-text">{resultTextState}</div>
+          </div>
+        </div>
+        <CustomColorPicker />
+      </OutputText>
+      <History />
     </div>
   );
 }

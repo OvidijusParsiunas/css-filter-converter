@@ -3,7 +3,7 @@ import ConvertButton from './components/columns/middleColumn/convertButton/Conve
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
 import Result from './components/columns/resultColumn/Result';
 import Input from './components/columns/inputColumn/Input';
-import Column from './components/columns/wrapper/column';
+import Column from './components/columns/wrapper/Column';
 import './App.css';
 
 export default function App() {

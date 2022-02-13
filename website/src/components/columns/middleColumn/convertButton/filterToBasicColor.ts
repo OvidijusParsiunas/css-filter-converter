@@ -9,6 +9,7 @@ export class FilterToBasicColor {
     [BasicColorTypes.HSL]: CssFilterConverter.filterToHsl,
   };
 
+  // WORK - process rgb and hsl result values
   // deal with null values
   public static async convert(filter: string, resultBasicColorType: FilterToColorResultType): Promise<string> {
     const result = await FilterToBasicColor.FILTER_TO_BASIC_COLOR_CONVERTER[resultBasicColorType](filter);

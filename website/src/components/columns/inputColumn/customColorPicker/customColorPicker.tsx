@@ -2,8 +2,8 @@ import { HexBasicColor } from '../../middleColumn/convertButton/convert/basicCol
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
 import { updateIsValid } from '../../../../state/input/actions';
-import ClickOutsideListener from '../clickOutsideListener';
 import { RootReducer } from '../../../../state/rootReducer';
+import ClickOutsideListener from '../ClickOutsideListener';
 import { useDispatch, useSelector } from 'react-redux';
 import './customColorPicker.css';
 import React from 'react';

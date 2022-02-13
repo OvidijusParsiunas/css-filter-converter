@@ -5,7 +5,7 @@ import Converter from 'color-convert';
 export class FilterToColor {
   public static async filterToHex(filterString: string): Promise<FilterToColorResult> {
     const result = await FilterToHex.convert(filterString);
-    result.color?.toUpperCase();
+    if (result.color) result.color = result.color.toUpperCase();
     return result;
   }
 

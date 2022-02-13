@@ -1,5 +1,5 @@
 import { InputTypes } from '../../../shared/consts/inputTypes';
-import FilterColorInput from './inputTypes/filterColorInput';
+import FilterColorInput from './inputTypes/FilterColorInput';
 import BasicColorInput from './inputTypes/basicColorInput';
 import { RootReducer } from '../../../state/rootReducer';
 import 'react-color-palette/lib/css/styles.css';

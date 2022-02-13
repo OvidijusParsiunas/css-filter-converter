@@ -35,7 +35,7 @@ function ConvertButton() {
     }
   };
 
-  const styling = {
+  const buttonClassOverwriteCss = {
     '&.Mui-disabled': {
       backgroundColor: '#7197c0', // #d48484
       color: 'white',
@@ -43,7 +43,13 @@ function ConvertButton() {
   };
 
   return (
-    <Button sx={styling} disabled={!isInputState.isValid} variant="contained" color="primary" onClick={convert}>
+    <Button
+      sx={buttonClassOverwriteCss}
+      disabled={!isInputState.isValid}
+      variant="contained"
+      color="primary"
+      onClick={convert}
+    >
       Convert
     </Button>
   );

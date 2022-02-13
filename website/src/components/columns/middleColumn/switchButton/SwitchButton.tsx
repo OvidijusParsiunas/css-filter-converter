@@ -44,8 +44,6 @@ function SwitchButton() {
     dispatch(switchHistory());
   };
 
-  // WORK - have color picker for the result
-
   return (
     <div id="switch-button-container">
       <Button id="switch-button" onClick={switchInputType}>
