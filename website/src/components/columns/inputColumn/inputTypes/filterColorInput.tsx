@@ -1,15 +1,18 @@
-import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
-import { updateInputBasicColor, updateInputFilter, updateIsValid } from '../../../../state/input/actions';
-import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
-import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
+import { updateInputFilter, updateIsValid } from '../../../../state/input/actions';
+import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import ColorTypeSelector from '../../shared/ColorTypeSelector';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField } from '@mui/material';
 import React from 'react';
 
 export default function FilterColorInput() {
   const dispatch = useDispatch();
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
+  const resultColorState = useSelector<RootReducer, RootReducer['result']['basicColor']>(
+    (state) => state.result.basicColor,
+  );
 
   const filterTestElement = React.useRef<HTMLDivElement>(null);
 
@@ -23,23 +26,10 @@ export default function FilterColorInput() {
     }
   };
 
-  const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
-    const isValid = !!parseResult;
-    dispatch(updateIsValid(isValid));
-  };
-
-  const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
-    const newColorType = event.target.value as BasicColorTypes;
-    const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateInputBasicColor(newBasicColor));
-    updateIsValidState(newBasicColor.parseResult);
-  };
-
   const inputStyle: React.CSSProperties = {
     width: 'calc(80% - 77px)',
     backgroundColor: 'white',
-    left: '20px',
+    left: '-7px',
   };
 
   const headerStyle: React.CSSProperties = {
@@ -49,7 +39,7 @@ export default function FilterColorInput() {
     userSelect: 'none',
     pointerEvents: 'none',
     display: 'inline-flex',
-    marginLeft: '-54px',
+    marginLeft: '-80px',
     backgroundColor: 'white',
   };
 
@@ -59,19 +49,15 @@ export default function FilterColorInput() {
     },
   };
 
-  const getBasicColorDropdown = () => (
-    <FormControl sx={{ m: 1, minWidth: 14, margin: 0, marginRight: 1, position: 'fixed', height: '100%' }} size="small">
-      <Select
-        value={inputState.basicColor.colorType}
-        style={{ height: '100%' }}
-        onChange={handleColorTypeChange}
-        inputProps={{ MenuProps: { disableScrollLock: true } }}
-      >
-        <MenuItem value={BasicColorTypes.HEX}>{BasicColorTypes.HEX}</MenuItem>
-        <MenuItem value={BasicColorTypes.RGB}>{BasicColorTypes.RGB}</MenuItem>
-        <MenuItem value={BasicColorTypes.HSL}>{BasicColorTypes.HSL}</MenuItem>
-      </Select>
-    </FormControl>
+  const getBasicColorTypeSelector = () => (
+    <ColorTypeSelector
+      updateColorCallback={updateResultBasicColor}
+      basicColorState={resultColorState}
+      convertFromFilterOnChange
+      customContainerStyling={{ position: 'fixed', height: '100%', marginLeft: 2 }}
+      customSelectorStyling={{ height: '100%', width: '82px', cursor: 'pointer' }}
+      innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL]}
+    />
   );
 
   return (
@@ -86,7 +72,7 @@ export default function FilterColorInput() {
         value={inputState.filter}
         onChange={handleTextChange}
       />
-      {false ? getBasicColorDropdown() : null}
+      {getBasicColorTypeSelector()}
       <div ref={filterTestElement} />
     </div>
   );

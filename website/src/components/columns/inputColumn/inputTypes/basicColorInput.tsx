@@ -16,15 +16,19 @@ export default function BasicColorInput() {
     dispatch(updateIsValid(!!inputState.basicColor.parseResult));
   };
 
+  const getBasicColorTypeSelector = () => (
+    <ColorTypeSelector
+      updateColorCallback={updateInputBasicColor}
+      basicColorState={inputState.basicColor}
+      customContainerStyling={{ left: '-10px' }}
+      customFormControlStyling={{ position: 'absolute', right: 0 }}
+      innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL, BasicColorTypes.KEYWORD]}
+    />
+  );
+
   return (
     <div>
-      <ColorTypeSelector
-        updateColorCallback={updateInputBasicColor}
-        basicColorState={inputState.basicColor}
-        customOuterStyling={{ left: '-10px' }}
-        customInnerStyling={{ position: 'absolute', right: 0 }}
-        innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL, BasicColorTypes.KEYWORD]}
-      />
+      {getBasicColorTypeSelector()}
       <TextField
         style={{ left: '-8px' }}
         error={!inputState.isValid}

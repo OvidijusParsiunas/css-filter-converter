@@ -1,0 +1,6 @@
+.color-type-selector-container {
+  width: 84px;
+  height: 40px;
+  position: relative;
+  display: inline-flex;
+}

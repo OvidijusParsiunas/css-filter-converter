@@ -1,9 +1,6 @@
 import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
-import { updateResultBasicColor } from '../../../../state/result/actions';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
-import ColorTypeSelector from '../../shared/ColorTypeSelector';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
@@ -36,19 +33,9 @@ export default function BasicColorResult(props: Props) {
     </div>
   );
 
-  const getBasicColorDropdown = () => (
-    <ColorTypeSelector
-      updateColorCallback={updateResultBasicColor}
-      basicColorState={resultColorState}
-      customOuterStyling={{ marginRight: 20 }}
-      innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL]}
-    />
-  );
-
   return (
     <div>
       <OutputText>
-        {true && resultColorState.colorString ? getBasicColorDropdown() : null}
         {getResultText()}
         {getColorPicker()}
       </OutputText>
@@ -56,3 +43,15 @@ export default function BasicColorResult(props: Props) {
     </div>
   );
 }
+
+/*
+Right side basic color type dropdown
+const getBasicColorTypeSelector = () => (
+    <ColorTypeSelector
+      updateColorCallback={updateResultBasicColor}
+      basicColorState={resultColorState}
+      customContainerStyling={{ marginRight: 20 }}
+      innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL]}
+    />
+  );
+*/
