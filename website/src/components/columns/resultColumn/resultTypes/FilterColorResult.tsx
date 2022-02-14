@@ -17,7 +17,7 @@ export default function FilterColorResult(props: Props) {
     <div>
       <OutputText>
         <ResultHeaderText applyPrefixClasses={!!resultTextState} />
-        <div className="result-text">{resultTextState}</div>
+        <div className="result-string-text">{resultTextState}</div>
       </OutputText>
       {children}
     </div>

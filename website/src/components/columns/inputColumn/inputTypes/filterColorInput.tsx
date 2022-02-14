@@ -39,16 +39,17 @@ export default function FilterColorInput() {
   const inputStyle: React.CSSProperties = {
     width: 'calc(80% - 77px)',
     backgroundColor: 'white',
+    left: '20px',
   };
 
   const headerStyle: React.CSSProperties = {
-    width: '70px',
+    width: '65px',
     height: '100%',
     position: 'fixed',
     userSelect: 'none',
     pointerEvents: 'none',
     display: 'inline-flex',
-    marginLeft: '-77px',
+    marginLeft: '-54px',
     backgroundColor: 'white',
   };
 

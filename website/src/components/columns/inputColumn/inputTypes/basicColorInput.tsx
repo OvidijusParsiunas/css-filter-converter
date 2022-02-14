@@ -1,56 +1,41 @@
-import { BASIC_COLOR_TYPE_TO_CLASS } from '../../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
-import { SelectChangeEvent, FormControl, Select, MenuItem, TextField } from '@mui/material';
-import { updateIsValid, updateInputBasicColor } from '../../../../state/input/actions';
-import { ColorConversionTypes } from '../../../../shared/types/basicColorFactory';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { updateInputBasicColor, updateIsValid } from '../../../../state/input/actions';
 import CustomColorPicker from '../customColorPicker/CustomColorPicker';
+import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import ColorTypeSelector from '../../shared/ColorTypeSelector';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField } from '@mui/material';
+import './basicColorInput.css';
 
 export default function BasicColorInput() {
   const dispatch = useDispatch();
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  const updateIsValidState = (parseResult: ColorConversionTypes | null): void => {
-    const isValid = !!parseResult;
-    dispatch(updateIsValid(isValid));
-  };
-
-  const handleColorTypeChange = (event: SelectChangeEvent<string>): void => {
-    const newColorType = event.target.value as BasicColorTypes;
-    const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
-    inputState.basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
-    dispatch(updateInputBasicColor(newBasicColor));
-    updateIsValidState(newBasicColor.parseResult);
-  };
-
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     inputState.basicColor.setAndParseColorString(event.target.value);
-    updateIsValidState(inputState.basicColor.parseResult);
+    dispatch(updateIsValid(!!inputState.basicColor.parseResult));
   };
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 84, margin: 0, marginRight: 1 }} size="small">
-        <Select
-          value={inputState.basicColor.colorType}
-          onChange={handleColorTypeChange}
-          inputProps={{ MenuProps: { disableScrollLock: true } }}
-        >
-          <MenuItem value={BasicColorTypes.HEX}>{BasicColorTypes.HEX}</MenuItem>
-          <MenuItem value={BasicColorTypes.RGB}>{BasicColorTypes.RGB}</MenuItem>
-          <MenuItem value={BasicColorTypes.HSL}>{BasicColorTypes.HSL}</MenuItem>
-          <MenuItem value={BasicColorTypes.KEYWORD}>{BasicColorTypes.KEYWORD}</MenuItem>
-        </Select>
-      </FormControl>
+      <ColorTypeSelector
+        updateColorCallback={updateInputBasicColor}
+        basicColorState={inputState.basicColor}
+        customOuterStyling={{ left: '-10px' }}
+        customInnerStyling={{ position: 'absolute', right: 0 }}
+        innerValues={[BasicColorTypes.HEX, BasicColorTypes.RGB, BasicColorTypes.HSL, BasicColorTypes.KEYWORD]}
+      />
       <TextField
+        style={{ left: '-8px' }}
         error={!inputState.isValid}
         size="small"
         variant="outlined"
         value={inputState.basicColor.colorString}
         onChange={handleTextChange}
       />
-      <CustomColorPicker state={inputState} />
+      <div id="basic-color-input-color-picker-container">
+        <CustomColorPicker state={inputState} />
+      </div>
     </div>
   );
 }

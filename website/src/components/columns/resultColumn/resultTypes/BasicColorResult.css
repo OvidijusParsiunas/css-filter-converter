@@ -1,0 +1,8 @@
+#basic-color-result-text-container {
+  display: table;
+}
+
+.basic-color-result-text {
+  display: table-cell;
+  vertical-align: middle;
+}

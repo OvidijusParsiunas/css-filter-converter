@@ -1,0 +1,8 @@
+#basic-color-input-color-picker-container {
+  height: 40px;
+  vertical-align: middle;
+  display: inline-block;
+  position: fixed;
+  padding-top: 1px;
+  margin-left: -15px;
+}

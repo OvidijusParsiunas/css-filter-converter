@@ -24,6 +24,8 @@ export default function CustomColorPicker(props: Props) {
   const dispatch = useDispatch();
   const hexBasicColor = new HexBasicColor();
 
+  const buttonRef = React.useRef<HTMLDivElement>(null);
+
   const [isDisplayed, setIsDisplayed] = React.useState(false);
 
   const setColor = (color: Color) => {
@@ -67,8 +69,8 @@ export default function CustomColorPicker(props: Props) {
         </div>
       ) : null);
 
-  const toggleColorPickerPanel = () => {
-    if (isSelectable) setIsDisplayed(!isDisplayed);
+  const toggleColorPickerPanel = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (event.target === buttonRef.current) setIsDisplayed(!isDisplayed);
   };
 
   const buttonStyle: React.CSSProperties = {
@@ -77,17 +79,20 @@ export default function CustomColorPicker(props: Props) {
   };
 
   const closeColorPickerPanel = () => {
-    if (isDisplayed) {
-      setIsDisplayed(false);
-    }
+    if (isDisplayed) setIsDisplayed(false);
   };
 
-  // WORK - color pointer is closing on mouse up
   return (
     <ClickOutsideListener callback={closeColorPickerPanel} callbackActivationCondition={isDisplayed}>
       {/* the reason why this is a div and not a button is because if the user clicks on it with a left mouse key,
         onClick will be called again if they click they proceed to hit the Enter keyboard key */}
-      <div id="color-picker-button" aria-hidden="true" style={buttonStyle} onClick={toggleColorPickerPanel}>
+      <div
+        id="color-picker-button"
+        ref={buttonRef}
+        aria-hidden="true"
+        style={buttonStyle}
+        onClick={(e) => toggleColorPickerPanel(e)}
+      >
         <div />
         {getColorPickerPanel()}
       </div>
