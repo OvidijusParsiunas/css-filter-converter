@@ -1,6 +1,15 @@
+// if there are too many new issues being created, change the below variables to the following:
+// export const UNEXPECTED_ERROR_MESSAGE_PREFIX =
+//   'Unexpected error has occurred, please report this by creating a new issue in the following link: ';
+
+// export const UNEXPECTED_ERROR_MESSAGE_LINK = 'https://github.com/OvidijusParsiunas/css-filter-converter/issues';
+
 export const UNEXPECTED_ERROR_MESSAGE_PREFIX =
-  'Unexpected error, please report this by creating a new issue in the following link: ' +
-  'https://github.com/OvidijusParsiunas/css-filter-converter/issues';
+  'Unexpected error has occurred, please report this by using the following link: ';
+
+export const UNEXPECTED_ERROR_MESSAGE_LINK = 'https://github.com/OvidijusParsiunas/css-filter-converter/issues/new';
+
+export const UNEXPECTED_ERROR_MESSAGE_INTRODUCTION = UNEXPECTED_ERROR_MESSAGE_PREFIX + UNEXPECTED_ERROR_MESSAGE_LINK;
 
 export const DEFAULT_CONVERSION_ERROR_MESSAGE = 'Input value is invalid';
 

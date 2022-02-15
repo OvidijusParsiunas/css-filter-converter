@@ -42,8 +42,16 @@ export default function ColorTypeSelector(props: Props) {
 
   const convertFromFilter = async (newBasicColor: BasicColor) => {
     const { filter } = store.getState().input;
-    const resultColorString = await FilterToBasicColor.convert(filter, newBasicColor.colorType as FilterToColorResultType);
-    newBasicColor.setAndParseColorString(resultColorString);
+    const result = await FilterToBasicColor.convert(filter, newBasicColor.colorType as FilterToColorResultType);
+    if (!result.color) {
+      // decided not to throw an error here and instead directly convert from one color type to another
+      console.log(result.error);
+      const { basicColor } = store.getState().result;
+      basicColor.convertAndSetColorStringOnNewBasicColor(basicColor);
+    } else {
+      // WORK - display error for parser fail
+      newBasicColor.setAndParseColorString(result.color);
+    }
   };
 
   const handleColorTypeChange = async (event: SelectChangeEvent<string>): Promise<void> => {

@@ -1,4 +1,4 @@
-import { UNEXPECTED_ERROR_MESSAGE_PREFIX } from '../consts/errors';
+import { UNEXPECTED_ERROR_MESSAGE_INTRODUCTION } from '../consts/errors';
 import { UnexpectedError } from '../types/unexpectedError';
 import { ColorFormats } from '../consts/colorFormats';
 import { ColorToFilterResult } from '../types/result';
@@ -22,7 +22,7 @@ export class ErrorHandling {
   }
 
   public static generateUnexpectedError(error: UnexpectedError): ColorToFilterResult<null> {
-    const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
+    const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_INTRODUCTION}: \n${error.message}`;
     return ErrorHandling.generateErrorResult(errorMessage);
   }
 
