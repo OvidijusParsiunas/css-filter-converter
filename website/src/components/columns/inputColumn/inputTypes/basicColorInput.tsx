@@ -30,6 +30,7 @@ export default function BasicColorInput() {
     <div>
       {getBasicColorTypeSelector()}
       <TextField
+        spellCheck="false"
         style={{ left: '-8px' }}
         error={!inputState.isValid}
         size="small"

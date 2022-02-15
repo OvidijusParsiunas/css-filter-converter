@@ -64,6 +64,7 @@ export default function FilterColorInput() {
     <div>
       <TextField size="small" sx={headerClassOverwriteCss} style={headerStyle} value="Filter" />
       <TextField
+        spellCheck="false"
         multiline
         size="small"
         style={inputStyle}
