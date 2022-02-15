@@ -1,0 +1,12 @@
+#error-alert {
+  position: absolute;
+  width: max-content;
+  max-width: 80vw;
+  margin-top: -20vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#error-alert-text {
+  color: rgb(95, 33, 32);
+}

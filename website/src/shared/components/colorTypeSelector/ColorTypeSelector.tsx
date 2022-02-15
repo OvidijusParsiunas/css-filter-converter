@@ -1,10 +1,13 @@
-import { BASIC_COLOR_TYPE_TO_CLASS } from '../middleColumn/convertButton/convert/basicColors/colorTypeToClass';
-import { BasicColor } from '../middleColumn/convertButton/convert/basicColors/basicColor';
-import { FilterToBasicColor } from '../middleColumn/convertButton/filterToBasicColor';
-import { FilterToColorResultType } from '../../../shared/types/filterToBasicColor';
+// prettier-ignore
+import {
+  BASIC_COLOR_TYPE_TO_CLASS,
+} from '../../../components/columns/middleColumn/convertButton/convert/basicColors/colorTypeToClass';
+import { BasicColor } from '../../../components/columns/middleColumn/convertButton/convert/basicColors/basicColor';
+import { FilterToBasicColor } from '../../../components/columns/middleColumn/convertButton/filterToBasicColor';
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { BasicColorTypes } from '../../../shared/consts/colorTypes';
+import { FilterToColorResultType } from '../../types/filterToBasicColor';
 import { updateIsValid } from '../../../state/input/actions';
+import { BasicColorTypes } from '../../consts/colorTypes';
 import { ResultAction } from '../../../state/result/type';
 import { InputAction } from '../../../state/input/types';
 import { store } from '../../../state/store';

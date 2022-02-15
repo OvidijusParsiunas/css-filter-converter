@@ -1,7 +1,7 @@
+import ColorTypeSelector from '../../../../shared/components/colorTypeSelector/ColorTypeSelector';
 import { updateInputFilter, updateIsValid } from '../../../../state/input/actions';
 import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
-import ColorTypeSelector from '../../shared/ColorTypeSelector';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@mui/material';

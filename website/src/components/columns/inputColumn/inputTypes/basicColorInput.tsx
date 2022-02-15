@@ -1,7 +1,7 @@
+import ColorTypeSelector from '../../../../shared/components/colorTypeSelector/ColorTypeSelector';
 import { updateInputBasicColor, updateIsValid } from '../../../../state/input/actions';
 import CustomColorPicker from '../customColorPicker/CustomColorPicker';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
-import ColorTypeSelector from '../../shared/ColorTypeSelector';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@mui/material';
