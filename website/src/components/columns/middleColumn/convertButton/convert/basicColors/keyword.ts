@@ -1,5 +1,5 @@
+import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
-import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { KEYWORD } from 'color-convert/conversions';
 import { BasicColor } from './basicColor';
@@ -20,9 +20,8 @@ export class KeywordBasicColor extends BasicColor {
     [BasicColorTypes.HSL]: ColorConvert.keyword.hsl,
   };
 
-  // WORK - validation for keyword
   protected parse(): ParseResult<KEYWORD> {
-    return { color: this.colorString as KEYWORD };
+    return ColorParser.validateAndParseKeyword(this.colorString);
   }
 
   protected convert(newColorType: BasicColorTypes): ConversionResult {

@@ -2,18 +2,20 @@ import { MATCH_HEXADECIMAL, MATCH_INTEGER_AND_FLOAT_NUMBERS } from '../../shared
 import { MAX_COLOR_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
 import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorFormats } from '../../shared/consts/colorFormats';
+import { RGB, HSL, KEYWORD } from 'color-convert/conversions';
 import { ColorTypes } from '../../shared/consts/colorTypes';
 import { ColorResult } from '../../shared/types/result';
-import { RGB, HSL } from 'color-convert/conversions';
 import { Error } from '../../shared/types/error';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import colors from 'color-name';
 
 export type ParseResult<T> = Error | ColorResult<T>;
 
 export class ColorParser {
   public static validateAndParseHex(hexString: string): ParseResult<string> {
     if (hexString.length < MAX_COLOR_INPUT_STRING_LENGTH) {
-      const result = hexString.match(MATCH_HEXADECIMAL);
-      if (result) return { color: hexString };
+      const isValid = hexString.match(MATCH_HEXADECIMAL);
+      if (isValid) return { color: hexString };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HEX, hexString, ColorFormats.HEX) };
   }
@@ -52,6 +54,14 @@ export class ColorParser {
       return { color: hsl };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HSL, hslString, ColorFormats.HSL) };
+  }
+
+  public static validateAndParseKeyword(keyword: string): ParseResult<KEYWORD> {
+    if (keyword.length < MAX_COLOR_INPUT_STRING_LENGTH) {
+      const isValid = colors[keyword as KEYWORD];
+      if (isValid) return { color: keyword as KEYWORD };
+    }
+    return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.KEYWORD, keyword, ColorFormats.KEYWORD) };
   }
 }
 

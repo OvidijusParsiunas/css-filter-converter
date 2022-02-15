@@ -18,4 +18,7 @@ export enum ColorFormats {
     'invert(), saturate(), sepia() ' +
     'with each parameter populated with ' +
     '%, px or deg where approriate e.g. contrast(101%)',
+
+  KEYWORD = 'Generic color string. See the following link for all available colors: ' +
+    'https://github.com/colorjs/color-name/blob/master/index.js',
 }

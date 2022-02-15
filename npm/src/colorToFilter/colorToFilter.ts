@@ -33,6 +33,7 @@ export class ColorToFilter {
   public static keywordToFilter(keyword: KEYWORD): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: keyword,
+      validateAndParse: ColorParser.validateAndParseKeyword,
       convertToRgb: Converter.keyword.rgb,
       conversionErrorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.KEYWORD, keyword),
     });
