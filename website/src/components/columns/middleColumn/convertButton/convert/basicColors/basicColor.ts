@@ -7,14 +7,13 @@ import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { Error } from 'css-filter-converter/lib/shared/types/error';
 
 export abstract class BasicColor {
-  public abstract colorType: BasicColorTypes;
+  protected abstract _colorType: BasicColorTypes;
 
-  public abstract defaultColorString: string;
+  protected abstract _defaultColorString: string;
 
-  // WORK - create getter for this so that colorString would not be directly overwritten
-  public abstract colorString: string;
+  protected abstract _colorString: string;
 
-  public abstract parseResult: ColorConversionTypes | null;
+  protected abstract _parseResult: ColorConversionTypes | null;
 
   protected abstract parse(): ParseResult<ColorConversionTypes>;
 
@@ -22,10 +21,26 @@ export abstract class BasicColor {
 
   protected abstract formatResult(conversionResult: ColorConversionTypes): string;
 
+  get colorType(): BasicColorTypes {
+    return this._colorType;
+  }
+
+  get defaultColorString(): string {
+    return this._defaultColorString;
+  }
+
+  get colorString(): string {
+    return this._colorString;
+  }
+
+  get parseResult(): ColorConversionTypes | null {
+    return this._parseResult;
+  }
+
   public setAndParseColorString(colorString: string): void {
-    this.colorString = colorString;
+    this._colorString = colorString;
     const parseResult = this.parse();
-    this.parseResult = ErrorHandling.hasError(parseResult) ? null : parseResult.color;
+    this._parseResult = ErrorHandling.hasError(parseResult) ? null : parseResult.color;
   }
 
   private static generateUnexpectedError(error: UnexpectedError): Error {
@@ -42,14 +57,14 @@ export abstract class BasicColor {
   public convertAndSetColorStringOnNewBasicColor(newColor: BasicColor): void {
     try {
       let wasColorStringSet = false;
-      if (this.parseResult) {
+      if (this._parseResult) {
         const conversionResult = this.convert(newColor.colorType);
         if (conversionResult) {
           newColor.setPostConversionResult(conversionResult);
           wasColorStringSet = true;
         }
       }
-      if (!wasColorStringSet) newColor.setAndParseColorString(newColor.defaultColorString);
+      if (!wasColorStringSet) newColor.setAndParseColorString(newColor._defaultColorString);
     } catch (error) {
       // should throw here and error should be caught in the ui
       BasicColor.generateUnexpectedError(error as UnexpectedError);

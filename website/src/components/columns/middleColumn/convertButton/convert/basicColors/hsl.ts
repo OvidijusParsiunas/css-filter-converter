@@ -7,13 +7,13 @@ import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class HSLBasicColor extends BasicColor {
-  public colorType: BasicColorTypes = BasicColorTypes.HSL;
+  protected _colorType: BasicColorTypes = BasicColorTypes.HSL;
 
-  public defaultColorString = 'hsl(203deg, 92%, 75%)';
+  protected _defaultColorString = 'hsl(203deg, 92%, 75%)';
 
-  public colorString = this.defaultColorString;
+  protected _colorString = this._defaultColorString;
 
-  public parseResult = (this.parse() as ColorResult<HSL>).color as HSL;
+  protected _parseResult = (this.parse() as ColorResult<HSL>).color as HSL;
 
   private static readonly HSL_TO_COLOR: ColorToConverter<HSL> = {
     [BasicColorTypes.HEX]: ColorConvert.hsl.hex,
@@ -22,12 +22,12 @@ export class HSLBasicColor extends BasicColor {
   };
 
   protected parse(): ParseResult<HSL> {
-    return ColorParser.validateAndParseHsl(this.colorString);
+    return ColorParser.validateAndParseHsl(this._colorString);
   }
 
   protected convert(newColorType: BasicColorTypes): ConversionResult {
     const converter = HSLBasicColor.HSL_TO_COLOR[newColorType];
-    if (converter) return converter(this.parseResult);
+    if (converter) return converter(this._parseResult);
     return 'error';
   }
 

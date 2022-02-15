@@ -44,6 +44,7 @@ module.exports = {
     'import/order': 'off',
     'import/prefer-default-export': 'off',
     'no-param-reassign': 'off',
+    'no-underscore-dangle': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

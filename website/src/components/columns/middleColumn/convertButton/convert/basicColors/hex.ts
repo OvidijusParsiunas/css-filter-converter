@@ -7,13 +7,13 @@ import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class HexBasicColor extends BasicColor {
-  public colorType: BasicColorTypes = BasicColorTypes.HEX;
+  protected _colorType: BasicColorTypes = BasicColorTypes.HEX;
 
-  public defaultColorString = DEFAULT_VALUES.text;
+  protected _defaultColorString = DEFAULT_VALUES.text;
 
-  public colorString = this.defaultColorString;
+  protected _colorString = this._defaultColorString;
 
-  public parseResult = (this.parse() as ColorResult<string>).color as string;
+  protected _parseResult = (this.parse() as ColorResult<string>).color as string;
 
   private static readonly HEX_TO_COLOR: ColorToConverter<string> = {
     [BasicColorTypes.RGB]: ColorConvert.hex.rgb,
@@ -22,12 +22,12 @@ export class HexBasicColor extends BasicColor {
   };
 
   protected parse(): ParseResult<string> {
-    return ColorParser.validateAndParseHex(this.colorString);
+    return ColorParser.validateAndParseHex(this._colorString);
   }
 
   protected convert(newColorType: BasicColorTypes): ConversionResult {
     const converter = HexBasicColor.HEX_TO_COLOR[newColorType];
-    if (converter) return converter(this.parseResult);
+    if (converter) return converter(this._parseResult);
     return 'error';
   }
 

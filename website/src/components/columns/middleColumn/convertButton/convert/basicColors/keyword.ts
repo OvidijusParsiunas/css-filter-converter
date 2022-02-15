@@ -6,13 +6,13 @@ import { BasicColor } from './basicColor';
 import ColorConvert from 'color-convert';
 
 export class KeywordBasicColor extends BasicColor {
-  public colorType: BasicColorTypes = BasicColorTypes.KEYWORD;
+  protected _colorType: BasicColorTypes = BasicColorTypes.KEYWORD;
 
-  public defaultColorString: KEYWORD = 'lightskyblue';
+  protected _defaultColorString: KEYWORD = 'lightskyblue';
 
-  public colorString: KEYWORD = this.defaultColorString;
+  protected _colorString: KEYWORD = this._defaultColorString;
 
-  public parseResult: KEYWORD = this.colorString;
+  protected _parseResult: KEYWORD = this._colorString;
 
   private static readonly KEYWORD_TO_COLOR: ColorToConverter<KEYWORD> = {
     [BasicColorTypes.HEX]: ColorConvert.keyword.hex,
@@ -21,12 +21,12 @@ export class KeywordBasicColor extends BasicColor {
   };
 
   protected parse(): ParseResult<KEYWORD> {
-    return ColorParser.validateAndParseKeyword(this.colorString);
+    return ColorParser.validateAndParseKeyword(this._colorString);
   }
 
   protected convert(newColorType: BasicColorTypes): ConversionResult {
     const converter = KeywordBasicColor.KEYWORD_TO_COLOR[newColorType];
-    if (converter) return converter(this.parseResult);
+    if (converter) return converter(this._parseResult);
     return 'error';
   }
 
