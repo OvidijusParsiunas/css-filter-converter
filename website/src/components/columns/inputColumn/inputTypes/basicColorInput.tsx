@@ -13,7 +13,7 @@ export default function BasicColorInput() {
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputState.basicColor.setAndParseColorString(event.target.value, ErrorHandler);
+    inputState.basicColor.setAndParseColorString(event.target.value, ErrorHandler, false);
     dispatch(updateIsValid(!!inputState.basicColor.parseResult));
   };
 
