@@ -1,5 +1,6 @@
 import { BasicColor } from '../../middleColumn/convertButton/convert/basicColors/basicColor';
 import { HexBasicColor } from '../../middleColumn/convertButton/convert/basicColors/hex';
+import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
 import { updateIsValid } from '../../../../state/input/actions';
@@ -30,13 +31,13 @@ export default function CustomColorPicker(props: Props) {
 
   const setColor = (color: Color) => {
     if (basicColor.colorType === BasicColorTypes.HEX) {
-      basicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
+      basicColor.setAndParseColorString(color.hex.toLocaleUpperCase(), ErrorHandler);
     } else if (basicColor.colorType === BasicColorTypes.RGB) {
       const { r, g, b } = color.rgb;
-      basicColor.setAndParseColorString(`rgb(${r}, ${g}, ${b})`);
+      basicColor.setAndParseColorString(`rgb(${r}, ${g}, ${b})`, ErrorHandler);
     } else {
-      hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase());
-      hexBasicColor.convertAndSetColorStringOnNewBasicColor(basicColor);
+      hexBasicColor.setAndParseColorString(color.hex.toLocaleUpperCase(), ErrorHandler);
+      hexBasicColor.convertAndSetColorStringOnNewBasicColor(basicColor, ErrorHandler);
     }
     // as well as setting the input isValid to true, this is additionally used to force an update of
     // this component and the input component
@@ -45,7 +46,7 @@ export default function CustomColorPicker(props: Props) {
 
   const getCurrentColor = (): string => {
     if (basicColor.colorType !== BasicColorTypes.HEX) {
-      basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor);
+      basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor, ErrorHandler);
       return hexBasicColor.colorString;
     }
     return basicColor.colorString;

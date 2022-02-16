@@ -1,10 +1,9 @@
 import { ConversionResult, ColorConversionTypes } from '../../../../../../shared/types/basicColorFactory';
-import { UNEXPECTED_ERROR_MESSAGE_PREFIX } from 'css-filter-converter/lib/shared/consts/errors';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { ErrorHandling } from 'css-filter-converter/lib/shared/errorHandling/errorHandling';
 import { UnexpectedError } from 'css-filter-converter/lib/shared/types/unexpectedError';
+import { ErrorHandlerI } from '../../../../../../shared/types/errorHandlerI';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
-import { Error } from 'css-filter-converter/lib/shared/types/error';
 
 export abstract class BasicColor {
   protected abstract _colorType: BasicColorTypes;
@@ -37,37 +36,36 @@ export abstract class BasicColor {
     return this._parseResult;
   }
 
-  public setAndParseColorString(colorString: string): void {
+  public setAndParseColorString(colorString: string, errorHandler: ErrorHandlerI, displayError = true): void {
     this._colorString = colorString;
     const parseResult = this.parse();
-    this._parseResult = ErrorHandling.hasError(parseResult) ? null : parseResult.color;
+    if (ErrorHandling.hasError(parseResult)) {
+      if (displayError) errorHandler.displayError(parseResult.errorMessage);
+      this._parseResult = null;
+    } else {
+      this._parseResult = parseResult.color;
+    }
   }
 
-  private static generateUnexpectedError(error: UnexpectedError): Error {
-    const errorMessage = `${UNEXPECTED_ERROR_MESSAGE_PREFIX}: \n${error.message}`;
-    console.log(errorMessage);
-    return { errorMessage };
-  }
-
-  private setPostConversionResult(conversionResult: ColorConversionTypes): void {
+  private setPostConversionResult(conversionResult: ColorConversionTypes, errorHandler: ErrorHandlerI): void {
     const formattedString = this.formatResult(conversionResult);
-    this.setAndParseColorString(formattedString);
+    this.setAndParseColorString(formattedString, errorHandler);
   }
 
-  public convertAndSetColorStringOnNewBasicColor(newColor: BasicColor): void {
+  public convertAndSetColorStringOnNewBasicColor(newColor: BasicColor, errorHandler: ErrorHandlerI): void {
     try {
       let wasColorStringSet = false;
       if (this._parseResult) {
         const conversionResult = this.convert(newColor.colorType);
         if (conversionResult) {
-          newColor.setPostConversionResult(conversionResult);
+          newColor.setPostConversionResult(conversionResult, errorHandler);
           wasColorStringSet = true;
         }
       }
-      if (!wasColorStringSet) newColor.setAndParseColorString(newColor._defaultColorString);
+      if (!wasColorStringSet) newColor.setAndParseColorString(newColor._defaultColorString, errorHandler);
+      // WORK - is the conversion step still needed here
     } catch (error) {
-      // should throw here and error should be caught in the ui
-      BasicColor.generateUnexpectedError(error as UnexpectedError);
+      errorHandler.displayError((error as UnexpectedError).message);
     }
   }
 }

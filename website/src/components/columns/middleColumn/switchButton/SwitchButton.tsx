@@ -6,6 +6,7 @@ import {
 } from '../../../../state/input/actions';
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../convertButton/convert/basicColors/colorTypeToClass';
 import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
+import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { BasicColor } from '../convertButton/convert/basicColors/basicColor';
 import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
@@ -31,14 +32,16 @@ function SwitchButton() {
     newColorString: string,
   ): void => {
     const lastBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[lastConversionColorType]();
-    lastBasicColor.setAndParseColorString(newColorString);
-    lastBasicColor.convertAndSetColorStringOnNewBasicColor(currentBasicColor);
+    lastBasicColor.setAndParseColorString(newColorString, ErrorHandler);
+    lastBasicColor.convertAndSetColorStringOnNewBasicColor(currentBasicColor, ErrorHandler);
   };
 
   const generateDefaultBasicColor = (currentBasicColor: BasicColor, newColorString: string) => {
-    if (!newColorString) currentBasicColor.setAndParseColorString(currentBasicColor.defaultColorString);
+    if (!newColorString) {
+      currentBasicColor.setAndParseColorString(currentBasicColor.defaultColorString, ErrorHandler);
+    }
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[BasicColorTypes.HEX]();
-    currentBasicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+    currentBasicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor, ErrorHandler);
     return newBasicColor;
   };
 
@@ -53,7 +56,9 @@ function SwitchButton() {
     if (lastConversionColorType !== basicColor.colorType) {
       convertNewColorStringTypeToCurrent(lastConversionColorType, basicColor, newColorString);
     } else {
-      basicColor.setAndParseColorString(newColorString);
+      // if there are no results, the parser will fail, however we do want to display a blank colorString value as result
+      const { history } = store.getState().history;
+      basicColor.setAndParseColorString(newColorString, ErrorHandler, history.length > 0);
     }
     return basicColor;
   };

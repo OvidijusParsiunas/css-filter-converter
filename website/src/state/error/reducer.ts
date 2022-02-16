@@ -3,6 +3,7 @@ import { ErrorActionTypes } from './consts';
 
 const initialState: ErrorState = {
   isErrorDisplayed: false,
+  dispatch: null,
 };
 
 const defaultAction: ErrorAction = {
@@ -16,6 +17,9 @@ export const ErrorReducer = (state: ErrorState = initialState, action: ErrorActi
     }
     case ErrorActionTypes.HIDE_ERROR: {
       return { ...state, isErrorDisplayed: false };
+    }
+    case ErrorActionTypes.SET_DISPATCH_FOR_ERROR: {
+      return { ...state, dispatch: action.payload.dispatch };
     }
     default:
       return state;

@@ -1,10 +1,11 @@
 import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
+import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { BASIC_COLOR_TYPE_TO_CLASS } from './convert/basicColors/colorTypeToClass';
-import { displayError, hideError } from '../../../../state/error/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
 import { BasicColor } from './convert/basicColors/basicColor';
+import { hideError } from '../../../../state/error/actions';
 import { RootReducer } from '../../../../state/rootReducer';
 import { BasicColorToFilter } from './basicColorToFilter';
 import { FilterToBasicColor } from './filterToBasicColor';
@@ -21,13 +22,11 @@ function ConvertButton() {
     const { colorType } = store.getState().result.basicColor;
     FilterToBasicColor.convert(filter, colorType as FilterToColorResultType).then((result) => {
       if (!result.color) {
-        // WORK - place this in an error handler
-        console.log(result.error);
-        dispatch(displayError());
+        ErrorHandler.displayError(result.error?.message);
       } else {
         // WORK - don't think there is any need to create a new basic color
         const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[colorType]();
-        newBasicColor.setAndParseColorString(result.color);
+        newBasicColor.setAndParseColorString(result.color, ErrorHandler);
         dispatch(updateResultBasicColor(newBasicColor));
         dispatch(addToHistory(filter, result.color, colorType));
         dispatch(hideError());
@@ -37,9 +36,13 @@ function ConvertButton() {
 
   const convertToFilter = (basicColor: BasicColor) => {
     const { colorString: inputColorString, colorType } = basicColor;
-    const resultColorString = BasicColorToFilter.convert(inputColorString, colorType);
-    dispatch(updateResultFilter(resultColorString));
-    dispatch(addToHistory(inputColorString, resultColorString, colorType));
+    const result = BasicColorToFilter.convert(inputColorString, colorType);
+    if (!result.color) {
+      ErrorHandler.displayError(result.error?.message);
+    } else {
+      dispatch(updateResultFilter(result.color));
+      dispatch(addToHistory(inputColorString, result.color, colorType));
+    }
   };
 
   const convert = (): void => {

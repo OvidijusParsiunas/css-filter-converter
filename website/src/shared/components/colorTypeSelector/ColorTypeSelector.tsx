@@ -7,6 +7,7 @@ import { FilterToBasicColor } from '../../../components/columns/middleColumn/con
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { FilterToColorResultType } from '../../types/filterToBasicColor';
 import { updateIsValid } from '../../../state/input/actions';
+import { ErrorHandler } from '../errorHander/ErrorHandler';
 import { BasicColorTypes } from '../../consts/colorTypes';
 import { ResultAction } from '../../../state/result/type';
 import { InputAction } from '../../../state/input/types';
@@ -42,15 +43,16 @@ export default function ColorTypeSelector(props: Props) {
 
   const convertFromFilter = async (newBasicColor: BasicColor) => {
     const { filter } = store.getState().input;
+    // WORK do not convert if there are no results in history
     const result = await FilterToBasicColor.convert(filter, newBasicColor.colorType as FilterToColorResultType);
     if (!result.color) {
-      // decided not to throw an error here and instead directly convert from one color type to another
-      console.log(result.error);
+      // decided not to throw an error here and instead directly convert from existing color type to new type
+      if (result.error) ErrorHandler.displayMessageOnConsole(result.error.message);
       const { basicColor } = store.getState().result;
-      basicColor.convertAndSetColorStringOnNewBasicColor(basicColor);
+      basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor, ErrorHandler);
     } else {
       // WORK - display error for parser fail
-      newBasicColor.setAndParseColorString(result.color);
+      newBasicColor.setAndParseColorString(result.color, ErrorHandler);
     }
   };
 
@@ -60,7 +62,7 @@ export default function ColorTypeSelector(props: Props) {
     if (convertFromFilterOnChange) {
       await convertFromFilter(newBasicColor);
     } else {
-      basicColorState.convertAndSetColorStringOnNewBasicColor(newBasicColor);
+      basicColorState.convertAndSetColorStringOnNewBasicColor(newBasicColor, ErrorHandler);
     }
     dispatch(updateColorCallback(newBasicColor));
     dispatch(updateIsValid(!!newBasicColor.parseResult));

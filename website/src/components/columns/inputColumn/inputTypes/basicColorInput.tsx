@@ -1,5 +1,6 @@
 import ColorTypeSelector from '../../../../shared/components/colorTypeSelector/ColorTypeSelector';
 import { updateInputBasicColor, updateIsValid } from '../../../../state/input/actions';
+import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import CustomColorPicker from '../customColorPicker/CustomColorPicker';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../../state/rootReducer';
@@ -12,7 +13,7 @@ export default function BasicColorInput() {
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    inputState.basicColor.setAndParseColorString(event.target.value);
+    inputState.basicColor.setAndParseColorString(event.target.value, ErrorHandler);
     dispatch(updateIsValid(!!inputState.basicColor.parseResult));
   };
 

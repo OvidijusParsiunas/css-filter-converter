@@ -2,7 +2,7 @@ import {
   UNEXPECTED_ERROR_MESSAGE_LINK,
   UNEXPECTED_ERROR_MESSAGE_PREFIX,
 } from 'css-filter-converter/lib/shared/consts/errors';
-import { RootReducer } from '../../../state/rootReducer';
+import { RootReducer } from '../../../../state/rootReducer';
 import { useSelector } from 'react-redux';
 import { Alert } from '@mui/material';
 import './errorAlert.css';
