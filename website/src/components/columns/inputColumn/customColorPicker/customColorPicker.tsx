@@ -62,7 +62,7 @@ export default function CustomColorPicker(props: Props) {
             width={250}
             height={150}
             color={toColor('hex', getCurrentColor())}
-            onChange={(e) => setColor(e)}
+            onChange={(e) => ErrorHandler.catchEventError(setColor.bind(null, e))}
             hideHSV
             hideRGB
             hideHEX
@@ -92,7 +92,7 @@ export default function CustomColorPicker(props: Props) {
         ref={buttonRef}
         aria-hidden="true"
         style={buttonStyle}
-        onClick={(e) => toggleColorPickerPanel(e)}
+        onClick={(e) => ErrorHandler.catchEventError(toggleColorPickerPanel.bind(null, e))}
       >
         <div />
         {getColorPickerPanel()}

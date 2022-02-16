@@ -1,4 +1,5 @@
 import ColorTypeSelector from '../../../../shared/components/colorTypeSelector/ColorTypeSelector';
+import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { updateInputFilter, updateIsValid } from '../../../../state/input/actions';
 import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
@@ -16,7 +17,7 @@ export default function FilterColorInput() {
 
   const filterTestElement = React.useRef<HTMLDivElement>(null);
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     dispatch(updateInputFilter(event.target.value));
     if (filterTestElement.current) {
       const { style } = filterTestElement.current;
@@ -71,7 +72,7 @@ export default function FilterColorInput() {
         variant="outlined"
         error={!inputState.isValid}
         value={inputState.filter}
-        onChange={handleTextChange}
+        onChange={(e) => ErrorHandler.catchEventError(handleTextChange.bind(null, e))}
       />
       {getBasicColorTypeSelector()}
       <div ref={filterTestElement} />

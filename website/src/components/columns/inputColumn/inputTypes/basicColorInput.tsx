@@ -12,7 +12,7 @@ export default function BasicColorInput() {
   const dispatch = useDispatch();
   const inputState = useSelector<RootReducer, RootReducer['input']>((state) => state.input);
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     inputState.basicColor.setAndParseColorString(event.target.value, ErrorHandler, false);
     dispatch(updateIsValid(!!inputState.basicColor.parseResult));
   };
@@ -37,7 +37,7 @@ export default function BasicColorInput() {
         size="small"
         variant="outlined"
         value={inputState.basicColor.colorString}
-        onChange={handleTextChange}
+        onChange={(e) => ErrorHandler.catchEventError(handleTextChange.bind(null, e))}
       />
       <div id="basic-color-input-color-picker-container">
         <CustomColorPicker state={inputState} />

@@ -58,7 +58,13 @@ function ConvertButton() {
   };
 
   return (
-    <Button sx={buttonClassOverwriteCss} disabled={!isValidState} variant="contained" color="primary" onClick={convert}>
+    <Button
+      sx={buttonClassOverwriteCss}
+      disabled={!isValidState}
+      variant="contained"
+      color="primary"
+      onClick={() => ErrorHandler.catchEventError(convert)}
+    >
       Convert
     </Button>
   );
