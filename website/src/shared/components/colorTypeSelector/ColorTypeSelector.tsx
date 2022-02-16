@@ -43,7 +43,6 @@ export default function ColorTypeSelector(props: Props) {
 
   const convertFromFilter = async (newBasicColor: BasicColor) => {
     const { filter } = store.getState().input;
-    // WORK do not convert if there are no results in history
     const result = await FilterToBasicColor.convert(filter, newBasicColor.colorType as FilterToColorResultType);
     if (!result.color) {
       // decided not to throw an error here and instead directly convert from existing color type to new type
@@ -55,16 +54,24 @@ export default function ColorTypeSelector(props: Props) {
     }
   };
 
+  const convertFromFilterIfHistoryPresent = async (newBasicColor: BasicColor) => {
+    if (store.getState().history.history.length > 0) {
+      await convertFromFilter(newBasicColor);
+    } else {
+      newBasicColor.setAndParseColorString('', ErrorHandler, false);
+    }
+  };
+
   const handleColorTypeChange = async (event: SelectChangeEvent<string>): Promise<void> => {
     const newColorType = event.target.value as BasicColorTypes;
     const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[newColorType]();
     if (convertFromFilterOnChange) {
-      await convertFromFilter(newBasicColor);
+      await convertFromFilterIfHistoryPresent(newBasicColor);
     } else {
       basicColorState.convertAndSetColorStringOnNewBasicColor(newBasicColor, ErrorHandler);
+      dispatch(updateIsValid(!!newBasicColor.parseResult));
     }
     dispatch(updateColorCallback(newBasicColor));
-    dispatch(updateIsValid(!!newBasicColor.parseResult));
   };
 
   // prettier-ignore
