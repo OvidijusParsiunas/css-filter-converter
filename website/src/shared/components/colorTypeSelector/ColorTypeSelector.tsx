@@ -51,7 +51,6 @@ export default function ColorTypeSelector(props: Props) {
       const { basicColor } = store.getState().result;
       basicColor.convertAndSetColorStringOnNewBasicColor(newBasicColor, ErrorHandler);
     } else {
-      // WORK - display error for parser fail
       newBasicColor.setAndParseColorString(result.color, ErrorHandler);
     }
   };

@@ -63,7 +63,6 @@ export abstract class BasicColor {
         }
       }
       if (!wasColorStringSet) newColor.setAndParseColorString(newColor._defaultColorString, errorHandler);
-      // WORK - is the conversion step still needed here
     } catch (error) {
       errorHandler.displayError((error as UnexpectedError).message);
     }

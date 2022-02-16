@@ -17,18 +17,22 @@ export default function BasicColorResult(props: Props) {
     (state) => state.result.basicColor,
   );
 
+  const resultColorStringState = useSelector<RootReducer, RootReducer['result']['basicColor']['colorString']>(
+    (state) => state.result.basicColor.colorString,
+  );
+
   // prettier-ignore
-  const getColorPicker = () => (resultColorState.colorString ? (
+  const getColorPicker = () => (resultColorStringState ? (
     <CustomColorPicker state={{ basicColor: resultColorState, isValid: true }} isSelectable={false} />
   ) : null);
 
   const getResultText = () => (
     <div id="basic-color-result-text-container">
       <div className="basic-color-result-text">
-        <ResultHeaderText applyPrefixClasses={!!resultColorState.colorString} />
+        <ResultHeaderText applyPrefixClasses={!!resultColorStringState} />
       </div>
       <div className="basic-color-result-text">
-        <div className="result-string-text">{resultColorState.colorString}</div>
+        <div className="result-string-text">{resultColorStringState}</div>
       </div>
     </div>
   );

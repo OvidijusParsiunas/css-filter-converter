@@ -1,7 +1,6 @@
-import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
-import { BASIC_COLOR_TYPE_TO_CLASS } from './convert/basicColors/colorTypeToClass';
+import { updateResultFilter } from '../../../../state/result/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
 import { BasicColor } from './convert/basicColors/basicColor';
@@ -19,16 +18,13 @@ function ConvertButton() {
   const isValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
 
   const convertToBasicColor = (filter: string) => {
-    const { colorType } = store.getState().result.basicColor;
-    FilterToBasicColor.convert(filter, colorType as FilterToColorResultType).then((result) => {
+    const { basicColor } = store.getState().result;
+    FilterToBasicColor.convert(filter, basicColor.colorType as FilterToColorResultType).then((result) => {
       if (!result.color) {
         ErrorHandler.displayError(result.error?.message);
       } else {
-        // WORK - don't think there is any need to create a new basic color
-        const newBasicColor = new BASIC_COLOR_TYPE_TO_CLASS[colorType]();
-        newBasicColor.setAndParseColorString(result.color, ErrorHandler);
-        dispatch(updateResultBasicColor(newBasicColor));
-        dispatch(addToHistory(filter, result.color, colorType));
+        basicColor.setAndParseColorString(result.color, ErrorHandler);
+        dispatch(addToHistory(filter, result.color, basicColor.colorType));
         dispatch(hideError());
       }
     });
