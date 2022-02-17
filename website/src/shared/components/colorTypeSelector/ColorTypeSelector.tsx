@@ -97,13 +97,13 @@ export default function ColorTypeSelector(props: Props) {
         sx={{ m: 1, minWidth: 84, margin: 0, marginRight: 1 }}
         style={customFormControlStyling}
         size="small"
-        onMouseDown={(e) => ErrorHandler.catchEventError(triggerOpenDropdown.bind(null, e))}
+        onMouseDown={(e) => ErrorHandler.executeEvent(triggerOpenDropdown.bind(null, e))}
       >
         <Select
           ref={selectorRef}
           value={basicColorState.colorType}
           style={customSelectorStyling}
-          onChange={(e) => ErrorHandler.catchEventError(handleColorTypeChange.bind(null, e))}
+          onChange={(e) => ErrorHandler.executeEvent(handleColorTypeChange.bind(null, e))}
           inputProps={{ MenuProps: { disableScrollLock: true } }}
         >
           {generateList()}

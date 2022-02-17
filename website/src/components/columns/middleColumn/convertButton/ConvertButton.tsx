@@ -4,7 +4,6 @@ import { updateResultFilter } from '../../../../state/result/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
 import { BasicColor } from './convert/basicColors/basicColor';
-import { hideError } from '../../../../state/error/actions';
 import { RootReducer } from '../../../../state/rootReducer';
 import { BasicColorToFilter } from './basicColorToFilter';
 import { FilterToBasicColor } from './filterToBasicColor';
@@ -25,7 +24,6 @@ function ConvertButton() {
       } else {
         basicColor.setAndParseColorString(result.color, ErrorHandler);
         dispatch(addToHistory(filter, result.color, basicColor.colorType));
-        dispatch(hideError());
       }
     });
   };
@@ -63,7 +61,7 @@ function ConvertButton() {
       disabled={!isValidState}
       variant="contained"
       color="primary"
-      onClick={() => ErrorHandler.catchEventError(convert)}
+      onClick={() => ErrorHandler.executeEvent(convert)}
     >
       Convert
     </Button>

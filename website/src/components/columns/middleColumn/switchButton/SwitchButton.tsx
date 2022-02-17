@@ -113,7 +113,7 @@ function SwitchButton() {
 
   return (
     <div id="switch-button-container">
-      <Button id="switch-button" onClick={() => ErrorHandler.catchEventError(switchInputType)}>
+      <Button id="switch-button" onClick={() => ErrorHandler.executeEvent(switchInputType)}>
         ⇄
       </Button>
     </div>

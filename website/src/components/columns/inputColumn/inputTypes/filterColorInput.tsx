@@ -72,7 +72,7 @@ export default function FilterColorInput() {
         variant="outlined"
         error={!inputState.isValid}
         value={inputState.filter}
-        onChange={(e) => ErrorHandler.catchEventError(handleTextChange.bind(null, e))}
+        onChange={(e) => ErrorHandler.executeEvent(handleTextChange.bind(null, e))}
       />
       {getBasicColorTypeSelector()}
       <div ref={filterTestElement} />

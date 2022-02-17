@@ -57,12 +57,13 @@ export default function CustomColorPicker(props: Props) {
     isDisplayed
       ? (
         <div id="color-picker-panel">
-          {/* the reason why all text opts are hidden is because the picker does not support hsl */}
+          {/* the reason why all the color options are hidden is because ColorPicker does not support hsl format */}
+          {/* if color picker performance suffers - set the onChange handler to {setColor} */}
           <ColorPicker
             width={250}
             height={150}
             color={toColor('hex', getCurrentColor())}
-            onChange={(e) => ErrorHandler.catchEventError(setColor.bind(null, e))}
+            onChange={(e) => ErrorHandler.executeEvent(setColor.bind(null, e))}
             hideHSV
             hideRGB
             hideHEX
@@ -92,7 +93,7 @@ export default function CustomColorPicker(props: Props) {
         ref={buttonRef}
         aria-hidden="true"
         style={buttonStyle}
-        onClick={(e) => ErrorHandler.catchEventError(toggleColorPickerPanel.bind(null, e))}
+        onClick={(e) => ErrorHandler.executeEvent(toggleColorPickerPanel.bind(null, e))}
       >
         <div />
         {getColorPickerPanel()}

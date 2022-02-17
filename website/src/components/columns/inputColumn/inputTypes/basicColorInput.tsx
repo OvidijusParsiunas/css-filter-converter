@@ -37,7 +37,7 @@ export default function BasicColorInput() {
         size="small"
         variant="outlined"
         value={inputState.basicColor.colorString}
-        onChange={(e) => ErrorHandler.catchEventError(handleTextChange.bind(null, e))}
+        onChange={(e) => ErrorHandler.executeEvent(handleTextChange.bind(null, e))}
       />
       <div id="basic-color-input-color-picker-container">
         <CustomColorPicker state={inputState} />

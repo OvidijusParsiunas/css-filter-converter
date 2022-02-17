@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import './App.css';
 
 export default function App() {
-  // WORK - need overall error handler
+  // currently used for error handling
   const dispatch = useDispatch();
   dispatch(setDispatch(dispatch));
 
