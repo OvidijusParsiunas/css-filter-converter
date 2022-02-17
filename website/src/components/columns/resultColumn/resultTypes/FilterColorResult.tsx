@@ -1,4 +1,5 @@
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
+import { Animations } from '../../../../shared/functionality/animations';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
@@ -17,7 +18,9 @@ export default function FilterColorResult(props: Props) {
     <div>
       <OutputText>
         <ResultHeaderText applyPrefixClasses={!!resultTextState} />
-        <div className="result-string-text">{resultTextState}</div>
+        <div className={`result-string-text ${Animations.getFadeInClassIfConditionMet(!!resultTextState)}`}>
+          {resultTextState}
+        </div>
       </OutputText>
       {children}
     </div>

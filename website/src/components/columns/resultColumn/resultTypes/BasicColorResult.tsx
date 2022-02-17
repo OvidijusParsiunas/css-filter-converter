@@ -1,5 +1,6 @@
 import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
+import { Animations } from '../../../../shared/functionality/animations';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
@@ -32,7 +33,9 @@ export default function BasicColorResult(props: Props) {
         <ResultHeaderText applyPrefixClasses={!!resultColorStringState} />
       </div>
       <div className="basic-color-result-text">
-        <div className="result-string-text">{resultColorStringState}</div>
+        <div className={`result-string-text ${Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}`}>
+          {resultColorStringState}
+        </div>
       </div>
     </div>
   );
@@ -41,7 +44,7 @@ export default function BasicColorResult(props: Props) {
     <div>
       <OutputText>
         {getResultText()}
-        {getColorPicker()}
+        <div className={Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}>{getColorPicker()}</div>
       </OutputText>
       {children}
     </div>

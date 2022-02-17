@@ -1,0 +1,7 @@
+.fade-in-start {
+  opacity: 0;
+}
+
+.fade-in-finish {
+  opacity: 1;
+}

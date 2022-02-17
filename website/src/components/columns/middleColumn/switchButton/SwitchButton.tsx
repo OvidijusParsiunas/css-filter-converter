@@ -9,6 +9,7 @@ import { updateResultBasicColor, updateResultFilter } from '../../../../state/re
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { BasicColor } from '../convertButton/convert/basicColors/basicColor';
 import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
+import { Animations } from '../../../../shared/functionality/animations';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
@@ -23,7 +24,13 @@ interface InputAndResultStrings {
   basicColorType: BasicColorTypes;
 }
 
-function SwitchButton() {
+interface Props {
+  inputColumnRef: React.RefObject<HTMLDivElement>;
+  resultColumnRef: React.RefObject<HTMLDivElement>;
+}
+
+function SwitchButton(props: Props) {
+  const { inputColumnRef, resultColumnRef } = props;
   const dispatch = useDispatch();
 
   const convertNewColorStringTypeToCurrent = (
@@ -98,17 +105,29 @@ function SwitchButton() {
     return { input: '', result: '', basicColorType: DEFAULT_VALUES.colorType };
   };
 
+  const wrapAnimation = (intermediateCallback: () => void) => {
+    const animationDurationMl = 200;
+    Animations.fadeOutAndFadeIn(
+      animationDurationMl,
+      intermediateCallback,
+      inputColumnRef.current as HTMLElement,
+      resultColumnRef.current as HTMLElement,
+    );
+  };
+
   const switchInputType = () => {
-    const { input, result, basicColorType } = getLastSuccessfulInputAndResultStrings();
-    const { basicColor: inputBasicColor, activeType: currentlyActiveInputType } = store.getState().input;
-    if (currentlyActiveInputType === InputTypes.FILTER) {
-      const { basicColor: resultBasicColor } = store.getState().result;
-      switchToBasicColorInput(input, result, resultBasicColor, basicColorType);
-    } else {
-      switchToFilterInput(input, result, inputBasicColor, basicColorType);
-    }
-    dispatch(updateIsValid(true));
-    dispatch(switchHistory());
+    wrapAnimation(() => {
+      const { input, result, basicColorType } = getLastSuccessfulInputAndResultStrings();
+      const { basicColor: inputBasicColor, activeType: currentlyActiveInputType } = store.getState().input;
+      if (currentlyActiveInputType === InputTypes.FILTER) {
+        const { basicColor: resultBasicColor } = store.getState().result;
+        switchToBasicColorInput(input, result, resultBasicColor, basicColorType);
+      } else {
+        switchToFilterInput(input, result, inputBasicColor, basicColorType);
+      }
+      dispatch(updateIsValid(true));
+      dispatch(switchHistory());
+    });
   };
 
   return (

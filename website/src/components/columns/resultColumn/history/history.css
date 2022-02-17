@@ -6,6 +6,7 @@
   flex-flow: column wrap;
   overflow: hidden;
   margin-top: 50px;
+  transition: opacity 0.5s 0.2s;
 }
 
 .history-item {

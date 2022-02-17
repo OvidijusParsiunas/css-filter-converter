@@ -2,4 +2,5 @@
   text-align: center;
   height: 100vh;
   overflow: hidden;
+  transition: opacity 0.8s;
 }

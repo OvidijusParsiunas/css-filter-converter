@@ -1,4 +1,5 @@
 import { MIDDLE_COLUMN_WIDTH_NUMBER, SIDE_COLUMN_WIDTH_PX } from '../../../../shared/consts/cssPropertyValues';
+import { Animations } from '../../../../shared/functionality/animations';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { HistoryElement } from '../../../../state/history/type';
 import { RootReducer } from '../../../../state/rootReducer';
@@ -53,7 +54,11 @@ export default function History() {
   }
 
   return (
-    <div id="history" style={{ left: `calc(-50vw - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)` }}>
+    <div
+      id="history"
+      className={Animations.getFadeInClassIfConditionMet(historyState.length > 0)}
+      style={{ left: `calc(-50vw - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)` }}
+    >
       {/* UX */}
       {/* {getHistoryItems(historyState.slice(1))} */}
       {getHistoryItems(historyState)}
