@@ -62,4 +62,20 @@ export class Animations {
       });
     }, animationDurationMl);
   }
+
+  private static changeOpacityStyle(elements: HTMLElement[], opacity: string): void {
+    // eslint-disable-next-line no-return-assign
+    elements.forEach((element) => (element.style.opacity = opacity));
+  }
+
+  public static fadeOutandFadeInOnReactiveComponent(animationDurationMl: number, ...elements: HTMLElement[]): void {
+    Animations.changeOpacityStyle(elements, '0');
+    setTimeout(() => {
+      Animations.applyTransitionDuration(elements, animationDurationMl);
+      Animations.changeOpacityStyle(elements, '1');
+      setTimeout(() => {
+        Animations.removeTransitionDuration(elements, animationDurationMl);
+      });
+    });
+  }
 }

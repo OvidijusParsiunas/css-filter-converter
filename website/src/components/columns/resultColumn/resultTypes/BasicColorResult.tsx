@@ -6,13 +6,15 @@ import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
 import './BasicColorResult.css';
+import React from 'react';
 
 type Props = {
   children: ComponentAsProp;
+  resultHeaderTextRef: React.RefObject<HTMLDivElement>;
 };
 
 export default function BasicColorResult(props: Props) {
-  const { children } = props;
+  const { children, resultHeaderTextRef } = props;
 
   const resultColorState = useSelector<RootReducer, RootReducer['result']['basicColor']>(
     (state) => state.result.basicColor,
@@ -30,7 +32,7 @@ export default function BasicColorResult(props: Props) {
   const getResultText = () => (
     <div id="basic-color-result-text-container">
       <div className="basic-color-result-text">
-        <ResultHeaderText applyPrefixClasses={!!resultColorStringState} />
+        <ResultHeaderText applyPrefixClasses={!!resultColorStringState} resultHeaderTextRef={resultHeaderTextRef} />
       </div>
       <div className="basic-color-result-text">
         <div className={`result-string-text ${Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}`}>

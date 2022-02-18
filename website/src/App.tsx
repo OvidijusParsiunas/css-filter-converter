@@ -24,6 +24,7 @@ export default function App() {
 
   const inputColumnRef = React.useRef<HTMLDivElement>(null);
   const resultColumnRef = React.useRef<HTMLDivElement>(null);
+  const resultHeaderTextRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <ErrorBoundary>
@@ -33,11 +34,11 @@ export default function App() {
         </Column>
         <Column width={MIDDLE_COLUMN_WIDTH_PX} zIndex={1}>
           <ErrorAlert />
-          <ConvertButton />
+          <ConvertButton resultHeaderTextRef={resultHeaderTextRef} />
           <SwitchButton inputColumnRef={inputColumnRef} resultColumnRef={resultColumnRef} />
         </Column>
         <Column width={SIDE_COLUMN_WIDTH_PX} ref={resultColumnRef}>
-          <Result />
+          <Result resultHeaderTextRef={resultHeaderTextRef} />
         </Column>
       </div>
     </ErrorBoundary>

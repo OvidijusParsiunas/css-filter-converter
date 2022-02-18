@@ -6,7 +6,12 @@ import { useSelector } from 'react-redux';
 import History from './history/history';
 import './result.css';
 
-export default function Result() {
+interface Props {
+  resultHeaderTextRef: React.RefObject<HTMLDivElement>;
+}
+
+export default function Result(props: Props) {
+  const { resultHeaderTextRef } = props;
   const inputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>((state) => state.input.activeType);
 
   // The reason why history is a child of the result component is because it has to always safely be below the result text
@@ -14,11 +19,11 @@ export default function Result() {
   return (
     <div id="result">
       {inputTypeState === InputTypes.FILTER ? (
-        <BasicColorResult>
+        <BasicColorResult resultHeaderTextRef={resultHeaderTextRef}>
           <History />
         </BasicColorResult>
       ) : (
-        <FilterColorResult>
+        <FilterColorResult resultHeaderTextRef={resultHeaderTextRef}>
           <History />
         </FilterColorResult>
       )}

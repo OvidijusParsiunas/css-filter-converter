@@ -1,5 +1,6 @@
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
+import { Animations } from '../../../../shared/functionality/animations';
 import { updateResultFilter } from '../../../../state/result/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
@@ -11,10 +12,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../state/store';
 import Button from '@mui/material/Button';
 
-function ConvertButton() {
+interface Props {
+  resultHeaderTextRef: React.RefObject<HTMLDivElement>;
+}
+
+function ConvertButton(props: Props) {
+  const { resultHeaderTextRef } = props;
   const dispatch = useDispatch();
 
   const isValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
+
+  const triggerResultHeaderAnimation = () => {
+    if (store.getState().history.history.length === 0) {
+      const resultHeaderTextElement = resultHeaderTextRef.current as HTMLElement;
+      const animationDurationMl = 1000;
+      Animations.fadeOutandFadeInOnReactiveComponent(animationDurationMl, resultHeaderTextElement);
+    }
+  };
 
   const convertToBasicColor = (filter: string) => {
     const { basicColor } = store.getState().result;
@@ -22,6 +36,7 @@ function ConvertButton() {
       if (!result.color) {
         ErrorHandler.displayError(result.error?.message);
       } else {
+        triggerResultHeaderAnimation();
         basicColor.setAndParseColorString(result.color, ErrorHandler);
         dispatch(addToHistory(filter, result.color, basicColor.colorType));
       }
@@ -34,6 +49,7 @@ function ConvertButton() {
     if (!result.color) {
       ErrorHandler.displayError(result.error?.message);
     } else {
+      triggerResultHeaderAnimation();
       dispatch(updateResultFilter(result.color));
       dispatch(addToHistory(inputColorString, result.color, colorType));
     }
@@ -56,13 +72,7 @@ function ConvertButton() {
   };
 
   return (
-    <Button
-      sx={buttonClassOverwriteCss}
-      disabled={!isValidState}
-      variant="contained"
-      color="primary"
-      onClick={() => ErrorHandler.executeEvent(convert)}
-    >
+    <Button sx={buttonClassOverwriteCss} disabled={!isValidState} variant="contained" color="primary" onClick={convert}>
       Convert
     </Button>
   );
