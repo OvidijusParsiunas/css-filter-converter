@@ -1,17 +1,15 @@
+import { FadeAnimationClasses } from '../consts/animationClasses';
+
 export class Animations {
-  public static readonly FADE_IN_START_CLASS = 'fade-in-start';
-
-  public static readonly FADE_IN_FINISH_CLASS = 'fade-in-finish';
-
   public static getFadeInClassIfConditionMet(condition: boolean, startClass?: string, finishClass?: string): string {
-    const fadeStartClass = startClass || Animations.FADE_IN_START_CLASS;
-    const fadeFinishClass = finishClass || Animations.FADE_IN_FINISH_CLASS;
+    const fadeStartClass = startClass || FadeAnimationClasses.FADE_OUT;
+    const fadeFinishClass = finishClass || FadeAnimationClasses.FADE_IN;
     return condition ? fadeFinishClass : fadeStartClass;
   }
 
-  public static fadeInAfterDelay(callback: (displayClass: string) => unknown, delayMl: number): void {
+  public static fadeInAfterDelay(callback: (displayClass: FadeAnimationClasses) => unknown, delayMl: number): void {
     setTimeout(() => {
-      callback(Animations.FADE_IN_FINISH_CLASS);
+      callback(FadeAnimationClasses.FADE_IN);
     }, delayMl);
   }
 
@@ -23,20 +21,20 @@ export class Animations {
 
   private static removeFadeAnimationClasses(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.remove(Animations.FADE_IN_START_CLASS);
-      element.classList.remove(Animations.FADE_IN_FINISH_CLASS);
+      element.classList.remove(FadeAnimationClasses.FADE_OUT);
+      element.classList.remove(FadeAnimationClasses.FADE_IN);
     });
   }
 
   private static fadeIn(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.add(Animations.FADE_IN_FINISH_CLASS);
+      element.classList.add(FadeAnimationClasses.FADE_IN);
     });
   }
 
   private static fadeOut(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.add(Animations.FADE_IN_START_CLASS);
+      element.classList.add(FadeAnimationClasses.FADE_OUT);
     });
   }
 

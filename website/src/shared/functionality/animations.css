@@ -1,8 +1,8 @@
-.fade-in-start {
+.fade-out-animaiton {
   opacity: 0;
 }
 
-.fade-in-finish {
+.fade-in-animation {
   transition: 1s;
   opacity: 1;
 }

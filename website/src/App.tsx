@@ -3,11 +3,13 @@ import ConvertButton from './components/columns/middleColumn/convertButton/Conve
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
 import ErrorAlert from './shared/components/errorHander/errorAlert/ErrorAlert';
 import ErrorBoundary from './shared/components/errorHander/ErrorBoundary';
+import { FadeAnimationClasses } from './shared/consts/animationClasses';
 import { Animations } from './shared/functionality/animations';
 import Result from './components/columns/resultColumn/Result';
 import Input from './components/columns/inputColumn/Input';
 import Column from './components/columns/wrapper/Column';
 import { setDispatch } from './state/error/actions';
+import Header from './components/header/Header';
 import './shared/functionality/animations.css';
 import { useDispatch } from 'react-redux';
 import React from 'react';
@@ -18,7 +20,7 @@ export default function App() {
   const dispatch = useDispatch();
   dispatch(setDispatch(dispatch));
 
-  const [fadeInClass, setFadeInClass] = React.useState(Animations.FADE_IN_START_CLASS);
+  const [fadeInClass, setFadeInClass] = React.useState(FadeAnimationClasses.FADE_OUT);
   const fadeInAnimationDelayMl = 600;
   Animations.fadeInAfterDelay(setFadeInClass, fadeInAnimationDelayMl);
 
@@ -28,6 +30,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <Header />
       <div className={`app ${fadeInClass}`}>
         <Column width={SIDE_COLUMN_WIDTH_PX} zIndex={2} ref={inputColumnRef}>
           <Input />
