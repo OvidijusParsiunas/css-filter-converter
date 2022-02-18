@@ -91,7 +91,9 @@ export class FilterToHexShared {
     async function createImage(): Promise<HTMLImageElement> {
       const imageElement = new Image();
       imageElement.src = byte64EncodedDataURL;
-      return imageElement;
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(imageElement));
+      });
     }
 
     const imageElement = await createImage();
