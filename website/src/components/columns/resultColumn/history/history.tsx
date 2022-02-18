@@ -53,10 +53,14 @@ export default function History() {
     });
   }
 
+  function getAnimationClass(): string {
+    return Animations.getFadeInClassIfConditionMet(historyState.length > 0, 'history-hidden', 'history-visible');
+  }
+
   return (
     <div
       id="history"
-      className={Animations.getFadeInClassIfConditionMet(historyState.length > 0)}
+      className={getAnimationClass()}
       style={{ left: `calc(-50vw - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)` }}
     >
       {/* UX */}

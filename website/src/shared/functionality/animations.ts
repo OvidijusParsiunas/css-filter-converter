@@ -3,8 +3,10 @@ export class Animations {
 
   public static readonly FADE_IN_FINISH_CLASS = 'fade-in-finish';
 
-  public static getFadeInClassIfConditionMet(condition: boolean): string {
-    return condition ? Animations.FADE_IN_FINISH_CLASS : Animations.FADE_IN_START_CLASS;
+  public static getFadeInClassIfConditionMet(condition: boolean, startClass?: string, finishClass?: string): string {
+    const fadeStartClass = startClass || Animations.FADE_IN_START_CLASS;
+    const fadeFinishClass = finishClass || Animations.FADE_IN_FINISH_CLASS;
+    return condition ? fadeFinishClass : fadeStartClass;
   }
 
   public static fadeInAfterDelay(callback: (displayClass: string) => unknown, delayMl: number): void {

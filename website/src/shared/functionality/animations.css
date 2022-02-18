@@ -3,5 +3,6 @@
 }
 
 .fade-in-finish {
+  transition: 1s;
   opacity: 1;
 }
