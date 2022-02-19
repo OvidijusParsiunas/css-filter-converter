@@ -1,6 +1,36 @@
+#header {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  z-index: 1;
+}
+
 /* when screen height is narrow - remove the header element */
 @media (max-height: 256px) {
   #header {
     display: none;
   }
+}
+
+#github-logo {
+  width: 23px;
+  height: 23px;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(13%) saturate(0%) hue-rotate(187deg) brightness(97%) contrast(92%);
+}
+
+#github-logo:hover {
+  filter: brightness(0);
+}
+
+#npm-logo {
+  width: 46px;
+  height: 18px;
+  float: right;
+  margin-right: 15px;
+  margin-top: 4px;
+  cursor: pointer;
 }

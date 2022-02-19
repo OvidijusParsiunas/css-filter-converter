@@ -57,7 +57,7 @@ export class Animations {
       setTimeout(() => {
         Animations.removeFadeAnimationClasses(elements);
         Animations.removeTransitionDuration(elements);
-      });
+      }, animationDurationMl);
     }, animationDurationMl);
   }
 
@@ -73,7 +73,7 @@ export class Animations {
       Animations.changeOpacityStyle(elements, '1');
       setTimeout(() => {
         Animations.removeTransitionDuration(elements);
-      });
+      }, animationDurationMl);
     });
   }
 }
