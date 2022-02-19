@@ -6,6 +6,7 @@ import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@mui/material';
+import './filterColorInput.css';
 import React from 'react';
 
 export default function FilterColorInput() {
@@ -33,18 +34,7 @@ export default function FilterColorInput() {
     left: '-7px',
   };
 
-  const headerStyle: React.CSSProperties = {
-    width: '65px',
-    height: '100%',
-    position: 'fixed',
-    userSelect: 'none',
-    pointerEvents: 'none',
-    display: 'inline-flex',
-    marginLeft: '-80px',
-    backgroundColor: 'white',
-  };
-
-  const headerClassOverwriteCss = {
+  const colorTypeClassOverwriteCss = {
     '.MuiOutlinedInput-root': {
       height: '100%',
     },
@@ -62,8 +52,10 @@ export default function FilterColorInput() {
   );
 
   return (
-    <div>
-      <TextField size="small" sx={headerClassOverwriteCss} style={headerStyle} value="Filter" />
+    <div id="filter-input">
+      <div id="filter-input-color-type">
+        <TextField size="small" sx={colorTypeClassOverwriteCss} value="Filter" />
+      </div>
       <TextField
         spellCheck="false"
         multiline

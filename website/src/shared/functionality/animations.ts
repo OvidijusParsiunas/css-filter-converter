@@ -13,9 +13,9 @@ export class Animations {
     }, delayMl);
   }
 
-  private static removeTransitionDuration(elements: HTMLElement[], animationDurationMl: number): void {
+  private static removeTransitionDuration(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.style.transition = `${animationDurationMl}ms`;
+      element.style.transition = '';
     });
   }
 
@@ -56,7 +56,7 @@ export class Animations {
       Animations.fadeIn(elements);
       setTimeout(() => {
         Animations.removeFadeAnimationClasses(elements);
-        Animations.removeTransitionDuration(elements, animationDurationMl);
+        Animations.removeTransitionDuration(elements);
       });
     }, animationDurationMl);
   }
@@ -72,7 +72,7 @@ export class Animations {
       Animations.applyTransitionDuration(elements, animationDurationMl);
       Animations.changeOpacityStyle(elements, '1');
       setTimeout(() => {
-        Animations.removeTransitionDuration(elements, animationDurationMl);
+        Animations.removeTransitionDuration(elements);
       });
     });
   }

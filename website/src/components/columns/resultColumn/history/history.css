@@ -8,6 +8,13 @@
   transition: opacity 1s 0.2s, margin-top 1s 0.2s;
 }
 
+/* when screen height is narrow - do not display history */
+@media (max-height: 380px) {
+  #history {
+    display: none;
+  }
+}
+
 .history-item {
   margin-top: 10px;
   width: 100vw;

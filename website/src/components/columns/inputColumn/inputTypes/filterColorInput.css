@@ -1,0 +1,33 @@
+#filter-input-color-type {
+  width: 65px;
+  height: 100%;
+  position: fixed;
+  user-select: none;
+  pointer-events: none;
+  display: inline-flex;
+  margin-left: -80px;
+  background-color: white;
+}
+
+/* when screen width is narrow - remove the filter input color type element and increase input width */
+@media (max-width: 570px) {
+  #filter-input-color-type {
+    display: none !important;
+  }
+  #filter-input {
+    width: 114%;
+    margin-left: -14%;
+  }
+}
+
+@media (max-width: 420px) {
+  #filter-input {
+    margin-left: -16%;
+  }
+}
+
+@media (max-width: 400px) {
+  #filter-input {
+    margin-left: -17%;
+  }
+}

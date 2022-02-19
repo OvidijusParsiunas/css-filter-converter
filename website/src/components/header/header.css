@@ -1,0 +1,6 @@
+/* when screen height is narrow - remove the header element */
+@media (max-height: 256px) {
+  #header {
+    display: none;
+  }
+}

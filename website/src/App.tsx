@@ -1,4 +1,3 @@
-import { MIDDLE_COLUMN_WIDTH_PX, SIDE_COLUMN_WIDTH_PX } from './shared/consts/cssPropertyValues';
 import ConvertButton from './components/columns/middleColumn/convertButton/ConvertButton';
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
 import ErrorAlert from './shared/components/errorHander/errorAlert/ErrorAlert';
@@ -32,15 +31,15 @@ export default function App() {
     <ErrorBoundary>
       <Header />
       <div className={`app ${fadeInClass}`}>
-        <Column width={SIDE_COLUMN_WIDTH_PX} zIndex={2} ref={inputColumnRef}>
+        <Column zIndex={2} ref={inputColumnRef}>
           <Input />
         </Column>
-        <Column width={MIDDLE_COLUMN_WIDTH_PX} zIndex={1}>
+        <Column zIndex={1}>
           <ErrorAlert />
           <ConvertButton resultHeaderTextRef={resultHeaderTextRef} />
           <SwitchButton inputColumnRef={inputColumnRef} resultColumnRef={resultColumnRef} />
         </Column>
-        <Column width={SIDE_COLUMN_WIDTH_PX} ref={resultColumnRef}>
+        <Column ref={resultColumnRef}>
           <Result resultHeaderTextRef={resultHeaderTextRef} />
         </Column>
       </div>

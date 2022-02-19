@@ -4,6 +4,44 @@
   position: relative;
 }
 
+.column:nth-child(1) {
+  width: calc(50% - 52px);
+}
+
+.column:nth-child(2) {
+  width: 104px;
+}
+
+.column:nth-child(3) {
+  width: calc(50% - 52px);
+}
+
+/* when screen width is narrow - stack columns vertically instead of horizontally */
+@media (max-width: 920px) {
+  .column:nth-child(1) {
+    top: 30px;
+    width: 100%;
+    height: calc(50% - 52px);
+  }
+
+  .column:nth-child(2) {
+    width: 100%;
+    height: 104px;
+  }
+
+  .column:nth-child(3) {
+    width: 100%;
+    height: calc(50% - 52px);
+  }
+}
+
+/* when screen height is narrow - move top column closer to top as the header element will also be removed */
+@media (max-height: 256px) {
+  .column:nth-child(1) {
+    top: 15px;
+  }
+}
+
 .column-contents {
   position: absolute;
   top: 47%;
