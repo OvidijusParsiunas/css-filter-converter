@@ -31,7 +31,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
     'max-len': ['error', { code: 123 }],
     'prefer-template': 'error',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-var': 'error',
     'prefer-const': 'error',

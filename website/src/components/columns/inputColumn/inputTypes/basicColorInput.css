@@ -1,3 +1,21 @@
+#basic-color-input {
+  width: 100%;
+}
+
+/* when screen width is narrow - move the basic color input components closer to left (middleward) */
+@media (max-width: 420px) {
+  #basic-color-input {
+    margin-left: -2%;
+  }
+}
+
+/* when screen width is narrow - reduce the sice of the input field to give room for color type selector and color picker elements */
+@media (max-width: 370px) {
+  #basic-color-input-field {
+    width: 150px;
+  }
+}
+
 #basic-color-input-color-picker-container {
   height: 40px;
   vertical-align: middle;
