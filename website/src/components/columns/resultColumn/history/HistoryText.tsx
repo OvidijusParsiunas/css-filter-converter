@@ -3,13 +3,13 @@ import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import { ElementRef } from '../../../../shared/types/elementRef';
 import OutputText from '../outputTextWrapper/outputText';
 import CopyButton from '../copyButton/CopyButton';
+import './historyText.css';
 import CSS from 'csstype';
 import React from 'react';
-import './history.css';
 
 interface Props {
   float: CSS.Property.Float;
-  textContainerRef: ElementRef;
+  historyRow: ElementRef;
   isResult: boolean;
   text: string;
 }
@@ -18,11 +18,13 @@ interface Props {
 // each other is because input row height needs to be exactly the same as the result height which can vary
 // with filter.
 export default function HistoryText(props: Props) {
-  const { float, textContainerRef, isResult, text } = props;
+  const { float, historyRow, isResult, text } = props;
   const [isCopyIconDisplayed, setIsCopyIconDisplayed] = React.useState(false);
 
+  const textContainerRef = React.useRef<HTMLDivElement>(null);
+
   const changeTextColor = (color: CSS.Property.Color): void => {
-    if (textContainerRef.element) textContainerRef.element.style.color = color;
+    if (historyRow.element) historyRow.element.style.color = color;
   };
 
   const onMouseLeaveText = (): void => {
@@ -38,7 +40,12 @@ export default function HistoryText(props: Props) {
   return (
     <OutputText float={float} width={SIDE_COLUMN_WIDTH_PX}>
       {isResult ? <ResultHeaderText prefixClasses={['history-padding-text']} /> : null}
-      <div className="history-text" onMouseEnter={() => onMouseEnterText()} onMouseLeave={() => onMouseLeaveText()}>
+      <div
+        ref={textContainerRef}
+        className="history-text"
+        onMouseEnter={() => onMouseEnterText()}
+        onMouseLeave={() => onMouseLeaveText()}
+      >
         {text}
       </div>
       <CopyButton textContainerRef={textContainerRef} isDisplayed={isCopyIconDisplayed} />

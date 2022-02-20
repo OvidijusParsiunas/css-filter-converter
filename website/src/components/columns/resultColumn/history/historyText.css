@@ -1,0 +1,13 @@
+.history-padding-text {
+  color: white;
+}
+
+.history-hidden {
+  opacity: 0;
+  margin-top: 0px;
+}
+
+.history-visible {
+  opacity: 1;
+  margin-top: 50px;
+}

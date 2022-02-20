@@ -1,11 +1,10 @@
-import { ElementRef } from '../../../../shared/types/elementRef';
 import copyIcon from './copy-svgrepo-com.svg';
 import React from 'react';
 import './copyButton.css';
 
 type Props = {
   isDisplayed: boolean;
-  textContainerRef: ElementRef | undefined;
+  textContainerRef: React.RefObject<HTMLDivElement>;
 };
 
 export default function CopyButton(props: Props) {
@@ -15,12 +14,12 @@ export default function CopyButton(props: Props) {
 
   const onMouseEnterButton = () => {
     setHovered(true);
-    if (textContainerRef?.element) textContainerRef.element.style.color = 'black';
+    if (textContainerRef.current) textContainerRef.current.style.color = 'black';
   };
 
   const onMouseLeaveButton = () => {
     setHovered(false);
-    if (textContainerRef?.element) textContainerRef.element.style.color = '';
+    if (textContainerRef?.current) textContainerRef.current.style.color = '';
   };
 
   return (

@@ -13,17 +13,17 @@ import './history.css';
 export default function History() {
   const historyState = useSelector<RootReducer, RootReducer['history']['history']>((state) => state.history.history);
 
-  const setHistoryRowRef = (element: ElementRef['element'], historyItem: ElementRef) => {
-    historyItem.element = element;
+  const setHistoryRowRef = (element: ElementRef['element'], historyRow: ElementRef) => {
+    historyRow.element = element;
   };
 
-  function getHistoryItems(history: HistoryElement[]): JSX.Element[] {
+  function getHistoryRows(history: HistoryElement[]): JSX.Element[] {
     return history.map((historyElement) => {
       const historyRow: ElementRef = { element: null };
       return (
-        <div key={historyElement.id} ref={(element) => setHistoryRowRef(element, historyRow)} className="history-item">
-          <HistoryText text={historyElement.input} float="left" isResult={false} textContainerRef={historyRow} />
-          <HistoryText text={historyElement.result} float="right" isResult textContainerRef={historyRow} />
+        <div key={historyElement.id} ref={(element) => setHistoryRowRef(element, historyRow)} className="history-row">
+          <HistoryText text={historyElement.input} float="left" isResult={false} historyRow={historyRow} />
+          <HistoryText text={historyElement.result} float="right" isResult historyRow={historyRow} />
         </div>
       );
     });
@@ -39,7 +39,7 @@ export default function History() {
       className={getAnimationClass()}
       style={{ left: `calc(-50vw - ${MIDDLE_COLUMN_WIDTH_NUMBER / 2}px)` }}
     >
-      {getHistoryItems(historyState)}
+      {getHistoryRows(historyState)}
     </div>
   );
 }
