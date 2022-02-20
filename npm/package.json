@@ -30,6 +30,7 @@
     "@types/puppeteer": "^5.4.4",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
@@ -41,8 +42,7 @@
   },
   "dependencies": {
     "color-convert": "^2.0.1",
-    "dom-to-image": "^2.6.0",
-    "eslint": "^8.6.0"
+    "dom-to-image": "^2.6.0"
   },
   "files": [
     "lib/**/*"

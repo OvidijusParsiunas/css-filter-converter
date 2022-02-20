@@ -18,11 +18,13 @@ jobs:
         run: |
           cd npm
           npm install
+          npm install --only=dev
           npm run build
       - name: Install and Build Wesbite 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
           cd website
           npm install
+          npm install --only=dev
           npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
