@@ -18,7 +18,7 @@ export default function FilterColorResult(props: Props) {
 
   return (
     <div>
-      <OutputText isTextPresent={!!resultTextState}>
+      <OutputText>
         <ResultHeaderText applyPrefixClasses={!!resultTextState} resultHeaderTextRef={resultHeaderTextRef} />
         <div className={`result-string-text ${Animations.getFadeInClassIfConditionMet(!!resultTextState)}`}>
           {resultTextState}

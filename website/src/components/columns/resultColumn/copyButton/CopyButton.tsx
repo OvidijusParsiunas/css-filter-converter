@@ -1,48 +1,34 @@
+import { ElementRef } from '../../../../shared/types/elementRef';
 import copyIcon from './copy-svgrepo-com.svg';
-
-// WORK - refactor
-interface HistoryItem {
-  element: HTMLElement | null;
-}
+import React from 'react';
+import './copyButton.css';
 
 type Props = {
   isDisplayed: boolean;
-  textContainerRef: HistoryItem | undefined;
+  textContainerRef: ElementRef | undefined;
 };
 
 export default function CopyButton(props: Props) {
   const { isDisplayed, textContainerRef } = props;
 
+  const [isHovered, setHovered] = React.useState(false);
+
   const onMouseEnterButton = () => {
+    setHovered(true);
     if (textContainerRef?.element) textContainerRef.element.style.color = 'black';
   };
 
   const onMouseLeaveButton = () => {
+    setHovered(false);
     if (textContainerRef?.element) textContainerRef.element.style.color = '';
   };
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        transition: '0.2s',
-        opacity: isDisplayed ? '1' : '0',
-        height: 'auto',
-      }}
-    >
+    <div style={{ opacity: isDisplayed || isHovered ? '1' : '0' }} className="copy-button-container">
       <img
         src={copyIcon}
-        style={{
-          paddingLeft: 5,
-          width: 20,
-          height: '100%',
-          position: 'absolute',
-          cursor: isDisplayed ? 'pointer' : '',
-          top: '-10%',
-          filter:
-            // eslint-disable-next-line max-len
-            'brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(9%) hue-rotate(234deg) brightness(96%) contrast(89%)',
-        }}
+        style={{ cursor: isDisplayed || isHovered ? 'pointer' : '' }}
+        className="copy-button-icon"
         alt=""
         onMouseEnter={() => onMouseEnterButton()}
         onMouseLeave={() => onMouseLeaveButton()}

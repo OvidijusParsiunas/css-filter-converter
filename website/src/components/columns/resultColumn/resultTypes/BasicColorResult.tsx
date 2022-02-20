@@ -44,7 +44,7 @@ export default function BasicColorResult(props: Props) {
 
   return (
     <div>
-      <OutputText isTextPresent={!!resultColorStringState}>
+      <OutputText>
         {getResultText()}
         <div className={Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}>{getColorPicker()}</div>
       </OutputText>

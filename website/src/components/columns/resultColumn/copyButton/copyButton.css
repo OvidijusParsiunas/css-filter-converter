@@ -1,0 +1,14 @@
+.copy-button-container {
+  position: relative;
+  transition: 0.2s;
+  height: auto;
+}
+
+.copy-button-icon {
+  padding-left: 5px;
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  top: -10%;
+  filter: 'brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(9%) hue-rotate(234deg) brightness(96%) contrast(89%)';
+}

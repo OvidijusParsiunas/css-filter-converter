@@ -4,7 +4,7 @@
   "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint . --ext .ts",
+    "lint": "npx eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "build": "npm run lint && tsc",
     "watch": "tsc -w -p .",
