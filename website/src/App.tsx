@@ -31,7 +31,7 @@ export default function App() {
     <ErrorBoundary>
       <Header />
       <div className={`app ${fadeInClass}`}>
-        <Column zIndex={2} columnRef={inputColumnRef}>
+        <Column zIndex={2} ref={inputColumnRef}>
           <Input />
         </Column>
         <Column zIndex={1}>
@@ -39,7 +39,7 @@ export default function App() {
           <ConvertButton resultHeaderTextRef={resultHeaderTextRef} />
           <SwitchButton inputColumnRef={inputColumnRef} resultColumnRef={resultColumnRef} />
         </Column>
-        <Column columnRef={resultColumnRef}>
+        <Column ref={resultColumnRef}>
           <Result resultHeaderTextRef={resultHeaderTextRef} />
         </Column>
       </div>
