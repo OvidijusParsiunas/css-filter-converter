@@ -5,10 +5,11 @@ import './copyButton.css';
 type Props = {
   isDisplayed: boolean;
   textContainerRef: React.RefObject<HTMLDivElement>;
+  marginLeft: number;
 };
 
 export default function CopyButton(props: Props) {
-  const { isDisplayed, textContainerRef } = props;
+  const { isDisplayed, textContainerRef, marginLeft } = props;
 
   const [isHovered, setHovered] = React.useState(false);
 
@@ -26,7 +27,7 @@ export default function CopyButton(props: Props) {
     <div style={{ opacity: isDisplayed || isHovered ? '1' : '0' }} className="copy-button-container">
       <img
         src={copyIcon}
-        style={{ cursor: isDisplayed || isHovered ? 'pointer' : '' }}
+        style={{ cursor: isDisplayed || isHovered ? 'pointer' : '', marginLeft }}
         className="copy-button-icon"
         alt=""
         onMouseEnter={() => onMouseEnterButton()}

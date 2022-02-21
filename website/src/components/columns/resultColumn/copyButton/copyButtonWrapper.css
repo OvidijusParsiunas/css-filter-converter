@@ -1,0 +1,23 @@
+.copy-button-wrapper-contents {
+  position: relative;
+  float: left;
+}
+
+.text-no-whitespace {
+  opacity: 0;
+}
+
+.text-with-whitespace {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  top: 0px;
+  height: 40px;
+}
+
+/* used to trigger the display of the copy icon when hovered over the place where it is meant to be before it has marginLeft set */
+.icon-placeholder {
+  height: 40px;
+  position: absolute;
+}

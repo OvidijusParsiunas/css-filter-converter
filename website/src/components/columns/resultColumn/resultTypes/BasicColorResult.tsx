@@ -1,7 +1,9 @@
 import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
 import { Animations } from '../../../../shared/functionality/animations';
+import { RESULT_FONT_SIZE } from '../../../../shared/consts/styling';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
+import CopyButtonWrapper from '../copyButton/CopyButtonWrapper';
 import { RootReducer } from '../../../../state/rootReducer';
 import OutputText from '../outputTextWrapper/outputText';
 import { useSelector } from 'react-redux';
@@ -35,9 +37,12 @@ export default function BasicColorResult(props: Props) {
         <ResultHeaderText applyPrefixClasses={!!resultColorStringState} resultHeaderTextRef={resultHeaderTextRef} />
       </div>
       <div className="basic-color-result-text">
-        <div className={`result-string-text ${Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}`}>
-          {resultColorStringState}
-        </div>
+        <CopyButtonWrapper
+          text={resultColorStringState}
+          customClasses={`${Animations.getFadeInClassIfConditionMet(!!resultColorStringState)}`}
+          fontSize={RESULT_FONT_SIZE}
+          marginLeftDelta={60}
+        />
       </div>
     </div>
   );

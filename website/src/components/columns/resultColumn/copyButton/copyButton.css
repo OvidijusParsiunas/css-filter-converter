@@ -1,10 +1,10 @@
 .copy-button-container {
   position: relative;
   height: auto;
+  z-index: 1;
 }
 
 .copy-button-icon {
-  padding-left: 5px;
   width: 20px;
   height: 100%;
   position: absolute;
