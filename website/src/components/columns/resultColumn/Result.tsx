@@ -3,7 +3,7 @@ import { InputTypes } from '../../../shared/consts/inputTypes';
 import BasicColorResult from './resultTypes/BasicColorResult';
 import { RootReducer } from '../../../state/rootReducer';
 import { useSelector } from 'react-redux';
-import History from './history/history';
+import History from './history/History';
 import './result.css';
 
 interface Props {
