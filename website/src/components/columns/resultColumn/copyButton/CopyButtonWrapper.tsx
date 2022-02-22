@@ -55,7 +55,12 @@ export default function CopyButtonWrapper(props: Props) {
         <div className="text-with-whitespace">
           {/* it is important that the CopyButton component has z-index set to 1 or higher as the next div would
               overlay all of the mouse events to it */}
-          <CopyButton textContainerRef={textContainerRef} isDisplayed={isCopyIconDisplayed} marginLeft={iconMarginLeft} />
+          <CopyButton
+            textContainerRef={textContainerRef}
+            isDisplayed={isCopyIconDisplayed}
+            marginLeft={iconMarginLeft}
+            text={text}
+          />
         </div>
         {/* this is the actual text that the user can highlight with their mouse */}
         <div style={{ fontSize: `${fontSize}px` }} className={`text-with-whitespace ${customClasses}`}>

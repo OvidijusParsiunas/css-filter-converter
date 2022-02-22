@@ -8,6 +8,12 @@
   width: 20px;
   height: 100%;
   position: absolute;
-  top: -10%;
-  filter: 'brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(9%) hue-rotate(234deg) brightness(96%) contrast(89%)';
+  filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(11deg) brightness(95%) contrast(92%);
+  height: 17px;
+  top: 3px;
+  user-select: none;
+}
+
+.copy-button-icon:hover {
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(102%) contrast(102%);
 }
