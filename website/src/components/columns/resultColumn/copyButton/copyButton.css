@@ -1,24 +1,29 @@
 .copy-button-container {
   position: relative;
-  height: auto;
   z-index: 1;
+  height: 100%;
+  transform: translateY(50%);
 }
 
 .copy-button-icon {
-  width: 20px;
-  height: 100%;
   position: absolute;
-  filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(11deg) brightness(95%) contrast(92%);
+  width: 20px;
   height: 17px;
-  top: 3px;
   user-select: none;
+  transform: translateY(-50%);
 }
 
-.copy-button-icon:hover {
+.clipboard-copy-icon {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(11deg) brightness(95%) contrast(92%);
+}
+
+.clipboard-copy-icon:hover {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(102%) contrast(102%);
 }
 
+/* used to override tooltip style properties */
 .MuiTooltip-tooltip {
   background-color: green !important;
-  font-size: 12px !important;
+  font-size: 12.5px !important;
+  margin-right: 8px !important;
 }

@@ -10,20 +10,20 @@ type Props = {
   iconPath: string;
   handleCopy: () => void;
   isTooltipDisplayed: boolean;
+  iconImageSpecificClass: string;
 };
 
 export default function CopyButton(props: Props) {
-  const { marginLeft, text, isDisplayed, textContainerRef, iconPath, handleCopy, isTooltipDisplayed } = props;
-
-  const [isHovered, setHovered] = React.useState(false);
+  // prettier-ignore
+  const {
+    marginLeft, text, isDisplayed, textContainerRef, iconPath, handleCopy, isTooltipDisplayed, iconImageSpecificClass,
+  } = props;
 
   const mouseEnterButton = () => {
-    setHovered(true);
     if (textContainerRef.current) textContainerRef.current.style.color = 'black';
   };
 
   const mouseLeaveButton = () => {
-    setHovered(false);
     if (textContainerRef?.current) textContainerRef.current.style.color = '';
   };
 
@@ -33,17 +33,17 @@ export default function CopyButton(props: Props) {
   };
 
   return (
-    <div style={{ opacity: isDisplayed || isHovered ? '1' : '0' }} className="copy-button-container">
+    <div style={{ opacity: isDisplayed ? '1' : '0' }} className="copy-button-container">
       <Tooltip title="Copied!" placement="left" open={isTooltipDisplayed}>
         <img
           src={iconPath}
-          style={{ cursor: isDisplayed || isHovered ? 'pointer' : '', marginLeft }}
-          className="copy-button-icon"
-          alt=""
+          style={{ cursor: isDisplayed ? 'pointer' : '', marginLeft }}
+          className={`copy-button-icon ${iconImageSpecificClass}`}
           onMouseEnter={mouseEnterButton}
           onMouseLeave={mouseLeaveButton}
           onClick={copy}
           aria-hidden="true"
+          alt=""
         />
       </Tooltip>
     </div>

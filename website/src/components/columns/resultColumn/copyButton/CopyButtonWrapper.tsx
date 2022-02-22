@@ -1,9 +1,9 @@
 import { ElementRef } from '../../../../shared/types/elementRef';
+import clipboardIcon from './clipboard-icon.svg';
 import React, { useEffect } from 'react';
-import copyIcon from './copy-button.svg';
+import tickIcon from './tick-icon.svg';
 import CopyButton from './CopyButton';
 import './copyButtonWrapper.css';
-import tick from './tick.svg';
 import CSS from 'csstype';
 
 type Props = {
@@ -22,7 +22,7 @@ export default function CopyButtonWrapper(props: Props) {
   // the reason why these two states are managed here instead of the CopyButton component is because when
   // the mouse leaves the tick icon onto the text, we still want to retain it and the tooltip,
   // only when the mouse has left the full wrapper should those two be truly unset
-  const [iconPath, setIconPath] = React.useState(copyIcon);
+  const [iconPath, setIconPath] = React.useState(clipboardIcon);
   const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
 
   const textContainerRef = React.useRef<HTMLDivElement>(null);
@@ -38,7 +38,7 @@ export default function CopyButtonWrapper(props: Props) {
 
   const onMouseEnterText = (): void => {
     changeTextColor('black');
-    setIsCopyIconDisplayed(true);
+    if (text) setIsCopyIconDisplayed(true);
     if (textContainerRef.current) {
       let newIconMarginLeft = textContainerRef.current.offsetWidth / 2 + 10;
       if (marginLeftDelta) newIconMarginLeft += marginLeftDelta;
@@ -47,13 +47,13 @@ export default function CopyButtonWrapper(props: Props) {
   };
 
   const handleCopy = (): void => {
-    setIconPath(tick);
+    setIconPath(tickIcon);
     setIsTooltipDisplayed(true);
     setTimeout(() => setIsTooltipDisplayed(false), 600);
   };
 
-  const unsetCopy = (): void => {
-    setIconPath(copyIcon);
+  const unsetTickIcon = (): void => {
+    setIconPath(clipboardIcon);
     setIsTooltipDisplayed(false);
   };
 
@@ -62,7 +62,7 @@ export default function CopyButtonWrapper(props: Props) {
     // after that, in order to prevent the unsetting of copy until the user has left the button wrapper we use a settimeout
     // to make sure that the mouse has actually left it for good
     setTimeout(() => {
-      if (!isCopyIconDisplayed && iconPath === tick) unsetCopy();
+      if (!isCopyIconDisplayed && iconPath === tickIcon) unsetTickIcon();
     });
   };
 
@@ -94,6 +94,7 @@ export default function CopyButtonWrapper(props: Props) {
             iconPath={iconPath}
             handleCopy={handleCopy}
             isTooltipDisplayed={isTooltipDisplayed}
+            iconImageSpecificClass={iconPath === clipboardIcon ? 'clipboard-copy-icon' : ''}
           />
         </div>
         {/* this is the actual text that the user can highlight with their mouse */}
