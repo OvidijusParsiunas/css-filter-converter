@@ -1,44 +1,51 @@
-import copyIcon from './copy-button.svg';
+import { Tooltip } from '@mui/material';
 import React from 'react';
 import './copyButton.css';
 
 type Props = {
   text: string;
+  marginLeft: number;
   isDisplayed: boolean;
   textContainerRef: React.RefObject<HTMLDivElement>;
-  marginLeft: number;
+  iconPath: string;
+  handleCopy: () => void;
+  isTooltipDisplayed: boolean;
 };
 
 export default function CopyButton(props: Props) {
-  const { isDisplayed, textContainerRef, marginLeft, text } = props;
+  const { marginLeft, text, isDisplayed, textContainerRef, iconPath, handleCopy, isTooltipDisplayed } = props;
 
   const [isHovered, setHovered] = React.useState(false);
 
-  const onMouseEnterButton = () => {
+  const mouseEnterButton = () => {
     setHovered(true);
     if (textContainerRef.current) textContainerRef.current.style.color = 'black';
   };
 
-  const onMouseLeaveButton = () => {
+  const mouseLeaveButton = () => {
     setHovered(false);
     if (textContainerRef?.current) textContainerRef.current.style.color = '';
   };
-  const onClickButton = () => {
+
+  const copy = () => {
     navigator.clipboard.writeText(text);
+    handleCopy();
   };
 
   return (
     <div style={{ opacity: isDisplayed || isHovered ? '1' : '0' }} className="copy-button-container">
-      <img
-        src={copyIcon}
-        style={{ cursor: isDisplayed || isHovered ? 'pointer' : '', marginLeft }}
-        className="copy-button-icon"
-        alt=""
-        onMouseEnter={onMouseEnterButton}
-        onMouseLeave={onMouseLeaveButton}
-        onClick={onClickButton}
-        aria-hidden="true"
-      />
+      <Tooltip title="Copied!" placement="left" open={isTooltipDisplayed}>
+        <img
+          src={iconPath}
+          style={{ cursor: isDisplayed || isHovered ? 'pointer' : '', marginLeft }}
+          className="copy-button-icon"
+          alt=""
+          onMouseEnter={mouseEnterButton}
+          onMouseLeave={mouseLeaveButton}
+          onClick={copy}
+          aria-hidden="true"
+        />
+      </Tooltip>
     </div>
   );
 }

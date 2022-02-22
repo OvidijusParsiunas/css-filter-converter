@@ -1,10 +1,10 @@
-import { BasicColor } from '../../middleColumn/convertButton/convert/basicColors/basicColor';
-import { HexBasicColor } from '../../middleColumn/convertButton/convert/basicColors/hex';
-import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
-import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { BasicColor } from '../../../components/columns/middleColumn/convertButton/convert/basicColors/basicColor';
+import { HexBasicColor } from '../../../components/columns/middleColumn/convertButton/convert/basicColors/hex';
+import ClickOutsideListener from '../../../components/columns/inputColumn/ClickOutsideListener';
 import { Color, ColorPicker, toColor } from 'react-color-palette';
-import { updateIsValid } from '../../../../state/input/actions';
-import ClickOutsideListener from '../ClickOutsideListener';
+import { updateIsValid } from '../../../state/input/actions';
+import { ErrorHandler } from '../errorHander/ErrorHandler';
+import { BasicColorTypes } from '../../consts/colorTypes';
 import { useDispatch } from 'react-redux';
 import './customColorPicker.css';
 import React from 'react';

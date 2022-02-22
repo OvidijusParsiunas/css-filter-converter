@@ -1,4 +1,4 @@
-import CustomColorPicker from '../../inputColumn/customColorPicker/CustomColorPicker';
+import CustomColorPicker from '../../../../shared/components/customColorPicker/CustomColorPicker';
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
 import { Animations } from '../../../../shared/functionality/animations';
 import { RESULT_FONT_SIZE } from '../../../../shared/consts/styling';

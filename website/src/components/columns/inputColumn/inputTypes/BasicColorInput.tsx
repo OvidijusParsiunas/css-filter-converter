@@ -1,7 +1,7 @@
 import ColorTypeSelector from '../../../../shared/components/colorTypeSelector/ColorTypeSelector';
+import CustomColorPicker from '../../../../shared/components/customColorPicker/CustomColorPicker';
 import { updateInputBasicColor, updateIsValid } from '../../../../state/input/actions';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
-import CustomColorPicker from '../customColorPicker/CustomColorPicker';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';

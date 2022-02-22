@@ -32,10 +32,8 @@ export default function Header() {
         id="npm-logo"
         src={npmLogoPath}
         alt=""
-        onMouseOver={() => setNpmLogoPath(npmLogoRed)}
-        onMouseOut={() => setNpmLogoPath(npmLogoBlack)}
-        onFocus={() => {}}
-        onBlur={() => {}}
+        onMouseEnter={() => setNpmLogoPath(npmLogoRed)}
+        onMouseLeave={() => setNpmLogoPath(npmLogoBlack)}
       />
       <img id="github-logo" src={githubLogo} alt="" />
     </div>

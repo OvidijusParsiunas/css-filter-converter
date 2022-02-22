@@ -17,3 +17,8 @@
 .copy-button-icon:hover {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(102%) contrast(102%);
 }
+
+.MuiTooltip-tooltip {
+  background-color: green !important;
+  font-size: 12px !important;
+}
