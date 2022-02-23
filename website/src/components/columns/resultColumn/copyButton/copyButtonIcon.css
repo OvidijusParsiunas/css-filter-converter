@@ -1,4 +1,4 @@
-.copy-button-container {
+.copy-button-icon-container {
   position: relative;
   z-index: 1;
   height: 100%;
@@ -13,11 +13,11 @@
   transform: translateY(-50%);
 }
 
-.clipboard-copy-icon {
+.clipboard-copy-icon-image {
   filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(11deg) brightness(95%) contrast(92%);
 }
 
-.clipboard-copy-icon:hover {
+.clipboard-copy-icon-image:hover {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(102%) contrast(102%);
 }
 
