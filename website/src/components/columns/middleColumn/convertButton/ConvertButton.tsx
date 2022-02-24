@@ -16,7 +16,7 @@ interface Props {
   resultHeaderTextRef: React.RefObject<HTMLDivElement>;
 }
 
-function ConvertButton(props: Props) {
+export default function ConvertButton(props: Props) {
   const { resultHeaderTextRef } = props;
   const dispatch = useDispatch();
 
@@ -77,5 +77,3 @@ function ConvertButton(props: Props) {
     </Button>
   );
 }
-
-export default ConvertButton;

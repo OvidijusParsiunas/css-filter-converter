@@ -35,6 +35,8 @@
   cursor: pointer;
 }
 
+/* WORK */
 .MuiPaper-elevation {
-  margin-left: -90px !important;
+  /* check wih other screens */
+  /* margin-left: -90px !important; */
 }
