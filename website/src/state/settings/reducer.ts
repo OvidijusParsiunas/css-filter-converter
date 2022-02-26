@@ -3,7 +3,7 @@ import { SettingsActionTypes } from './consts';
 
 const initialState: SettingsState = {
   isContrastOn: true,
-  isIconModeOn: true,
+  isIconModeOn: false,
 };
 
 const defaultAction: SettingsAction = {

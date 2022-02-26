@@ -7,6 +7,9 @@ import React from 'react';
 
 export default function IconModePanel() {
   const historyState = useSelector<RootReducer, RootReducer['history']['history']>((state) => state.history.history);
+  const isOnModeOnState = useSelector<RootReducer, RootReducer['settings']['isIconModeOn']>(
+    (state) => state.settings.isIconModeOn,
+  );
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const svgContainerRef = React.useRef<SVGSVGElement>(null);
@@ -15,7 +18,7 @@ export default function IconModePanel() {
 
   const transitionAnimationLengthMs = 400;
   const transitionAnimationLengthString = `${transitionAnimationLengthMs / 1000}s`;
-  const iconDimensionsPx = 34;
+  const iconDimensionsPx = 35;
 
   function onFileLoad(event: ProgressEvent<FileReader>): void {
     if (event.target?.result) {
@@ -52,7 +55,9 @@ export default function IconModePanel() {
         />
         <Button
           id="icon-mode-upload-icon-button"
-          style={{ transition: transitionAnimationLengthString }}
+          style={{
+            transition: transitionAnimationLengthString,
+          }}
           onClick={() => fileInputRef?.current?.click()}
           size="small"
           variant="contained"
@@ -66,7 +71,7 @@ export default function IconModePanel() {
           style={{
             width: iconBase64 ? iconDimensionsPx : 0,
             height: iconDimensionsPx,
-            marginLeft: iconBase64 ? 20 : 0,
+            marginLeft: iconBase64 ? 24 : 0,
             transition: transitionAnimationLengthString,
             filter: historyState?.[0]?.result || '',
           }}
@@ -74,6 +79,8 @@ export default function IconModePanel() {
           <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
         </svg>
       </div>
+      <div className="icon-mode-panel-cover" style={{ left: isOnModeOnState ? '-100%' : '-49%' }} />
+      <div className="icon-mode-panel-cover" style={{ left: isOnModeOnState ? '100%' : '49%' }} />
     </div>
   );
 }
