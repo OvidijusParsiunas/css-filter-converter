@@ -1,7 +1,7 @@
 import ConvertButton from './components/columns/middleColumn/convertButton/ConvertButton';
+import IconModePanel from './components/columns/middleColumn/iconModePanel/IconModePanel';
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
 import ErrorAlert from './shared/components/errorHander/errorAlert/ErrorAlert';
-import IconMode from './components/columns/middleColumn/iconMode/IconMode';
 import ErrorBoundary from './shared/components/errorHander/ErrorBoundary';
 import { FadeAnimationClasses } from './shared/consts/animationClasses';
 import { Animations } from './shared/functionality/animations';
@@ -37,7 +37,7 @@ export default function App() {
         </Column>
         <Column zIndex={1}>
           <ErrorAlert />
-          <IconMode />
+          <IconModePanel />
           <ConvertButton resultHeaderTextRef={resultHeaderTextRef} />
           <SwitchButton inputColumnRef={inputColumnRef} resultColumnRef={resultColumnRef} />
         </Column>

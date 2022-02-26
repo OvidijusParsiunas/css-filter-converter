@@ -2,10 +2,10 @@ import { RootReducer } from '../../../../state/rootReducer';
 import UploadIcon from '@mui/icons-material/Upload';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
+import './iconModePanel.css';
 import React from 'react';
-import './iconMode.css';
 
-export default function IconMode() {
+export default function IconModePanel() {
   const historyState = useSelector<RootReducer, RootReducer['history']['history']>((state) => state.history.history);
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
