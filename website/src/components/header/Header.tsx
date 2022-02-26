@@ -20,17 +20,21 @@ import MenuList from '@mui/material/MenuList';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducer } from '../../state/rootReducer';
+import { toggleContrast, toggleIconMode } from '../../state/settings/actions';
 
-// WORK - refactor
 export default function Header() {
+  const settingsState = useSelector<RootReducer, RootReducer['settings']>((state) => state.settings);
+
+  const dispatch = useDispatch();
+
   const [fadeInClass, setFadeInClass] = React.useState(FadeAnimationClasses.FADE_OUT);
   const anchorRef = React.useRef<HTMLImageElement>(null);
   const fadeInAnimationDelayMl = 1200;
   Animations.fadeInAfterDelay(setFadeInClass, fadeInAnimationDelayMl);
 
   const [open, setOpen] = React.useState(false);
-  const [isContrastResultDisplayed, setIsContrastResultDisplayed] = React.useState(true);
-  const [isIconModeActive, setIsIconModeActive] = React.useState(false);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -38,9 +42,9 @@ export default function Header() {
 
   const handleClick = (value: string) => {
     if (value === 'Contrast') {
-      setIsContrastResultDisplayed(!isContrastResultDisplayed);
+      dispatch(toggleContrast());
     } else if (value === 'Icon Mode') {
-      setIsIconModeActive(!isIconModeActive);
+      dispatch(toggleIconMode());
     }
   };
 
@@ -108,11 +112,11 @@ export default function Header() {
                   onKeyDown={(e) => handleListKeyDown(e)}
                 >
                   <MenuItem onClick={() => handleClick('Contrast')}>
-                    <Checkbox checked={isContrastResultDisplayed} />
+                    <Checkbox checked={settingsState.isContrastOn} />
                     <ListItemText primary="Contrast" />
                   </MenuItem>
                   <MenuItem onClick={() => handleClick('Icon Mode')}>
-                    <Checkbox checked={isIconModeActive} />
+                    <Checkbox checked={settingsState.isIconModeOn} />
                     <ListItemText primary="Icon Mode" />
                   </MenuItem>
                 </MenuList>

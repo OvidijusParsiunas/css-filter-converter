@@ -1,9 +1,13 @@
+import { RootReducer } from '../../../../state/rootReducer';
 import UploadIcon from '@mui/icons-material/Upload';
+import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import React from 'react';
 import './iconMode.css';
 
 export default function IconMode() {
+  const historyState = useSelector<RootReducer, RootReducer['history']['history']>((state) => state.history.history);
+
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const svgContainerRef = React.useRef<SVGSVGElement>(null);
 
@@ -11,7 +15,7 @@ export default function IconMode() {
 
   const transitionAnimationLengthMs = 400;
   const transitionAnimationLengthString = `${transitionAnimationLengthMs / 1000}s`;
-  const iconDimensionsPx = 32;
+  const iconDimensionsPx = 34;
 
   function onFileLoad(event: ProgressEvent<FileReader>): void {
     if (event.target?.result) {
@@ -19,6 +23,9 @@ export default function IconMode() {
       setIconBase64(svgBase64);
       setTimeout(() => {
         if (svgContainerRef.current) svgContainerRef.current.style.opacity = '1';
+        setTimeout(() => {
+          if (svgContainerRef.current) svgContainerRef.current.style.transition = '';
+        }, transitionAnimationLengthMs);
       }, transitionAnimationLengthMs);
     }
   }
@@ -33,7 +40,7 @@ export default function IconMode() {
 
   return (
     <div id="icon-mode-panel">
-      <div>Upload svg image to test its appearance with filter</div>
+      <div>Upload svg image to test its appearance using filter</div>
       <div id="icon-mode-icons-container">
         <input
           ref={fileInputRef}
@@ -61,6 +68,7 @@ export default function IconMode() {
             height: iconDimensionsPx,
             marginLeft: iconBase64 ? 20 : 0,
             transition: transitionAnimationLengthString,
+            filter: historyState?.[0]?.result || '',
           }}
         >
           <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />

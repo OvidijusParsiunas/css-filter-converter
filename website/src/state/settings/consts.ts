@@ -1,0 +1,4 @@
+export enum SettingsActionTypes {
+  TOGGLE_CONTRAST = 'TOGGLE_CONTRAST',
+  TOGGLE_ICON_MODE = 'TOGGLE_ICON_MODE',
+}
