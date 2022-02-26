@@ -3,16 +3,23 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import './iconMode.css';
 
-// WORK - refactor
 export default function IconMode() {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const svgContainerRef = React.useRef<SVGSVGElement>(null);
-  const [xlinkHref, setXlinkHref] = React.useState('');
+
+  const [iconBase64, setIconBase64] = React.useState('');
+
+  const transitionAnimationLengthMs = 400;
+  const transitionAnimationLengthString = `${transitionAnimationLengthMs / 1000}s`;
+  const iconDimensionsPx = 32;
 
   function onFileLoad(event: ProgressEvent<FileReader>): void {
     if (event.target?.result) {
       const svgBase64 = event.target.result as string;
-      setXlinkHref(svgBase64);
+      setIconBase64(svgBase64);
+      setTimeout(() => {
+        if (svgContainerRef.current) svgContainerRef.current.style.opacity = '1';
+      }, transitionAnimationLengthMs);
     }
   }
 
@@ -25,28 +32,38 @@ export default function IconMode() {
   }
 
   return (
-    <div id="icon-mode">
+    <div id="icon-mode-panel">
       <div>Upload svg image to test its appearance with filter</div>
-      <div style={{ marginTop: 20 }}>
+      <div id="icon-mode-icons-container">
         <input
+          ref={fileInputRef}
           onChange={(event) => uploadSVG(event)}
           multiple={false}
-          ref={fileInputRef}
           type="file"
           accept=".svg"
           hidden
         />
         <Button
+          id="icon-mode-upload-icon-button"
+          style={{ transition: transitionAnimationLengthString }}
           onClick={() => fileInputRef?.current?.click()}
-          style={{ backgroundColor: '#1160a2', height: 45, minWidth: 55 }}
           size="small"
           variant="contained"
           color="primary"
         >
           <UploadIcon />
         </Button>
-        <svg ref={svgContainerRef} style={{ width: 20, height: 20, verticalAlign: 'middle', marginLeft: '20px' }}>
-          <image style={{ width: 20, height: 20 }} xlinkHref={xlinkHref} />
+        <svg
+          id="icon-mode-user-icon-container"
+          ref={svgContainerRef}
+          style={{
+            width: iconBase64 ? iconDimensionsPx : 0,
+            height: iconDimensionsPx,
+            marginLeft: iconBase64 ? 20 : 0,
+            transition: transitionAnimationLengthString,
+          }}
+        >
+          <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
         </svg>
       </div>
     </div>
