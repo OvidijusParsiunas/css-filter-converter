@@ -49,7 +49,7 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
 
   return (
     <div id="icon-mode-panel" ref={ref} style={{ display: getDisplayStyle() }}>
-      <div id="icon-mode-panel-description-text">Upload svg image to test its appearance using filter</div>
+      <div id="icon-mode-panel-description-text">Upload svg image to test its appearance using result filter</div>
       <div id="icon-mode-icons-container">
         <input
           ref={fileInputRef}

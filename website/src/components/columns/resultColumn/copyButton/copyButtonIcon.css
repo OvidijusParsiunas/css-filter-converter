@@ -20,10 +20,3 @@
 .clipboard-copy-icon-image:hover {
   filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(102%) contrast(102%);
 }
-
-/* used to override tooltip style properties */
-.MuiTooltip-tooltip {
-  background-color: green !important;
-  font-size: 12.5px !important;
-  margin-right: 8px !important;
-}

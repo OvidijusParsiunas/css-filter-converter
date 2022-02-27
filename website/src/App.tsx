@@ -12,6 +12,7 @@ import { setDispatch } from './state/error/actions';
 import Header from './components/header/Header';
 import './shared/functionality/animations.css';
 import { useDispatch } from 'react-redux';
+import './shared/style/globalStyle.css';
 import React from 'react';
 import './App.css';
 

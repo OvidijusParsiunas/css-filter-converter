@@ -24,14 +24,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootReducer } from '../../state/rootReducer';
 import { toggleContrast, toggleIconMode } from '../../state/settings/actions';
 import { IconModePanelUtils } from '../columns/middleColumn/iconModePanel/iconModePanelUtils';
+import Tooltip from '@mui/material/Tooltip';
+import { createTheme, ThemeProvider } from '@mui/material';
 
-// WORK - do not display icon mode panel when converting from filter to color
-// Disable dropdown button - tooltip why disabled
 export default function Header() {
   const settingsState = useSelector<RootReducer, RootReducer['settings']>((state) => state.settings);
   const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
     (state) => state.input.activeType,
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -81,6 +84,18 @@ export default function Header() {
 
   const [npmLogoPath, setNpmLogoPath] = React.useState(npmLogoBlack);
 
+  const greyToolkitTheme = createTheme({
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: '#aaaaaa',
+          },
+        },
+      },
+    },
+  });
+
   return (
     <div id="header" className={`header-content ${fadeInClass}`}>
       {/* <div style={{ marginLeft: 20, float: 'left', fontSize: 19, color: '#313131' }}>Filter Converter</div>
@@ -128,14 +143,23 @@ export default function Header() {
                     <Checkbox checked={settingsState.isContrastOn} />
                     <ListItemText primary="Contrast" />
                   </MenuItem>
-                  <MenuItem
-                    id="icon-mode-dropdown-item"
-                    onClick={() => handleClick('Icon Mode')}
-                    disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+                  <div
+                    onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtils.isIsDisplayed(activeInputTypeState))}
+                    onMouseLeave={() => setIsTooltipDisplayed(false)}
                   >
-                    <Checkbox checked={settingsState.isIconModeOn} />
-                    <ListItemText primary="Icon Mode" />
-                  </MenuItem>
+                    <ThemeProvider theme={greyToolkitTheme}>
+                      <Tooltip title="Result needs to be filter" placement="left" open={isTooltipDisplayed}>
+                        <MenuItem
+                          id="icon-mode-dropdown-item"
+                          onClick={() => handleClick('Icon Mode')}
+                          disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+                        >
+                          <Checkbox checked={settingsState.isIconModeOn} />
+                          <ListItemText primary="Icon Mode" />
+                        </MenuItem>
+                      </Tooltip>
+                    </ThemeProvider>
+                  </div>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

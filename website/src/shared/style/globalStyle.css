@@ -1,0 +1,12 @@
+/* used to override tooltip style properties */
+.MuiTooltip-tooltip {
+  font-size: 12.5px !important;
+  margin-right: 8px !important;
+}
+
+/* used to override dropdown item style properties */
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  padding: 0 !important;
+  padding-right: 9px !important;
+  height: 38px !important;
+}

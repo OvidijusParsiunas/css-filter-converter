@@ -1,4 +1,4 @@
-import { Tooltip } from '@mui/material';
+import { createTheme, ThemeProvider, Tooltip } from '@mui/material';
 import './copyButtonIcon.css';
 
 type Props = {
@@ -12,16 +12,30 @@ type Props = {
 export default function CopyButtonIcon(props: Props) {
   const { marginLeft, isDisplayed, iconImagePath, isTooltipDisplayed, iconImageSpecificClass } = props;
 
+  const greenToolkitTheme = createTheme({
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: 'green',
+          },
+        },
+      },
+    },
+  });
+
   return (
     <div style={{ opacity: isDisplayed ? 1 : 0 }} className="copy-button-icon-container">
-      <Tooltip title="Copied!" placement="left" open={isTooltipDisplayed}>
-        <img
-          src={iconImagePath}
-          style={{ cursor: isDisplayed ? 'pointer' : '', marginLeft }}
-          className={`copy-button-icon ${iconImageSpecificClass}`}
-          alt=""
-        />
-      </Tooltip>
+      <ThemeProvider theme={greenToolkitTheme}>
+        <Tooltip title="Copied!" placement="left" open={isTooltipDisplayed}>
+          <img
+            src={iconImagePath}
+            style={{ cursor: isDisplayed ? 'pointer' : '', marginLeft }}
+            className={`copy-button-icon ${iconImageSpecificClass}`}
+            alt=""
+          />
+        </Tooltip>
+      </ThemeProvider>
     </div>
   );
 }
