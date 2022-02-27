@@ -35,13 +35,6 @@
   }
 }
 
-/* when screen height is narrow - move top column closer to top as the header element will also be removed */
-@media (max-height: 256px) {
-  .column:nth-child(1) {
-    top: 15px;
-  }
-}
-
 .column-contents {
   position: absolute;
   top: 47%;

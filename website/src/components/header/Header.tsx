@@ -26,7 +26,6 @@ import { toggleContrast, toggleIconMode } from '../../state/settings/actions';
 
 // WORK - do not display icon mode panel when converting from filter to color
 // Disable dropdown button - tooltip why disabled
-// Also remove dropdown button when screen too small
 export default function Header() {
   const settingsState = useSelector<RootReducer, RootReducer['settings']>((state) => state.settings);
 
@@ -126,7 +125,7 @@ export default function Header() {
                     <Checkbox checked={settingsState.isContrastOn} />
                     <ListItemText primary="Contrast" />
                   </MenuItem>
-                  <MenuItem onClick={() => handleClick('Icon Mode')}>
+                  <MenuItem id="icon-mode-dropdown-item" onClick={() => handleClick('Icon Mode')}>
                     <Checkbox checked={settingsState.isIconModeOn} />
                     <ListItemText primary="Icon Mode" />
                   </MenuItem>

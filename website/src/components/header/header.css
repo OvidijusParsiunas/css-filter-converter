@@ -39,8 +39,14 @@
   cursor: pointer;
 }
 
-/* WORK */
-.MuiPaper-elevation {
-  /* check wih other screens */
-  /* margin-left: -90px !important; */
+@media (max-height: 380px), (max-width: 920px) {
+  #icon-mode-dropdown-item {
+    display: none;
+  }
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  padding: 0 !important;
+  padding-right: 9px !important;
+  height: 35px !important;
 }
