@@ -43,7 +43,7 @@ export default function IconModePanel() {
 
   return (
     <div id="icon-mode-panel">
-      <div>Upload svg image to test its appearance using filter</div>
+      <div id="icon-mode-panel-description-text">Upload svg image to test its appearance using filter</div>
       <div id="icon-mode-icons-container">
         <input
           ref={fileInputRef}

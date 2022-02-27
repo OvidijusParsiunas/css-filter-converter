@@ -13,7 +13,11 @@
   }
 }
 
-#github-logo {
+.header-content {
+  user-select: none;
+}
+
+.generic-header-logo {
   width: 23px;
   height: 23px;
   float: right;
@@ -22,7 +26,7 @@
   filter: brightness(0) saturate(100%) invert(32%) sepia(13%) saturate(0%) hue-rotate(187deg) brightness(97%) contrast(92%);
 }
 
-#github-logo:hover {
+.generic-header-logo:hover {
   filter: brightness(0);
 }
 

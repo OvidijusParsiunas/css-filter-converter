@@ -5,9 +5,32 @@
   transform: translateX(-50%);
   width: 420px;
   height: 120px;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(251, 251, 251);
   border-radius: 25px;
   padding-top: 20px;
+}
+
+/* when screen is narrow - move the panel upwards */
+@media (max-height: 516px) {
+  #icon-mode-panel {
+    margin-top: -32vh;
+  }
+}
+
+#icon-mode-icons-container {
+  margin-top: 23px;
+}
+
+/* when screen is narrow - reduce the size of the panel and the margin between text and icons */
+@media (max-height: 465px) {
+  #icon-mode-panel {
+    margin-top: -32vh;
+    height: 95px;
+    padding-top: 12px;
+  }
+  #icon-mode-icons-container {
+    margin-top: 15px;
+  }
 }
 
 .icon-mode-panel-cover {
@@ -16,11 +39,21 @@
   height: 100%;
   background-color: white;
   top: 0;
-  transition: 0.8s;
+  transition: 0.6s;
 }
 
-#icon-mode-icons-container {
-  margin-top: 23px;
+/* when screen is narrow - remove all panel contents */
+@media (max-height: 380px), (max-width: 920px) {
+  #icon-mode-panel {
+    display: none;
+  }
+  .icon-mode-panel-cover {
+    display: none;
+  }
+}
+
+#icon-mode-panel-description-text {
+  user-select: none;
 }
 
 #icon-mode-upload-icon-button {

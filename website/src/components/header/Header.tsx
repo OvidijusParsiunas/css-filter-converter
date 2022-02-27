@@ -24,6 +24,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootReducer } from '../../state/rootReducer';
 import { toggleContrast, toggleIconMode } from '../../state/settings/actions';
 
+// WORK - do not display icon mode panel when converting from filter to color
+// Disable dropdown button - tooltip why disabled
+// Also remove dropdown button when screen too small
 export default function Header() {
   const settingsState = useSelector<RootReducer, RootReducer['settings']>((state) => state.settings);
 
@@ -77,7 +80,7 @@ export default function Header() {
   const [npmLogoPath, setNpmLogoPath] = React.useState(npmLogoBlack);
 
   return (
-    <div id="header" className={fadeInClass}>
+    <div id="header" className={`header-content ${fadeInClass}`}>
       {/* <div style={{ marginLeft: 20, float: 'left', fontSize: 19, color: '#313131' }}>Filter Converter</div>
       <div style={{ float: 'left', position: 'relative' }}>
         <div style={{ position: 'absolute', top: 6, fontSize: 21 }}>{'>'}</div>
@@ -88,13 +91,21 @@ export default function Header() {
       </div>
       <img
         id="npm-logo"
+        className="header-content"
         src={npmLogoPath}
         alt=""
         onMouseEnter={() => setNpmLogoPath(npmLogoRed)}
         onMouseLeave={() => setNpmLogoPath(npmLogoBlack)}
       />
-      <img id="github-logo" src={githubLogo} alt="" />
-      <img id="github-logo" src={cogIcon} alt="" ref={anchorRef} onClick={handleToggle} aria-hidden="true" />
+      <img className="header-content generic-header-logo" src={githubLogo} alt="" />
+      <img
+        className="header-content generic-header-logo"
+        src={cogIcon}
+        alt=""
+        ref={anchorRef}
+        onClick={handleToggle}
+        aria-hidden="true"
+      />
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} placement="bottom" transition disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow
@@ -210,8 +221,8 @@ export default function Header() {
 //         onMouseEnter={() => setNpmLogoPath(npmLogoRed)}
 //         onMouseLeave={() => setNpmLogoPath(npmLogoBlack)}
 //       />
-//       <img id="github-logo" src={githubLogo} alt="" />
-//       <img id="github-logo" src={cogIcon} alt="" ref={anchorRef} onClick={handleToggle} aria-hidden="true" />
+//       <img id="generic-header-logo" src={githubLogo} alt="" />
+//       <img id="generic-header-logo" src={cogIcon} alt="" ref={anchorRef} onClick={handleToggle} aria-hidden="true" />
 //       <Popper open={open} anchorEl={anchorRef.current} role={undefined} placement="bottom" transition disablePortal>
 //         {({ TransitionProps, placement }) => (
 //           <Grow
