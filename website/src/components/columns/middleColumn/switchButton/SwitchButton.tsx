@@ -27,10 +27,11 @@ interface InputAndResultStrings {
 interface Props {
   inputColumnRef: React.RefObject<HTMLDivElement>;
   resultColumnRef: React.RefObject<HTMLDivElement>;
+  iconModePanelRef: React.RefObject<HTMLDivElement>;
 }
 
 function SwitchButton(props: Props) {
-  const { inputColumnRef, resultColumnRef } = props;
+  const { inputColumnRef, resultColumnRef, iconModePanelRef } = props;
   const dispatch = useDispatch();
 
   const convertNewColorStringTypeToCurrent = (
@@ -112,6 +113,7 @@ function SwitchButton(props: Props) {
       intermediateCallback,
       inputColumnRef.current as HTMLElement,
       resultColumnRef.current as HTMLElement,
+      iconModePanelRef.current as HTMLElement,
     );
   };
 

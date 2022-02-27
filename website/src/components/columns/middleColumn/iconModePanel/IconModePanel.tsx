@@ -1,14 +1,18 @@
 import { RootReducer } from '../../../../state/rootReducer';
+import { IconModePanelUtils } from './iconModePanelUtils';
 import UploadIcon from '@mui/icons-material/Upload';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import './iconModePanel.css';
 import React from 'react';
 
-export default function IconModePanel() {
+const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   const historyState = useSelector<RootReducer, RootReducer['history']['history']>((state) => state.history.history);
   const isOnModeOnState = useSelector<RootReducer, RootReducer['settings']['isIconModeOn']>(
     (state) => state.settings.isIconModeOn,
+  );
+  const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
+    (state) => state.input.activeType,
   );
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -20,7 +24,7 @@ export default function IconModePanel() {
   const transitionAnimationLengthString = `${transitionAnimationLengthMs / 1000}s`;
   const iconDimensionsPx = 35;
 
-  function onFileLoad(event: ProgressEvent<FileReader>): void {
+  const onFileLoad = (event: ProgressEvent<FileReader>): void => {
     if (event.target?.result) {
       const svgBase64 = event.target.result as string;
       setIconBase64(svgBase64);
@@ -31,18 +35,20 @@ export default function IconModePanel() {
         }, transitionAnimationLengthMs);
       }, transitionAnimationLengthMs);
     }
-  }
+  };
 
-  function uploadSVG(event: React.ChangeEvent<HTMLInputElement>): void {
+  const uploadSVG = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const file = event?.target?.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = onFileLoad;
     reader.readAsDataURL(file);
-  }
+  };
+
+  const getDisplayStyle = () => (IconModePanelUtils.isIsDisplayed(activeInputTypeState) ? 'block' : 'none');
 
   return (
-    <div id="icon-mode-panel">
+    <div id="icon-mode-panel" ref={ref} style={{ display: getDisplayStyle() }}>
       <div id="icon-mode-panel-description-text">Upload svg image to test its appearance using filter</div>
       <div id="icon-mode-icons-container">
         <input
@@ -83,4 +89,6 @@ export default function IconModePanel() {
       <div className="icon-mode-panel-cover" style={{ left: isOnModeOnState ? '100%' : '49%' }} />
     </div>
   );
-}
+});
+
+export default IconModePanel;

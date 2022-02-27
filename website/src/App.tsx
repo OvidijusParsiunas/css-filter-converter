@@ -26,6 +26,7 @@ export default function App() {
 
   const inputColumnRef = React.useRef<HTMLDivElement>(null);
   const resultColumnRef = React.useRef<HTMLDivElement>(null);
+  const iconModePanelRef = React.useRef<HTMLDivElement>(null);
   const resultHeaderTextRef = React.useRef<HTMLDivElement>(null);
 
   return (
@@ -37,9 +38,13 @@ export default function App() {
         </Column>
         <Column zIndex={1}>
           <ErrorAlert />
-          <IconModePanel />
+          <IconModePanel ref={iconModePanelRef} />
           <ConvertButton resultHeaderTextRef={resultHeaderTextRef} />
-          <SwitchButton inputColumnRef={inputColumnRef} resultColumnRef={resultColumnRef} />
+          <SwitchButton
+            inputColumnRef={inputColumnRef}
+            resultColumnRef={resultColumnRef}
+            iconModePanelRef={iconModePanelRef}
+          />
         </Column>
         <Column ref={resultColumnRef}>
           <Result resultHeaderTextRef={resultHeaderTextRef} />

@@ -23,11 +23,15 @@ import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducer } from '../../state/rootReducer';
 import { toggleContrast, toggleIconMode } from '../../state/settings/actions';
+import { IconModePanelUtils } from '../columns/middleColumn/iconModePanel/iconModePanelUtils';
 
 // WORK - do not display icon mode panel when converting from filter to color
 // Disable dropdown button - tooltip why disabled
 export default function Header() {
   const settingsState = useSelector<RootReducer, RootReducer['settings']>((state) => state.settings);
+  const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
+    (state) => state.input.activeType,
+  );
 
   const dispatch = useDispatch();
 
@@ -54,7 +58,6 @@ export default function Header() {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -125,7 +128,11 @@ export default function Header() {
                     <Checkbox checked={settingsState.isContrastOn} />
                     <ListItemText primary="Contrast" />
                   </MenuItem>
-                  <MenuItem id="icon-mode-dropdown-item" onClick={() => handleClick('Icon Mode')}>
+                  <MenuItem
+                    id="icon-mode-dropdown-item"
+                    onClick={() => handleClick('Icon Mode')}
+                    disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+                  >
                     <Checkbox checked={settingsState.isIconModeOn} />
                     <ListItemText primary="Icon Mode" />
                   </MenuItem>
