@@ -22,3 +22,57 @@
   top: 38px;
   margin-left: -2px;
 }
+
+@media (max-width: 822px) {
+  #color-picker-panel {
+    margin-left: -40px;
+  }
+}
+
+@media (max-width: 748px) {
+  #color-picker-panel {
+    margin-left: -70px;
+  }
+}
+
+@media (max-width: 690px) {
+  #color-picker-panel {
+    margin-left: -100px;
+  }
+}
+
+@media (max-width: 630px) {
+  #color-picker-panel {
+    margin-left: -130px;
+  }
+}
+
+@media (max-width: 600px) {
+  #color-picker-panel {
+    margin-left: -160px;
+  }
+}
+
+@media (max-width: 570px) {
+  #color-picker-panel {
+    margin-left: -190px;
+  }
+}
+
+@media (max-width: 540px) {
+  #color-picker-panel {
+    margin-left: -190px;
+  }
+}
+
+@media (max-width: 510px) {
+  #color-picker-panel {
+    margin-left: -220px;
+  }
+}
+
+@media (max-width: 480px) {
+  #color-picker-panel {
+    margin-left: -230px;
+  }
+}

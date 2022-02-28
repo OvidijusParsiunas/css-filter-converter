@@ -35,6 +35,7 @@ export default function Header() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
+  const [isTooltipDisplayed2, setIsTooltipDisplayed2] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -139,16 +140,28 @@ export default function Header() {
                   aria-labelledby="composition-button"
                   onKeyDown={(e) => handleListKeyDown(e)}
                 >
-                  <MenuItem onClick={() => handleClick('Contrast')}>
-                    <Checkbox checked={settingsState.isContrastOn} />
-                    <ListItemText primary="Contrast" />
-                  </MenuItem>
+                  <div
+                    onMouseEnter={() => setIsTooltipDisplayed2(!IconModePanelUtils.isIsDisplayed(activeInputTypeState))}
+                    onMouseLeave={() => setIsTooltipDisplayed2(false)}
+                  >
+                    <ThemeProvider theme={greyToolkitTheme}>
+                      <Tooltip title="Used when filter is the result" placement="left" open={isTooltipDisplayed2}>
+                        <MenuItem
+                          onClick={() => handleClick('Contrast')}
+                          disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+                        >
+                          <Checkbox checked={settingsState.isContrastOn} />
+                          <ListItemText primary="Contrast" />
+                        </MenuItem>
+                      </Tooltip>
+                    </ThemeProvider>
+                  </div>
                   <div
                     onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtils.isIsDisplayed(activeInputTypeState))}
                     onMouseLeave={() => setIsTooltipDisplayed(false)}
                   >
                     <ThemeProvider theme={greyToolkitTheme}>
-                      <Tooltip title="Result needs to be filter" placement="left" open={isTooltipDisplayed}>
+                      <Tooltip title="Used when filter is the result" placement="left" open={isTooltipDisplayed}>
                         <MenuItem
                           id="icon-mode-dropdown-item"
                           onClick={() => handleClick('Icon Mode')}
