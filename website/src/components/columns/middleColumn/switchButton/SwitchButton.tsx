@@ -7,9 +7,9 @@ import {
 import { BASIC_COLOR_TYPE_TO_CLASS } from '../convertButton/convert/basicColors/colorTypeToClass';
 import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
+import { Animations } from '../../../../shared/functionality/animations/animations';
 import { BasicColor } from '../convertButton/convert/basicColors/basicColor';
 import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
-import { Animations } from '../../../../shared/functionality/animations';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';

@@ -1,5 +1,5 @@
 import { MIDDLE_COLUMN_WIDTH_NUMBER } from '../../../../shared/consts/cssPropertyValues';
-import { Animations } from '../../../../shared/functionality/animations';
+import { Animations } from '../../../../shared/functionality/animations/animations';
 import { ElementRef } from '../../../../shared/types/elementRef';
 import { HistoryElement } from '../../../../state/history/type';
 import { RootReducer } from '../../../../state/rootReducer';

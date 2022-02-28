@@ -1,6 +1,6 @@
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
-import { Animations } from '../../../../shared/functionality/animations';
+import { Animations } from '../../../../shared/functionality/animations/animations';
 import { updateResultFilter } from '../../../../state/result/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';

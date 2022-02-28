@@ -8,3 +8,7 @@ export const toggleContrast = (): SettingsAction => ({
 export const toggleIconMode = (): SettingsAction => ({
   type: SettingsActionTypes.TOGGLE_ICON_MODE,
 });
+
+export const toggleDropdown = (): SettingsAction => ({
+  type: SettingsActionTypes.TOGGLE_DROPDOWN,
+});

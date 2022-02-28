@@ -1,4 +1,4 @@
-import { FadeAnimationClasses } from '../consts/animationClasses';
+import { FadeAnimationClasses } from '../../consts/animationClasses';
 
 export class Animations {
   public static getFadeInClassIfConditionMet(condition: boolean, startClass?: string, finishClass?: string): string {

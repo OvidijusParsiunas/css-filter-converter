@@ -4,6 +4,7 @@ import { SettingsActionTypes } from './consts';
 const initialState: SettingsState = {
   isContrastOn: true,
   isIconModeOn: false,
+  isDropdownOpen: false,
 };
 
 const defaultAction: SettingsAction = {
@@ -20,6 +21,9 @@ export const SettingsReducer = (
     }
     case SettingsActionTypes.TOGGLE_ICON_MODE: {
       return { ...state, isIconModeOn: !state.isIconModeOn };
+    }
+    case SettingsActionTypes.TOGGLE_DROPDOWN: {
+      return { ...state, isDropdownOpen: !state.isDropdownOpen };
     }
     default:
       return state;

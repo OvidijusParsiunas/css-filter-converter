@@ -2,16 +2,17 @@ import SmallScreenErrorAlert from './shared/components/errorHander/errorAlert/Sm
 import ConvertButton from './components/columns/middleColumn/convertButton/ConvertButton';
 import IconModePanel from './components/columns/middleColumn/iconModePanel/IconModePanel';
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
+import { APP_FADE_IN_ANIMATION_DELAY_ML } from './shared/consts/appAppearanceDelays';
 import ErrorAlert from './shared/components/errorHander/errorAlert/ErrorAlert';
 import ErrorBoundary from './shared/components/errorHander/ErrorBoundary';
+import { Animations } from './shared/functionality/animations/animations';
 import { FadeAnimationClasses } from './shared/consts/animationClasses';
-import { Animations } from './shared/functionality/animations';
 import Result from './components/columns/resultColumn/Result';
 import Input from './components/columns/inputColumn/Input';
+import './shared/functionality/animations/animations.css';
 import Column from './components/columns/wrapper/Column';
 import { setDispatch } from './state/error/actions';
 import Header from './components/header/Header';
-import './shared/functionality/animations.css';
 import { useDispatch } from 'react-redux';
 import './shared/style/globalStyle.css';
 import React from 'react';
@@ -23,8 +24,7 @@ export default function App() {
   dispatch(setDispatch(dispatch));
 
   const [fadeInClass, setFadeInClass] = React.useState(FadeAnimationClasses.FADE_OUT);
-  const fadeInAnimationDelayMl = 600;
-  Animations.fadeInAfterDelay(setFadeInClass, fadeInAnimationDelayMl);
+  Animations.fadeInAfterDelay(setFadeInClass, APP_FADE_IN_ANIMATION_DELAY_ML);
 
   const inputColumnRef = React.useRef<HTMLDivElement>(null);
   const resultColumnRef = React.useRef<HTMLDivElement>(null);

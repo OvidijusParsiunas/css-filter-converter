@@ -1,5 +1,5 @@
+import { Animations } from '../../../../shared/functionality/animations/animations';
 import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
-import { Animations } from '../../../../shared/functionality/animations';
 import { RESULT_FONT_SIZE } from '../../../../shared/consts/styling';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import CopyButtonWrapper from '../copyButton/CopyButtonWrapper';
