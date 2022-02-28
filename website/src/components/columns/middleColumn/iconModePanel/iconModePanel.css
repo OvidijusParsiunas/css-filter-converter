@@ -45,10 +45,10 @@
 /* when screen is narrow - remove all panel contents */
 @media (max-height: 380px), (max-width: 920px) {
   #icon-mode-panel {
-    display: none;
+    display: none !important;
   }
   .icon-mode-panel-cover {
-    display: none;
+    display: none !important;
   }
 }
 

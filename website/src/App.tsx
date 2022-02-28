@@ -1,3 +1,4 @@
+import SmallScreenErrorAlert from './shared/components/errorHander/errorAlert/SmallScreenErrorAlert';
 import ConvertButton from './components/columns/middleColumn/convertButton/ConvertButton';
 import IconModePanel from './components/columns/middleColumn/iconModePanel/IconModePanel';
 import SwitchButton from './components/columns/middleColumn/switchButton/SwitchButton';
@@ -32,6 +33,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <SmallScreenErrorAlert />
       <Header />
       <div className={`app ${fadeInClass}`}>
         <Column zIndex={2} ref={inputColumnRef}>

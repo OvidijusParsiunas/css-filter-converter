@@ -1,0 +1,22 @@
+#small-screen-error-alert {
+  display: none;
+}
+
+@media (max-width: 920px), (max-height: 400px) {
+  #small-screen-error-alert {
+    display: block;
+  }
+}
+
+#small-screen-error-alert-cover {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: white;
+}
+
+#small-screen-error-alert-error-message-container {
+  height: 38vh;
+  transform: translateY(150%);
+}

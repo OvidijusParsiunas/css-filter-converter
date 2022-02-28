@@ -5,6 +5,7 @@
   margin-top: -20vh;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 #error-alert-text {

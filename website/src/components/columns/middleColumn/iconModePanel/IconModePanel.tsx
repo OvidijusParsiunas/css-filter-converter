@@ -14,6 +14,9 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
     (state) => state.input.activeType,
   );
+  const isErrorDisplayedState = useSelector<RootReducer, RootReducer['error']['isErrorDisplayed']>(
+    (state) => state.error.isErrorDisplayed,
+  );
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const svgContainerRef = React.useRef<SVGSVGElement>(null);
@@ -45,7 +48,9 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     reader.readAsDataURL(file);
   };
 
-  const getDisplayStyle = () => (IconModePanelUtils.isIsDisplayed(activeInputTypeState) ? 'block' : 'none');
+  const isDisplayed = () => IconModePanelUtils.isIsDisplayed(activeInputTypeState) && !isErrorDisplayedState;
+
+  const getDisplayStyle = () => (isDisplayed() ? 'block' : 'none');
 
   return (
     <div id="icon-mode-panel" ref={ref} style={{ display: getDisplayStyle() }}>
