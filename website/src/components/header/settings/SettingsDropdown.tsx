@@ -1,6 +1,6 @@
 import { toggleContrast, toggleDropdown, toggleIconMode } from '../../../state/settings/actions';
+import SettingsDropdownFilterItem from './SettingsDropdownFilterItem';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import SettingsDropdownItemFilter from './SettingsDropdownItem';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import MenuList from '@mui/material/MenuList';
@@ -43,12 +43,12 @@ export default function SettingsDropdown(props: Props) {
           <Paper>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList onKeyDown={(e) => handleMenuKeyDown(e)}>
-                <SettingsDropdownItemFilter
+                <SettingsDropdownFilterItem
                   itemName="Contrast"
                   isOn={settingsState.isContrastOn}
                   toggleState={toggleContrast}
                 />
-                <SettingsDropdownItemFilter
+                <SettingsDropdownFilterItem
                   itemName="Icon Mode"
                   isOn={settingsState.isIconModeOn}
                   toggleState={toggleIconMode}

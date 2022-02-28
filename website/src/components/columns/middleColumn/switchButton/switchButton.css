@@ -23,5 +23,8 @@
 
 #switch-button:hover {
   background-color: rgb(238, 238, 238);
-  color: black;
+}
+
+#switch-button-icon {
+  height: 19px;
 }

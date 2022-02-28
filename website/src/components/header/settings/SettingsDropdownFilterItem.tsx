@@ -15,7 +15,7 @@ interface Props {
   toggleState: () => void;
 }
 
-export default function SettingsDropdownItemFilter(props: Props) {
+export default function SettingsDropdownFilterItem(props: Props) {
   const { itemName, isOn, toggleState } = props;
 
   const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
@@ -29,7 +29,7 @@ export default function SettingsDropdownItemFilter(props: Props) {
     dispatch(toggleState());
   };
 
-  const greyTooltipTheme = TooltipTheme.create('#aaaaaa');
+  const greyTooltipTheme = TooltipTheme.create('#9e9e9e');
 
   return (
     <div

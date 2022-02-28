@@ -23,6 +23,7 @@
   margin-left: -2px;
 }
 
+/* when screen is narrow - move color picker closer to the center of the screen to allow the user to fully see it */
 @media (max-width: 822px) {
   #color-picker-panel {
     margin-left: -40px;

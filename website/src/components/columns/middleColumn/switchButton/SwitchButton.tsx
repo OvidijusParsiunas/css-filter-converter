@@ -8,15 +8,21 @@ import { BASIC_COLOR_TYPE_TO_CLASS } from '../convertButton/convert/basicColors/
 import { updateResultBasicColor, updateResultFilter } from '../../../../state/result/actions';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { Animations } from '../../../../shared/functionality/animations/animations';
+import { TooltipTheme } from '../../../../shared/style/muiThemes/tooltipTheme';
 import { BasicColor } from '../convertButton/convert/basicColors/basicColor';
 import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
+import { ThemeProvider } from '@mui/material/styles';
 import { store } from '../../../../state/store';
+import blackArrows from './blackArrows.svg';
+import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
+import greyArrows from './greyArrows.svg';
 import './switchButton.css';
+import React from 'react';
 
 interface InputAndResultStrings {
   input: string;
@@ -32,6 +38,10 @@ interface Props {
 
 function SwitchButton(props: Props) {
   const { inputColumnRef, resultColumnRef, iconModePanelRef } = props;
+
+  const [iconPath, setIconPath] = React.useState(greyArrows);
+  const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const convertNewColorStringTypeToCurrent = (
@@ -132,11 +142,32 @@ function SwitchButton(props: Props) {
     });
   };
 
+  const mouseEnterButton = () => {
+    setIconPath(blackArrows);
+    setIsTooltipDisplayed(true);
+  };
+
+  const mouseLeaveButton = () => {
+    setIconPath(greyArrows);
+    setIsTooltipDisplayed(false);
+  };
+
+  const greyTooltipTheme = TooltipTheme.create('#8e8e8e');
+
   return (
     <div id="switch-button-container">
-      <Button id="switch-button" onClick={() => ErrorHandler.executeEvent(switchInputType)}>
-        ⇄
-      </Button>
+      <ThemeProvider theme={greyTooltipTheme}>
+        <Tooltip title="Switch convertion to/from filter" placement="bottom" open={isTooltipDisplayed}>
+          <Button
+            id="switch-button"
+            onClick={() => ErrorHandler.executeEvent(switchInputType)}
+            onMouseEnter={mouseEnterButton}
+            onMouseLeave={mouseLeaveButton}
+          >
+            <img id="switch-button-icon" src={iconPath} alt="" />
+          </Button>
+        </Tooltip>
+      </ThemeProvider>
     </div>
   );
 }
