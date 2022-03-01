@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import './settingsDropdownFilterItem.css';
 import React from 'react';
 
 interface Props {
@@ -29,7 +30,7 @@ export default function SettingsDropdownFilterItem(props: Props) {
     dispatch(toggleState());
   };
 
-  const greyTooltipTheme = TooltipTheme.create('#9e9e9e');
+  const greyTooltipTheme = TooltipTheme.create('#8e8e8e');
 
   return (
     <div
@@ -38,7 +39,11 @@ export default function SettingsDropdownFilterItem(props: Props) {
     >
       <ThemeProvider theme={greyTooltipTheme}>
         <Tooltip title="Used when filter is the result" placement="left" open={isTooltipDisplayed}>
-          <MenuItem onClick={() => handleItemClick()} disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}>
+          <MenuItem
+            className="settings-dropdown-item"
+            onClick={() => handleItemClick()}
+            disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+          >
             <Checkbox checked={isOn} />
             <ListItemText primary={itemName} />
           </MenuItem>

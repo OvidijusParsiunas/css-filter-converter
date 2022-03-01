@@ -40,8 +40,6 @@ function SwitchButton(props: Props) {
   const { inputColumnRef, resultColumnRef, iconModePanelRef } = props;
 
   const [iconPath, setIconPath] = React.useState(greyArrows);
-  const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
-
   const dispatch = useDispatch();
 
   const convertNewColorStringTypeToCurrent = (
@@ -142,27 +140,17 @@ function SwitchButton(props: Props) {
     });
   };
 
-  const mouseEnterButton = () => {
-    setIconPath(blackArrows);
-    setIsTooltipDisplayed(true);
-  };
-
-  const mouseLeaveButton = () => {
-    setIconPath(greyArrows);
-    setIsTooltipDisplayed(false);
-  };
-
   const greyTooltipTheme = TooltipTheme.create('#8e8e8e');
 
   return (
     <div id="switch-button-container">
       <ThemeProvider theme={greyTooltipTheme}>
-        <Tooltip title="Switch convertion to/from filter" placement="bottom" open={isTooltipDisplayed}>
+        <Tooltip enterDelay={300} title="Switch convertion to/from filter" placement="bottom">
           <Button
             id="switch-button"
             onClick={() => ErrorHandler.executeEvent(switchInputType)}
-            onMouseEnter={mouseEnterButton}
-            onMouseLeave={mouseLeaveButton}
+            onMouseEnter={() => setIconPath(blackArrows)}
+            onMouseLeave={() => setIconPath(greyArrows)}
           >
             <img id="switch-button-icon" src={iconPath} alt="" />
           </Button>

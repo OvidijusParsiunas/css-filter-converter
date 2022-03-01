@@ -3,10 +3,3 @@
   font-size: 12.5px !important;
   margin-right: 8px !important;
 }
-
-/* used to override dropdown item style properties */
-.MuiMenuItem-root {
-  padding: 0 !important;
-  padding-right: 9px !important;
-  height: 38px !important;
-}

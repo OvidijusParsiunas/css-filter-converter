@@ -1,0 +1,6 @@
+/* used to override dropdown item style properties */
+.settings-dropdown-item {
+  padding: 0 !important;
+  padding-right: 9px !important;
+  height: 38px !important;
+}
