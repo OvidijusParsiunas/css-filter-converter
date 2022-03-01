@@ -5,3 +5,7 @@
 .prefix-result-header-text {
   margin-right: 10px;
 }
+
+.no-result-prefix-header-text {
+  margin-left: -12%;
+}

@@ -10,7 +10,7 @@ export default function ResultHeaderText(props: Props) {
   const { prefixClasses, applyPrefixClasses, resultHeaderTextRef } = props;
 
   function getClasses(): string {
-    return applyPrefixClasses ? `prefix-result-header-text ${prefixClasses?.join(' ')}` : '';
+    return applyPrefixClasses ? `prefix-result-header-text ${prefixClasses?.join(' ')}` : 'no-result-prefix-header-text';
   }
 
   return (

@@ -5,13 +5,12 @@
 
 #switch-button {
   background-color: white;
-  color: rgb(132 132 132);
   width: 36px;
   max-height: 32px;
   min-width: 10px;
   font-size: 20px;
   cursor: pointer;
-  margin-top: 110px;
+  margin-top: 60px;
 }
 
 /* when screen size gets too small - move switch button close to the convert button */
@@ -26,5 +25,5 @@
 }
 
 #switch-button-icon {
-  height: 19px;
+  height: 22px;
 }
