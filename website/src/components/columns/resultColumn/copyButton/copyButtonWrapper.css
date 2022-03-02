@@ -5,6 +5,7 @@
 
 .text-no-whitespace {
   opacity: 0;
+  user-select: none;
 }
 
 .text-with-whitespace {
