@@ -1,8 +1,6 @@
 #header {
   width: 100%;
-  height: 50px;
   position: absolute;
-  top: 5px;
   z-index: 2;
 }
 
@@ -30,13 +28,25 @@
   filter: brightness(0);
 }
 
+#css-filter-converter-logo {
+  float: left;
+  width: 170px;
+  height: 100px;
+  margin-top: 4px;
+  margin-left: 5px;
+}
+
+#github-logo {
+  margin-top: 5px;
+}
+
 #npm-logo {
   width: 46px;
   height: 18px;
   float: right;
   margin-right: 15px;
-  margin-top: 4px;
   cursor: pointer;
+  margin-top: 9px;
 }
 
 @media (max-height: 380px), (max-width: 920px) {

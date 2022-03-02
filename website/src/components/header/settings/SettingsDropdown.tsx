@@ -49,6 +49,7 @@ export default function SettingsDropdown(props: Props) {
                   toggleState={toggleContrast}
                 />
                 <SettingsDropdownFilterItem
+                  id="icon-mode-dropdown-item"
                   itemName="Icon Mode"
                   isOn={settingsState.isIconModeOn}
                   toggleState={toggleIconMode}

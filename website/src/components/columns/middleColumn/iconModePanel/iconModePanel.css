@@ -1,13 +1,15 @@
 #icon-mode-panel {
   position: absolute;
-  margin-top: -30vh;
+  /* margin-top: -30vh; */
   left: 50%;
   transform: translateX(-50%);
   width: 446px;
   height: 120px;
-  background-color: rgb(250, 250, 250);
   border-radius: 25px;
   padding-top: 20px;
+  /* WORK */
+  margin-top: -21vh;
+  opacity: 0;
 }
 
 /* when screen is narrow - move the panel upwards */

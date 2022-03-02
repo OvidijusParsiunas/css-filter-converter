@@ -1,11 +1,11 @@
-import { HEADER_FADE_IN_ANIMATION_DELAY_ML } from '../../shared/consts/appAppearanceDelays';
+import { APP_FADE_IN_ANIMATION_DELAY_ML } from '../../shared/consts/appAppearanceDelays';
 import { Animations } from '../../shared/functionality/animations/animations';
 import { FadeAnimationClasses } from '../../shared/consts/animationClasses';
+import CssFilterConverterLogo from './cssFilterConverterLogo';
 import npmLogoBlack from './npm-logo-black.png';
 import npmLogoRed from './npm-logo-red.png';
 import githubLogo from './github-logo.png';
 import Settings from './settings/Settings';
-import Icon2 from './Icon2';
 import React from 'react';
 import './header.css';
 
@@ -13,17 +13,12 @@ export default function Header() {
   const [npmLogoPath, setNpmLogoPath] = React.useState(npmLogoBlack);
   const [fadeInClass, setFadeInClass] = React.useState(FadeAnimationClasses.FADE_OUT);
 
-  Animations.fadeInAfterDelay(setFadeInClass, HEADER_FADE_IN_ANIMATION_DELAY_ML);
+  Animations.fadeInAfterDelay(setFadeInClass, APP_FADE_IN_ANIMATION_DELAY_ML);
 
   return (
     <div id="header" className={`header-content ${fadeInClass}`}>
-      {/* <div style={{ marginLeft: 20, float: 'left', fontSize: 19, color: '#313131' }}>Filter Converter</div>
-      <div style={{ float: 'left', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: 6, fontSize: 21 }}>{'>'}</div>
-        <div style={{ position: 'absolute', color: 'blue', fontSize: 20 }}>{'<'}</div>
-      </div> */}
-      <div style={{ marginLeft: 5, width: 170, height: 100, float: 'left' }}>
-        <Icon2 />
+      <div id="css-filter-converter-logo">
+        <CssFilterConverterLogo />
       </div>
       <img
         id="npm-logo"
@@ -34,8 +29,18 @@ export default function Header() {
         alt=""
       />
       {/* this is highlighted by native :hover css selector */}
-      <img className="header-content generic-header-logo" src={githubLogo} alt="" />
+      <img id="github-logo" className="header-content generic-header-logo" src={githubLogo} alt="" />
       <Settings />
     </div>
   );
 }
+
+// shadow
+// height: 45px;
+// box-shadow: 0px 7px 20px 0px rgb(234 234 234);
+// top: 0px;
+// background-color: #f8f8f8;
+
+// gentle border
+// border-bottom: 1px solid #eeeeee;
+// height: 38px;

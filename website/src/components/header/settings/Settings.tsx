@@ -3,6 +3,7 @@ import SettingsDropdown from './SettingsDropdown';
 import { useDispatch } from 'react-redux';
 import cogIcon from './cogwheel.svg';
 import React from 'react';
+import './settings.css';
 
 export default function Settings() {
   const anchorRef = React.useRef<HTMLImageElement>(null);
@@ -15,6 +16,7 @@ export default function Settings() {
   return (
     <div>
       <img
+        id="settings-icon"
         className="header-content generic-header-logo"
         ref={anchorRef}
         src={cogIcon}

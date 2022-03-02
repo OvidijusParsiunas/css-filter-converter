@@ -3,4 +3,5 @@
   height: 100vh;
   overflow: hidden;
   transition: opacity 0.8s;
+  background: linear-gradient(180deg, rgba(242, 242, 242, 1) 0%, rgba(255, 255, 255, 1) 30%);
 }

@@ -110,7 +110,7 @@ export default function CopyButtonWrapper(props: Props) {
           it is meant to be before it has marginLeft set */}
       <div className="copy-button-wrapper-contents">
         <div
-          style={{ width: 20 + (marginLeftDelta || 0) }}
+          style={{ width: 22 + (marginLeftDelta || 0) }}
           className="icon-placeholder"
           onMouseEnter={() => onMouseEnterText()}
           onMouseLeave={() => onMouseLeaveText()}

@@ -14,10 +14,11 @@ interface Props {
   itemName: string;
   isOn: boolean;
   toggleState: () => void;
+  id?: string;
 }
 
 export default function SettingsDropdownFilterItem(props: Props) {
-  const { itemName, isOn, toggleState } = props;
+  const { itemName, isOn, toggleState, id } = props;
 
   const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
   const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
@@ -34,6 +35,7 @@ export default function SettingsDropdownFilterItem(props: Props) {
 
   return (
     <div
+      id={id}
       onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtils.isIsDisplayed(activeInputTypeState))}
       onMouseLeave={() => setIsTooltipDisplayed(false)}
     >
@@ -52,3 +54,7 @@ export default function SettingsDropdownFilterItem(props: Props) {
     </div>
   );
 }
+
+SettingsDropdownFilterItem.defaultProps = {
+  id: '',
+};

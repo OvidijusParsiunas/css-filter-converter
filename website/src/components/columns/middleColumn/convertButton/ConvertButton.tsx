@@ -11,6 +11,7 @@ import { FilterToBasicColor } from './filterToBasicColor';
 import { useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../state/store';
 import Button from '@mui/material/Button';
+import './convertButton.css';
 
 interface Props {
   resultHeaderTextRef: React.RefObject<HTMLDivElement>;
@@ -72,7 +73,14 @@ export default function ConvertButton(props: Props) {
   };
 
   return (
-    <Button sx={buttonClassOverwriteCss} disabled={!isValidState} variant="contained" color="primary" onClick={convert}>
+    <Button
+      id="convert-button"
+      sx={buttonClassOverwriteCss}
+      disabled={!isValidState}
+      variant="contained"
+      color="primary"
+      onClick={convert}
+    >
       Convert
     </Button>
   );
