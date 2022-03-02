@@ -1,4 +1,4 @@
-import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
+import { ErrorHandling } from '../../../shared/functionality/errorHandling/errorHandling';
 import { ColorFormats } from '../../../shared/consts/colorFormats';
 import { ColorTypes } from '../../../shared/consts/colorTypes';
 import { Error } from '../../../shared/types/error';
@@ -16,14 +16,12 @@ export class FilterToHexShared {
   // of the puppeteer evaluate method
   protected static addSVGElementsToDOMAndValidateFilter(filterString: string, svgSideLength = 1): SVGAddResult {
     function createSVGElement(): SVGSVGElement {
-      const iconFilterPrefix = 'brightness(0) saturate(100%)';
-      const svgFill = `${iconFilterPrefix} ${filterString}`;
       const xmlns = 'http://www.w3.org/2000/svg';
       const svgElement = document.createElementNS(xmlns, 'svg');
       svgElement.style.height = 'inherit';
       svgElement.style.width = 'inherit';
       svgElement.style.float = 'left';
-      svgElement.style.filter = svgFill;
+      svgElement.style.filter = filterString;
       const rect = document.createElementNS(xmlns, 'rect');
       rect.setAttributeNS(null, 'width', svgSideLength.toString());
       rect.setAttributeNS(null, 'height', svgSideLength.toString());

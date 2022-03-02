@@ -1,9 +1,9 @@
-import { UNEXPECTED_ERROR_MESSAGE_INTRODUCTION } from '../consts/errors';
-import { UnexpectedError } from '../types/unexpectedError';
-import { ColorFormats } from '../consts/colorFormats';
-import { ColorToFilterResult } from '../types/result';
-import { ColorTypes } from '../consts/colorTypes';
-import { Error } from '../types/error';
+import { UNEXPECTED_ERROR_MESSAGE_INTRODUCTION } from '../../consts/errors';
+import { UnexpectedError } from '../../types/unexpectedError';
+import { ColorFormats } from '../../consts/colorFormats';
+import { ColorToFilterResult } from '../../types/result';
+import { ColorTypes } from '../../consts/colorTypes';
+import { Error } from '../../types/error';
 
 export class ErrorHandling {
   public static generateErrorResult(message: string): ColorToFilterResult<null> {

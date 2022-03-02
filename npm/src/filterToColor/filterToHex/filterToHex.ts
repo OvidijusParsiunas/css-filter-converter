@@ -1,4 +1,4 @@
-import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
+import { ErrorHandling } from '../../shared/functionality/errorHandling/errorHandling';
 import { FilterToColorResult } from '../../shared/types/result';
 import { FilterToHexBrowser } from './workers/browser';
 import { HEX } from 'color-convert/conversions';

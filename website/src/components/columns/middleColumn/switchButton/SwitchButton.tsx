@@ -12,14 +12,16 @@ import { TooltipTheme } from '../../../../shared/style/muiThemes/tooltipTheme';
 import { BasicColor } from '../convertButton/convert/basicColors/basicColor';
 import { DEFAULT_VALUES } from '../../../../shared/consts/defaultValues';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
+import { SheenUtil } from '../../resultColumn/resultTypes/sheenUtil';
 import { switchHistory } from '../../../../state/history/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
+import { RootReducer } from '../../../../state/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { store } from '../../../../state/store';
 import blackArrows from './blackArrows.svg';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
 import greyArrows from './greyArrows.svg';
 import './switchButton.css';
 import React from 'react';
@@ -39,7 +41,12 @@ interface Props {
 function SwitchButton(props: Props) {
   const { inputColumnRef, resultColumnRef, iconModePanelRef } = props;
 
+  const isSheenAddedState = useSelector<RootReducer, RootReducer['settings']['isSheenAdded']>(
+    (state) => state.settings.isSheenAdded,
+  );
+
   const [iconPath, setIconPath] = React.useState(greyArrows);
+
   const dispatch = useDispatch();
 
   const convertNewColorStringTypeToCurrent = (
@@ -88,7 +95,8 @@ function SwitchButton(props: Props) {
   ): void => {
     basicColor = generateConvertedColor(lastConversionColorType, basicColor, inputString);
     dispatch(updateResultBasicColor(basicColor));
-    dispatch(updateInputFilter(resultString || DEFAULT_VALUES.filter));
+    resultString = SheenUtil.processFilterDependingOnSheenState(isSheenAddedState, resultString || DEFAULT_VALUES.filter);
+    dispatch(updateInputFilter(resultString));
     dispatch(updateActiveInputType(InputTypes.FILTER));
   };
 

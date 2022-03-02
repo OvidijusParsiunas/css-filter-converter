@@ -61,10 +61,13 @@ export default function CopyButtonWrapper(props: Props) {
   };
 
   const copy = () => {
-    navigator.clipboard.writeText(text);
-    setIconImagePath(tickIcon);
-    setIsTooltipDisplayed(true);
-    setTimeout(() => setIsTooltipDisplayed(false), 600);
+    // if statement used to prevent user from clicking the placeholder when there is no result and triggering the tooltip
+    if (text) {
+      navigator.clipboard.writeText(text);
+      setIconImagePath(tickIcon);
+      setIsTooltipDisplayed(true);
+      setTimeout(() => setIsTooltipDisplayed(false), 600);
+    }
   };
 
   useEffect(() => {

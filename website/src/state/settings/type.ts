@@ -1,6 +1,6 @@
 import { SettingsActionTypes } from './consts';
 
-type ToggleContrastAction = { type: SettingsActionTypes.TOGGLE_CONTRAST };
+type ToggleContrastAction = { type: SettingsActionTypes.TOGGLE_SHEEN };
 
 type ToggleIconModeAction = { type: SettingsActionTypes.TOGGLE_ICON_MODE };
 
@@ -10,6 +10,6 @@ export type SettingsAction = ToggleContrastAction | ToggleIconModeAction | Toggl
 
 export interface SettingsState {
   isDropdownOpen: boolean;
-  isContrastOn: boolean;
+  isSheenAdded: boolean;
   isIconModeOn: boolean;
 }

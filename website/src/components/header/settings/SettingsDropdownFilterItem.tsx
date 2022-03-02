@@ -1,4 +1,4 @@
-import { IconModePanelUtils } from '../../columns/middleColumn/iconModePanel/iconModePanelUtils';
+import { IconModePanelUtil } from '../../columns/middleColumn/iconModePanel/iconModePanelUtil';
 import { TooltipTheme } from '../../../shared/style/muiThemes/tooltipTheme';
 import { RootReducer } from '../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ export default function SettingsDropdownFilterItem(props: Props) {
   return (
     <div
       id={id}
-      onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtils.isIsDisplayed(activeInputTypeState))}
+      onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtil.isIsDisplayed(activeInputTypeState))}
       onMouseLeave={() => setIsTooltipDisplayed(false)}
     >
       <ThemeProvider theme={greyTooltipTheme}>
@@ -44,7 +44,7 @@ export default function SettingsDropdownFilterItem(props: Props) {
           <MenuItem
             className="settings-dropdown-item"
             onClick={() => handleItemClick()}
-            disabled={!IconModePanelUtils.isIsDisplayed(activeInputTypeState)}
+            disabled={!IconModePanelUtil.isIsDisplayed(activeInputTypeState)}
           >
             <Checkbox checked={isOn} />
             <ListItemText primary={itemName} />

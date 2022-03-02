@@ -23,16 +23,20 @@ export default function Header() {
           <CssFilterLogoIcon />
         </div>
       </div>
-      <img
-        id="npm-logo"
-        className="header-content"
-        src={npmLogoPath}
-        onMouseEnter={() => setNpmLogoPath(npmLogoRed)}
-        onMouseLeave={() => setNpmLogoPath(npmLogoBlack)}
-        alt=""
-      />
+      <a href="https://www.npmjs.com/package/css-filter-converter" target="_blank" rel="noreferrer">
+        <img
+          id="npm-logo"
+          className="header-content"
+          src={npmLogoPath}
+          onMouseEnter={() => setNpmLogoPath(npmLogoRed)}
+          onMouseLeave={() => setNpmLogoPath(npmLogoBlack)}
+          alt=""
+        />
+      </a>
       {/* this is highlighted by native :hover css selector */}
-      <img id="github-logo" className="header-content generic-header-logo" src={githubLogo} alt="" />
+      <a href="https://github.com/OvidijusParsiunas/css-filter-converter" target="_blank" rel="noreferrer">
+        <img id="github-logo" className="header-content generic-header-logo" src={githubLogo} alt="" />
+      </a>
       <Settings />
     </div>
   );

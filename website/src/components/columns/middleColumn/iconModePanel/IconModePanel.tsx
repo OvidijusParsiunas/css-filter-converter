@@ -1,5 +1,5 @@
 import { RootReducer } from '../../../../state/rootReducer';
-import { IconModePanelUtils } from './iconModePanelUtils';
+import { IconModePanelUtil } from './iconModePanelUtil';
 import UploadIcon from '@mui/icons-material/Upload';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
@@ -48,7 +48,7 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     reader.readAsDataURL(file);
   };
 
-  const isDisplayed = () => IconModePanelUtils.isIsDisplayed(activeInputTypeState) && !isErrorDisplayedState;
+  const isDisplayed = () => IconModePanelUtil.isIsDisplayed(activeInputTypeState) && !isErrorDisplayedState;
 
   const getDisplayStyle = () => (isDisplayed() ? 'block' : 'none');
 

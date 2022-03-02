@@ -1,6 +1,6 @@
 import { MATCH_HEXADECIMAL, MATCH_INTEGER_AND_FLOAT_NUMBERS } from '../../shared/consts/regex';
+import { ErrorHandling } from '../../shared/functionality/errorHandling/errorHandling';
 import { MAX_COLOR_INPUT_STRING_LENGTH } from '../../shared/consts/inputLimits';
-import { ErrorHandling } from '../../shared/errorHandling/errorHandling';
 import { ColorFormats } from '../../shared/consts/colorFormats';
 import { RGB, HSL, KEYWORD } from 'color-convert/conversions';
 import { ColorTypes } from '../../shared/consts/colorTypes';

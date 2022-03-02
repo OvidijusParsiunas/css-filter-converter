@@ -14,10 +14,10 @@ export class BasicColorToFilter {
     [BasicColorTypes.KEYWORD]: CssFilterConverter.keywordToFilter,
   };
 
-  public static convert(inputColor: string | KEYWORD, colorType: BasicColorTypes): ColorToFilterResult {
+  public static convert(inputColor: string | KEYWORD, colorType: BasicColorTypes, sheen: boolean): ColorToFilterResult {
     if (colorType === BasicColorTypes.KEYWORD) {
       return BasicColorToFilter.KEYWORD_TO_FILTER_CONVERTER[colorType](inputColor as KEYWORD);
     }
-    return BasicColorToFilter.BASIC_COLOR_TO_FILTER_CONVERTER[colorType](inputColor);
+    return BasicColorToFilter.BASIC_COLOR_TO_FILTER_CONVERTER[colorType](inputColor, { sheen });
   }
 }

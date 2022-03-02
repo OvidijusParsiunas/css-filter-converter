@@ -2,22 +2,23 @@ import { ColorToFilterResult, FilterToColorResult } from './shared/types/result'
 import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
 import { ColorToFilter } from './colorToFilter/colorToFilter';
 import { FilterToColor } from './filterToColor/filterToColor';
+import { Options } from './shared/types/options';
 
 export default class CssFilterConverter {
-  public static rgbToFilter(rgbString: string): ColorToFilterResult {
-    return ColorToFilter.rgbToFilter(rgbString);
+  public static rgbToFilter(rgbString: string, options?: Options): ColorToFilterResult {
+    return ColorToFilter.rgbToFilter(rgbString, options);
   }
 
-  public static hexToFilter(hexString: string): ColorToFilterResult {
-    return ColorToFilter.hexToFilter(hexString);
+  public static hexToFilter(hexString: string, options?: Options): ColorToFilterResult {
+    return ColorToFilter.hexToFilter(hexString, options);
   }
 
-  public static hslToFilter(hslString: string): ColorToFilterResult {
-    return ColorToFilter.hslToFilter(hslString);
+  public static hslToFilter(hslString: string, options?: Options): ColorToFilterResult {
+    return ColorToFilter.hslToFilter(hslString, options);
   }
 
-  public static keywordToFilter(keyword: KEYWORD): ColorToFilterResult {
-    return ColorToFilter.keywordToFilter(keyword);
+  public static keywordToFilter(keyword: KEYWORD, options?: Options): ColorToFilterResult {
+    return ColorToFilter.keywordToFilter(keyword, options);
   }
 
   public static async filterToRgb(filterString: string): Promise<FilterToColorResult<RGB>> {

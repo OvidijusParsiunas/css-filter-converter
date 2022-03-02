@@ -1,4 +1,4 @@
-import { toggleContrast, toggleDropdown, toggleIconMode } from '../../../state/settings/actions';
+import { toggleSheen, toggleDropdown, toggleIconMode } from '../../../state/settings/actions';
 import SettingsDropdownFilterItem from './SettingsDropdownFilterItem';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { RootReducer } from '../../../state/rootReducer';
@@ -43,11 +43,7 @@ export default function SettingsDropdown(props: Props) {
           <Paper>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList onKeyDown={(e) => handleMenuKeyDown(e)}>
-                <SettingsDropdownFilterItem
-                  itemName="Contrast"
-                  isOn={settingsState.isContrastOn}
-                  toggleState={toggleContrast}
-                />
+                <SettingsDropdownFilterItem itemName="Sheen" isOn={settingsState.isSheenAdded} toggleState={toggleSheen} />
                 <SettingsDropdownFilterItem
                   id="icon-mode-dropdown-item"
                   itemName="Icon Mode"

@@ -1,5 +1,5 @@
+import { ErrorHandling } from 'css-filter-converter/lib/shared/functionality/errorHandling/errorHandling';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
-import { ErrorHandling } from 'css-filter-converter/lib/shared/errorHandling/errorHandling';
 import { BasicColorTypes } from '../../../../../shared/consts/colorTypes';
 import { HEX, HSL, KEYWORD, RGB } from 'color-convert/conversions';
 import ColorConvert from 'color-convert';

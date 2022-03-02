@@ -5,6 +5,7 @@ import { updateResultBasicColor } from '../../../../state/result/actions';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import { RootReducer } from '../../../../state/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { FilterInputUtil } from './filterInputUtil';
 import { TextField } from '@mui/material';
 import './filterColorInput.css';
 import React from 'react';
@@ -16,16 +17,10 @@ export default function FilterColorInput() {
     (state) => state.result.basicColor,
   );
 
-  const filterTestElement = React.useRef<HTMLDivElement>(null);
-
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     dispatch(updateInputFilter(event.target.value));
-    if (filterTestElement.current) {
-      const { style } = filterTestElement.current;
-      style.filter = '';
-      style.filter = event.target.value;
-      dispatch(updateIsValid(!!style.filter));
-    }
+    const { isValid } = FilterInputUtil.parse(event.target.value);
+    dispatch(updateIsValid(isValid));
   };
 
   const inputStyle: React.CSSProperties = {
@@ -67,7 +62,6 @@ export default function FilterColorInput() {
         onChange={(e) => ErrorHandler.executeEvent(handleTextChange.bind(null, e))}
       />
       {getBasicColorTypeSelector()}
-      <div ref={filterTestElement} />
     </div>
   );
 }

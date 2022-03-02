@@ -1,6 +1,7 @@
 // the code used within this class has been taken and modified from the following codepen owned by Barrett Sonntag:
 // https://codepen.io/sosuke/pen/Pjoqqp
 
+import { SheenUtil } from '../../shared/functionality/sheen/sheenUtil';
 import { ColorToFilterResult } from '../../shared/types/result';
 import { SPSA } from '../../shared/types/SPSA';
 import { RgbColor } from './rgbColor';
@@ -10,9 +11,12 @@ export class RgbToFilterWorker {
 
   private readonly reusedRgbColor: RgbColor;
 
-  constructor(targetRgbColor: RgbColor) {
+  private readonly addSheen: boolean;
+
+  constructor(targetRgbColor: RgbColor, addSheen: boolean) {
     this.targetRgbColor = targetRgbColor;
     this.reusedRgbColor = new RgbColor();
+    this.addSheen = addSheen;
   }
 
   private static fmt(filters: number[], idx: number, multiplier = 1): number {
@@ -20,9 +24,10 @@ export class RgbToFilterWorker {
   }
 
   private generateCss(filters: number[]): string {
+    const prefix = this.addSheen ? `${SheenUtil.SHEEN_FILTER_PREFIX} ` : '';
     // prettier-ignore
     // eslint-disable-next-line max-len
-    return `brightness(0) saturate(100%) invert(${RgbToFilterWorker.fmt(filters, 0)}%) sepia(${RgbToFilterWorker.fmt(filters, 1)}%) saturate(${RgbToFilterWorker.fmt(filters, 2)}%) hue-rotate(${RgbToFilterWorker.fmt(filters, 3, 3.6)}deg) brightness(${RgbToFilterWorker.fmt(filters, 4)}%) contrast(${RgbToFilterWorker.fmt(filters, 5)}%)`;
+    return `${prefix}invert(${RgbToFilterWorker.fmt(filters, 0)}%) sepia(${RgbToFilterWorker.fmt(filters, 1)}%) saturate(${RgbToFilterWorker.fmt(filters, 2)}%) hue-rotate(${RgbToFilterWorker.fmt(filters, 3, 3.6)}deg) brightness(${RgbToFilterWorker.fmt(filters, 4)}%) contrast(${RgbToFilterWorker.fmt(filters, 5)}%)`;
   }
 
   private loss(filters: number[]): number {

@@ -1,6 +1,7 @@
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
 import { ErrorHandler } from '../../../../shared/components/errorHander/ErrorHandler';
 import { Animations } from '../../../../shared/functionality/animations/animations';
+import { FilterInputUtil } from '../../inputColumn/inputTypes/filterInputUtil';
 import { updateResultFilter } from '../../../../state/result/actions';
 import { InputTypes } from '../../../../shared/consts/inputTypes';
 import { addToHistory } from '../../../../state/history/actions';
@@ -11,7 +12,6 @@ import { FilterToBasicColor } from './filterToBasicColor';
 import { useDispatch, useSelector } from 'react-redux';
 import { store } from '../../../../state/store';
 import Button from '@mui/material/Button';
-import './convertButton.css';
 
 interface Props {
   resultHeaderTextRef: React.RefObject<HTMLDivElement>;
@@ -22,6 +22,9 @@ export default function ConvertButton(props: Props) {
   const dispatch = useDispatch();
 
   const isValidState = useSelector<RootReducer, RootReducer['input']['isValid']>((state) => state.input.isValid);
+  const isSheenAddedState = useSelector<RootReducer, RootReducer['settings']['isSheenAdded']>(
+    (state) => state.settings.isSheenAdded,
+  );
 
   const triggerResultHeaderAnimation = () => {
     if (store.getState().history.history.length === 0) {
@@ -32,21 +35,25 @@ export default function ConvertButton(props: Props) {
   };
 
   const convertToBasicColor = (filter: string) => {
+    // the reason why incoming filter needs to be parsed is because the user can have inserted whitespace in-between
+    // filter string parameters which is technically valid - however does not look great in history and prevents
+    // sheen string detection from working correctly. Hence, the filter is parsed into he correct format
+    const parsedFilterResult = FilterInputUtil.parse(filter).filter;
     const { basicColor } = store.getState().result;
-    FilterToBasicColor.convert(filter, basicColor.colorType as FilterToColorResultType).then((result) => {
+    FilterToBasicColor.convert(parsedFilterResult, basicColor.colorType as FilterToColorResultType).then((result) => {
       if (!result.color) {
         ErrorHandler.displayError(result.error?.message);
       } else {
         triggerResultHeaderAnimation();
         basicColor.setAndParseColorString(result.color, ErrorHandler);
-        dispatch(addToHistory(filter, result.color, basicColor.colorType));
+        dispatch(addToHistory(parsedFilterResult, result.color, basicColor.colorType));
       }
     });
   };
 
   const convertToFilter = (basicColor: BasicColor) => {
     const { colorString: inputColorString, colorType } = basicColor;
-    const result = BasicColorToFilter.convert(inputColorString, colorType);
+    const result = BasicColorToFilter.convert(inputColorString, colorType, isSheenAddedState);
     if (!result.color) {
       ErrorHandler.displayError(result.error?.message);
     } else {
@@ -65,22 +72,19 @@ export default function ConvertButton(props: Props) {
     }
   };
 
+  // important is used here as otherwise .MuiButton-contained class would always overwrite the backgroundColor
   const buttonClassOverwriteCss = {
     '&.Mui-disabled': {
-      backgroundColor: '#7197c0', // #d48484
+      backgroundColor: '#7993b0 !important',
       color: 'white',
+    },
+    '&.MuiButton-contained': {
+      backgroundColor: '#336abc',
     },
   };
 
   return (
-    <Button
-      id="convert-button"
-      sx={buttonClassOverwriteCss}
-      disabled={!isValidState}
-      variant="contained"
-      color="primary"
-      onClick={convert}
-    >
+    <Button sx={buttonClassOverwriteCss} disabled={!isValidState} variant="contained" color="primary" onClick={convert}>
       Convert
     </Button>
   );

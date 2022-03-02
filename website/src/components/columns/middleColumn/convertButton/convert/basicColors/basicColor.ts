@@ -1,6 +1,6 @@
 import { ConversionResult, ColorConversionTypes } from '../../../../../../shared/types/basicColorFactory';
+import { ErrorHandling } from 'css-filter-converter/lib/shared/functionality/errorHandling/errorHandling';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
-import { ErrorHandling } from 'css-filter-converter/lib/shared/errorHandling/errorHandling';
 import { UnexpectedError } from 'css-filter-converter/lib/shared/types/unexpectedError';
 import { ErrorHandlerI } from '../../../../../../shared/types/errorHandlerI';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';

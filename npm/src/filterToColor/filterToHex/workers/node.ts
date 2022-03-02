@@ -1,5 +1,5 @@
+import { ErrorHandling } from '../../../shared/functionality/errorHandling/errorHandling';
 import { ColorToFilterResult, FilterToColorResult } from '../../../shared/types/result';
-import { ErrorHandling } from '../../../shared/errorHandling/errorHandling';
 import { MUST_INSTALL_PUPPETEER } from '../../../shared/consts/errors';
 import { ColorFormats } from '../../../shared/consts/colorFormats';
 import { ColorTypes } from '../../../shared/consts/colorTypes';
