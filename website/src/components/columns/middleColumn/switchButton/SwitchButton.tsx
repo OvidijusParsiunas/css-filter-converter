@@ -145,7 +145,7 @@ function SwitchButton(props: Props) {
   return (
     <div id="switch-button-container">
       <ThemeProvider theme={greyTooltipTheme}>
-        <Tooltip enterDelay={300} title="Switch convertion to/from filter" placement="bottom">
+        <Tooltip enterDelay={600} title="Switch convertion to/from filter" placement="bottom">
           <Button
             id="switch-button"
             onClick={() => ErrorHandler.executeEvent(switchInputType)}

@@ -30,14 +30,25 @@
 
 #css-filter-converter-logo {
   float: left;
-  width: 170px;
-  height: 100px;
+  height: 80px;
   margin-top: 4px;
-  margin-left: 5px;
+  margin-left: 12px;
+}
+
+#css-filter-converter-logo-text {
+  float: left;
+  font-size: 19px;
+  font-family: 'Yu Gothic UI';
+}
+
+#css-filter-converter-logo-icon {
+  width: 22px;
+  float: left;
+  margin-top: 6px;
 }
 
 #github-logo {
-  margin-top: 5px;
+  margin-top: 6px;
 }
 
 #npm-logo {
@@ -46,7 +57,7 @@
   float: right;
   margin-right: 15px;
   cursor: pointer;
-  margin-top: 9px;
+  margin-top: 10px;
 }
 
 @media (max-height: 380px), (max-width: 920px) {
