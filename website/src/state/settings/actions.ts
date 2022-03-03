@@ -12,3 +12,7 @@ export const toggleIconMode = (): SettingsAction => ({
 export const toggleDropdown = (): SettingsAction => ({
   type: SettingsActionTypes.TOGGLE_DROPDOWN,
 });
+
+export const toggleSheenHover = (): SettingsAction => ({
+  type: SettingsActionTypes.TOGGLE_SHEEN_HOVER,
+});

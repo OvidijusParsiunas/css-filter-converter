@@ -1,7 +1,8 @@
 #header {
   width: 100%;
   position: absolute;
-  z-index: 2;
+  /* needs to be higher than then input column so that the color picker panel would not cover it */
+  z-index: 3;
 }
 
 /* when screen height is narrow - remove the header element */

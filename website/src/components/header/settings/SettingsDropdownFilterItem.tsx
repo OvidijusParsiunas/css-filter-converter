@@ -15,10 +15,12 @@ interface Props {
   isOn: boolean;
   toggleState: () => void;
   id?: string;
+  mouseEnterHandler?: () => void;
+  mouseLeaveHandler?: () => void;
 }
 
 export default function SettingsDropdownFilterItem(props: Props) {
-  const { itemName, isOn, toggleState, id } = props;
+  const { itemName, isOn, toggleState, id, mouseEnterHandler, mouseLeaveHandler } = props;
 
   const [isTooltipDisplayed, setIsTooltipDisplayed] = React.useState(false);
   const activeInputTypeState = useSelector<RootReducer, RootReducer['input']['activeType']>(
@@ -31,14 +33,20 @@ export default function SettingsDropdownFilterItem(props: Props) {
     dispatch(toggleState());
   };
 
+  const mouseEnterItem = () => {
+    setIsTooltipDisplayed(!IconModePanelUtil.isIsDisplayed(activeInputTypeState));
+    mouseEnterHandler?.();
+  };
+
+  const mouseLeaveItem = () => {
+    setIsTooltipDisplayed(false);
+    mouseLeaveHandler?.();
+  };
+
   const greyTooltipTheme = TooltipTheme.create('#8e8e8e');
 
   return (
-    <div
-      id={id}
-      onMouseEnter={() => setIsTooltipDisplayed(!IconModePanelUtil.isIsDisplayed(activeInputTypeState))}
-      onMouseLeave={() => setIsTooltipDisplayed(false)}
-    >
+    <div id={id} onMouseEnter={() => mouseEnterItem()} onMouseLeave={() => mouseLeaveItem()}>
       <ThemeProvider theme={greyTooltipTheme}>
         <Tooltip title="Used when filter is the result" placement="left" open={isTooltipDisplayed}>
           <MenuItem
@@ -57,4 +65,6 @@ export default function SettingsDropdownFilterItem(props: Props) {
 
 SettingsDropdownFilterItem.defaultProps = {
   id: '',
+  mouseEnterHandler: () => {},
+  mouseLeaveHandler: () => {},
 };

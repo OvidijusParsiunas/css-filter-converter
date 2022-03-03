@@ -12,10 +12,12 @@ type Props = {
   customClasses?: string;
   marginLeftDelta?: number;
   textToHighlight?: ElementRef | null;
+  prefix?: string | null;
+  isPrefixHighlighted?: boolean;
 };
 
 export default function CopyButtonWrapper(props: Props) {
-  const { textToHighlight, text, customClasses, marginLeftDelta, fontSize } = props;
+  const { textToHighlight, text, customClasses, marginLeftDelta, fontSize, prefix, isPrefixHighlighted } = props;
 
   const [isCopyIconDisplayed, setIsCopyIconDisplayed] = React.useState(false);
   const [iconMarginLeft, setIconMarginLeft] = React.useState(0);
@@ -63,7 +65,7 @@ export default function CopyButtonWrapper(props: Props) {
   const copy = () => {
     // if statement used to prevent user from clicking the placeholder when there is no result and triggering the tooltip
     if (text) {
-      navigator.clipboard.writeText(text);
+      navigator.clipboard.writeText((prefix || '') + text);
       setIconImagePath(tickIcon);
       setIsTooltipDisplayed(true);
       setTimeout(() => setIsTooltipDisplayed(false), 600);
@@ -83,6 +85,7 @@ export default function CopyButtonWrapper(props: Props) {
       >
         {/* used strictly for retrieving the wrapped text box width */}
         <span ref={textContainerRef} style={{ fontSize: `${fontSize}px` }} className="text-no-whitespace">
+          {prefix}
           {text}
         </span>
         {/* the reason why this is in a different div is because this overlays mouse events - stopping the user from
@@ -106,7 +109,10 @@ export default function CopyButtonWrapper(props: Props) {
         </div>
         {/* this is the actual text that the user can highlight with their mouse */}
         <div style={{ fontSize: `${fontSize}px` }} className={`text-with-whitespace ${customClasses}`}>
-          {text}
+          <span>
+            <span style={{ color: isPrefixHighlighted ? 'blue' : 'black' }}>{prefix}</span>
+            <span>{text}</span>
+          </span>
         </div>
       </div>
       {/* used to trigger the display of the copy icon when hovered over the place where
@@ -128,4 +134,6 @@ CopyButtonWrapper.defaultProps = {
   customClasses: '',
   marginLeftDelta: 0,
   textToHighlight: null,
+  prefix: null,
+  isPrefixHighlighted: false,
 };

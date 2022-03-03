@@ -44,3 +44,10 @@
   margin-top: -15vh;
   transform: translate(-50%, -50%);
 }
+
+/* when screen width is narrow and history component is no longer displayed - move column contents to vertical center of the screen */
+@media (max-height: 380px), (max-width: 920px) {
+  .column-contents {
+    margin-top: 0px;
+  }
+}

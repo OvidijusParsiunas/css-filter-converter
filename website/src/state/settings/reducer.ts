@@ -5,6 +5,7 @@ const initialState: SettingsState = {
   isSheenAdded: true,
   isIconModeOn: false,
   isDropdownOpen: false,
+  isSheenHovered: false,
 };
 
 const defaultAction: SettingsAction = {
@@ -24,6 +25,9 @@ export const SettingsReducer = (
     }
     case SettingsActionTypes.TOGGLE_DROPDOWN: {
       return { ...state, isDropdownOpen: !state.isDropdownOpen };
+    }
+    case SettingsActionTypes.TOGGLE_SHEEN_HOVER: {
+      return { ...state, isSheenHovered: !state.isSheenHovered };
     }
     default:
       return state;

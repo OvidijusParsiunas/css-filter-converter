@@ -1,7 +1,9 @@
 #history {
   position: absolute;
   width: 100vw;
-  height: calc(65vh - 75px);
+  /* height: calc(65vh - 75px); */
+  /* height: 49vh; */
+  height: calc(55vh - 75px);
   display: flex;
   flex-flow: column wrap;
   overflow: hidden;
