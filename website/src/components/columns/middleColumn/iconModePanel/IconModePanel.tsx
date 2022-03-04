@@ -1,6 +1,9 @@
+import { TooltipTheme } from '../../../../shared/style/muiThemes/tooltipTheme';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { RootReducer } from '../../../../state/rootReducer';
 import { IconModePanelUtil } from './iconModePanelUtil';
 import UploadIcon from '@mui/icons-material/Upload';
+import Tooltip from '@mui/material/Tooltip';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import './iconModePanel.css';
@@ -61,54 +64,61 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
 
   const getDisplayStyle = () => (isDisplayed() ? 'block' : 'none');
 
+  const greyTooltipTheme = TooltipTheme.create('#8e8e8e');
+
   // adding ref to outer element to not augment the panel transition and opacity styles in other components
   return (
     <div ref={ref}>
-      <div
-        id="icon-mode-panel"
-        ref={panelRef}
-        style={{
-          display: getDisplayStyle(),
-          opacity: isOnModeOnState ? 1 : 0,
-          width: iconBase64 ? 141 : 114,
-          transition: fadeAnimationLengthString,
-        }}
-      >
-        <div id="icon-mode-panel-description-text">Icon Mode</div>
-        <div id="icon-mode-icons-container">
-          <input
-            ref={fileInputRef}
-            onChange={(event) => uploadSVG(event)}
-            multiple={false}
-            type="file"
-            accept=".svg"
-            hidden
-          />
-          <Button
-            id="icon-mode-upload-icon-button"
-            style={{ transition: firstFiletransitionAnimationLengthString }}
-            onClick={() => fileInputRef?.current?.click()}
-            size="small"
-            variant="contained"
-            color="primary"
-          >
-            <UploadIcon />
-          </Button>
-          <svg
-            id="icon-mode-user-icon-container"
-            ref={svgContainerRef}
+      <ThemeProvider theme={greyTooltipTheme}>
+        <Tooltip enterDelay={600} title="Upload svg image to test its appearance with the result filter" placement="top">
+          <div
+            id="icon-mode-panel"
+            ref={panelRef}
             style={{
-              width: iconBase64 ? iconDimensionsPx : 0,
-              height: iconDimensionsPx,
-              marginLeft: iconBase64 ? 20 : 0,
-              transition: firstFiletransitionAnimationLengthString,
-              filter: historyState?.[0]?.result || '',
+              display: getDisplayStyle(),
+              opacity: isOnModeOnState ? 1 : 0,
+              width: iconBase64 ? 141 : 114,
+              transition: fadeAnimationLengthString,
+              pointerEvents: getDisplayStyle() && isOnModeOnState ? 'all' : 'none',
             }}
           >
-            <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
-          </svg>
-        </div>
-      </div>
+            <div id="icon-mode-panel-description-text">Icon Mode</div>
+            <div id="icon-mode-icons-container">
+              <input
+                ref={fileInputRef}
+                onChange={(event) => uploadSVG(event)}
+                multiple={false}
+                type="file"
+                accept=".svg"
+                hidden
+              />
+              <Button
+                id="icon-mode-upload-icon-button"
+                style={{ transition: firstFiletransitionAnimationLengthString }}
+                onClick={() => fileInputRef?.current?.click()}
+                size="small"
+                variant="contained"
+                color="primary"
+              >
+                <UploadIcon />
+              </Button>
+              <svg
+                id="icon-mode-user-icon-container"
+                ref={svgContainerRef}
+                style={{
+                  width: iconBase64 ? iconDimensionsPx : 0,
+                  height: iconDimensionsPx,
+                  marginLeft: iconBase64 ? 20 : 0,
+                  transition: firstFiletransitionAnimationLengthString,
+                  filter: historyState?.[0]?.result || '',
+                }}
+              >
+                <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
+              </svg>
+            </div>
+          </div>
+        </Tooltip>
+      </ThemeProvider>
     </div>
   );
 });

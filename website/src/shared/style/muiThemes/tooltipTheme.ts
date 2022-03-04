@@ -8,6 +8,7 @@ export class TooltipTheme {
           styleOverrides: {
             tooltip: {
               backgroundColor,
+              maxWidth: 'unset',
             },
           },
         },
