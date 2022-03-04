@@ -1,15 +1,13 @@
 #icon-mode-panel {
   position: absolute;
-  /* margin-top: -30vh; */
   left: 50%;
   transform: translateX(-50%);
-  width: 446px;
-  height: 120px;
-  border-radius: 25px;
-  padding-top: 20px;
-  /* WORK */
-  margin-top: -21vh;
-  opacity: 0;
+  height: 81px;
+  border-radius: 8px;
+  padding-top: 8px;
+  margin-top: -17.5vh;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
 }
 
 /* when screen is narrow - move the panel upwards */
@@ -17,10 +15,6 @@
   #icon-mode-panel {
     margin-top: -32vh;
   }
-}
-
-#icon-mode-icons-container {
-  margin-top: 23px;
 }
 
 /* when screen is narrow - reduce the size of the panel and the margin between text and icons */
@@ -35,33 +29,22 @@
   }
 }
 
-.icon-mode-panel-cover {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  top: 0;
-  transition: 0.6s;
-}
-
 /* when screen is narrow - remove all panel contents */
 @media (max-height: 380px), (max-width: 920px) {
   #icon-mode-panel {
-    display: none !important;
-  }
-  .icon-mode-panel-cover {
     display: none !important;
   }
 }
 
 #icon-mode-panel-description-text {
   user-select: none;
+  padding-bottom: 9px;
 }
 
 #icon-mode-upload-icon-button {
   background-color: #1160a2;
-  height: 40px;
-  min-width: 50px;
+  height: 38px;
+  min-width: 45px;
 }
 
 #icon-mode-user-icon-container {

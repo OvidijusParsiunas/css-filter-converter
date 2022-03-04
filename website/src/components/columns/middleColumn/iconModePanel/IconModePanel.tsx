@@ -18,25 +18,34 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
     (state) => state.error.isErrorDisplayed,
   );
 
+  const panelRef = React.useRef<HTMLDivElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const svgContainerRef = React.useRef<SVGSVGElement>(null);
 
   const [iconBase64, setIconBase64] = React.useState('');
 
-  const transitionAnimationLengthMs = 400;
-  const transitionAnimationLengthString = `${transitionAnimationLengthMs / 1000}s`;
+  const fadeAnimationLengthString = '0.7s';
+  const firstFileTransitionAnimationLengthMs = 400;
+  const firstFiletransitionAnimationLengthString = `${firstFileTransitionAnimationLengthMs / 1000}s`;
+
   const iconDimensionsPx = 35;
+
+  const initiateFirstFileTransitionAnimation = () => {
+    if (panelRef.current) panelRef.current.style.transition = firstFiletransitionAnimationLengthString;
+    setTimeout(() => {
+      if (svgContainerRef.current) svgContainerRef.current.style.opacity = '1';
+      setTimeout(() => {
+        if (svgContainerRef.current) svgContainerRef.current.style.transition = '';
+        if (panelRef.current) panelRef.current.style.transition = fadeAnimationLengthString;
+      }, firstFileTransitionAnimationLengthMs);
+    }, firstFileTransitionAnimationLengthMs);
+  };
 
   const onFileLoad = (event: ProgressEvent<FileReader>): void => {
     if (event.target?.result) {
       const svgBase64 = event.target.result as string;
       setIconBase64(svgBase64);
-      setTimeout(() => {
-        if (svgContainerRef.current) svgContainerRef.current.style.opacity = '1';
-        setTimeout(() => {
-          if (svgContainerRef.current) svgContainerRef.current.style.transition = '';
-        }, transitionAnimationLengthMs);
-      }, transitionAnimationLengthMs);
+      if (!iconBase64) initiateFirstFileTransitionAnimation();
     }
   };
 
@@ -52,46 +61,54 @@ const IconModePanel = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
 
   const getDisplayStyle = () => (isDisplayed() ? 'block' : 'none');
 
+  // adding ref to outer element to not augment the panel transition and opacity styles in other components
   return (
-    <div id="icon-mode-panel" ref={ref} style={{ display: getDisplayStyle() }}>
-      <div id="icon-mode-panel-description-text">Upload svg image to test its appearance using result filter</div>
-      <div id="icon-mode-icons-container">
-        <input
-          ref={fileInputRef}
-          onChange={(event) => uploadSVG(event)}
-          multiple={false}
-          type="file"
-          accept=".svg"
-          hidden
-        />
-        <Button
-          id="icon-mode-upload-icon-button"
-          style={{
-            transition: transitionAnimationLengthString,
-          }}
-          onClick={() => fileInputRef?.current?.click()}
-          size="small"
-          variant="contained"
-          color="primary"
-        >
-          <UploadIcon />
-        </Button>
-        <svg
-          id="icon-mode-user-icon-container"
-          ref={svgContainerRef}
-          style={{
-            width: iconBase64 ? iconDimensionsPx : 0,
-            height: iconDimensionsPx,
-            marginLeft: iconBase64 ? 24 : 0,
-            transition: transitionAnimationLengthString,
-            filter: historyState?.[0]?.result || '',
-          }}
-        >
-          <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
-        </svg>
+    <div ref={ref}>
+      <div
+        id="icon-mode-panel"
+        ref={panelRef}
+        style={{
+          display: getDisplayStyle(),
+          opacity: isOnModeOnState ? 1 : 0,
+          width: iconBase64 ? 141 : 114,
+          transition: fadeAnimationLengthString,
+        }}
+      >
+        <div id="icon-mode-panel-description-text">Icon Mode</div>
+        <div id="icon-mode-icons-container">
+          <input
+            ref={fileInputRef}
+            onChange={(event) => uploadSVG(event)}
+            multiple={false}
+            type="file"
+            accept=".svg"
+            hidden
+          />
+          <Button
+            id="icon-mode-upload-icon-button"
+            style={{ transition: firstFiletransitionAnimationLengthString }}
+            onClick={() => fileInputRef?.current?.click()}
+            size="small"
+            variant="contained"
+            color="primary"
+          >
+            <UploadIcon />
+          </Button>
+          <svg
+            id="icon-mode-user-icon-container"
+            ref={svgContainerRef}
+            style={{
+              width: iconBase64 ? iconDimensionsPx : 0,
+              height: iconDimensionsPx,
+              marginLeft: iconBase64 ? 20 : 0,
+              transition: firstFiletransitionAnimationLengthString,
+              filter: historyState?.[0]?.result || '',
+            }}
+          >
+            <image style={{ width: iconDimensionsPx, height: iconDimensionsPx }} xlinkHref={iconBase64} />
+          </svg>
+        </div>
       </div>
-      <div className="icon-mode-panel-cover" style={{ left: isOnModeOnState ? '-100%' : '-49%' }} />
-      <div className="icon-mode-panel-cover" style={{ left: isOnModeOnState ? '100%' : '49%' }} />
     </div>
   );
 });
