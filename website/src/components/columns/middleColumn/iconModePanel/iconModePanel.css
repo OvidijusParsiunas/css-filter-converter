@@ -5,7 +5,7 @@
   height: 81px;
   border-radius: 8px;
   padding-top: 8px;
-  margin-top: -17.5vh;
+  margin-top: -18vh;
   background-color: #ffffff;
   border: 1px solid #e6e6e6;
 }
@@ -34,7 +34,7 @@
 }
 
 /* when screen is narrow - move panel higher */
-@media (max-height: 525px) {
+@media (max-height: 538px) {
   #icon-mode-panel {
     margin-top: -22vh;
   }

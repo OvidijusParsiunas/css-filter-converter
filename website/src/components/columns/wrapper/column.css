@@ -45,8 +45,8 @@
   transform: translate(-50%, -50%);
 }
 
-/* when screen height is narrow - move content starting from convert button bottomwards closer to the bottom */
-@media (max-height: 525px) {
+/* when screen is narrow - move content starting from convert button bottomwards closer to the bottom */
+@media (max-height: 525px) and (max-width: 1000px) {
   .column-contents {
     margin-top: -10vh;
   }
