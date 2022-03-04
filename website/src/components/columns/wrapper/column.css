@@ -17,7 +17,7 @@
 }
 
 /* when screen width is narrow - stack columns vertically instead of horizontally */
-@media (max-width: 920px) {
+@media (max-width: 1000px) {
   .column:nth-child(1) {
     top: 30px;
     width: 100%;
@@ -26,12 +26,12 @@
 
   .column:nth-child(2) {
     width: 100%;
-    height: 104px;
+    height: 70px;
   }
 
   .column:nth-child(3) {
     width: 100%;
-    height: calc(50% - 52px);
+    height: calc(50% - 10px);
   }
 }
 
@@ -45,8 +45,23 @@
   transform: translate(-50%, -50%);
 }
 
+/* when screen height is narrow - move content starting from convert button bottomwards closer to the bottom */
+@media (max-height: 525px) {
+  .column-contents {
+    margin-top: -10vh;
+  }
+
+  .column:nth-child(2) {
+    height: 104px;
+  }
+
+  .column:nth-child(3) {
+    height: calc(50% - 52px);
+  }
+}
+
 /* when screen width is narrow and history component is no longer displayed - move column contents to vertical center of the screen */
-@media (max-height: 380px), (max-width: 920px) {
+@media (max-height: 380px), (max-width: 1000px) {
   .column-contents {
     margin-top: 0px;
   }

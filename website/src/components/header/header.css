@@ -3,6 +3,9 @@
   position: absolute;
   /* needs to be higher than then input column so that the color picker panel would not cover it */
   z-index: 3;
+  /* this is used to prevent the header from covering underlying content and not allowing the user
+     to select it, the contained icons will still be displayed as normal */
+  height: 0px;
 }
 
 /* when screen height is narrow - remove the header element */
@@ -61,7 +64,9 @@
   margin-top: 10px;
 }
 
-@media (max-height: 380px), (max-width: 920px) {
+/* when screen is narorow - remove the icon dropdown item */
+/* this is also enforced in the iconModePanel.css file */
+@media (max-height: 380px), (max-width: 1000px) {
   #icon-mode-dropdown-item {
     display: none;
   }

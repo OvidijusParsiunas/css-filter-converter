@@ -14,7 +14,7 @@
 }
 
 /* when screen size gets too small - move switch button close to the convert button */
-@media (max-height: 360px), (max-width: 920px) {
+@media (max-height: 360px), (max-width: 1000px) {
   #switch-button {
     margin-top: 7vh;
   }

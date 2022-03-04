@@ -10,35 +10,62 @@
   border: 1px solid #e6e6e6;
 }
 
-/* when screen is narrow - move the panel upwards */
-@media (max-height: 516px) {
+#icon-mode-panel-description-text {
+  user-select: none;
+  padding-bottom: 9px;
+}
+
+/* when screen is narrow - move panel higher */
+@media (max-height: 674px) {
   #icon-mode-panel {
-    margin-top: -32vh;
+    margin-top: -19vh;
   }
 }
 
-/* when screen is narrow - reduce the size of the panel and the margin between text and icons */
-@media (max-height: 465px) {
+/* when screen is narrow - move panel higher, decrease height and condense text with icons */
+@media (max-height: 600px) {
   #icon-mode-panel {
-    margin-top: -32vh;
-    height: 95px;
-    padding-top: 12px;
+    margin-top: -20vh;
+    height: 77px;
   }
-  #icon-mode-icons-container {
-    margin-top: 15px;
+  #icon-mode-panel-description-text {
+    padding-bottom: 6px;
+  }
+}
+
+/* when screen is narrow - move panel higher */
+@media (max-height: 525px) {
+  #icon-mode-panel {
+    margin-top: -22vh;
+  }
+}
+
+/* when screen is narrow - remove text and adjust panel size, position and content padding */
+@media (max-height: 470px) {
+  #icon-mode-panel {
+    padding-top: 10px;
+    margin-top: -19.5vh;
+    height: 49px;
+  }
+  #icon-mode-panel-description-text {
+    display: none;
+  }
+}
+
+/* when screen is narrow - move panel to upwards */
+@media (max-height: 400px) {
+  #icon-mode-panel {
+    margin-top: -20vh;
   }
 }
 
 /* when screen is narrow - remove all panel contents */
-@media (max-height: 380px), (max-width: 920px) {
+/* the justification for this is that the likely users of such interface are going to be mobile users who will not have the ability
+   to upload svg files or carry the intent to test their svg image against the generated filter result */
+@media (max-height: 380px), (max-width: 1000px) {
   #icon-mode-panel {
     display: none !important;
   }
-}
-
-#icon-mode-panel-description-text {
-  user-select: none;
-  padding-bottom: 9px;
 }
 
 #icon-mode-upload-icon-button {

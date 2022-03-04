@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (max-width: 920px), (max-height: 400px) {
+@media (max-height: 400px), (max-width: 1000px) {
   #small-screen-error-alert {
     display: block;
   }

@@ -11,7 +11,7 @@
 }
 
 /* when screen is narrow - do not display history */
-@media (max-height: 380px), (max-width: 920px) {
+@media (max-height: 380px), (max-width: 1000px) {
   #history {
     display: none;
   }
