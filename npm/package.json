@@ -5,11 +5,11 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "npx eslint . --ext .ts",
-    "format": "prettier --write \"src/**/*.ts\"",
     "build": "npm run lint && tsc",
-    "watch": "tsc -w -p .",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "execute": "ts-node src/index.ts",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "watch": "tsc -w -p .",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
