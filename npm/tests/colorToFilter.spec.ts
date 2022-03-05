@@ -1,84 +1,136 @@
-/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import { Options } from '../src/shared/types/options';
 import CssFilterConverter from '../src/index';
 import { expect } from 'chai';
 import 'mocha';
 
-describe('Filter to color tests - ', () => {
-  it('convert filter to hexadecimal - 1', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)';
-    const expectedHexColor = '#6AA1E0';
+// cannot test exact filter results as they can change on every run
+// therefore this test suite can only validate the returned format
+describe('Color to filter tests - ', () => {
+  function testFilterWithSheen(filterFunctionArray: string[]): void {
+    expect(filterFunctionArray).to.have.lengthOf(8);
+    expect(filterFunctionArray[0].startsWith('brightness')).to.be.true;
+    expect(filterFunctionArray[1].startsWith('saturate')).to.be.true;
+    expect(filterFunctionArray[2].startsWith('invert')).to.be.true;
+    expect(filterFunctionArray[3].startsWith('sepia')).to.be.true;
+    expect(filterFunctionArray[4].startsWith('saturate')).to.be.true;
+    expect(filterFunctionArray[5].startsWith('hue-rotate')).to.be.true;
+    expect(filterFunctionArray[6].startsWith('brightness')).to.be.true;
+    expect(filterFunctionArray[7].startsWith('contrast')).to.be.true;
+  }
 
-    // when
-    const result = await CssFilterConverter.filterToHex(filter);
+  function testFilterWithNoSheen(filterFunctionArray: string[]): void {
+    expect(filterFunctionArray).to.have.lengthOf(6);
+    expect(filterFunctionArray[0].startsWith('invert')).to.be.true;
+    expect(filterFunctionArray[1].startsWith('sepia')).to.be.true;
+    expect(filterFunctionArray[2].startsWith('saturate')).to.be.true;
+    expect(filterFunctionArray[3].startsWith('hue-rotate')).to.be.true;
+    expect(filterFunctionArray[4].startsWith('brightness')).to.be.true;
+    expect(filterFunctionArray[5].startsWith('contrast')).to.be.true;
+  }
 
-    // then
-    expect(result.color).to.equal(expectedHexColor);
-  });
+  function testFilterCorrectFormat(filterResult: string | null, isSheenUsed?: boolean): void {
+    expect(filterResult).to.be.string;
+    const filterFunctionArray = (filterResult as string).split(' ');
+    if (filterFunctionArray) {
+      if (isSheenUsed) {
+        testFilterWithSheen(filterFunctionArray);
+      } else {
+        testFilterWithNoSheen(filterFunctionArray);
+      }
+    }
+  }
 
-  it('convert filter to hexadecimal - 2', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)';
-    const expectedHexColor = '#2D6963';
+  function runTests(options: Options) {
+    it('convert hexadecimal to filter - 1', () => {
+      // given
+      const hexColor = '#6AA1E0';
 
-    // when
-    const result = await CssFilterConverter.filterToHex(filter);
+      // when
+      const result = CssFilterConverter.hexToFilter(hexColor, options);
 
-    // then
-    expect(result.color).to.equal(expectedHexColor);
-  });
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
 
-  it('convert filter to rgb - 1', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)';
-    const expectedRgbColor = [106, 161, 224];
+    it('convert hexadecimal to filter - 2', () => {
+      // given
+      const hexColor = '#E08E6A';
 
-    // when
-    const result = await CssFilterConverter.filterToRgb(filter);
+      // when
+      const result = CssFilterConverter.hexToFilter(hexColor, options);
 
-    // then
-    expect(result.color?.toString()).to.equal(expectedRgbColor.toString());
-  });
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
 
-  it('convert filter to rgb - 2', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)';
-    const expectedRgbColor = [45, 105, 99];
+    it('convert rgb to filter - 1', () => {
+      // given
+      const rgbColor = 'rgb(224, 142, 106)';
 
-    // when
-    const result = await CssFilterConverter.filterToRgb(filter);
+      // when
+      const result = CssFilterConverter.rgbToFilter(rgbColor, options);
 
-    // then
-    expect(result.color?.toString()).to.equal(expectedRgbColor.toString());
-  });
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
 
-  it('convert filter to hsl - 1', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)';
-    const expectedHslColor = [212, 66, 65];
+    it('convert rgb to filter - 2', () => {
+      // given
+      const rgbColor = 'rgb(57, 188, 172)';
 
-    // when
-    const result = await CssFilterConverter.filterToHsl(filter);
+      // when
+      const result = CssFilterConverter.rgbToFilter(rgbColor, options);
 
-    // then
-    expect(result.color?.toString()).to.equal(expectedHslColor.toString());
-  });
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
 
-  it('convert filter to hsl - 2', async () => {
-    // given
-    const filter =
-      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)';
-    const expectedHslColor = [174, 40, 29];
+    it('convert hsl to filter - 1', () => {
+      // given
+      const hslColor = 'hsl(173deg, 53%, 48%)';
 
-    // when
-    const result = await CssFilterConverter.filterToHsl(filter);
+      // when
+      const result = CssFilterConverter.hslToFilter(hslColor, options);
 
-    // then
-    expect(result.color?.toString()).to.equal(expectedHslColor.toString());
-  });
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
+
+    it('convert hsl to filter - 2', () => {
+      // given
+      const hslColor = 'hsl(289deg, 62%, 49%)';
+
+      // when
+      const result = CssFilterConverter.hslToFilter(hslColor, options);
+
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
+
+    it('convert keyword to filter - 1', () => {
+      // given
+      const keywordColor = 'limegreen';
+
+      // when
+      const result = CssFilterConverter.keywordToFilter(keywordColor, options);
+
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
+
+    it('convert keyword to filter - 2', () => {
+      // given
+      const keywordColor = 'royalblue';
+
+      // when
+      const result = CssFilterConverter.keywordToFilter(keywordColor, options);
+
+      // then
+      testFilterCorrectFormat(result.color, options.sheen);
+    });
+  }
+
+  runTests({ sheen: true });
+  runTests({ sheen: false });
 });
