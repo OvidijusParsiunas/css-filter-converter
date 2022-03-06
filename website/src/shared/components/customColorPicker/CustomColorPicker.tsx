@@ -47,9 +47,9 @@ export default function CustomColorPicker(props: Props) {
   const getCurrentColor = (): string => {
     if (basicColor.colorType !== BasicColorTypes.HEX) {
       basicColor.convertAndSetColorStringOnNewBasicColor(hexBasicColor, ErrorHandler);
-      return hexBasicColor.colorString;
+      return hexBasicColor.validCssColorString;
     }
-    return basicColor.colorString;
+    return basicColor.validCssColorString;
   };
 
   // prettier-ignore
@@ -76,7 +76,7 @@ export default function CustomColorPicker(props: Props) {
   };
 
   const buttonStyle: React.CSSProperties = {
-    backgroundColor: isValid ? basicColor.colorString : '#000000',
+    backgroundColor: isValid ? basicColor.validCssColorString : '#000000',
     pointerEvents: isSelectable ? 'auto' : 'none',
   };
 

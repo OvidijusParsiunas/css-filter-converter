@@ -1,4 +1,4 @@
-import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
+import { ColorConversionTypes, ColorToConverter } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
 import { ColorResult } from 'css-filter-converter/lib/shared/types/result';
@@ -11,9 +11,11 @@ export class RGBBasicColor extends BasicColor {
 
   protected _defaultColorString = 'rgb(133, 205, 250)';
 
-  protected _colorString = this._defaultColorString;
+  protected _inputColorString = this._defaultColorString;
 
-  protected _parseResult = (this.parse() as ColorResult<RGB>).color as RGB;
+  protected _validCssColorString = this._inputColorString;
+
+  protected _parseResult = (this.parse(this._inputColorString) as ColorResult<RGB>).color as RGB;
 
   private static readonly RGB_TO_COLOR: ColorToConverter<RGB> = {
     [BasicColorTypes.HEX]: ColorConvert.rgb.hex,
@@ -21,14 +23,19 @@ export class RGBBasicColor extends BasicColor {
     [BasicColorTypes.KEYWORD]: ColorConvert.rgb.keyword,
   };
 
-  protected parse(): ParseResult<RGB> {
-    return ColorParser.validateAndParseRgb(this._colorString);
+  // eslint-disable-next-line class-methods-use-this
+  protected parse(processedInputColorString: string): ParseResult<RGB> {
+    return ColorParser.validateAndParseRgb(processedInputColorString);
   }
 
-  protected convert(newColorType: BasicColorTypes): ConversionResult {
+  protected setValicCssColorStringUsingParsedResult(): void {
+    this._validCssColorString = `rgb(${this._parseResult[0]}, ${this._parseResult[1]}, ${this._parseResult[2]})`;
+  }
+
+  protected convert(newColorType: BasicColorTypes): ColorConversionTypes {
     const converter = RGBBasicColor.RGB_TO_COLOR[newColorType];
     if (converter) return converter(this._parseResult);
-    return 'error';
+    throw new Error(`Failed conversion from ${BasicColorTypes.RGB} to ${newColorType} using: ${this._parseResult}`);
   }
 
   // eslint-disable-next-line class-methods-use-this

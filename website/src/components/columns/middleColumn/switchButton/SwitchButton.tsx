@@ -119,7 +119,7 @@ function SwitchButton(props: Props) {
       const [{ input, result, basicColorType }] = history;
       return { input, result, basicColorType };
     }
-    return { input: '', result: '', basicColorType: DEFAULT_VALUES.colorType };
+    return { input: '', result: '', basicColorType: store.getState().input.basicColor.colorType };
   };
 
   const wrapAnimation = (intermediateCallback: () => void) => {

@@ -92,6 +92,14 @@ describe('Filter to color SUCCESS tests - ', () => {
       [45, 105, 99],
       [174, 40, 29],
     ],
+    [
+      'brightness(0) sepia(67%) brightness(88%) invert(60%) saturate(308%) hue-rotate(172deg) saturate(100%) contrast(100%)',
+      '#999999',
+      [153, 153, 153],
+      [0, 0, 60],
+    ],
+    ['brightness(0) saturate(100%) invert(60%) sepia(67%)', '#BDAE93', [189, 174, 147], [39, 24, 66]],
+    ['sepia(67%) saturate(100%) brightness(0) invert(60%)', '#999999', [153, 153, 153], [0, 0, 60]],
   ].forEach((testParams) => {
     testHexadecimal(testParams[0] as string, testParams[1] as string);
     testRgb(testParams[0] as string, testParams[2] as RGB);

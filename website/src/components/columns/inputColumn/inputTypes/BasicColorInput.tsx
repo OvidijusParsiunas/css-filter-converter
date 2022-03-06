@@ -37,7 +37,7 @@ export default function BasicColorInput() {
         error={!inputState.isValid}
         size="small"
         variant="outlined"
-        value={inputState.basicColor.colorString}
+        value={inputState.basicColor.inputColorString}
         onChange={(e) => ErrorHandler.executeEvent(handleTextChange.bind(null, e))}
       />
       <div id="basic-color-input-color-picker-container">

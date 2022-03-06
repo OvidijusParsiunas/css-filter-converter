@@ -87,7 +87,6 @@ describe('Color to filter SUCCESS tests - ', () => {
       testHsl(hslString, options),
     );
 
-    // WORK because this is valid - need to display it in the color picker
     // rgb and hsl converion should be able to handle dynamic cases where input contains noise around valid color digits
     // this works in conjuction with being able to handle the following valid values:
     // rgb(1,2,3)

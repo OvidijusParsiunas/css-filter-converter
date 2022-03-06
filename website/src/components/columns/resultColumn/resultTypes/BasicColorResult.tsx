@@ -22,8 +22,8 @@ export default function BasicColorResult(props: Props) {
     (state) => state.result.basicColor,
   );
 
-  const resultColorStringState = useSelector<RootReducer, RootReducer['result']['basicColor']['colorString']>(
-    (state) => state.result.basicColor.colorString,
+  const resultColorStringState = useSelector<RootReducer, RootReducer['result']['basicColor']['inputColorString']>(
+    (state) => state.result.basicColor.inputColorString,
   );
 
   // prettier-ignore

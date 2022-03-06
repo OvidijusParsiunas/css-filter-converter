@@ -1,6 +1,6 @@
-import { ConversionResult, ColorConversionTypes } from '../../../../../../shared/types/basicColorFactory';
 import { ErrorHandling } from 'css-filter-converter/lib/shared/functionality/errorHandling/errorHandling';
 import { ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
+import { ColorConversionTypes } from '../../../../../../shared/types/basicColorFactory';
 import { UnexpectedError } from 'css-filter-converter/lib/shared/types/unexpectedError';
 import { ErrorHandlerI } from '../../../../../../shared/types/errorHandlerI';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
@@ -10,13 +10,17 @@ export abstract class BasicColor {
 
   protected abstract _defaultColorString: string;
 
-  protected abstract _colorString: string;
+  protected abstract _inputColorString: string;
+
+  protected abstract _validCssColorString: string;
 
   protected abstract _parseResult: ColorConversionTypes | null;
 
-  protected abstract parse(): ParseResult<ColorConversionTypes>;
+  protected abstract parse(processedString: string): ParseResult<ColorConversionTypes>;
 
-  protected abstract convert(newColorType: BasicColorTypes): ConversionResult;
+  protected abstract setValicCssColorStringUsingParsedResult(): void;
+
+  protected abstract convert(newColorType: BasicColorTypes): ColorConversionTypes;
 
   protected abstract formatResult(conversionResult: ColorConversionTypes): string;
 
@@ -28,22 +32,27 @@ export abstract class BasicColor {
     return this._defaultColorString;
   }
 
-  get colorString(): string {
-    return this._colorString;
+  get inputColorString(): string {
+    return this._inputColorString;
   }
 
   get parseResult(): ColorConversionTypes | null {
     return this._parseResult;
   }
 
-  public setAndParseColorString(colorString: string, errorHandler: ErrorHandlerI, displayError = true): void {
-    this._colorString = colorString;
-    const parseResult = this.parse();
+  get validCssColorString(): string {
+    return this._validCssColorString;
+  }
+
+  public setAndParseColorString(inputColorString: string, errorHandler: ErrorHandlerI, displayError = true): void {
+    this._inputColorString = inputColorString;
+    const parseResult = this.parse(inputColorString.trim().toLocaleLowerCase());
     if (ErrorHandling.hasError(parseResult)) {
       if (displayError) errorHandler.displayError(parseResult.errorMessage);
       this._parseResult = null;
     } else {
       this._parseResult = parseResult.color;
+      this.setValicCssColorStringUsingParsedResult();
     }
   }
 

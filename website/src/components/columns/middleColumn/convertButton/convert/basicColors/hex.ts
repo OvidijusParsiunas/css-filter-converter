@@ -1,4 +1,4 @@
-import { ColorToConverter, ConversionResult } from '../../../../../../shared/types/basicColorFactory';
+import { ColorConversionTypes, ColorToConverter } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { DEFAULT_VALUES } from '../../../../../../shared/consts/defaultValues';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
@@ -11,9 +11,11 @@ export class HexBasicColor extends BasicColor {
 
   protected _defaultColorString = DEFAULT_VALUES.text;
 
-  protected _colorString = this._defaultColorString;
+  protected _inputColorString = this._defaultColorString;
 
-  protected _parseResult = (this.parse() as ColorResult<string>).color as string;
+  protected _validCssColorString = this._inputColorString;
+
+  protected _parseResult = (this.parse(this._inputColorString) as ColorResult<string>).color as string;
 
   private static readonly HEX_TO_COLOR: ColorToConverter<string> = {
     [BasicColorTypes.RGB]: ColorConvert.hex.rgb,
@@ -21,14 +23,19 @@ export class HexBasicColor extends BasicColor {
     [BasicColorTypes.KEYWORD]: ColorConvert.hex.keyword,
   };
 
-  protected parse(): ParseResult<string> {
-    return ColorParser.validateAndParseHex(this._colorString);
+  // eslint-disable-next-line class-methods-use-this
+  protected parse(processedInputColorString: string): ParseResult<string> {
+    return ColorParser.validateAndParseHex(processedInputColorString);
   }
 
-  protected convert(newColorType: BasicColorTypes): ConversionResult {
+  protected setValicCssColorStringUsingParsedResult(): void {
+    this._validCssColorString = this._parseResult.trim();
+  }
+
+  protected convert(newColorType: BasicColorTypes): ColorConversionTypes {
     const converter = HexBasicColor.HEX_TO_COLOR[newColorType];
     if (converter) return converter(this._parseResult);
-    return 'error';
+    throw new Error(`Failed conversion from ${BasicColorTypes.HEX} to ${newColorType} using: ${this._parseResult}`);
   }
 
   // eslint-disable-next-line class-methods-use-this

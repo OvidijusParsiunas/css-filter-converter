@@ -52,14 +52,14 @@ export default function ConvertButton(props: Props) {
   };
 
   const convertToFilter = (basicColor: BasicColor) => {
-    const { colorString: inputColorString, colorType } = basicColor;
-    const result = BasicColorToFilter.convert(inputColorString, colorType, isSheenAddedState);
+    const { validCssColorString, colorType } = basicColor;
+    const result = BasicColorToFilter.convert(validCssColorString, colorType, isSheenAddedState);
     if (!result.color) {
       ErrorHandler.displayError(result.error?.message);
     } else {
       triggerResultHeaderAnimation();
       dispatch(updateResultFilter(result.color));
-      dispatch(addToHistory(inputColorString, result.color, colorType));
+      dispatch(addToHistory(validCssColorString, result.color, colorType));
     }
   };
 

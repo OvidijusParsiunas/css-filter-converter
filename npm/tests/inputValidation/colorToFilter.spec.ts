@@ -87,6 +87,7 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'rgb(224, -142, 3)',
     'rgb(224, 142, -3)',
     'rgb(-224, -142, -3)',
+    'rgb(255, 142, 106, 200, 200)', // string length should exceed MAX_COLOR_INPUT_STRING_LENGTH
   ].forEach((rgbString) => testRgb(rgbString));
 
   [
@@ -103,6 +104,7 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'hsl(172deg, -53%, 4%)',
     'hsl(172deg, 53%, -4%)',
     'hsl(-172deg, -53%, -4%)',
+    'hsl(172deg, 53%, 48%, 100, 100)', // string length should exceed MAX_COLOR_INPUT_STRING_LENGTH
   ].forEach((hslString) => testHsl(hslString));
 
   [
