@@ -35,68 +35,66 @@ describe('Filter to color SUCCESS tests - ', () => {
     [
       'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)',
       '#6AA1E0',
+      [106, 161, 224],
+      [212, 66, 65],
     ],
     [
       'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)    ',
       '#6AA1E0',
+      [106, 161, 224],
+      [212, 66, 65],
     ],
     [
       'brightness(  0) saturate(100% ) invert(60%  ) sepia(67%  ) saturate(308%)    HUE-ROTATE(172deg) brightness(88%) contrast(100%)    ',
       '#6AA1E0',
+      [106, 161, 224],
+      [212, 66, 65],
     ],
     [
       'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
       '#2D6963',
+      [45, 105, 99],
+      [174, 40, 29],
     ],
     [
       '  brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
       '#2D6963',
-    ],
-  ].forEach((testParams) => testHexadecimal(testParams[0], testParams[1]));
-
-  [
-    [
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)',
-      [106, 161, 224],
-    ],
-    [
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)     ',
-      [106, 161, 224],
-    ],
-    [
-      'brightness(0    ) saturate(100%) INVERT(60%) sepia( 67%) saturate( 308% ) hue-rotate(172deg) brightness(  88%) contrast(  100%)     ',
-      [106, 161, 224],
-    ],
-    [
-      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
       [45, 105, 99],
-    ],
-    [
-      '  brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
-      [45, 105, 99],
-    ],
-  ].forEach((testParams) => testRgb(testParams[0] as string, testParams[1] as RGB));
-
-  [
-    [
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)',
-      [212, 66, 65],
-    ],
-    [
-      'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)     ',
-      [212, 66, 65],
-    ],
-    [
-      'brightness(0) saturate(100%) invert(60%) Sepia(67%) SATURATE(308%) hue-rotate(172deg) brightness(88%) CONTRAST(100%)     ',
-      [212, 66, 65],
-    ],
-    [
-      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
       [174, 40, 29],
     ],
     [
-      '  brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
+      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(322222222222288%) hue-rotate(125deg) brightness(93%) contrast(99%)',
+      '#016B01',
+      [1, 107, 1],
+      [120, 98, 21],
+    ],
+    [
+      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125888deg) brightness(93%) contrast(99%)',
+      '#7C4F7F',
+      [124, 79, 127],
+      [296, 23, 40],
+    ],
+    [
+      'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg)brightness(93%) contrast(99%)',
+      '#2D6963',
+      [45, 105, 99],
       [174, 40, 29],
     ],
-  ].forEach((testParams) => testHsl(testParams[0] as string, testParams[1] as HSL));
+    [
+      'brightness(0)saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg)brightness(93%) contrast(99%)',
+      '#2D6963',
+      [45, 105, 99],
+      [174, 40, 29],
+    ],
+    [
+      'brightness(0)saturate(100%)invert(35%)sepia(48%)saturate(388%)hue-rotate(125deg)brightness(93%)contrast(99%)',
+      '#2D6963',
+      [45, 105, 99],
+      [174, 40, 29],
+    ],
+  ].forEach((testParams) => {
+    testHexadecimal(testParams[0] as string, testParams[1] as string);
+    testRgb(testParams[0] as string, testParams[2] as RGB);
+    testHsl(testParams[0] as string, testParams[3] as HSL);
+  });
 });

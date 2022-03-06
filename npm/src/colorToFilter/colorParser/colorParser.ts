@@ -40,6 +40,7 @@ export class ColorParser {
     return null;
   }
 
+  // WORK - do not allow negative values as the result will be wrong
   public static validateAndParseRgb(rgbString: string): ParseResult<RGB> {
     const rgb = <RGB>ColorParser.parseFirstThreeIntegersFromString(rgbString);
     if (rgb && rgb[0] <= 255 && rgb[1] <= 255 && rgb[2] <= 255) {

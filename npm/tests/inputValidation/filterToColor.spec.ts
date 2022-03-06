@@ -43,16 +43,19 @@ describe('Filter to color INPUT VALIDATION tests - ', () => {
     'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(%99%)',
     'brightness(0) saturate(100%) invert(35%) sepia(48%) ! saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
     'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrastaa(99%)',
-    // WORK - should not work here
-    // 'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(322222222222288%) hue-rotate(125deg) brightness(93%) contrast(99%)',
-    // WORK - should not work here
-    // 'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125888deg) brightness(93%) contrast(99%)',
+    'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(-99%)',
     'brightness(0) saturaaate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
     'brightness saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
     'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93 contrast(99%)',
-    // 'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg)brightness(93%) contrast(99%)',
     'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(9 9%)',
     'brightness0 saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
+    'brightness(0) saturate(100) invert(35) sepia(48) saturate(388) hue-rotate(125) brightness(93) contrast(99)',
+    'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) huerotate(125deg) brightness(93%) contrast(99%)',
+    'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hueRotate(125deg) brightness(93%) contrast(99%)',
+    'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%)) contrast(99%)',
+    '(brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%)',
+    '(brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%))',
+    'brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(388%) hue-rotate(125deg) brightness(93%) contrast(99%))',
   ].forEach((filter, testNumber) => {
     testHexadecimal(filter, testNumber);
     testRgb(filter, testNumber);

@@ -8,9 +8,9 @@ import 'mocha';
 // cannot test exact filter results as they change after every run
 // therefore this test suite can only validate the result format
 describe('Color to filter INPUT VALIDATION tests - ', () => {
-  function testError(result: ColorToFilterResult, expectedErrormessage: string): void {
+  function testError(result: ColorToFilterResult, expectedErrorMessage: string): void {
     expect(result.color).to.be.null;
-    expect(result.error?.message).to.equal(expectedErrormessage);
+    expect(result.error?.message).to.equal(expectedErrorMessage);
   }
 
   function testHexadecimal(hexString: string): void {
@@ -83,9 +83,6 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'rgb(142, 106)',
     'rgb(142, 106,)',
     'rgb(224, 142, a)',
-    // WORK
-    // 'rgb(22.4, 142, 106)',
-    // 'rgb(-224, 142, 106)',
   ].forEach((rgbString) => testRgb(rgbString));
 
   [
@@ -93,8 +90,6 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'hsl(361deg, 53%, 48%)',
     'hsl(172deg, 101%, 48%)',
     'hsl(172deg, 53%, 101%)',
-    // WORK
-    // 'hsl(172deg, 5-3%, 48%)',
     'hsl(172deg)',
     'hsl(172deg,)',
     'hsl(172deg, 53%)',
