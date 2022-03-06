@@ -60,17 +60,17 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
   }
 
   [
-    '#6AA1E',
-    '6AA1E0',
-    '#6AA1',
-    '#6IA1E0',
-    '#6AA1E02',
-    '#6AA1.02',
-    '#6AA!1E',
-    '|6AA1EA',
-    '#6AA1Z0',
-    '#-1A1E0',
-    '##AA1E0',
+    '#6aa1e',
+    '6aa1e0',
+    '#6aa1',
+    '#6ia1e0',
+    '#6aa1e02',
+    '#6aa1.02',
+    '#6aa!1e',
+    '|6aa1ea',
+    '#6aa1z0',
+    '#-1a1e0',
+    '##aa1e0',
   ].forEach((hexString) => testHexadecimal(hexString));
 
   [
@@ -83,6 +83,10 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'rgb(142, 106)',
     'rgb(142, 106,)',
     'rgb(224, 142, a)',
+    'rgb(-224, 142, 3)',
+    'rgb(224, -142, 3)',
+    'rgb(224, 142, -3)',
+    'rgb(-224, -142, -3)',
   ].forEach((rgbString) => testRgb(rgbString));
 
   [
@@ -95,13 +99,14 @@ describe('Color to filter INPUT VALIDATION tests - ', () => {
     'hsl(172deg, 53%)',
     'hsl(172deg, 53%,)',
     'hsl(172deg, 53%, a%)',
+    'hsl(-172deg, 53%, 4%)',
+    'hsl(172deg, -53%, 4%)',
+    'hsl(172deg, 53%, -4%)',
+    'hsl(-172deg, -53%, -4%)',
   ].forEach((hslString) => testHsl(hslString));
 
   [
     'reda',
-    // WORK
-    // the following should be passing
-    'red     ',
     'blueyellow',
     'red!',
     '123123',

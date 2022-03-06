@@ -79,13 +79,12 @@ describe('Color to filter SUCCESS tests - ', () => {
   }
 
   function runTests(options: Options) {
-    // WORK '#6AA1E0 ' should be trimmed before converting
-    ['#6AA1E0', '#aee'].forEach((hexString) => testHexadecimal(hexString, options));
+    ['#6AA1E0', '     #6AA1E0    ', '#aee', '    #aee    '].forEach((hexString) => testHexadecimal(hexString, options));
 
     ['rgb(224, 142, 106)', 'rgb(0, 0, 0)', 'rgb(255, 255, 255)'].forEach((rgbString) => testRgb(rgbString, options));
 
-    ['hsl(173deg, 53%, 48%)', 'hsl(0deg, 0%, 0%)', 'hsl(360deg, 100%, 100%)', 'hsl(-300deg, -100%, 75%)'].forEach(
-      (hslString) => testHsl(hslString, options),
+    ['hsl(173deg, 53%, 48%)', 'hsl(0deg, 0%, 0%)', 'hsl(360deg, 100%, 100%)'].forEach((hslString) =>
+      testHsl(hslString, options),
     );
 
     // WORK because this is valid - need to display it in the color picker
@@ -98,11 +97,10 @@ describe('Color to filter SUCCESS tests - ', () => {
     // rgb(1 2 3 / 50%)
     [
       'aaa(57, 100, 100)',
+      '                          aaa(57, 100, 100)                   ',
       '215deg, 62%, 49%',
       '215deg. 62%. 49%',
       '215deg 62% 49%',
-      'sdfsdf(173a, 53b, 48c) ',
-      ' sdfsdf(173a, 53b, 48c)',
       'sdfsdf(173a , 53b , 48c)',
       '(215, 62, 49)',
       '57, 100, 100) ',
@@ -120,9 +118,9 @@ describe('Color to filter SUCCESS tests - ', () => {
       testHsl(colorString, options);
     });
 
-    // WORK should be set to lower case before converting and outer spaces should be trimmed
-    // ['limegreen', 'royalblue', 'Limegreen', 'ROYALBLUE', 'limegreen '].forEach((keywordString) =>
-    ['limegreen', 'royalblue'].forEach((keywordString) => testKeyword(keywordString as KEYWORD, options));
+    ['limegreen', 'royalblue', 'Limegreen', 'ROYALBLUE', '      royalblue     '].forEach((keywordString) =>
+      testKeyword(keywordString as KEYWORD, options),
+    );
   }
 
   runTests({ sheen: true });

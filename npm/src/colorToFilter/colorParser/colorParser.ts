@@ -40,10 +40,9 @@ export class ColorParser {
     return null;
   }
 
-  // WORK - do not allow negative values as the result will be wrong
   public static validateAndParseRgb(rgbString: string): ParseResult<RGB> {
     const rgb = <RGB>ColorParser.parseFirstThreeIntegersFromString(rgbString);
-    if (rgb && rgb[0] <= 255 && rgb[1] <= 255 && rgb[2] <= 255) {
+    if (rgb && rgb[0] >= 0 && rgb[0] <= 255 && rgb[1] >= 0 && rgb[1] <= 255 && rgb[2] >= 0 && rgb[2] <= 255) {
       return { color: rgb };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.RGB, rgbString, ColorFormats.RGB) };
@@ -51,7 +50,7 @@ export class ColorParser {
 
   public static validateAndParseHsl(hslString: string): ParseResult<HSL> {
     const hsl = <HSL>ColorParser.parseFirstThreeIntegersFromString(hslString);
-    if (hsl && hsl[0] <= 360 && hsl[1] <= 100 && hsl[2] <= 100) {
+    if (hsl && hsl[0] >= 0 && hsl[0] <= 360 && hsl[1] >= 0 && hsl[1] <= 100 && hsl[2] >= 0 && hsl[2] <= 100) {
       return { color: hsl };
     }
     return { errorMessage: ErrorHandling.generateInputErrorMessage(ColorTypes.HSL, hslString, ColorFormats.HSL) };

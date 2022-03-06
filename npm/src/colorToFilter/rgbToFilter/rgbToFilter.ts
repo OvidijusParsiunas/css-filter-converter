@@ -43,7 +43,8 @@ export class RgbToFilter {
   public static convert<T>(conversionProps: ConversionProps<T>): ColorToFilterResult {
     try {
       const { colorString, validateAndParse, convertToRgb, conversionErrorMessage, addSheen } = conversionProps;
-      const parseResult = validateAndParse?.(colorString) || { color: colorString as unknown as T };
+      const trimmedString = colorString.trim().toLocaleLowerCase();
+      const parseResult = validateAndParse?.(trimmedString) || { color: trimmedString as unknown as T };
       if (ErrorHandling.hasError(parseResult)) return RgbToFilter.generateValidateAndParseError(parseResult.errorMessage);
       const rgbColor = RgbToFilter.convertToRGB(parseResult.color, convertToRgb) || (parseResult.color as unknown as RGB);
       if (!rgbColor) return RgbToFilter.generateConversionError(conversionErrorMessage);
