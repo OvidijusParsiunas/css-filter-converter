@@ -1,14 +1,12 @@
 /* eslint-disable max-len */
-import { FilterToColorResult } from '../../src/shared/types/result';
+import { ColorResultTypes, FilterToColorResult } from '../../src/shared/types/result';
 import { HSL, RGB } from 'color-convert/conversions';
 import CssFilterConverter from '../../src/index';
 import { expect } from 'chai';
 import 'mocha';
 
-type ResultColorTypes = RGB | HSL | string;
-
-describe.only('Filter to color SUCCESS tests - ', () => {
-  function testResult(result: FilterToColorResult<ResultColorTypes>, expectedResult: ResultColorTypes) {
+describe('Filter to color SUCCESS tests - ', () => {
+  function testResult(result: FilterToColorResult<ColorResultTypes>, expectedResult: ColorResultTypes) {
     expect(result.color?.toString()).to.equal(expectedResult.toString());
   }
 
