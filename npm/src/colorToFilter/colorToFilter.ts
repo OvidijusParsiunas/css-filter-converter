@@ -1,15 +1,15 @@
 import { ErrorHandling } from '../shared/functionality/errorHandling/errorHandling';
 import { SheenUtil } from '../shared/functionality/sheen/sheenUtil';
+import { ColorToFilterOptions } from '../shared/types/options';
 import { ColorToFilterResult } from '../shared/types/result';
 import { ColorTypes } from '../shared/consts/colorTypes';
 import { RgbToFilter } from './rgbToFilter/rgbToFilter';
 import { ColorParser } from './colorParser/colorParser';
 import { KEYWORD } from 'color-convert/conversions';
-import { Options } from '../shared/types/options';
 import Converter from 'color-convert';
 
 export class ColorToFilter {
-  public static rgbToFilter(rgbString: string, options?: Options): ColorToFilterResult {
+  public static rgbToFilter(rgbString: string, options?: ColorToFilterOptions): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: rgbString,
       validateAndParse: ColorParser.validateAndParseRgb,
@@ -17,7 +17,7 @@ export class ColorToFilter {
     });
   }
 
-  public static hexToFilter(hexString: string, options?: Options): ColorToFilterResult {
+  public static hexToFilter(hexString: string, options?: ColorToFilterOptions): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: hexString,
       validateAndParse: ColorParser.validateAndParseHex,
@@ -26,7 +26,7 @@ export class ColorToFilter {
     });
   }
 
-  public static hslToFilter(hslString: string, options?: Options): ColorToFilterResult {
+  public static hslToFilter(hslString: string, options?: ColorToFilterOptions): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: hslString,
       validateAndParse: ColorParser.validateAndParseHsl,
@@ -35,7 +35,7 @@ export class ColorToFilter {
     });
   }
 
-  public static keywordToFilter(keyword: KEYWORD, options?: Options): ColorToFilterResult {
+  public static keywordToFilter(keyword: KEYWORD, options?: ColorToFilterOptions): ColorToFilterResult {
     return RgbToFilter.convert({
       colorString: keyword,
       validateAndParse: ColorParser.validateAndParseKeyword,

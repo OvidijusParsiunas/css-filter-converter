@@ -1,3 +1,4 @@
+import { ColorFormatter } from 'css-filter-converter/lib/shared/functionality/colorFormatter/colorFormatter';
 import { ColorConversionTypes, ColorToConverter } from '../../../../../../shared/types/basicColorFactory';
 import { ColorParser, ParseResult } from 'css-filter-converter/lib/colorToFilter/colorParser/colorParser';
 import { BasicColorTypes } from '../../../../../../shared/consts/colorTypes';
@@ -29,7 +30,7 @@ export class RGBBasicColor extends BasicColor {
   }
 
   protected setValicCssColorStringUsingParsedResult(): void {
-    this._validCssColorString = `rgb(${this._parseResult[0]}, ${this._parseResult[1]}, ${this._parseResult[2]})`;
+    this._validCssColorString = ColorFormatter.arrayToRgbString(this._parseResult);
   }
 
   protected convert(newColorType: BasicColorTypes): ColorConversionTypes {
@@ -40,6 +41,6 @@ export class RGBBasicColor extends BasicColor {
 
   // eslint-disable-next-line class-methods-use-this
   protected formatResult(conversionResult: RGB): string {
-    return `rgb(${conversionResult.join(', ')})`;
+    return ColorFormatter.arrayToRgbString(conversionResult);
   }
 }

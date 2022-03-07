@@ -1,8 +1,9 @@
+import { ColorFormatter } from 'css-filter-converter/lib/shared/functionality/colorFormatter/colorFormatter';
 import { FilterToColorResultType } from '../../../../shared/types/filterToBasicColor';
 import { FilterToColorResult } from 'css-filter-converter/lib/shared/types/result';
 import { BasicColorTypes } from '../../../../shared/consts/colorTypes';
 import CssFilterConverter from 'css-filter-converter';
-import { RGB } from 'color-convert/conversions';
+import { HSL, RGB } from 'color-convert/conversions';
 
 export class FilterToBasicColor {
   private static readonly FILTER_TO_BASIC_COLOR_CONVERTER = {
@@ -13,10 +14,10 @@ export class FilterToBasicColor {
 
   private static processResult(result: string | RGB, resultBasicColorType: FilterToColorResultType): string {
     if (resultBasicColorType === BasicColorTypes.RGB) {
-      return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
+      return ColorFormatter.arrayToRgbString(result as RGB);
     }
     if (resultBasicColorType === BasicColorTypes.HSL) {
-      return `hsl(${result[0]}deg, ${result[1]}%, ${result[2]}%)`;
+      return ColorFormatter.arrayToHslString(result as HSL);
     }
     return result as string;
   }

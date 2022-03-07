@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import { ColorToFilterOptions } from '../../src/shared/types/options';
 import { ColorToFilterResult } from '../../src/shared/types/result';
-import { Options } from '../../src/shared/types/options';
 import { KEYWORD } from 'color-convert/conversions';
 import CssFilterConverter from '../../src/index';
 import { expect } from 'chai';
@@ -31,7 +31,7 @@ describe('Color to filter SUCCESS tests - ', () => {
     expect(filterFunctionArray[5].startsWith('contrast')).to.be.true;
   }
 
-  function testFilterFormat(filterResult: string | null, isSheenUsed?: boolean): void {
+  function testFilterFormat(filterResult: string | null, isSheenUsed = true): void {
     expect(filterResult).to.be.a('string');
     const filterFunctionArray = (filterResult as string).split(' ');
     expect(filterFunctionArray).to.be.an('array');
@@ -44,41 +44,41 @@ describe('Color to filter SUCCESS tests - ', () => {
     }
   }
 
-  function testResult(result: ColorToFilterResult, options: Options): void {
+  function testResult(result: ColorToFilterResult, options?: ColorToFilterOptions): void {
     expect(result.error).to.be.undefined;
     expect(result.loss).to.be.a('number');
-    testFilterFormat(result.color, options.sheen);
+    testFilterFormat(result.color, options?.sheen);
   }
 
-  function testHexadecimal(hexString: string, options: Options): void {
+  function testHexadecimal(hexString: string, options?: ColorToFilterOptions): void {
     it(`convert hexadecimal to filter: ${hexString}`, () => {
       const result = CssFilterConverter.hexToFilter(hexString, options);
       testResult(result, options);
     });
   }
 
-  function testRgb(rgbString: string, options: Options): void {
+  function testRgb(rgbString: string, options?: ColorToFilterOptions): void {
     it(`convert rgb to filter: ${rgbString}`, () => {
       const result = CssFilterConverter.rgbToFilter(rgbString, options);
       testResult(result, options);
     });
   }
 
-  function testHsl(hslString: string, options: Options): void {
+  function testHsl(hslString: string, options?: ColorToFilterOptions): void {
     it(`convert hsl to filter: ${hslString}`, () => {
       const result = CssFilterConverter.hslToFilter(hslString, options);
       testResult(result, options);
     });
   }
 
-  function testKeyword(keywordString: KEYWORD, options: Options): void {
+  function testKeyword(keywordString: KEYWORD, options?: ColorToFilterOptions): void {
     it(`convert keyword to filter: ${keywordString}`, () => {
       const result = CssFilterConverter.keywordToFilter(keywordString, options);
       testResult(result, options);
     });
   }
 
-  function runTests(options: Options) {
+  function runTests(options?: ColorToFilterOptions) {
     ['#6AA1E0', '     #6AA1E0    ', '#aee', '    #aee    '].forEach((hexString) => testHexadecimal(hexString, options));
 
     ['rgb(224, 142, 106)', 'rgb(0, 0, 0)', 'rgb(255, 255, 255)'].forEach((rgbString) => testRgb(rgbString, options));
@@ -122,6 +122,7 @@ describe('Color to filter SUCCESS tests - ', () => {
     );
   }
 
+  runTests();
   runTests({ sheen: true });
   runTests({ sheen: false });
 });
