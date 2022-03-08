@@ -29,7 +29,6 @@ const result = CssFilterConverter.hexToFilter('#69A1DE');
 CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)').then((result) => result);
 
 const result = await CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)');
-
 ```
 
 ## API
