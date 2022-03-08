@@ -1,1 +1,4 @@
 tsconfig.json
+tsconfig.eslint.json
+.eslintrc.js
+README.md

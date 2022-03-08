@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# css-filter-converter - Title image
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+CSS Filter Converter is a simple tool used for converting basic css color formats to and from the css filter property.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### Supported formats
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+|             | Hex | RGB | HSL | Keyword |
+| ----------- | :-: | :-: | :-: | :-----: |
+| To filter   |  ✓  |  ✓  |  ✓  |    ✓    |
+| From filter |  ✓  |  ✓  |  ✓  |    ✗    |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Sheen
 
-### `npm test`
+In practice; filter css property is used to edit the color properties of the element that it is applied to, but will not completely override its existing color palette. This behaviour can sometimes make it difficult to achieve a consistent mono color scheme of the underlying contents, leaving an undesiderd partial color change that is especially evident in SVG images. The Sheen option is used to reinforce the application of the new color by prepending the following properties 'brightness(0) saturate(100%)' to filter that result in a well saturated single hue color:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+GIF here
 
-### `npm run build`
+### Icon Mode
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+One of the biggest uses of the filter css property is its ability to change the color of SVG images. The Icon Mode panel allows you to upload your SVG images directly into this tool which will automatically apply the result filter value to them and allow you to immediately observe its effects (This tool operates locally on your browser and no data leaves the privacy of your computer):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+GIF here
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Local setup
 
-### `npm run eject`
+```
+# Requirements: Node version 8+ and NPM version 6+
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Install node dependencies:
+$ npm install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Run the project in watch mode:
+$ npm run start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Contributions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Open source is built by the community for the community. All contributions to this project are welcome!
+<br> Additionally, if you have any suggestions for enhancements, ideas on how to take the project further or have discovered a bug, do not hesitate to create a new issue ticket and we will look into it as soon as possible!
