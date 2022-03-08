@@ -50,29 +50,34 @@ describe('Color to filter SUCCESS tests - ', () => {
     testFilterFormat(result.color, options?.sheen);
   }
 
+  function buildTestName(type: string, colorString: string, options?: ColorToFilterOptions) {
+    const sheenDescription = options?.sheen !== undefined ? `sheen: ${options.sheen}` : 'no sheen option';
+    return `convert ${type} to filter (${sheenDescription}): ${colorString}`;
+  }
+
   function testHexadecimal(hexString: string, options?: ColorToFilterOptions): void {
-    it(`convert hexadecimal to filter: ${hexString}`, () => {
+    it(buildTestName('hexadecimal', hexString, options), () => {
       const result = CssFilterConverter.hexToFilter(hexString, options);
       testResult(result, options);
     });
   }
 
   function testRgb(rgbString: string, options?: ColorToFilterOptions): void {
-    it(`convert rgb to filter: ${rgbString}`, () => {
+    it(buildTestName('rgb', rgbString, options), () => {
       const result = CssFilterConverter.rgbToFilter(rgbString, options);
       testResult(result, options);
     });
   }
 
   function testHsl(hslString: string, options?: ColorToFilterOptions): void {
-    it(`convert hsl to filter: ${hslString}`, () => {
+    it(buildTestName('hsl', hslString, options), () => {
       const result = CssFilterConverter.hslToFilter(hslString, options);
       testResult(result, options);
     });
   }
 
   function testKeyword(keywordString: KEYWORD, options?: ColorToFilterOptions): void {
-    it(`convert keyword to filter: ${keywordString}`, () => {
+    it(buildTestName('keyword', keywordString, options), () => {
       const result = CssFilterConverter.keywordToFilter(keywordString, options);
       testResult(result, options);
     });

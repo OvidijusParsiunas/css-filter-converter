@@ -1,22 +1,33 @@
-# css-filter-converter
+# css-filter-converter - Title image
 
-A tool used to generate css filter color property via hexadecimal or rgb color formats
+## Description
 
-## Local setup
+CSS Filter Converter is a very simple tool used for converting basic css color formats to css filter and vice versa. Its capabilities can be accessed through both: a dedicated [website](https://cssfilterconverter.com) or directly intergrated into your project via an [NPM library](https://npmjs.com/package/css-filter-converter).
 
-To run the project locally, please follow the instructions below:
+## Features
 
-```
-# Requirements: Node version 10+ and NPM version 6+
+Supported formats:
 
-# Install node dependencies:
-$ npm install
+|             | Hex | RGB | HSL | Keyword |
+| ----------- | --- | --- | --- | ------- |
+| To filter   | ✓   | ✓   | ✓   | ✓       |
+| From filter | ✓   | ✓   | ✓   | ✗       |
 
-# Before pushing code into a remote branch:
-$ npm run build
-```
+Sheen:
+In practice, filter css property will edit the color properties of an element's contents, but will not override their already existing color tone. This behaviour can sometimes make it difficult for filter style to apply a new consistent color on an element, leaving undesiderd partial color change results - especially in SVG images. Therefore, the Sheen option is used to reinforce the application of the new color onto an element by prepending the following function properties 'brightness(0) saturate(100%)' to filter which result in a well saturated single hue color.
 
-This project uses <b>eslint</b> to validate code syntax and <b>prettier</b> to automatically format the code. Therefore it is recommended to use an IDE that supports these libraries for best development experience. (E.g. VSCode)
+GIF here
+
+Icon Mode:
+
+One of the biggest use cases of the filter css property is its ability to change the color of SVG format images. To prevent you from having to switch to other domains in order to test the filter property there, the Icon Mode panel allows you to upload your own SVG images directly to this tool which will automatically apply the current result filter to them. (Css Filter Converter operates locally on your browser and no data leaves the privacy of your computer):
+
+GIF here
+
+## More information
+
+- [Website](website/README.md)
+- [NPM](npm/README.md)
 
 ## Contributions
 

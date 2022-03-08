@@ -12,8 +12,14 @@ describe('Filter to color SUCCESS tests - ', () => {
     expect(result.color?.toString()).to.equal(expectedResult.toString());
   }
 
+  function buildTestName(type: string, color: ColorResultTypes, options?: FilterToColorOptions) {
+    const resultTypeDescription =
+      options?.resultType !== undefined ? `resultType: ${options.resultType}` : 'no resultType option';
+    return `convert filter to ${type} (${resultTypeDescription}): ${color}`;
+  }
+
   function testHexadecimal(filter: string, expectedResult: string): void {
-    it(`convert filter to hexadecimal: ${expectedResult}`, async () => {
+    it(buildTestName('hexadecimal', expectedResult), async () => {
       const result = await CssFilterConverter.filterToHex(filter);
       testResult(result, expectedResult);
     });
@@ -22,7 +28,7 @@ describe('Filter to color SUCCESS tests - ', () => {
   function testRgb(filter: string, expectedResult: RGB, options?: FilterToColorOptions): void {
     const expectedProcessedResult =
       options?.resultType === 'string' ? ColorFormatter.arrayToRgbString(expectedResult) : expectedResult;
-    it(`convert filter to rgb: ${expectedProcessedResult}`, async () => {
+    it(buildTestName('rgb', expectedProcessedResult, options), async () => {
       const result = await CssFilterConverter.filterToRgb(filter, options);
       testResult(result, expectedProcessedResult);
     });
@@ -31,7 +37,7 @@ describe('Filter to color SUCCESS tests - ', () => {
   function testHsl(filter: string, expectedResult: HSL, options?: FilterToColorOptions): void {
     const expectedProcessedResult =
       options?.resultType === 'string' ? ColorFormatter.arrayToHslString(expectedResult) : expectedResult;
-    it(`convert filter to hsl: ${expectedProcessedResult}`, async () => {
+    it(buildTestName('hsl', expectedProcessedResult, options), async () => {
       const result = await CssFilterConverter.filterToHsl(filter, options);
       testResult(result, expectedProcessedResult);
     });
