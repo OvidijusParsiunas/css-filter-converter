@@ -25,10 +25,9 @@ import CssFilterConverter from 'css-filter-converter';
 const result = CssFilterConverter.hexToFilter('#69A1DE');
 
 // converting from filter to basic color
-const filterString = 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)';
-CssFilterConverter.filterToHex(filterString).then((result) => result);
+CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)').then((result) => result);
 
-const result = await CssFilterConverter.filterToHex(filterString);
+const result = await CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)');
 ```
 
 ## API
@@ -69,6 +68,11 @@ Result object:
 | loss | - | number  | Every execution of color to filter conversion will result in a slightly different color value due to the randomization used in the filter value generation process. This will cause some results to be more further away from the input color than the others, which is quantified by the loss value.    |
 | error | message | string  | This library does not throw runtime errors and instead populates the error key with an object containing a message property that describes the reason for the error occurance.   |
 
+```js
+const result = hexToFilter('#69A1DE');
+// { color: 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)', loss: 0.99, error: null }
+```
+
 ### Filter to color
 
 ```js
@@ -83,7 +87,7 @@ filterToRgb(filterString);
 // hsl
 filterToHsl(filterString);
 
-// conversion from filter is done asynchronously and the result can be accessed in one of the following ways:
+// conversion from filter is asynchronous and the result can be accessed in one of the following ways:
 
 const result = await filterToHex(filterString);
 
@@ -108,6 +112,11 @@ Result object:
 | :---------: | :-:  | :-:  | :- |
 | color | - |  string/array  | Color result. Value type is dependent on the color type or the 'resultType' option value. |
 | error | message | string  | This library does not throw runtime errors and instead populates the error key with an object containing a message property that describes the reason for the error occurance.   |
+
+```js
+const result = await filterToHex(filterString);
+// { color: '#6AA1E1', error: null }
+```
 
 ## Local setup
 
