@@ -2,9 +2,9 @@
 
 ## Description
 
-CSS Filter Converter is a simple tool used for converting basic css color formats to and from the css filter property.
+CSS Filter Converter is a simple tool used for converting basic css color formats to and from css filter.
 
-## Install
+## Installation
 
 ```
 npm install css-filter-converter
@@ -16,7 +16,7 @@ If you want the capability to convert from filter to a basic color, please addit
 npm install puppeteer
 ```
 
-## Usage
+## How to use
 
 ```js
 import CssFilterConverter from 'css-filter-converter';
@@ -24,11 +24,12 @@ import CssFilterConverter from 'css-filter-converter';
 // converting from basic color to filter
 const result = CssFilterConverter.hexToFilter('#69A1DE');
 
-
 // converting from filter to basic color
-CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)').then((result) => result);
+const filterString = 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)';
 
-const result = await CssFilterConverter.filterToHex('brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)');
+CssFilterConverter.filterToHex(filterString).then((result) => result);
+
+const result = await CssFilterConverter.filterToHex(filterString);
 ```
 
 ## API
@@ -56,19 +57,60 @@ keywordToFilter('blue');
 
 Options:
 | Name | Values | Default value | Description |
-| ----------- | :-: | :-: | - |
+| :---------: | :-: | :-: | :- |
 | sheen  |  true/false | true  | Reinforces the strength of resultant filter color by prepending the following properties 'brightness(0) saturate(100%)'. Recommended to leave enabled for SVG images. |
 
 ```js
-// example
 hexToFilter('#69A1DE', { sheen: false });
 ```
-Result:
+
+Result object:
 | Property Name | Nested Property | Type | Description |
-| ----------- | :-:  | :-:  | - |
+| :---------: | :-:  | :-:  | :- |
 | color | - |  string  | Css filter value.  |
-| loss | - | number  | Every re-run of color to filter converion will result in a slightly different value due to the randomization used for filter value generation, hence some results will have a higher loss than others meaning that their color is more different to the input inserted.    |
-| error | message | string  | The above properties will be set to null and this will contain a message that describes the reason for the resultant error.   |
+| loss | - | number  | Every execution of color to filter conversion will result in a slightly different color value due to the randomization used in the filter value generation process. This will cause some results to be more further away from the input color than the others, which is quantified by the loss value.    |
+| error | message | string  | This library does not throw runtime errors and instead populates the error key with an object containing a message property that describes the reason for the error occurance.   |
+
+### Filter to color
+
+Functions:
+```js
+const filterString = 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)';
+
+// hex
+filterToHex(filterString);
+
+// rgb
+filterToRgb(filterString);
+
+// hsl
+filterToHsl(filterString);
+
+// conversion from filter is done asynchronously and the result can be accessed in one of the following ways:
+
+const result = await filterToHex(filterString);
+
+CssFilterConverter.filterToHex(filterString).then((result) => {});
+```
+
+Options:
+| Name | Values | Default value | Colors | Description |
+| :---------: | :-: | :-: | :-: | :- |
+| resultType  |  'array'/'string' | 'array'  | RGB/HSL | Returns either an array or a formatted string. |
+
+```js
+const stringResult = await filterToRgb(filterString, { resultType: 'array' });
+// { color: [125, 125, 125] }
+
+const arrayResult = await filterToRgb(filterString, { resultType: 'string' });
+// { color: 'rgb(125, 125, 125)' }
+```
+
+Result object:
+| Property Name | Nested Property | Type | Description |
+| :---------: | :-:  | :-:  | :- |
+| color | - |  string/array  | Color result. Value type is dependent on the color type or the 'resultType' option value. |
+| error | message | string  | This library does not throw runtime errors and instead populates the error key with an object containing a message property that describes the reason for the error occurance.   |
 
 ## Local setup
 
@@ -78,8 +120,14 @@ Result:
 # Install node dependencies:
 $ npm install
 
-# Run the project in watch mode:
-$ npm run start
+# Execute index.ts code directly:
+$ npm run execute
+
+# Transpile on save:
+$ npm run watch
+
+# Run tests:
+$ npm run test
 ```
 
 ## Contributions

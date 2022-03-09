@@ -2,7 +2,7 @@
 
 ## Description
 
-CSS Filter Converter is a simple tool used for converting basic css color formats to and from the css filter property. It can be accessed through a dedicated [website](https://cssfilterconverter.com) or directly injected into your project via [NPM](https://npmjs.com/package/css-filter-converter).
+CSS Filter Converter is a simple tool used for converting basic css color formats to and from css filter. It can be accessed through a dedicated [website](https://cssfilterconverter.com) or directly injected into your project via [NPM](https://npmjs.com/package/css-filter-converter).
 
 ## Features
 
@@ -13,15 +13,15 @@ CSS Filter Converter is a simple tool used for converting basic css color format
 | To filter   |  ✓  |  ✓  |  ✓  |    ✓    |
 | From filter |  ✓  |  ✓  |  ✓  |    ✗    |
 
-### Sheen
+### Icon Mode
 
-In practice, filter css property is used to edit the color properties of the element that it is applied to, but will not completely override its existing color palette. This behaviour can sometimes make it difficult to achieve a consistent mono color for the underlying contents, leaving an undesirable partial color change effect that is especially evident in SVG images. The Sheen option is used to reinforce the application of the filter color by prepending the following properties 'brightness(0) saturate(100%)' that result in a well saturated single hue color:
+Filter css property can be used to set the color of your SVG images. Icon Mode panel allows you to upload your SVG images directly into this tool and immediately apply the result filter css value to them (This tool operates locally on your browser and no data leaves the privacy of your computer):
 
 GIF here
 
-### Icon Mode
+### Sheen
 
-Filter css property can be used to set the color of your SVG images. Icon Mode panel allows you to upload your SVG images directly into this tool which will automatically apply the result filter value to them and allow you to immediately observe their appearance (This tool operates locally on your browser and no data leaves the privacy of your computer):
+In practice, filter css property is used to edit the color properties of the element that it is applied to, but it will not completely override the existing colors. This behaviour can sometimes make it difficult to apply a consistent mono color for the underlying contents, leaving an undesirable partial color change effect that is especially evident in SVG images. The Sheen option is used to reinforce the application of the filter color by prepending the following properties <b>'brightness(0) saturate(100%)'</b> that will always result in a well saturated single hue color:
 
 GIF here
 
