@@ -26,7 +26,6 @@ const result = CssFilterConverter.hexToFilter('#69A1DE');
 
 // converting from filter to basic color
 const filterString = 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)';
-
 CssFilterConverter.filterToHex(filterString).then((result) => result);
 
 const result = await CssFilterConverter.filterToHex(filterString);
@@ -36,7 +35,6 @@ const result = await CssFilterConverter.filterToHex(filterString);
 
 ### Color to filter
 
-Functions:
 ```js
 // hex
 hexToFilter('#69A1DE');
@@ -73,7 +71,6 @@ Result object:
 
 ### Filter to color
 
-Functions:
 ```js
 const filterString = 'brightness(0) saturate(100%) invert(58%) sepia(55%) saturate(365%) hue-rotate(171deg) brightness(93%) contrast(98%)';
 
