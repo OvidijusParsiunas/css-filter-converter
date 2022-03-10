@@ -1,8 +1,10 @@
-function CssFilterLogoIcon() {
+import React from 'react';
+
+function Icon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 297 47">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 218 21">
       <defs>
-        <marker id="TriangleOutL" orient="auto" overflow="visible" refX="0" refY="0">
+        <marker orient="auto" overflow="visible" refX="0" refY="0">
           <path
             fill="#000"
             fillOpacity="1"
@@ -70,6 +72,17 @@ function CssFilterLogoIcon() {
         <filter id="filter7109" width="1" height="1" x="0" y="0" colorInterpolationFilters="sRGB">
           <feGaussianBlur stdDeviation="0" />
         </filter>
+        <marker id="marker1763-5" orient="auto" overflow="visible" refX="0" refY="0">
+          <path
+            fill="#3b3f62"
+            fillOpacity="1"
+            fillRule="evenodd"
+            stroke="#3b3f62"
+            strokeOpacity="1"
+            strokeWidth=".8pt"
+            d="M-4.616 0l6.92-4v8z"
+          />
+        </marker>
       </defs>
       <g strokeDasharray="none" strokeMiterlimit="4">
         <text
@@ -78,12 +91,12 @@ function CssFilterLogoIcon() {
           strokeWidth="1"
           filter="url(#filter7109)"
           fontFamily="Yu Gothic UI"
-          fontSize="28.222"
+          fontSize="21.449"
           fontStretch="normal"
           fontStyle="normal"
           fontVariant="normal"
           fontWeight="normal"
-          transform="translate(-12.862 -92.765)"
+          transform="translate(-15.583 -100.93)"
           xmlSpace="preserve"
           style={{
             lineHeight: '1.25',
@@ -91,23 +104,12 @@ function CssFilterLogoIcon() {
             whiteSpace: 'pre',
           }}
         >
-          <tspan x="16.631" y="125.206">
-            <tspan style={{}} fill="#5680c4">
+          <tspan x="16.631" y="119.105">
+            <tspan style={{}} fill="#476595">
               C
             </tspan>
-            <tspan fill="#5680c4">SS</tspan>
-            <tspan style={{}} fill="#779edc" />
-            <tspan style={{}} fill="#4b6b9e">
-              F
-            </tspan>
-            <tspan style={{}} fill="#4b6b9e">
-              ilter
-            </tspan>
-            <tspan style={{}} />
-            <tspan style={{}} fill="#345181">
-              Conv
-            </tspan>
-            <tspan style={{}}>erter</tspan>
+            <tspan fill="#476595">SS</tspan>
+            <tspan fill="#000">FilterConverter</tspan>
           </tspan>
         </text>
         <path
@@ -117,7 +119,7 @@ function CssFilterLogoIcon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.382"
-          d="M279.62 28.345h-18.672"
+          d="M202.891 14.587h-18.673"
         />
         <path
           fill="none"
@@ -126,16 +128,17 @@ function CssFilterLogoIcon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.265"
-          d="M283.217 24.875h-18.784"
+          d="M206.487 11.117h-18.784"
         />
         <path
-          fill="none"
-          stroke="#121315"
+          fill="#3b3f62"
+          fillOpacity="1"
+          stroke="#3b3f62"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.287"
-          d="M285.404 21.314h-17.567"
+          d="M208.675 7.556h-17.568"
         />
         <path
           fill="none"
@@ -145,21 +148,22 @@ function CssFilterLogoIcon() {
           strokeOpacity="1"
           strokeWidth="1.06"
           markerStart="url(#marker1763)"
-          d="M259.313 28.418v0l1.635-.073"
+          d="M182.583 14.66v0l1.635-.073"
         />
         <path
-          fill="none"
-          stroke="#000"
+          fill="#3b3f62"
+          fillOpacity="1"
+          stroke="#3b3f62"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="1.06"
-          markerMid="url(#TriangleOutL)"
-          d="M288.135 21.03v0l.768-1.323"
+          markerStart="url(#marker1763-5)"
+          d="M211.179 7.47h-2.504l4.14-.071"
         />
       </g>
     </svg>
   );
 }
 
-export default CssFilterLogoIcon;
+export default Icon;

@@ -1,8 +1,10 @@
-function CssFilterLogoIcon() {
+import React from 'react';
+
+function Icon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 297 47">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 298 47">
       <defs>
-        <marker id="TriangleOutL" orient="auto" overflow="visible" refX="0" refY="0">
+        <marker orient="auto" overflow="visible" refX="0" refY="0">
           <path
             fill="#000"
             fillOpacity="1"
@@ -70,6 +72,17 @@ function CssFilterLogoIcon() {
         <filter id="filter7109" width="1" height="1" x="0" y="0" colorInterpolationFilters="sRGB">
           <feGaussianBlur stdDeviation="0" />
         </filter>
+        <marker id="marker1763-5" orient="auto" overflow="visible" refX="0" refY="0">
+          <path
+            fill="#121315"
+            fillOpacity="1"
+            fillRule="evenodd"
+            stroke="#121315"
+            strokeOpacity="1"
+            strokeWidth=".8pt"
+            d="M-4.616 0l6.92-4v8z"
+          />
+        </marker>
       </defs>
       <g strokeDasharray="none" strokeMiterlimit="4">
         <text
@@ -97,16 +110,9 @@ function CssFilterLogoIcon() {
             </tspan>
             <tspan fill="#5680c4">SS</tspan>
             <tspan style={{}} fill="#779edc" />
-            <tspan style={{}} fill="#4b6b9e">
-              F
-            </tspan>
-            <tspan style={{}} fill="#4b6b9e">
-              ilter
-            </tspan>
+            <tspan>Filter</tspan>
             <tspan style={{}} />
-            <tspan style={{}} fill="#345181">
-              Conv
-            </tspan>
+            <tspan>Conv</tspan>
             <tspan style={{}}>erter</tspan>
           </tspan>
         </text>
@@ -117,7 +123,7 @@ function CssFilterLogoIcon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.382"
-          d="M279.62 28.345h-18.672"
+          d="M268.508 28.345h-18.673"
         />
         <path
           fill="none"
@@ -126,16 +132,17 @@ function CssFilterLogoIcon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.265"
-          d="M283.217 24.875h-18.784"
+          d="M272.104 24.875h-18.783"
         />
         <path
-          fill="none"
+          fill="#2d2d2d"
+          fillOpacity="1"
           stroke="#121315"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.287"
-          d="M285.404 21.314h-17.567"
+          d="M274.292 21.314h-17.568"
         />
         <path
           fill="none"
@@ -145,21 +152,22 @@ function CssFilterLogoIcon() {
           strokeOpacity="1"
           strokeWidth="1.06"
           markerStart="url(#marker1763)"
-          d="M259.313 28.418v0l1.635-.073"
+          d="M248.2 28.418v0l1.635-.073"
         />
         <path
-          fill="none"
-          stroke="#000"
+          fill="#121315"
+          fillOpacity="1"
+          stroke="#121315"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="1.06"
-          markerMid="url(#TriangleOutL)"
-          d="M288.135 21.03v0l.768-1.323"
+          markerStart="url(#marker1763-5)"
+          d="M276.796 21.23h-2.504l4.14-.073"
         />
       </g>
     </svg>
   );
 }
 
-export default CssFilterLogoIcon;
+export default Icon;

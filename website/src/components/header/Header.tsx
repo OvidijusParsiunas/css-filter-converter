@@ -1,7 +1,8 @@
 import { APP_FADE_IN_ANIMATION_DELAY_ML } from '../../shared/consts/appAppearanceDelays';
 import { Animations } from '../../shared/functionality/animations/animations';
 import { FadeAnimationClasses } from '../../shared/consts/animationClasses';
-import CssFilterLogoIcon from './cssFilterLogoIcon';
+// WORK - rename
+import CssFilterLogoIcon3 from './cssFilterLogoIcon3';
 import npmLogoBlack from './npm-logo-black.png';
 import npmLogoRed from './npm-logo-red.png';
 import githubLogo from './github-logo.png';
@@ -18,9 +19,8 @@ export default function Header() {
   return (
     <div id="header" className={`header-content ${fadeInClass}`}>
       <div id="css-filter-converter-logo">
-        <div id="css-filter-converter-logo-text">CSS Filter Converter</div>
         <div id="css-filter-converter-logo-icon">
-          <CssFilterLogoIcon />
+          <CssFilterLogoIcon3 />
         </div>
       </div>
       <a href="https://www.npmjs.com/package/css-filter-converter" target="_blank" rel="noreferrer">
