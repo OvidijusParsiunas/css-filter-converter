@@ -1,4 +1,6 @@
-# css-filter-converter - Title image
+<p align="center"> 
+    <img style="margin-left: -25px" width="70%" src="../readme/images/logo2.png" alt="Logo">
+</p>
 
 ## Description
 
