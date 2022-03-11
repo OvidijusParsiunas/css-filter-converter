@@ -96,25 +96,25 @@ function Icon() {
       </defs>
       <g strokeDasharray="none" strokeMiterlimit="4">
         <text
-          fill="#2d2d2d"
-          fillOpacity="1"
-          strokeWidth="1"
-          filter="url(#filter7109)"
-          fontFamily="Yu Gothic UI"
-          fontSize="21.449"
-          fontStretch="normal"
-          fontStyle="normal"
-          fontVariant="normal"
-          fontWeight="normal"
           transform="translate(-15.583 -100.93)"
-          xmlSpace="preserve"
           style={{
             lineHeight: '1.25',
             fontFamily: "'Yu Gothic UI'",
             whiteSpace: 'pre',
           }}
+          fill="#2d2d2d"
+          fillOpacity="1"
+          strokeWidth="1"
+          filter="url(#filter7109)"
+          fontFamily="Yu Gothic UI"
+          fontSize="21.167"
+          fontStretch="normal"
+          fontStyle="normal"
+          fontVariant="normal"
+          fontWeight="normal"
+          xmlSpace="preserve"
         >
-          <tspan x="16.631" y="119.105">
+          <tspan x="16.631" y="118.851">
             <tspan style={{}} fill="#476595">
               C
             </tspan>
@@ -128,7 +128,7 @@ function Icon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.382"
-          d="M203.95 14.587h-18.673"
+          d="M205.008 14.587h-18.673"
         />
         <path
           fill="none"
@@ -137,7 +137,7 @@ function Icon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.265"
-          d="M207.545 11.117h-18.783"
+          d="M208.604 11.117H189.82"
         />
         <path
           fill="#3b3f62"
@@ -147,7 +147,7 @@ function Icon() {
           strokeLinejoin="miter"
           strokeOpacity="1"
           strokeWidth="4.287"
-          d="M209.733 7.556h-17.567"
+          d="M210.791 7.556h-17.567"
         />
         <path
           fill="none"
@@ -157,7 +157,7 @@ function Icon() {
           strokeOpacity="1"
           strokeWidth="1.06"
           markerStart="url(#marker1763)"
-          d="M183.641 14.66v0l1.636-.073"
+          d="M184.7 14.66v0l1.635-.073"
         />
         <path
           fill="#3b3f62"
@@ -168,52 +168,56 @@ function Icon() {
           strokeOpacity="1"
           strokeWidth="1.06"
           markerStart="url(#marker1763-5)"
-          d="M212.237 7.47h-2.504l4.14-.071"
+          d="M213.295 7.47h-2.504l4.14-.071"
         />
         <text
-          transform="translate(21.637 -100.869)"
-          style={{
-            lineHeight: '1.25',
-            fontFamily: "'Yu Gothic UI'",
-            whiteSpace: 'pre',
-          }}
           fill="#2d2d2d"
           fillOpacity="1"
           strokeWidth="1"
           filter="url(#filter7109-3)"
           fontFamily="Yu Gothic UI"
-          fontSize="21.449"
+          fontSize="21.167"
           fontStretch="normal"
           fontStyle="normal"
           fontVariant="normal"
           fontWeight="normal"
+          transform="translate(22.695 -100.869)"
           xmlSpace="preserve"
-        >
-          <tspan x="16.631" y="119.105">
-            <tspan fill="#000">Filter</tspan>
-          </tspan>
-        </text>
-        <text
-          transform="translate(69.467 -100.936)"
           style={{
             lineHeight: '1.25',
             fontFamily: "'Yu Gothic UI'",
             whiteSpace: 'pre',
           }}
+        >
+          <tspan x="16.631" y="118.851">
+            <tspan fill="#000" fontSize="21.167">
+              Filter
+            </tspan>
+          </tspan>
+        </text>
+        <text
           fill="#2d2d2d"
           fillOpacity="1"
           strokeWidth="1"
           filter="url(#filter7109-1)"
           fontFamily="Yu Gothic UI"
-          fontSize="21.449"
+          fontSize="21.167"
           fontStretch="normal"
           fontStyle="normal"
           fontVariant="normal"
           fontWeight="normal"
+          transform="translate(70.526 -100.936)"
           xmlSpace="preserve"
+          style={{
+            lineHeight: '1.25',
+            fontFamily: "'Yu Gothic UI'",
+            whiteSpace: 'pre',
+          }}
         >
-          <tspan x="16.631" y="119.105">
-            <tspan fill="#000">Converter</tspan>
+          <tspan x="16.631" y="118.851">
+            <tspan fill="#000" fontSize="21.167">
+              Converter
+            </tspan>
           </tspan>
         </text>
       </g>
