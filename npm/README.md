@@ -1,15 +1,15 @@
 <p align="center"> 
-    <img style="margin-left: -25px" width="70%" src="../readme/images/logo2.png" alt="Logo">
+    <img style="margin-left: -20px" width="70%" src="../readme/images/logo2.png" alt="Logo">
 </p>
 
 <div align="center">
-<a href="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch">
-<img style="margin-left: -60px" src="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch" alt="Build status">
-</a><a href="https://img.shields.io/bundlephobia/min/css-filter-converter">
-<img src="https://img.shields.io/bundlephobia/min/css-filter-converter" alt="Build status">
-</a><a href="https://img.shields.io/npm/v/css-filter-converter">
-<img src="https://img.shields.io/npm/v/css-filter-converter" alt="Build status">
-</a>
+    <a href="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch">
+        <img style="margin-left: -60px" src="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch" alt="Build status">
+    </a><a href="https://img.shields.io/bundlephobia/min/css-filter-converter">
+        <img src="https://img.shields.io/bundlephobia/min/css-filter-converter" alt="Build status">
+    </a><a href="https://img.shields.io/npm/v/css-filter-converter">
+        <img src="https://img.shields.io/npm/v/css-filter-converter" alt="Build status">
+    </a>
 </div>
 
 ## Description
