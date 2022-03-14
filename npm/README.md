@@ -1,10 +1,10 @@
 <p align="center"> 
-    <img style="margin-left: -20px" width="70%" src="../readme/images/logo2.png" alt="Logo">
+    <img style="margin-left: -20px" width="70%" src="./readme/images/logo.png" alt="Logo">
 </p>
 
 <div align="center">
     <a href="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch">
-        <img style="margin-left: -80px" src="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch" alt="Build status">
+        <img style="margin-left: -84px" src="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20master%20branch%20and%20deploy%20to%20the%20gh-pages%20branch" alt="Build status">
     </a><a href="https://img.shields.io/bundlephobia/min/css-filter-converter">
         <img src="https://img.shields.io/bundlephobia/min/css-filter-converter" alt="Build status">
     </a><a href="https://img.shields.io/npm/v/css-filter-converter">
@@ -77,7 +77,7 @@ Result object:
 | Property Name | Nested Property | Type | Description |
 | :---------: | :-:  | :-:  | :- |
 | color | - |  string  | Css filter value.  |
-| loss | - | number  | Every execution of color to filter conversion will result in a slightly different color value due to the randomization used in the filter value generation process. This will cause some results to be more further away from the input color than the others, which is quantified by the loss value.    |
+| loss | - | number  | Every execution of color to filter conversion will result in a slightly different color value due to the randomization used in the filter value generation process. This will cause some results to be more further away from the input color than others, which is quantified by the loss value.    |
 | error | message | string  | This library does not throw runtime errors and instead populates the error key with an object containing a message property that describes the reason for the error occurance.   |
 
 ```js
