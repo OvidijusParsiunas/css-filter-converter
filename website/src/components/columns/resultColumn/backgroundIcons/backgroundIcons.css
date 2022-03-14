@@ -1,4 +1,4 @@
-.background-icon-container {
+#background-icons-container {
   width: 100vw;
   height: calc(55vh - 75px);
   top: 90px;
@@ -8,10 +8,22 @@
   grid-template-columns: 50% 50%;
 }
 
+@media (max-height: 450px) {
+  #background-icons-container {
+    top: 40px;
+  }
+}
+
+@media (max-height: 380px), (max-width: 1000px) {
+  #background-icons-container {
+    display: none !important;
+  }
+}
+
 .background-icon {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 300px;
-  opacity: 1;
+  opacity: 0.04;
 }

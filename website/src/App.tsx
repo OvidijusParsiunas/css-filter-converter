@@ -31,7 +31,6 @@ export default function App() {
   const iconModePanelRef = React.useRef<HTMLDivElement>(null);
   const resultHeaderTextRef = React.useRef<HTMLDivElement>(null);
 
-  // WORK - refactor this
   return (
     <ErrorBoundary>
       <SmallScreenErrorAlert />
