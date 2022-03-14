@@ -1,4 +1,5 @@
 import FilterColorResult from './resultTypes/FilterColorResult';
+import BackgroundIcons from './backgroundIcons/backgroundIcons';
 import { InputTypes } from '../../../shared/consts/inputTypes';
 import BasicColorResult from './resultTypes/BasicColorResult';
 import { RootReducer } from '../../../state/rootReducer';
@@ -21,10 +22,12 @@ export default function Result(props: Props) {
       {inputTypeState === InputTypes.FILTER ? (
         <BasicColorResult resultHeaderTextRef={resultHeaderTextRef}>
           <History />
+          <BackgroundIcons />
         </BasicColorResult>
       ) : (
         <FilterColorResult resultHeaderTextRef={resultHeaderTextRef}>
           <History />
+          <BackgroundIcons />
         </FilterColorResult>
       )}
     </div>

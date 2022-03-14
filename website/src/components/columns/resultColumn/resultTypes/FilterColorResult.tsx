@@ -1,6 +1,6 @@
 import { SheenUtil as CssFilterConverterSheenUtil } from 'css-filter-converter/lib/shared/functionality/sheen/sheenUtil';
 import { Animations } from '../../../../shared/functionality/animations/animations';
-import { ComponentAsProp } from '../../../../shared/types/componentAsProp';
+import { ComponentsAsProp } from '../../../../shared/types/componentAsProp';
 import { RESULT_FONT_SIZE } from '../../../../shared/consts/styling';
 import ResultHeaderText from '../resultHeaderText/resultHeaderText';
 import CopyButtonWrapper from '../copyButton/CopyButtonWrapper';
@@ -11,7 +11,7 @@ import { SheenUtil } from './sheenUtil';
 import React from 'react';
 
 type Props = {
-  children: ComponentAsProp;
+  children: ComponentsAsProp;
   resultHeaderTextRef: React.RefObject<HTMLDivElement>;
 };
 

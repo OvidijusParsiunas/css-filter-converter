@@ -13,7 +13,6 @@ import './shared/functionality/animations/animations.css';
 import Column from './components/columns/wrapper/Column';
 import { setDispatch } from './state/error/actions';
 import Header from './components/header/Header';
-import BackgroundIcon from './BackgroundIcon';
 import { useDispatch } from 'react-redux';
 import './shared/style/globalStyle.css';
 import React from 'react';
@@ -37,12 +36,6 @@ export default function App() {
     <ErrorBoundary>
       <SmallScreenErrorAlert />
       <Header />
-      <div style={{ width: 300, left: '15%', top: 320, opacity: '0.04', position: 'absolute' }}>
-        <BackgroundIcon />
-      </div>
-      <div style={{ width: 300, right: '15%', top: 320, opacity: '0.04', position: 'absolute' }}>
-        <BackgroundIcon />
-      </div>
       <div className={`app ${fadeInClass}`}>
         <Column zIndex={2} ref={inputColumnRef}>
           <Input />
