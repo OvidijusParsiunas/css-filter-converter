@@ -19,13 +19,17 @@ CSS Filter Converter is a simple tool used for converting basic css color format
 
 Filter css property can be used to set the color of your SVG images. Icon Mode panel allows you to upload your SVG images directly into this tool and immediately apply the result filter css value to them (This tool operates locally on your browser and no data leaves the privacy of your computer):
 
-GIF here
+<p align="center">
+    <img width="1000" src="npm\readme\gifs\icon-mode.gif" alt="Logo">
+</p>
 
 ### Sheen
 
 In practice, filter css property is used to edit the color properties of the element that it is applied to, but it will not completely override the existing colors. This behaviour can sometimes make it difficult to apply a consistent mono color for the underlying contents, leaving an undesirable partial color change effect that is especially evident in SVG images. The Sheen option is used to reinforce the application of the filter color by prepending the following properties <b>'brightness(0) saturate(100%)'</b> that will always result in a well saturated single hue color:
 
-GIF here
+<p align="center">
+    <img width="1000" src="npm\readme\gifs\sheen.gif" alt="Logo">
+</p>
 
 ## More information
 
