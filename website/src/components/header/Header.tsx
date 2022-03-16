@@ -19,8 +19,16 @@ export default function Header() {
   return (
     <div id="header" className={`header-content ${fadeInClass}`}>
       <div id="css-filter-converter-logo">
-        <div id="css-filter-converter-logo-icon">
-          <CssFilterLogoIcon3 />
+        <div id="css-filter-converter-logo-container">
+          <div id="css-filter-converter-logo-text">
+            <span style={{ color: '#476595' }}>CSS</span>
+            <span style={{ marginLeft: 2, color: '#26416e' }}>Filter</span>
+            <span style={{ marginLeft: 1, color: '#1d3051' }}>Con</span>
+            <span>verter</span>
+          </div>
+          <div id="css-filter-converter-logo-icon">
+            <CssFilterLogoIcon3 />
+          </div>
         </div>
       </div>
       <a href="https://www.npmjs.com/package/css-filter-converter" target="_blank" rel="noreferrer">

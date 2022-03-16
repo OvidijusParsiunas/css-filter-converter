@@ -45,11 +45,24 @@
   font-family: 'Yu Gothic UI';
 }
 
-#css-filter-converter-logo-icon {
-  width: 220px;
+#css-filter-converter-logo-container {
   float: left;
-  margin-top: 7px;
-  margin-left: 7px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+#css-filter-converter-logo-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  transform: scale(0.94, 0.98);
+  float: left;
+}
+
+#css-filter-converter-logo-icon {
+  width: 44px;
+  margin-top: 5px;
+  margin-left: -6px;
+  float: left;
 }
 
 #github-logo {
