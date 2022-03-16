@@ -1,3 +1,5 @@
+import { AppInitializationReducer } from './appInitialisation/reducer';
+import { AppInitializationState } from './appInitialisation/type';
 import { CombinedState, combineReducers, Reducer } from 'redux';
 import { SettingsReducer } from './settings/reducer';
 import { HistoryReducer } from './history/reducer';
@@ -16,6 +18,7 @@ export type RootReducer = {
   result: ResultState;
   history: HistoryState;
   settings: SettingsState;
+  appInitialization: AppInitializationState;
 };
 
 export const rootReducer: Reducer<CombinedState<RootReducer>, never> = combineReducers({
@@ -24,4 +27,5 @@ export const rootReducer: Reducer<CombinedState<RootReducer>, never> = combineRe
   result: ResultReducer,
   history: HistoryReducer,
   settings: SettingsReducer,
+  appInitialization: AppInitializationReducer,
 });

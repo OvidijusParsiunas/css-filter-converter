@@ -1,15 +1,15 @@
-import { FadeAnimationClasses } from '../../consts/animationClasses';
+import { FadeClasses } from '../../consts/animationClasses';
 
 export class Animations {
   public static getFadeInClassIfConditionMet(condition: boolean, startClass?: string, finishClass?: string): string {
-    const fadeStartClass = startClass || FadeAnimationClasses.FADE_OUT;
-    const fadeFinishClass = finishClass || FadeAnimationClasses.FADE_IN;
+    const fadeStartClass = startClass || FadeClasses.FADED_OUT;
+    const fadeFinishClass = finishClass || FadeClasses.FADE_IN_ANIMATION;
     return condition ? fadeFinishClass : fadeStartClass;
   }
 
-  public static fadeInAfterDelay(callback: (displayClass: FadeAnimationClasses) => unknown, delayMl: number): void {
+  public static fadeInAfterDelay(callback: (displayClass: FadeClasses) => unknown, delayMl: number): void {
     setTimeout(() => {
-      callback(FadeAnimationClasses.FADE_IN);
+      callback(FadeClasses.FADE_IN_ANIMATION);
     }, delayMl);
   }
 
@@ -21,20 +21,20 @@ export class Animations {
 
   private static removeFadeAnimationClasses(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.remove(FadeAnimationClasses.FADE_OUT);
-      element.classList.remove(FadeAnimationClasses.FADE_IN);
+      element.classList.remove(FadeClasses.FADED_OUT);
+      element.classList.remove(FadeClasses.FADE_IN_ANIMATION);
     });
   }
 
   private static fadeIn(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.add(FadeAnimationClasses.FADE_IN);
+      element.classList.add(FadeClasses.FADE_IN_ANIMATION);
     });
   }
 
   private static fadeOut(elements: HTMLElement[]): void {
     elements.forEach((element) => {
-      element.classList.add(FadeAnimationClasses.FADE_OUT);
+      element.classList.add(FadeClasses.FADED_OUT);
     });
   }
 

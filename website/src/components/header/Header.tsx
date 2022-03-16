@@ -1,7 +1,3 @@
-import { APP_FADE_IN_ANIMATION_DELAY_ML } from '../../shared/consts/appAppearanceDelays';
-import { Animations } from '../../shared/functionality/animations/animations';
-import { FadeAnimationClasses } from '../../shared/consts/animationClasses';
-// WORK - rename
 import CssFilterLogoIcon3 from './cssFilterLogoIcon3';
 import npmLogoBlack from './npm-logo-black.png';
 import npmLogoRed from './npm-logo-red.png';
@@ -12,12 +8,9 @@ import './header.css';
 
 export default function Header() {
   const [npmLogoPath, setNpmLogoPath] = React.useState(npmLogoBlack);
-  const [fadeInClass, setFadeInClass] = React.useState(FadeAnimationClasses.FADE_OUT);
-
-  Animations.fadeInAfterDelay(setFadeInClass, APP_FADE_IN_ANIMATION_DELAY_ML);
 
   return (
-    <div id="header" className={`header-content ${fadeInClass}`}>
+    <div id="header" className="header-content">
       <div id="css-filter-converter-logo">
         <div id="css-filter-converter-logo-container">
           <div id="css-filter-converter-logo-text">

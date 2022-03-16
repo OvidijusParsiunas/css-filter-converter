@@ -1,4 +1,4 @@
-export enum FadeAnimationClasses {
-  FADE_OUT = 'fade-out-animaiton',
-  FADE_IN = 'fade-in-animation',
+export enum FadeClasses {
+  FADED_OUT = 'faded-out',
+  FADE_IN_ANIMATION = 'fade-in-animation',
 }
