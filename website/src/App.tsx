@@ -28,8 +28,8 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <SmallScreenErrorAlert />
       <AppLoadDelay>
+        <SmallScreenErrorAlert />
         <Header />
         <div className="app">
           <Column zIndex={2} ref={inputColumnRef}>
