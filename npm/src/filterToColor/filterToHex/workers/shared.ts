@@ -49,7 +49,7 @@ export class FilterToHexShared {
 
   // functions are encapsulated within a single method in order to allow them to be executed within the same context
   // of the puppeteer evaluate method
-  protected static async getColorViaImageDataURL(byte64EncodedDataURL: string): Promise<string> {
+  protected static async getColorViaImageDataURL(base64EncodedDataURL: string): Promise<string> {
     function rgbToHex(r: number, g: number, b: number): string {
       if (r > 255 || g > 255 || b > 255) throw new Error('Invalid color component');
       return ((r << 16) | (g << 8) | b).toString(16);
@@ -88,7 +88,7 @@ export class FilterToHexShared {
 
     async function createImage(): Promise<HTMLImageElement> {
       const imageElement = new Image();
-      imageElement.src = byte64EncodedDataURL;
+      imageElement.src = base64EncodedDataURL;
       return new Promise((resolve) => {
         setTimeout(() => resolve(imageElement));
       });

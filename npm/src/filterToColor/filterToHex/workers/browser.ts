@@ -15,7 +15,7 @@ export class FilterToHexBrowser extends FilterToHexShared {
     return errorResult;
   }
 
-  private static async getImageByte64ViaSVG(svgContainerElement: HTMLElement): Promise<string> {
+  private static async getImageBase64ViaSVG(svgContainerElement: HTMLElement): Promise<string> {
     const domToImage = (await import('dom-to-image')) as unknown as DomToImage;
     return domToImage.toPng(svgContainerElement);
   }
@@ -23,8 +23,8 @@ export class FilterToHexBrowser extends FilterToHexShared {
   public static async convert<T>(filterString: string): Promise<FilterToColorResult<T>> {
     const { errorMessage, svgContainerElement } = FilterToHexShared.addSVGElementsToDOMAndValidateFilter(filterString);
     if (errorMessage) return FilterToHexBrowser.returnInputError(filterString, svgContainerElement);
-    const byte64EncodedDataURL = await FilterToHexBrowser.getImageByte64ViaSVG(svgContainerElement);
-    const hexColor = await FilterToHexShared.getColorViaImageDataURL(byte64EncodedDataURL);
+    const base64EncodedDataURL = await FilterToHexBrowser.getImageBase64ViaSVG(svgContainerElement);
+    const hexColor = await FilterToHexShared.getColorViaImageDataURL(base64EncodedDataURL);
     FilterToHexBrowser.cleanup(svgContainerElement);
     return { color: hexColor as unknown as T };
   }

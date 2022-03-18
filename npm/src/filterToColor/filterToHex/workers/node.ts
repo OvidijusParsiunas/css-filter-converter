@@ -28,7 +28,7 @@ export class FilterToHexNode extends FilterToHexShared {
     return errorResult;
   }
 
-  private static async getImageByte64ViaSVG(page: Puppeteer.Page): Promise<string> {
+  private static async getImageBase64ViaSVG(page: Puppeteer.Page): Promise<string> {
     const endodedScreenshotData = await page.screenshot({ encoding: FilterToHexNode.BASE_64_ENCODING });
     return `${FilterToHexNode.ENCODED_DATA_URL_PREFIX}${endodedScreenshotData}`;
   }
@@ -83,8 +83,8 @@ export class FilterToHexNode extends FilterToHexShared {
     const page = await FilterToHexNode.openBrowserPage(browser);
     const addSvgResult = await FilterToHexNode.addSVGAndValidateFilter(page, filterString);
     if (ErrorHandling.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
-    const byte64EncodedDataURL = await FilterToHexNode.getImageByte64ViaSVG(page);
-    const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, byte64EncodedDataURL);
+    const base64EncodedDataURL = await FilterToHexNode.getImageBase64ViaSVG(page);
+    const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, base64EncodedDataURL);
     FilterToHexNode.cleanup(browser);
     return { color: hexColor as unknown as T };
   }
