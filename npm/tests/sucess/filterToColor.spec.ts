@@ -55,7 +55,7 @@ describe('Filter to color SUCCESS tests - ', () => {
         'brightness(0) saturate(100%) invert(60%) sepia(67%) saturate(308%) hue-rotate(172deg) brightness(88%) contrast(100%)    ',
         '#6AA1E0',
         [106, 161, 224],
-        [212, 66, 65],
+        [212, 66, 80],
       ],
       [
         'brightness(  0) saturate(100% ) invert(60%  ) sepia(67%  ) saturate(308%)    HUE-ROTATE(172deg) brightness(88%) contrast(100%)    ',

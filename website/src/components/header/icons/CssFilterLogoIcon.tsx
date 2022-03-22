@@ -1,4 +1,4 @@
-function Icon() {
+export default function CssFilterLogoIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 44 21">
       <defs>
@@ -115,5 +115,3 @@ function Icon() {
     </svg>
   );
 }
-
-export default Icon;

@@ -1,7 +1,7 @@
 import { toggleDropdown } from '../../../state/settings/actions';
 import SettingsDropdown from './SettingsDropdown';
+import cogIcon from '../icons/cogwheel.svg';
 import { useDispatch } from 'react-redux';
-import cogIcon from './cogwheel.svg';
 import React from 'react';
 import './settings.css';
 

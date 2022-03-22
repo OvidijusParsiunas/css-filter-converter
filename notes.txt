@@ -1,5 +1,3 @@
-prettier git hook instead of ammending files locally
-
 Fallback regex:
 allow rgb
 /^rgb\(\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*,\s*(0|[1-9]\d?|1\d\d?|2[0-4]\d|25[0-5])%?\s*\)$/i
@@ -19,12 +17,9 @@ validate and expand shorthand hex to long
 // const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 // return shorthandHex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
 
+consider using husky to pre-run required checks before committing
+
 optimize code for treeshaking
 
-unit tests
+use the following link to convert svgs to react components - https://svg2jsx.com/
 
-Website:
-
-favicon
-
-remove boilerplate testing files

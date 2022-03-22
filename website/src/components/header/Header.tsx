@@ -1,7 +1,7 @@
-import CssFilterLogoIcon3 from './cssFilterLogoIcon3';
-import npmLogoBlack from './npm-logo-black.png';
-import npmLogoRed from './npm-logo-red.png';
-import githubLogo from './github-logo.png';
+import CssFilterLogoIcon from './icons/CssFilterLogoIcon';
+import npmLogoBlack from './icons/npm-logo-black.png';
+import npmLogoRed from './icons/npm-logo-red.png';
+import githubLogo from './icons/github-logo.png';
 import Settings from './settings/Settings';
 import React from 'react';
 import './header.css';
@@ -20,7 +20,7 @@ export default function Header() {
             <span>verter</span>
           </div>
           <div id="css-filter-converter-logo-icon">
-            <CssFilterLogoIcon3 />
+            <CssFilterLogoIcon />
           </div>
         </div>
       </div>
