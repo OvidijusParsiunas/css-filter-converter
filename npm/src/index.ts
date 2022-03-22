@@ -41,8 +41,3 @@ export default class CssFilterConverter {
 }
 
 module.exports = CssFilterConverter;
-
-// console.log(CssFilterConverter.keywordToFilter('blue' as unknown as 'red'));
-// CssFilterConverter.filterToRgb(
-//   'invert(38%) sepia(78%) saturate(2066%) hue-rotate(166deg) brightness(102%) contrast(101%)',
-// ).then((result) => console.log(result));

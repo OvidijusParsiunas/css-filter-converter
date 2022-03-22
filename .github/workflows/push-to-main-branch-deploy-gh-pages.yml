@@ -1,4 +1,4 @@
-name: push to master branch and deploy to the gh-pages branch
+name: push to main branch and deploy to the gh-pages branch
 on:
   push:
     branches:
@@ -8,19 +8,19 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_ENV: development
+      NODE_ENV: production
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
-      - name: Install and Build NPM 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Install and Build NPM 🔧
         run: |
           cd npm
           npm install
           npm run test
           npm run build
-      - name: Install and Build Wesbite 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Install and Build Wesbite 🔧
         run: |
           cd website
           npm install
