@@ -16,8 +16,18 @@
     "url": "git+https://github.com/OvidijusParsiunas/css-filter-converter.git"
   },
   "types": "lib/index.d.ts",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "hex",
+    "hexadecimal",
+    "rgb",
+    "hsl",
+    "filter",
+    "converter",
+    "generator",
+    "color",
+    "css"
+  ],
+  "author": "Ovidijus Parsiunas",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/OvidijusParsiunas/css-filter-converter/issues"
