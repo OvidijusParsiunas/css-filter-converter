@@ -58,7 +58,7 @@ export class FilterToHexNode extends FilterToHexShared {
 
   private static async getPuppeteerDependency(): Promise<Puppeteer.PuppeteerNode | Error> {
     try {
-      // this is used to prevent webpack from evaluating the puppeteer module by adding dynamicity to the require path
+      // this is used to prevent tsc from evaluating the puppeteer module by adding dynamicity to the require path
       const pathPadding = '';
       // eslint-disable-next-line prefer-template
       return require('puppeteer' + pathPadding);

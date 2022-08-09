@@ -33,7 +33,7 @@ export default function AppLoadDelay(props: Props) {
     Animations.fadeInAfterDelay(beginFadeInAnimation, Math.max(0, fadeInDelayMl));
   };
 
-  const handleFonstStyleError = () => {
+  const handleFontStyleError = () => {
     ErrorHandler.displayMessageOnConsole('Failed to load font stylesheet');
     onFontStyleLoaded();
   };
@@ -42,7 +42,7 @@ export default function AppLoadDelay(props: Props) {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-    link.onerror = () => handleFonstStyleError();
+    link.onerror = () => handleFontStyleError();
     link.onload = () => onFontStyleLoaded();
     document.getElementsByTagName('head')[0].appendChild(link);
   };
