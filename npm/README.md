@@ -3,8 +3,8 @@
 </p>
 
 <div align="center">
-    <a href="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20main%20branch%20and%20deploy%20to%20the%20gh-pages%20branch">
-        <img style="margin-left: -84px" src="https://img.shields.io/github/workflow/status/OvidijusParsiunas/css-filter-converter/push%20to%20main%20branch%20and%20deploy%20to%20the%20gh-pages%20branch" alt="Build status">
+    <a href="https://img.shields.io/github/actions/workflow/status/OvidijusParsiunas/css-filter-converter/push-to-main-branch-deploy-gh-pages.yml?branch=main">
+        <img style="margin-left: -84px" src="https://img.shields.io/github/actions/workflow/status/OvidijusParsiunas/css-filter-converter/push-to-main-branch-deploy-gh-pages.yml?branch=main" alt="Build status">
     </a><a href="https://img.shields.io/bundlephobia/min/css-filter-converter">
         <img src="https://img.shields.io/bundlephobia/min/css-filter-converter" alt="Build status">
     </a><a href="https://img.shields.io/npm/v/css-filter-converter">
