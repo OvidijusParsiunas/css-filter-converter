@@ -28,7 +28,7 @@
     "css"
   ],
   "author": "Ovidijus Parsiunas",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/OvidijusParsiunas/css-filter-converter/issues"
   },

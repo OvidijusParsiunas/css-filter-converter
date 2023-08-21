@@ -22,7 +22,7 @@ CSS Filter Converter is a simple tool used for converting basic css color format
 npm install css-filter-converter
 ```
 
-If you want the capability to convert from filter to a basic color, please additionally install puppeteer by running the following command:
+If you want the capability for converting from filter to a basic color, please additionally install puppeteer by running the following command:
 
 ```
 npm install puppeteer
@@ -67,7 +67,7 @@ keywordToFilter('blue');
 Options:
 | Name | Values | Default value | Description |
 | :---------: | :-: | :-: | :- |
-| sheen  |  true/false | true  | Reinforces the strength of resultant filter color by prepending the following properties 'brightness(0) saturate(100%)'. Recommended to leave enabled for SVG images. |
+| sheen  |  true/false | true  | Reinforces the strength of resultant filter color by prepending the following properties 'brightness(0) saturate(100%)'. Recommended to have enabled for SVG images. |
 
 ```js
 hexToFilter('#69A1DE', { sheen: false });
