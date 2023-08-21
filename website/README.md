@@ -1,5 +1,5 @@
 <p align="center"> 
-    <img style="margin-left: -20px" width="70%" src="../readme/images/logo.png" alt="Logo">
+    <img style="margin-left: -20px" width="70%" src="../readme/images/logo-2.png" alt="Logo">
 </p>
 
 ## Description
