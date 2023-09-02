@@ -14,10 +14,10 @@ export default function Header() {
       <div id="css-filter-converter-logo">
         <div id="css-filter-converter-logo-container">
           <div id="css-filter-converter-logo-text">
-            <span style={{ color: '#476595' }}>CSS</span>
-            <span style={{ marginLeft: 2, color: '#26416e' }}>Filter</span>
-            <span style={{ marginLeft: 1, color: '#1d3051' }}>Con</span>
-            <span>verter</span>
+            <span style={{ color: '#527ec4' }}>CSS</span>
+            <span style={{ marginLeft: 2, color: '#2e5eaa' }}>Filter</span>
+            <span style={{ marginLeft: 1, color: '#335b9e' }}>Con</span>
+            <span style={{ marginLeft: 1, color: '#274578' }}>verter</span>
           </div>
           <div id="css-filter-converter-logo-icon">
             <CssFilterLogoIcon />
