@@ -1,6 +1,6 @@
 {
   "name": "css-filter-converter",
-  "version": "1.0.109",
+  "version": "1.0.110",
   "description": "A tool used to generate css filter color property via hexadecimal or rgb color formats",
   "main": "lib/index.js",
   "scripts": {
@@ -48,9 +48,9 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
-    "mocha": "^9.2.1",
+    "mocha": "^11.0.1",
     "prettier": "^2.5.1",
-    "puppeteer": "^13.1.1",
+    "puppeteer": "^23.11.1",
     "ts-node": "^10.6.0",
     "typescript": "^4.5.4"
   },
