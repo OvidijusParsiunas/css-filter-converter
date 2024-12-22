@@ -24,7 +24,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <a href="https://www.npmjs.com/package/css-filter-converter" target="_blank" rel="noreferrer">
+      <a href="https://www.npmjs.com/package/css-filter-converter" target="_blank" rel="noreferrer" aria-label="NPM">
         <img
           id="npm-logo"
           className="header-content"
@@ -35,7 +35,12 @@ export default function Header() {
         />
       </a>
       {/* this is highlighted by native :hover css selector */}
-      <a href="https://github.com/OvidijusParsiunas/css-filter-converter" target="_blank" rel="noreferrer">
+      <a
+        href="https://github.com/OvidijusParsiunas/css-filter-converter"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="GitHub"
+      >
         <img id="github-logo" className="header-content generic-header-logo" src={githubLogo} alt="" />
       </a>
       <Settings />
