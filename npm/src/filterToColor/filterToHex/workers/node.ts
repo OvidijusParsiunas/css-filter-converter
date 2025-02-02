@@ -84,6 +84,7 @@ export class FilterToHexNode extends FilterToHexShared {
     const addSvgResult = await FilterToHexNode.addSVGAndValidateFilter(page, filterString);
     if (ErrorHandling.hasError(addSvgResult)) return FilterToHexNode.returnError(addSvgResult.errorMessage, browser);
     const base64EncodedDataURL = await FilterToHexNode.getImageBase64ViaSVG(page);
+    console.log(base64EncodedDataURL);
     const hexColor = await page.evaluate(FilterToHexShared.getColorViaImageDataURL, base64EncodedDataURL);
     FilterToHexNode.cleanup(browser);
     return { color: hexColor as unknown as T };
