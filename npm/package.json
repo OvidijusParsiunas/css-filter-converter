@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "npx eslint . --ext .ts",
     "build": "npm run lint && tsc",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts --no-sandbox",
     "execute": "ts-node src/index.ts",
     "watch": "tsc -w -p .",
     "format": "prettier --write \"src/**/*.ts\""
