@@ -15,25 +15,16 @@ export class FilterToHex {
     try {
       let result: FilterToColorResult<T>;
       if (typeof window === 'undefined') {
-        console.log('1');
         const { FilterToHexNode } = await import('./workers/node');
-        console.log('8');
         result = await FilterToHexNode.convert(filterString);
-        console.log(result);
       } else {
-        console.log('2');
         result = await FilterToHexBrowser.convert(filterString);
       }
-      console.log('3');
       if (result.color && convertFromHex && typeof result.color === 'string') {
-        console.log('4');
         result.color = convertFromHex(result.color, options);
       }
-      console.log('6');
-      console.log(result);
       return result;
     } catch (error) {
-      console.log('5');
       return ErrorHandling.generateUnexpectedError(error as Error);
     }
   }

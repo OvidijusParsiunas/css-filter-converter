@@ -69,9 +69,7 @@ export class FilterToHexNode extends FilterToHexShared {
 
   private static async preparePuppeteerBrowser(): Promise<Puppeteer.Browser | Error> {
     const puppeteer = await FilterToHexNode.getPuppeteerDependency();
-    console.log('preparing to launch');
     if (ErrorHandling.hasError(puppeteer)) return puppeteer;
-    console.log('launched!!');
     return puppeteer.launch({ headless: FilterToHexNode.IS_HEADLESS });
   }
 
