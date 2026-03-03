@@ -4,7 +4,7 @@
 
 ## Description
 
-CSS Filter Converter is a simple tool used for converting basic css color formats to and from css filter. It can be accessed through a dedicated [website](https://cssfilterconverter.com) or directly injected into your project via [NPM](https://npmjs.com/package/css-filter-converter).
+CSS Filter Converter is a simple tool used for converting basic css color formats to and from css filter. It can be accessed through a dedicated [website](https://ovidijusparsiunas.github.io/css-filter-converter) or directly injected into your project via [NPM](https://npmjs.com/package/css-filter-converter).
 
 ## Features
 
