@@ -7,7 +7,12 @@ export class RgbColor {
 
   public b!: number;
 
-  constructor(rgb: RGB = [0, 0, 0]) {
+  // when true - channels are rounded to 8-bit integers after every filter operation, simulating browsers
+  // that quantize intermediate filter results (observed in Firefox) rather than keeping fractional values
+  private readonly roundChannels: boolean;
+
+  constructor(rgb: RGB = [0, 0, 0], roundChannels = false) {
+    this.roundChannels = roundChannels;
     this.r = this.clamp(rgb[0]);
     this.g = this.clamp(rgb[1]);
     this.b = this.clamp(rgb[2]);
@@ -19,7 +24,7 @@ export class RgbColor {
     } else if (value < 0) {
       value = 0;
     }
-    return value;
+    return this.roundChannels ? Math.round(value) : value;
   }
 
   public setRgb(r: number, g: number, b: number): void {

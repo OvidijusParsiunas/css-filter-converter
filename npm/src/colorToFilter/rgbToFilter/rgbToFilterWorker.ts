@@ -11,11 +11,14 @@ export class RgbToFilterWorker {
 
   private readonly reusedRgbColor: RgbColor;
 
+  private readonly reusedRoundedRgbColor: RgbColor;
+
   private readonly addSheen: boolean;
 
   constructor(targetRgbColor: RgbColor, addSheen: boolean) {
     this.targetRgbColor = targetRgbColor;
     this.reusedRgbColor = new RgbColor();
+    this.reusedRoundedRgbColor = new RgbColor([0, 0, 0], true);
     this.addSheen = addSheen;
   }
 
@@ -30,20 +33,35 @@ export class RgbToFilterWorker {
     return `${prefix}invert(${RgbToFilterWorker.fmt(filters, 0)}%) sepia(${RgbToFilterWorker.fmt(filters, 1)}%) saturate(${RgbToFilterWorker.fmt(filters, 2)}%) hue-rotate(${RgbToFilterWorker.fmt(filters, 3, 3.6)}deg) brightness(${RgbToFilterWorker.fmt(filters, 4)}%) contrast(${RgbToFilterWorker.fmt(filters, 5)}%)`;
   }
 
-  private loss(filters: number[]): number {
-    this.reusedRgbColor.setRgb(0, 0, 0);
-    this.reusedRgbColor.invert(filters[0] / 100);
-    this.reusedRgbColor.sepia(filters[1] / 100);
-    this.reusedRgbColor.saturate(filters[2] / 100);
-    this.reusedRgbColor.hueRotate(filters[3] * 3.6);
-    this.reusedRgbColor.brightness(filters[4] / 100);
-    this.reusedRgbColor.contrast(filters[5] / 100);
+  private applyFilters(color: RgbColor, filters: number[], hueRotateDegrees: number): number {
+    color.setRgb(0, 0, 0);
+    color.invert(filters[0] / 100);
+    color.sepia(filters[1] / 100);
+    color.saturate(filters[2] / 100);
+    color.hueRotate(hueRotateDegrees);
+    color.brightness(filters[4] / 100);
+    color.contrast(filters[5] / 100);
 
     return (
-      Math.abs(this.reusedRgbColor.r - this.targetRgbColor.r) +
-      Math.abs(this.reusedRgbColor.g - this.targetRgbColor.g) +
-      Math.abs(this.reusedRgbColor.b - this.targetRgbColor.b)
+      Math.abs(color.r - this.targetRgbColor.r) +
+      Math.abs(color.g - this.targetRgbColor.g) +
+      Math.abs(color.b - this.targetRgbColor.b)
     );
+  }
+
+  private loss(filters: number[]): number {
+    return this.applyFilters(this.reusedRgbColor, filters, filters[3] * 3.6);
+  }
+
+  // candidates are accepted on the loss of the filter as it will be serialized to CSS (rounded parameters),
+  // evaluated under both fractional and per-stage 8-bit channel precision - browsers differ in intermediate
+  // precision, so a candidate is only as good as its worst rendering model
+  private serializedLoss(filters: number[]): number {
+    const serialized = filters.map((_, idx) => RgbToFilterWorker.fmt(filters, idx));
+    const hueRotateDegrees = RgbToFilterWorker.fmt(filters, 3, 3.6);
+    const fractionalLoss = this.applyFilters(this.reusedRgbColor, serialized, hueRotateDegrees);
+    const roundedLoss = this.applyFilters(this.reusedRoundedRgbColor, serialized, hueRotateDegrees);
+    return Math.max(fractionalLoss, roundedLoss);
   }
 
   private static fixSpsa(value: number, idx: number): number {
@@ -93,7 +111,8 @@ export class RgbToFilterWorker {
         values[i] = RgbToFilterWorker.fixSpsa(values[i] - ak * g, i);
       }
 
-      const loss = this.loss(values);
+      // gradient estimation above stays on the smooth fractional loss - acceptance uses the serialized score
+      const loss = this.serializedLoss(values);
       if (loss < bestLoss) {
         best = values.slice(0);
         bestLoss = loss;
