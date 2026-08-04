@@ -87,10 +87,13 @@ export class FilterToHexShared {
     }
 
     async function createImage(): Promise<HTMLImageElement> {
+      // the load event must be awaited as some browsers (Firefox) report 0 width/height until the data URL
+      // is decoded, which would create a 0-sized canvas and cause getImageData to throw an IndexSizeError
       const imageElement = new Image();
-      imageElement.src = base64EncodedDataURL;
-      return new Promise((resolve) => {
-        setTimeout(() => resolve(imageElement));
+      return new Promise((resolve, reject) => {
+        imageElement.onload = () => resolve(imageElement);
+        imageElement.onerror = () => reject(new Error('Failed to load the SVG image data URL'));
+        imageElement.src = base64EncodedDataURL;
       });
     }
 
