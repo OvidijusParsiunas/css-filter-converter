@@ -41,6 +41,9 @@ export default function AppLoadDelay(props: Props) {
   const loadFontStyle = () => {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
+    // loaded via CORS so that libraries reading document.styleSheets (dom-to-image) can access its cssRules
+    // without triggering cross-origin SecurityErrors in the console
+    link.setAttribute('crossorigin', 'anonymous');
     link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
     link.onerror = () => handleFontStyleError();
     link.onload = () => onFontStyleLoaded();
